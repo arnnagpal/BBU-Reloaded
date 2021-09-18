@@ -1,0 +1,68 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+plugins {
+    id 'com.github.johnrengelman.shadow' version '7.0.0'
+    id 'java'
+}
+
+ext {
+    main = 'me.imoltres.bbu.BBU'
+    version = '0.1-DEV'
+    apiVersion = '1.17'
+
+    kotlinVersion = '1.5.30'
+    lombokVersion = "1.18.20"
+
+    outputDir = new File(rootProject.projectDir, "dist")
+
+    outputDir.mkdirs();
+}
+
+group 'me.imoltres'
+version ext.version
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    compileOnly fileTree("libs")
+
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+shadowJar {
+    getArchiveClassifier().set(null)
+    getArchiveVersion().set(null)
+    getDestinationDirectory().set(outputDir)
+
+    setArchivesBaseName(rootProject.name)
+
+    dependencies {
+
+    }
+}
+
+processResources {
+    doFirst {
+        println("Replacing tokens in plugin.yml")
+    }
+
+    filter ReplaceTokens, tokens: [
+            "main"       : main,
+            "name"       : rootProject.name,
+            "version"    : version,
+            "api-version": apiVersion,
+    ]
+
+    outputs.upToDateWhen { false }
+}
+
+
+test {
+    useJUnitPlatform()
+}

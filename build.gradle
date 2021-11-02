@@ -9,6 +9,7 @@ ext {
     main = 'me.imoltres.bbu.BBU'
     version = '0.1-DEV'
     apiVersion = '1.17'
+    spigotVersion = '1.17.1-R0.1-SNAPSHOT'
 
     kotlinVersion = '1.5.30'
     lombokVersion = "1.18.20"
@@ -22,13 +23,16 @@ group 'me.imoltres'
 version ext.version
 
 repositories {
+    maven {
+        url = "https://repo.pl3x.net/"
+    }
     mavenCentral()
-    jcenter()
 }
 
 dependencies {
     implementation fileTree("compileLibs")
-    compileOnly fileTree("libs")
+    compileOnly group: "net.pl3x.purpur", name: "purpur-api", version: spigotVersion
+    compileOnly group: "net.pl3x.purpur", name: "purpur", version: spigotVersion
 
     compileOnly group: 'org.projectlombok', name: 'lombok', version: lombokVersion
 

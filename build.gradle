@@ -15,7 +15,7 @@ ext {
 
     outputDir = new File(rootProject.projectDir, "dist")
 
-    outputDir.mkdirs();
+    outputDir.mkdirs()
 }
 
 group 'me.imoltres'
@@ -27,6 +27,7 @@ repositories {
 }
 
 dependencies {
+    implementation fileTree("compileLibs")
     compileOnly fileTree("libs")
 
     compileOnly group: 'org.projectlombok', name: 'lombok', version: lombokVersion

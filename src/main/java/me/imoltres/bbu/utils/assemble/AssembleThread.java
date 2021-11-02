@@ -1,6 +1,8 @@
 package me.imoltres.bbu.utils.assemble;
 
-import org.bukkit.ChatColor;
+import me.imoltres.bbu.utils.CC;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
@@ -10,7 +12,7 @@ import java.util.List;
 
 public class AssembleThread extends Thread {
 
-    private Assemble assemble;
+    private final Assemble assemble;
 
     /**
      * Assemble Thread.
@@ -24,7 +26,7 @@ public class AssembleThread extends Thread {
 
     @Override
     public void run() {
-        while(true) {
+        while (true) {
             try {
                 tick();
                 sleep(assemble.getTicks() * 50);
@@ -56,11 +58,11 @@ public class AssembleThread extends Thread {
 
                 // Just make a variable so we don't have to
                 // process the same thing twice.
-                String title = ChatColor.translateAlternateColorCodes('&', this.assemble.getAdapter().getTitle(player));
+                Component title = CC.translate(this.assemble.getAdapter().getTitle(player));
 
                 // Update the title if needed.
-                if (!objective.getDisplayName().equals(title)) {
-                    objective.setDisplayName(title);
+                if (!objective.displayName().equals(title)) {
+                    objective.displayName(title);
                 }
 
                 List<String> newLines = this.assemble.getAdapter().getLines(player);
@@ -96,7 +98,7 @@ public class AssembleThread extends Thread {
                         AssembleBoardEntry entry = board.getEntryAtPosition(i);
 
                         // Translate any colors.
-                        String line = ChatColor.translateAlternateColorCodes('&', newLines.get(i));
+                        TextComponent line = CC.translate(newLines.get(i));
 
                         // If the entry is null, just create a new one.
                         // Creating a new AssembleBoardEntry instance will add
@@ -117,7 +119,7 @@ public class AssembleThread extends Thread {
                 if (player.getScoreboard() != scoreboard && !assemble.isHook()) {
                     player.setScoreboard(scoreboard);
                 }
-            } catch(Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 throw new AssembleException("There was an error updating " + player.getName() + "'s scoreboard.");
             }

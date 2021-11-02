@@ -1,29 +1,31 @@
 package me.imoltres.bbu.utils.assemble;
 
 import lombok.Setter;
-import org.bukkit.Bukkit;
+import me.imoltres.bbu.utils.CC;
+import net.kyori.adventure.text.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
-import java.util.Set;
-
 public class AssembleBoardEntry {
 
 	private final AssembleBoard board;
-	@Setter private String text, identifier;
+	private final int position;
+	@Setter
+	private TextComponent text;
 	private Team team;
-	private int position;
+	@Setter
+	private String identifier;
 
 	/**
 	 * Assemble Board Entry
 	 *
-	 * @param board that entry belongs to.
-	 * @param text of entry.
+	 * @param board    that entry belongs to.
+	 * @param text     of entry.
 	 * @param position of entry.
 	 */
-	public AssembleBoardEntry(AssembleBoard board, String text, int position) {
+	public AssembleBoardEntry(AssembleBoard board, TextComponent text, int position) {
 		this.board = board;
 		this.text = text;
 		this.position = position;
@@ -75,21 +77,22 @@ public class AssembleBoardEntry {
 	 * @param position of entry.
 	 */
 	public void send(int position) {
-		if (this.text.length() > 16) {
-			String prefix = this.text.substring(0, 16);
+		String translatedText = ChatColor.translateAlternateColorCodes('&', CC.translateLegacy(this.text));
+		if (translatedText.length() > 16) {
+			String prefix = translatedText.substring(0, 16);
 			String suffix;
 
 			if (prefix.charAt(15) == ChatColor.COLOR_CHAR) {
 				prefix = prefix.substring(0, 15);
-				suffix = this.text.substring(15, this.text.length());
+				suffix = translatedText.substring(15);
 			} else if (prefix.charAt(14) == ChatColor.COLOR_CHAR) {
 				prefix = prefix.substring(0, 14);
-				suffix = this.text.substring(14, this.text.length());
+				suffix = translatedText.substring(14);
 			} else {
 				if (ChatColor.getLastColors(prefix).equalsIgnoreCase(ChatColor.getLastColors(this.identifier))) {
-					suffix = this.text.substring(16, this.text.length());
+					suffix = translatedText.substring(16);
 				} else {
-					suffix = ChatColor.getLastColors(prefix) + this.text.substring(16, this.text.length());
+					suffix = ChatColor.getLastColors(prefix) + translatedText.substring(16);
 				}
 			}
 
@@ -97,11 +100,11 @@ public class AssembleBoardEntry {
 				suffix = suffix.substring(0, 16);
 			}
 
-			this.team.setPrefix(prefix);
-			this.team.setSuffix(suffix);
+			this.team.prefix(CC.translate(prefix.replace(ChatColor.COLOR_CHAR, '&')));
+			this.team.suffix(CC.translate(suffix.replace(ChatColor.COLOR_CHAR, '&')));
 		} else {
-			this.team.setPrefix(this.text);
-			this.team.setSuffix("");
+			this.team.prefix(this.text);
+			this.team.suffix(CC.translate(""));
 		}
 
 		Score score = this.board.getObjective().getScore(this.identifier);

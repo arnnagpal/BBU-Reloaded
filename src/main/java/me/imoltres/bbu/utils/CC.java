@@ -1,6 +1,6 @@
 package me.imoltres.bbu.utils;
 
-import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.ChatColor;
 
@@ -32,13 +32,23 @@ public class CC {
     public static final String PINK = ChatColor.LIGHT_PURPLE.toString();
 
     /**
+     * Converts a textcomponent to the legacy colour coded string
+     *
+     * @param in TextComponent to be converted
+     * @return A legacy colour coded String
+     */
+    public static String translateLegacy(TextComponent in) {
+        return LegacyComponentSerializer.legacy('&').serialize(in);
+    }
+
+    /**
      * Converts a legacy colour coded string to the new kyori adventure system and returns a converted component (TextComponent)
      *
      * @param in Original legacy colour coded string
      * @return A text component using the new kyori adventure text library
      */
-    public static Component translate(String in) {
-        return LegacyComponentSerializer.legacy(ChatColor.COLOR_CHAR).deserialize(in);
+    public static TextComponent translate(String in) {
+        return LegacyComponentSerializer.legacy('&').deserialize(in);
     }
 
     /**
@@ -47,8 +57,8 @@ public class CC {
      * @param lines Original legacy colour coded string array list
      * @return List of text components using the new kyori adventure text library
      */
-    public static List<Component> translate(List<String> lines) {
-        List<Component> toReturn = new ArrayList<>();
+    public static List<TextComponent> translate(List<String> lines) {
+        List<TextComponent> toReturn = new ArrayList<>();
         for (String line : lines) {
             toReturn.add(translate(line));
         }
@@ -61,8 +71,8 @@ public class CC {
      * @param lines Original legacy colour coded string array
      * @return List of text components using the new kyori adventure text library
      */
-    public static List<Component> translate(String[] lines) {
-        final List<Component> toReturn = new ArrayList<>();
+    public static List<TextComponent> translate(String[] lines) {
+        final List<TextComponent> toReturn = new ArrayList<>();
         for (String line : lines) {
             if (line != null) {
                 toReturn.add(translate(line));

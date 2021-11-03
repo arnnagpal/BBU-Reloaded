@@ -1,63 +1,22 @@
 package me.imoltres.bbu.utils.command;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import me.imoltres.bbu.BBU;
 
-/**
- * Command Framework - Command <br>
- * The command annotation used to designate methods as commands. All methods
- * should have a single CommandArgs argument
- *
- * @author minnymin3
- */
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Command {
+import java.util.List;
 
-    /**
-     * The name of the command. If it is a sub command then its values would be
-     * separated by periods. ie. a command that would be a subcommand of test
-     * would be 'test.subcommandname'
-     *
-     * @return
-     */
-    String[] name();
+public interface Command {
 
-    /**
-     * Gets the required permission of the command
-     *
-     * @return
-     */
-    String permission() default "";
+    @SafeVarargs
+    static void registerCommands(Class<? extends Command>... classes) {
+        CommandFramework framework = BBU.getInstance().getCommandFramework();
+        framework.registerCommands(classes);
 
-    /**
-     * The message sent to the player when they do not have permission to
-     * execute it
-     *
-     * @return
-     */
-    String noPerm() default "You do not have permission to do this.";
+        for (Class<? extends Command> c : classes)
+            BBU.getInstance().println("&aRegistered command '&c" + c.getSimpleName() + "&a'");
+    }
 
-    /**
-     * The description that will appear in /help of the command
-     *
-     * @return
-     */
-    String description() default "";
+    void execute(CommandArgs cmd);
 
-    /**
-     * The usage that will appear in /help (commandname)
-     *
-     * @return
-     */
-    String usage() default "";
+    List<String> tabCompleter(CommandArgs cmd);
 
-    /**
-     * Whether or not the command is available to players only
-     *
-     * @return
-     */
-    boolean inGameOnly() default false;
 }

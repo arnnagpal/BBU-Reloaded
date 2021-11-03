@@ -1,108 +1,162 @@
+/*
+ * Copyright (c) 2021 - Despical
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package me.imoltres.bbu.utils.command;
 
+import org.apache.commons.lang.math.NumberUtils;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-/**
- * Command Framework - CommandArgs <br>
- * This class is passed to the command methods and contains various utilities as
- * well as the command info.
- *
- * @author minnymin3
- */
 public class CommandArgs {
 
-    private final CommandSender sender;
-    private final org.bukkit.command.Command command;
+    private final CommandSender commandSender;
+    private final Command command;
     private final String label;
-    private final String[] args;
+    private final String[] arguments;
 
-    protected CommandArgs(CommandSender sender, org.bukkit.command.Command command, String label, String[] args,
-                          int subCommand) {
-        String[] modArgs = new String[args.length - subCommand];
-        for (int i = 0; i < args.length - subCommand; i++) {
-            modArgs[i] = args[i + subCommand];
-        }
-
-        StringBuffer buffer = new StringBuffer();
-        buffer.append(label);
-        for (int x = 0; x < subCommand; x++) {
-            buffer.append("." + args[x]);
-        }
-        String cmdLabel = buffer.toString();
-        this.sender = sender;
+    public CommandArgs(CommandSender commandSender, Command command, String label, String... arguments) {
+        this.commandSender = commandSender;
         this.command = command;
-        this.label = cmdLabel;
-        this.args = modArgs;
+        this.label = label;
+        this.arguments = arguments;
     }
 
     /**
-     * Gets the command sender
+     * Do not try to cast objects except subclasses of {@link CommandSender}
+     * otherwise {@link ClassCastException} will occur. Also casting for {@link Player}
+     * or {@link org.bukkit.command.ConsoleCommandSender} isn't needed.
      *
-     * @return
+     * @return sender of command as Player or CommandSender
      */
-    public CommandSender getSender() {
-        return sender;
+    @NotNull
+    public <T extends CommandSender> T getSender() {
+        return (T) commandSender;
     }
 
     /**
-     * Gets the original command object
-     *
-     * @return
+     * @return base command.
      */
-    public org.bukkit.command.Command getCommand() {
+    @NotNull
+    public Command getCommand() {
         return command;
     }
 
     /**
-     * Gets the label including sub command labels of this command
-     *
-     * @return Something like 'test.subcommand'
+     * @return label of the command.
      */
+    @NotNull
     public String getLabel() {
         return label;
     }
 
     /**
-     * Gets all the arguments after the command's label. ie. if the command
-     * label was test.subcommand and the arguments were subcommand foo foo, it
-     * would only return 'foo foo' because 'subcommand' is part of the command
-     *
-     * @return
+     * @return arguments of the command.
      */
-    public String[] getArgs() {
-        return args;
+    @NotNull
+    public String[] getArguments() {
+        return arguments;
+    }
+
+    // SOME GETTER METHODS FOR COMMON PRIMITIVE TYPES //
+
+    /**
+     * @param i index
+     * @return indexed element or null if index out of bounds
+     */
+    @Nullable
+    public String getArgument(int i) {
+        return arguments.length > i && i >= 0 ? arguments[i] : null;
     }
 
     /**
-     * Gets the argument at the specified index
-     *
-     * @param index The index to get
-     * @return The string at the specified index
+     * @param i index
+     * @return Integer if indexed element is primitive type of int
+     * or 0 if element is null.
      */
-    public String getArgs(int index) {
-        return args[index];
+    @NotNull
+    public Integer getArgumentAsInt(int i) {
+        return NumberUtils.toInt(this.getArgument(i));
     }
 
     /**
-     * Returns the length of the command arguments
-     *
-     * @return int length of args
+     * @param i index
+     * @return Double if indexed element is primitive type of double
+     * or 0 if element is null.
      */
-    public int length() {
-        return args.length;
+    @NotNull
+    public Double getArgumentAsDouble(int i) {
+        return NumberUtils.toDouble(this.getArgument(i));
     }
 
-    public boolean isPlayer() {
-        return sender instanceof Player;
+    // ---------------------------------------------- //
+
+    /**
+     * @return true if command arguments are empty otherwise false
+     */
+    public boolean isArgumentsEmpty() {
+        return arguments.length == 0;
     }
 
-    public Player getPlayer() {
-        if (sender instanceof Player) {
-            return (Player) sender;
-        } else {
-            return null;
-        }
+    /**
+     * Sends message to sender without receiving command
+     * sender.
+     *
+     * @param message to send
+     */
+    public void sendMessage(String message) {
+        if (message == null) return;
+        commandSender.sendMessage(message);
     }
 
+    /**
+     * Checks if command sender is console.
+     *
+     * @return true if sender is console otherwise false
+     */
+    public boolean isSenderConsole() {
+        return !isSenderPlayer();
+    }
+
+    /**
+     * Checks if command sender is player.
+     *
+     * @return true if sender is player otherwise false
+     */
+    public boolean isSenderPlayer() {
+        return commandSender instanceof Player;
+    }
+
+    /**
+     * Checks if command sender has specified permission.
+     *
+     * @param permission to check
+     * @return true if sender has permission otherwise false
+     */
+    public boolean hasPermission(String permission) {
+        return commandSender.hasPermission(permission);
+    }
+
+    /**
+     * @return length of the arguments
+     */
+    public int getArgumentsLength() {
+        return arguments.length;
+    }
 }

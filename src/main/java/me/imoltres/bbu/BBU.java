@@ -2,10 +2,13 @@ package me.imoltres.bbu;
 
 import com.qrakn.phoenix.lang.file.type.BasicConfigurationFile;
 import lombok.Getter;
+import me.imoltres.bbu.commands.DebugCommand;
 import me.imoltres.bbu.controllers.PlayerController;
 import me.imoltres.bbu.controllers.TeamController;
 import me.imoltres.bbu.data.BBUTeamColour;
 import me.imoltres.bbu.utils.CC;
+import me.imoltres.bbu.utils.command.Command;
+import me.imoltres.bbu.utils.command.CommandFramework;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -18,13 +21,14 @@ public class BBU extends JavaPlugin {
     private BasicConfigurationFile mainConfig;
     @Getter
     private BasicConfigurationFile messagesConfig;
-    @Getter
-    private BasicConfigurationFile teamColoursConfig;
 
     @Getter
     private PlayerController playerController;
     @Getter
     private TeamController teamController;
+
+    @Getter
+    private CommandFramework commandFramework;
 
     @Override
     public void onLoad() {
@@ -35,7 +39,9 @@ public class BBU extends JavaPlugin {
         println("&aLoading config files...");
         mainConfig = new BasicConfigurationFile(this, "config");
         messagesConfig = new BasicConfigurationFile(this, "messages");
-        teamColoursConfig = new BasicConfigurationFile(this, "team-colours");
+
+        println("&aInitialising command framework...");
+        commandFramework = new CommandFramework(this);
 
         println("&aInitialising controllers...");
         playerController = new PlayerController(this);
@@ -47,7 +53,8 @@ public class BBU extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
+        println("&aRegistering commands...");
+        registerCommands();
     }
 
     @Override
@@ -55,13 +62,19 @@ public class BBU extends JavaPlugin {
 
     }
 
+    private void registerCommands() {
+        Command.registerCommands(
+                DebugCommand.class
+        );
+    }
+
     private void setupTeams() {
         for (BBUTeamColour colour : BBUTeamColour.values()) {
-            println("&aTeam '" + colour.name() + "' created " + (teamController.createTeam(colour) ? "successful" : "&cunsuccessfully"));
+            println("&aTeam '&" + colour.getChatColor().getChar() + colour.name() + "&a' created " + (teamController.createTeam(colour) ? "successful" : "&cunsuccessfully"));
         }
     }
 
-    private void println(String... lines) {
+    public void println(String... lines) {
         for (String line : lines) {
             Bukkit.getConsoleSender().sendMessage(CC.translate(line));
         }

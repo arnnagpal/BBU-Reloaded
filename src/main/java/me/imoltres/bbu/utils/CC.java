@@ -1,5 +1,6 @@
 package me.imoltres.bbu.utils;
 
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.ChatColor;
@@ -57,8 +58,8 @@ public class CC {
      * @param lines Original legacy colour coded string array list
      * @return List of text components using the new kyori adventure text library
      */
-    public static List<TextComponent> translate(List<String> lines) {
-        List<TextComponent> toReturn = new ArrayList<>();
+    public static List<Component> translate(List<String> lines) {
+        List<Component> toReturn = new ArrayList<>();
         for (String line : lines) {
             toReturn.add(translate(line));
         }
@@ -71,8 +72,8 @@ public class CC {
      * @param lines Original legacy colour coded string array
      * @return List of text components using the new kyori adventure text library
      */
-    public static List<TextComponent> translate(String[] lines) {
-        final List<TextComponent> toReturn = new ArrayList<>();
+    public static List<Component> translate(String[] lines) {
+        final List<Component> toReturn = new ArrayList<>();
         for (String line : lines) {
             if (line != null) {
                 toReturn.add(translate(line));

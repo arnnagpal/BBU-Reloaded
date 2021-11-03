@@ -32,12 +32,13 @@ repositories {
 dependencies {
     implementation fileTree("compileLibs")
     compileOnly group: "net.pl3x.purpur", name: "purpur-api", version: spigotVersion
-    compileOnly group: "net.pl3x.purpur", name: "purpur", version: spigotVersion
+//    compileOnly group: "net.pl3x.purpur", name: "purpur", version: spigotVersion
 
     compileOnly group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombokVersion
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
 
 shadowJar {

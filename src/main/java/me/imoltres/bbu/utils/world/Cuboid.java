@@ -1,9 +1,16 @@
 package me.imoltres.bbu.utils.world;
 
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import me.imoltres.bbu.utils.GsonFactory;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Construct a new cuboid that exists of 2 positions
@@ -116,9 +123,9 @@ public class Cuboid implements Iterable<Position> {
     public List<Position> contents() {
         List<Position> content = new ArrayList<>();
 
-        for(double x = Math.min(min.getX(), max.getX()); x <= Math.max(min.getX(), max.getX()); x++) {
-            for(double y = Math.min(min.getY(), max.getY()); y <= Math.max(min.getY(), max.getY()); y++) {
-                for(double z = Math.min(min.getZ(), max.getZ()); z <= Math.max(min.getZ(), max.getZ()); z++) {
+        for (double x = Math.min(min.getX(), max.getX()); x <= Math.max(min.getX(), max.getX()); x++) {
+            for (double y = Math.min(min.getY(), max.getY()); y <= Math.max(min.getY(), max.getY()); y++) {
+                for (double z = Math.min(min.getZ(), max.getZ()); z <= Math.max(min.getZ(), max.getZ()); z++) {
                     content.add(new Position(x, y, z));
                 }
             }
@@ -155,7 +162,7 @@ public class Cuboid implements Iterable<Position> {
      * @return Random position
      */
     public Position randomPosition() {
-        Random random = new Random();
+        Random random = ThreadLocalRandom.current();
 
         double deltaX = max.getX() - min.getX();
         double deltaY = max.getY() - min.getY();
@@ -171,16 +178,47 @@ public class Cuboid implements Iterable<Position> {
     @Override
     public String toString() {
         return "Cuboid{" +
-            "min=" + min +
-            ", max=" + max +
-            ", widthX=" + getWidthX() +
-            ", widthZ=" + getWidthZ() +
-            ", height=" + getHeight() +
-            '}';
+                "min=" + min +
+                ", max=" + max +
+                ", widthX=" + getWidthX() +
+                ", widthZ=" + getWidthZ() +
+                ", height=" + getHeight() +
+                '}';
     }
 
     @Override
     public Iterator<Position> iterator() {
         return contents().iterator();
+    }
+
+    public static class Serializer extends TypeAdapter<Cuboid> {
+
+        @Override
+        public void write(JsonWriter out, Cuboid value) throws IOException {
+            if (value == null) {
+                out.nullValue();
+                return;
+            }
+
+            out.beginObject();
+
+            out.name("min");
+            out.jsonValue(GsonFactory.getCompactGson().toJson(value.min));
+
+            out.name("max");
+            out.jsonValue(GsonFactory.getCompactGson().toJson(value.max));
+
+            out.endObject();
+        }
+
+        @Override
+        public Cuboid read(JsonReader reader) throws IOException {
+            reader.beginObject();
+            Position min = GsonFactory.getCompactGson().fromJson(reader.nextString(), Position.class);
+            Position max = GsonFactory.getCompactGson().fromJson(reader.nextString(), Position.class);
+
+            return new Cuboid(min, max);
+        }
+
     }
 }

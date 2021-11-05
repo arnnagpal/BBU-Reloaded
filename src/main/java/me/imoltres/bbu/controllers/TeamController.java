@@ -1,5 +1,6 @@
 package me.imoltres.bbu.controllers;
 
+import com.google.common.collect.ImmutableSet;
 import lombok.RequiredArgsConstructor;
 import me.imoltres.bbu.BBU;
 import me.imoltres.bbu.data.BBUTeamColour;
@@ -34,4 +35,9 @@ public class TeamController {
     public BBUTeam getTeam(BBUPlayer bbuPlayer) {
         return teams.stream().filter(team -> team.getPlayers().contains(bbuPlayer)).findFirst().orElse(null);
     }
+
+    public ImmutableSet<BBUTeam> getAllTeams() {
+        return ImmutableSet.copyOf(teams);
+    }
+
 }

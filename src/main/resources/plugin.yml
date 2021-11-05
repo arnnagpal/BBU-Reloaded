@@ -2,8 +2,12 @@
 "name": "@name@"
 "version": "@version@"
 "api-version": "@api-version@"
+#in alphabetical order
+depend:
+  - FastAsyncWorldEdit
 "authors":
-  - "iMoltres"
   - "art_i_choked"
+  - "babu"
+  - "iMoltres"
   - "magicflakes"
   - "RuneixX"

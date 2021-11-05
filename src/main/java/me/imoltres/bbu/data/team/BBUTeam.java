@@ -17,10 +17,13 @@ public class BBUTeam {
     private final BBUTeamColour colour;
 
     @Getter
+    private BBUCage cage;
+
+    @Getter
     private final Set<BBUPlayer> players = new HashSet<>();
 
     @Setter
-    private boolean beacon;
+    private boolean beacon = true;
 
     public boolean addPlayer(BBUPlayer player) {
         System.out.printf("%s has joined team '%s'\n", player.getName(), CC.capitalize(colour.name().toLowerCase()));

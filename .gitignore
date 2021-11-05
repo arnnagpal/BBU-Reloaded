@@ -6,6 +6,3 @@ dist/*
 gradle/*
 gradlew
 gradlew.bat
-
-# PUT YOUR OWN SPIGOT JAR IN, I USED PURPUR'S PATCHED JAR TO BUILD THIS PROJECT
-libs/spigot.jar

@@ -6,11 +6,19 @@ import me.imoltres.bbu.commands.DebugCommand;
 import me.imoltres.bbu.controllers.PlayerController;
 import me.imoltres.bbu.controllers.TeamController;
 import me.imoltres.bbu.data.BBUTeamColour;
+import me.imoltres.bbu.game.Game;
 import me.imoltres.bbu.utils.CC;
 import me.imoltres.bbu.utils.command.Command;
 import me.imoltres.bbu.utils.command.CommandFramework;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.Objects;
+import java.util.zip.GZIPOutputStream;
 
 public class BBU extends JavaPlugin {
 
@@ -21,6 +29,11 @@ public class BBU extends JavaPlugin {
     private BasicConfigurationFile mainConfig;
     @Getter
     private BasicConfigurationFile messagesConfig;
+    @Getter
+    private BasicConfigurationFile teamSpawnsConfig;
+
+    @Getter
+    private File schemsFolder;
 
     @Getter
     private PlayerController playerController;
@@ -30,15 +43,24 @@ public class BBU extends JavaPlugin {
     @Getter
     private CommandFramework commandFramework;
 
+    @Getter
+    private Game game;
+
     @Override
     public void onLoad() {
         println("&aSetting up instance...");
         instance = this;
-        println("&aDone!");
 
         println("&aLoading config files...");
         mainConfig = new BasicConfigurationFile(this, "config");
         messagesConfig = new BasicConfigurationFile(this, "messages");
+        teamSpawnsConfig = new BasicConfigurationFile(this, "teamSpawns");
+
+        schemsFolder = new File(this.getDataFolder(), "schematics");
+        if (!schemsFolder.exists() || Objects.requireNonNull(schemsFolder.listFiles()).length == 0) {
+            println("&bCreating schematics folder and/or writing default schems...");
+            writeDefaultSchems();
+        }
 
         println("&aInitialising command framework...");
         commandFramework = new CommandFramework(this);
@@ -55,11 +77,19 @@ public class BBU extends JavaPlugin {
     public void onEnable() {
         println("&aRegistering commands...");
         registerCommands();
+
+        println("&aRegistering game instance...");
+        game = new Game();
+
     }
 
     @Override
     public void onDisable() {
-
+        try {
+            teamSpawnsConfig.getConfiguration().save(teamSpawnsConfig.getFile());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void registerCommands() {
@@ -70,8 +100,25 @@ public class BBU extends JavaPlugin {
 
     private void setupTeams() {
         for (BBUTeamColour colour : BBUTeamColour.values()) {
-            println("&aTeam '&" + colour.getChatColor().getChar() + colour.name() + "&a' created " + (teamController.createTeam(colour) ? "successful" : "&cunsuccessfully"));
+            println("&aTeam '&" + colour.getChatColor().getChar() + colour.name() + "&a' created " + (teamController.createTeam(colour) ? "successfully" : "&cunsuccessfully"));
         }
+    }
+
+    private void writeDefaultSchems() {
+        saveResource("schematics" + File.separator + "cage", false);
+        File input = new File(getSchemsFolder(), "cage");
+        File output = new File(getSchemsFolder(), "cage.schem");
+        zipFile(input, output);
+    }
+
+    private void zipFile(File input, File output) {
+        try (GZIPOutputStream gos = new GZIPOutputStream(new FileOutputStream(output))) {
+            Files.copy(input.toPath(), gos);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        input.delete();
     }
 
     public void println(String... lines) {

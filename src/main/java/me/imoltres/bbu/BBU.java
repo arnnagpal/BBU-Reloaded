@@ -3,6 +3,7 @@ package me.imoltres.bbu;
 import com.qrakn.phoenix.lang.file.type.BasicConfigurationFile;
 import lombok.Getter;
 import me.imoltres.bbu.commands.DebugCommand;
+import me.imoltres.bbu.commands.game.GameCommand;
 import me.imoltres.bbu.controllers.PlayerController;
 import me.imoltres.bbu.controllers.TeamController;
 import me.imoltres.bbu.data.BBUTeamColour;
@@ -94,7 +95,11 @@ public class BBU extends JavaPlugin {
 
     private void registerCommands() {
         Command.registerCommands(
-                DebugCommand.class
+                //DEBUG STUFF
+                DebugCommand.class,
+
+                //GAME STUFF
+                GameCommand.class
         );
     }
 

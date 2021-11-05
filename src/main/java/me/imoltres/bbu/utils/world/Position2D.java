@@ -79,6 +79,38 @@ public class Position2D {
         return Math.sqrt(Math.pow(this.x - p.x, 2) + Math.pow(this.y - p.y, 2));
     }
 
+    public Position2D add(Position2D position) {
+        this.x += position.getX();
+        this.y += position.getY();
+
+        return this;
+    }
+
+    public Position2D add(double x, double y) {
+        this.x += x;
+        this.y += y;
+
+        return this;
+    }
+
+    public Position2D subtract(Position2D position) {
+        this.x -= position.getX();
+        this.y -= position.getY();
+
+        return this;
+    }
+
+    public Position2D subtract(double x, double y) {
+        this.x -= x;
+        this.y -= y;
+
+        return this;
+    }
+
+    public Position2D toIntPosition() {
+        return new Position2D(Math.floor(x), Math.floor(y));
+    }
+
     @Override
     public String toString() {
         return "Position2D{" +

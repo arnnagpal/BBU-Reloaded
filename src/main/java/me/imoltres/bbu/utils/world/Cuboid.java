@@ -203,10 +203,10 @@ public class Cuboid implements Iterable<Position> {
             out.beginObject();
 
             out.name("min");
-            out.jsonValue(GsonFactory.getCompactGson().toJson(value.min));
+            out.value(GsonFactory.getCompactGson().toJson(value.min));
 
             out.name("max");
-            out.jsonValue(GsonFactory.getCompactGson().toJson(value.max));
+            out.value(GsonFactory.getCompactGson().toJson(value.max));
 
             out.endObject();
         }
@@ -214,8 +214,21 @@ public class Cuboid implements Iterable<Position> {
         @Override
         public Cuboid read(JsonReader reader) throws IOException {
             reader.beginObject();
-            Position min = GsonFactory.getCompactGson().fromJson(reader.nextString(), Position.class);
-            Position max = GsonFactory.getCompactGson().fromJson(reader.nextString(), Position.class);
+            Position min = null;
+            Position max = null;
+            while (reader.hasNext()) {
+                String name = reader.nextName();
+                if (name.equals("min")) {
+                    min = GsonFactory.getCompactGson().fromJson(reader.nextString(), Position.class);
+                } else if (name.equals("max")) {
+                    max = GsonFactory.getCompactGson().fromJson(reader.nextString(), Position.class);
+                }
+
+            }
+            reader.endObject();
+
+            if (min == null || max == null)
+                return null;
 
             return new Cuboid(min, max);
         }

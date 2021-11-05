@@ -19,7 +19,10 @@ package me.imoltres.bbu.utils.command;
 
 import me.imoltres.bbu.utils.CC;
 import net.kyori.adventure.text.TextComponent;
-import org.bukkit.command.*;
+import org.bukkit.command.CommandMap;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.PluginCommand;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.SimplePluginManager;
@@ -34,7 +37,7 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
-public class CommandFramework implements CommandExecutor, TabCompleter {
+public class CommandFramework implements TabExecutor {
 
     public static TextComponent ONLY_BY_PLAYERS = CC.translate("&cThis command is only executable by players.");
     public static TextComponent ONLY_BY_CONSOLE = CC.translate("&cThis command is only executable by console.");
@@ -50,12 +53,12 @@ public class CommandFramework implements CommandExecutor, TabCompleter {
      * Map of registered commands by framework.
      */
     @NotNull
-    private final Map<CommandInfo, Map.Entry<Method, Object>> commands = new HashMap<>();
+    private final Map<CommandInfo, Map.Entry<Method, Command>> commands = new HashMap<>();
     /**
      * Map of registered tab completions by framework.
      */
     @NotNull
-    private final Map<CommandInfo, Map.Entry<Method, Object>> completions = new HashMap<>();
+    private final Map<CommandInfo, Map.Entry<Method, Command>> completions = new HashMap<>();
     /**
      * Map of registered command cooldowns by framework.
      */
@@ -142,7 +145,7 @@ public class CommandFramework implements CommandExecutor, TabCompleter {
      * @param method   that command will run
      * @param instance of the method above
      */
-    private void registerCommand(CommandInfo command, Method method, Object instance) {
+    private void registerCommand(CommandInfo command, Method method, Command instance) {
         commands.put(command, new AbstractMap.SimpleEntry<>(method, instance));
 
         try {
@@ -167,7 +170,7 @@ public class CommandFramework implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command cmd, @NotNull String label, String[] args) {
-        for (Map.Entry<CommandInfo, Map.Entry<Method, Object>> entry : commands.entrySet()) {
+        for (Map.Entry<CommandInfo, Map.Entry<Method, Command>> entry : commands.entrySet()) {
             CommandInfo command = entry.getKey();
             String[] splitted = command.name().split("\\.");
             String allArgs = args.length == 0 ? "" : String.join(".", Arrays.copyOfRange(args, 0, splitted.length - 1));
@@ -227,7 +230,7 @@ public class CommandFramework implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command command, @NotNull String label, String[] args) {
-        for (Map.Entry<CommandInfo, Map.Entry<Method, Object>> entry : completions.entrySet()) {
+        for (Map.Entry<CommandInfo, Map.Entry<Method, Command>> entry : completions.entrySet()) {
             CommandInfo commandInfo = entry.getKey();
 
             if (command.getName().equalsIgnoreCase(commandInfo.name()) || Stream.of(commandInfo.aliases()).anyMatch(command.getName()::equalsIgnoreCase)) {

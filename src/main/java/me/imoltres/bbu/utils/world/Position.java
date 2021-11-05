@@ -88,15 +88,56 @@ public class Position {
         this.yaw = yaw;
     }
 
+    public Position add(Position position) {
+        this.x += position.getX();
+        this.y += position.getY();
+        this.z += position.getZ();
+
+        return this;
+    }
+
+    public Position add(double x, double y, double z) {
+        this.x += x;
+        this.y += y;
+        this.z += z;
+
+        return this;
+    }
+
+    public Position subtract(Position position) {
+        this.x -= position.getX();
+        this.y -= position.getY();
+        this.z -= position.getZ();
+
+        return this;
+    }
+
+    public Position subtract(double x, double y, double z) {
+        this.x -= x;
+        this.y -= y;
+        this.z -= z;
+
+        return this;
+    }
+
+    public WorldPosition toWorldPosition(String worldName) {
+        return new WorldPosition(x, y, z, worldName);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof Position && ((Position) o).x == x && ((Position) o).y == y && ((Position) o).z == z;
+    }
+
     @Override
     public String toString() {
         return "Position{" +
-            "x=" + x +
-            ", y=" + y +
-            ", z=" + z +
-            ", pitch=" + pitch +
-            ", yaw=" + yaw +
-            '}';
+                "x=" + x +
+                ", y=" + y +
+                ", z=" + z +
+                ", pitch=" + pitch +
+                ", yaw=" + yaw +
+                '}';
     }
 
     public static class Serializer extends TypeAdapter<Position> {

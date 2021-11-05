@@ -8,6 +8,7 @@ import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormats;
 import com.sk89q.worldedit.math.BlockVector3;
 import lombok.Getter;
 import me.imoltres.bbu.BBU;
+import me.imoltres.bbu.data.team.BBUCage;
 import me.imoltres.bbu.data.team.BBUTeam;
 import me.imoltres.bbu.utils.GsonFactory;
 import me.imoltres.bbu.utils.world.*;
@@ -87,16 +88,15 @@ public class Game {
             return;
         }
 
-        int length = clipboard.getLength();
-        int width = clipboard.getWidth();
-        int height = clipboard.getHeight();
+        int length = clipboard.getLength() - 1;
+        int width = clipboard.getWidth() - 1;
+        int height = clipboard.getHeight() - 1;
 
         List<Position2D> exclusions = new ArrayList<>();
         for (BBUTeam bbuTeam : BBU.getInstance().getTeamController().getAllTeams()) {
             String oldCageStr = teamSpawns.getString("team." + bbuTeam.getColour().name());
             if (oldCageStr != null && !oldCageStr.isEmpty()) {
                 Cuboid oldCage = GsonFactory.getCompactGson().fromJson(oldCageStr, Cuboid.class);
-                System.out.println(oldCage);
                 for (Position content : oldCage.contents()) {
                     WorldPosition worldPosition = new WorldPosition(content.getX(), content.getY(), content.getZ(), world.getName());
                     worldPosition.toBukkitLocation().getBlock().setType(Material.AIR);
@@ -104,17 +104,28 @@ public class Game {
             }
 
             Position2D position2D = getRandom2DPositionInsideWorldBorder(world, exclusions, 75);
-            int y = world.getHighestBlockYAt((int) position2D.getX(), (int) position2D.getY());
+            int y = world.getHighestBlockYAt((int) position2D.getX(), (int) position2D.getY()) - 1;
             exclusions.add(position2D);
+
+            System.out.println(position2D);
 
             Cuboid cage = new Cuboid(
                     new Position(position2D.getX(), y, position2D.getY()),
-                    new Position(position2D.getX() + length, y + height, position2D.getY() - width)
+                    new Position(position2D.getX() + length, y + height, position2D.getY() + (width / 2.0))
             );
 
-            System.out.println(cage);
+            bbuTeam.setCage(new BBUCage(bbuTeam, cage, cage.getMin().add((length / 2.0) - 0.5, 1, -(width / 2.0)).toWorldPosition(world.getName())));
+
+            BBU.getInstance().println(
+                    "&aTeam '&" + bbuTeam.getColour().getChatColor().getChar() + bbuTeam.getColour().name() + "&a' cage spawned at &7" + bbuTeam.getCage().spawnPosition().toString() + "&a."
+            );
             EditSession ses = clipboard.paste(new BukkitWorld(world), BlockVector3.at(position2D.getX(), y, position2D.getY()));
             ses.close();
+            for (Position content : cage.contents()) {
+                WorldPosition worldPosition = new WorldPosition(content.getX(), content.getY(), content.getZ(), world.getName());
+                worldPosition.toBukkitLocation().getBlock().setType(Material.RED_WOOL);
+            }
+
 
             teamSpawns.getConfiguration().set("team." + bbuTeam.getColour().name(), GsonFactory.getCompactGson().toJson(cage));
         }
@@ -126,7 +137,7 @@ public class Game {
                 new Position2D(world.getWorldBorder().getSize() / 2, world.getWorldBorder().getSize() / 2)
         );
 
-        Position2D position2D = world2D.randomPosition();
+        Position2D position2D = world2D.randomPosition().toIntPosition();
         for (Position2D p : exclusions) {
             //TODO: make thread-safe
             while (p.distance(position2D) < range) {

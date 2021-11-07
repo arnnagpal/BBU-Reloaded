@@ -1,12 +1,9 @@
-package me.imoltres.bbu.commands.game;
+package me.imoltres.bbu.commands;
 
 import me.imoltres.bbu.BBU;
 import me.imoltres.bbu.data.team.BBUTeam;
 import me.imoltres.bbu.utils.CC;
-import me.imoltres.bbu.utils.command.Command;
-import me.imoltres.bbu.utils.command.CommandArgs;
-import me.imoltres.bbu.utils.command.CommandInfo;
-import me.imoltres.bbu.utils.command.Completer;
+import me.imoltres.bbu.utils.command.*;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -22,7 +19,7 @@ import java.util.stream.Collectors;
         name = "bbu",
         permission = "bbu.command.help",
         desc = "BBU Main help command, displays all commands with arguments",
-        usage = "&c/bbu"
+        usage = "&cUsage: /bbu"
 )
 public class GameCommand implements Command {
 
@@ -33,6 +30,13 @@ public class GameCommand implements Command {
         for (Component component : getHelpMessage()) {
             sender.sendMessage(component);
         }
+    }
+
+    @Override
+    public List<SubCommand> subCommands() {
+        return Arrays.asList(
+                new DebugCommand()
+        );
     }
 
     @Override

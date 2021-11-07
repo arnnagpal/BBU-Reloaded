@@ -135,6 +135,38 @@ public class Cuboid implements Iterable<Position> {
     }
 
     /**
+     * Get the the center of the Cuboid
+     *
+     * @return Location at the center of the Cuboid
+     */
+    public Position getCenter() {
+        double x1 = max.getX() + 1;
+        double y1 = getMax().getY() + 1;
+        double z1 = getMax().getZ() + 1;
+        return new Position(getMin().getX() + (x1 - getMin().getX()) / 2.0,
+                getMin().getY() + (y1 - getMin().getY()) / 2.0,
+                getMin().getZ() + (z1 - getMin().getZ()) / 2.0);
+    }
+
+    /**
+     * Get the Blocks at the eight corners of the Cuboid.
+     *
+     * @return array of Block objects representing the Cuboid corners
+     */
+    public Position[] corners() {
+        Position[] res = new Position[8];
+        res[0] = new Position(getMin().getX(), getMin().getY(), getMin().getX());
+        res[1] = new Position(getMin().getX(), getMin().getY(), getMax().getX());
+        res[2] = new Position(getMin().getX(), getMax().getY(), getMin().getX());
+        res[3] = new Position(getMin().getX(), getMax().getY(), getMax().getX());
+        res[4] = new Position(getMax().getX(), getMin().getY(), getMin().getX());
+        res[5] = new Position(getMax().getX(), getMin().getY(), getMax().getX());
+        res[6] = new Position(getMax().getX(), getMax().getY(), getMin().getX());
+        res[7] = new Position(getMax().getX(), getMax().getY(), getMax().getZ());
+        return res;
+    }
+
+    /**
      * Returns true if the given Position is located within the bounds
      * of this cuboid.
      *
@@ -175,6 +207,117 @@ public class Cuboid implements Iterable<Position> {
         return new Position(rx, ry, rz);
     }
 
+    /**
+     * Get the volume of this Cuboid.
+     *
+     * @return the Cuboid volume, in blocks
+     */
+    public double volume() {
+        return getSizeX() * getSizeY() * getSizeZ();
+    }
+
+    /**
+     * Get the Cuboid big enough to hold both this Cuboid and the given one.
+     *
+     * @param other the other Cuboid to include
+     * @return a new Cuboid large enough to hold this Cuboid and the given Cuboid
+     */
+    public Cuboid getBoundingCuboid(Cuboid other) {
+        if (other == null) {
+            return this;
+        }
+
+        double xMin = Math.min(getLowerX(), other.getLowerX());
+        double yMin = Math.min(getLowerY(), other.getLowerY());
+        double zMin = Math.min(getLowerZ(), other.getLowerZ());
+        double xMax = Math.max(getUpperX(), other.getUpperX());
+        double yMax = Math.max(getUpperY(), other.getUpperY());
+        double zMax = Math.max(getUpperZ(), other.getUpperZ());
+
+        return new Cuboid(new Position(xMin, yMin, zMin), new Position(xMax, yMax, zMax));
+    }
+
+    /**
+     * Get the size of this Cuboid along the X axis
+     *
+     * @return Size of Cuboid along the X axis
+     */
+    public double getSizeX() {
+        return (getMax().getX() - getMin().getX()) + 1;
+    }
+
+    /**
+     * Get the size of this Cuboid along the Y axis
+     *
+     * @return Size of Cuboid along the Y axis
+     */
+    public double getSizeY() {
+        return (getMax().getY() - getMin().getY()) + 1;
+    }
+
+    /**
+     * Get the size of this Cuboid along the Z axis
+     *
+     * @return Size of Cuboid along the Z axis
+     */
+    public double getSizeZ() {
+        return (getMax().getZ() - getMin().getZ()) + 1;
+    }
+
+    /**
+     * Get the minimum X co-ordinate of this Cuboid
+     *
+     * @return the minimum X co-ordinate
+     */
+    public double getLowerX() {
+        return getMin().getX();
+    }
+
+    /**
+     * Get the minimum Y co-ordinate of this Cuboid
+     *
+     * @return the minimum Y co-ordinate
+     */
+    public double getLowerY() {
+        return getMin().getY();
+    }
+
+    /**
+     * Get the minimum Z co-ordinate of this Cuboid
+     *
+     * @return the minimum Z co-ordinate
+     */
+    public double getLowerZ() {
+        return getMin().getZ();
+    }
+
+    /**
+     * Get the maximum X co-ordinate of this Cuboid
+     *
+     * @return the maximum X co-ordinate
+     */
+    public double getUpperX() {
+        return getMax().getX();
+    }
+
+    /**
+     * Get the maximum Y co-ordinate of this Cuboid
+     *
+     * @return the maximum Y co-ordinate
+     */
+    public double getUpperY() {
+        return getMax().getY();
+    }
+
+    /**
+     * Get the maximum Z co-ordinate of this Cuboid
+     *
+     * @return the maximum Z co-ordinate
+     */
+    public double getUpperZ() {
+        return getMax().getZ();
+    }
+
     @Override
     public String toString() {
         return "Cuboid{" +
@@ -185,6 +328,7 @@ public class Cuboid implements Iterable<Position> {
                 ", height=" + getHeight() +
                 '}';
     }
+
 
     @Override
     public Iterator<Position> iterator() {

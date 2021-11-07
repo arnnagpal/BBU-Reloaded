@@ -1,25 +1,35 @@
 package me.imoltres.bbu.game;
 
-import com.qrakn.phoenix.lang.file.type.BasicConfigurationFile;
 import com.sk89q.worldedit.EditSession;
+import com.sk89q.worldedit.WorldEdit;
 import com.sk89q.worldedit.bukkit.BukkitWorld;
+import com.sk89q.worldedit.extent.clipboard.BlockArrayClipboard;
 import com.sk89q.worldedit.extent.clipboard.Clipboard;
+import com.sk89q.worldedit.extent.clipboard.io.BuiltInClipboardFormat;
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormats;
+import com.sk89q.worldedit.extent.clipboard.io.ClipboardWriter;
+import com.sk89q.worldedit.function.operation.ForwardExtentCopy;
+import com.sk89q.worldedit.function.operation.Operations;
 import com.sk89q.worldedit.math.BlockVector3;
+import com.sk89q.worldedit.regions.CuboidRegion;
 import lombok.Getter;
 import me.imoltres.bbu.BBU;
 import me.imoltres.bbu.data.team.BBUCage;
 import me.imoltres.bbu.data.team.BBUTeam;
 import me.imoltres.bbu.utils.GsonFactory;
-import me.imoltres.bbu.utils.world.*;
+import me.imoltres.bbu.utils.world.Cuboid;
+import me.imoltres.bbu.utils.world.Position;
+import me.imoltres.bbu.utils.world.Position2D;
+import me.imoltres.bbu.utils.world.Rectangle;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.World;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Game {
 
@@ -73,61 +83,101 @@ public class Game {
         netherWorld.getWorldBorder().setCenter(0, 0);
         netherWorld.getWorldBorder().setSize(border);
 
-        resetCages(mainWorld);
+
+        if (BBU.getInstance().getTeamController().allTeamsHaveCagesSet()) {
+            placeCages(mainWorld, false);
+        } else {
+            resetCages(mainWorld);
+        }
     }
 
     private void resetCages(World world) {
-        BasicConfigurationFile teamSpawns = BBU.getInstance().getTeamSpawnsConfig();
+        deleteCages(world);
+        placeCages(world, true);
+    }
+
+    private void placeCages(World world, boolean random) {
+        List<Position2D> exclusions = new ArrayList<>();
+        for (BBUTeam bbuTeam : BBU.getInstance().getTeamController().getAllTeams()) {
+            if (random) {
+                Position2D position2D = getRandom2DPositionInsideWorldBorder(world, exclusions, 75);
+                int y = world.getHighestBlockYAt((int) position2D.getX(), (int) position2D.getY());
+                exclusions.add(position2D);
+            } else {
+                for (BBUTeam team : BBU.getInstance().getTeamController().getAllTeams()) {
+                    Cuboid cage = GsonFactory.getCompactGson().fromJson(BBU.getInstance().getTeamSpawnsConfig().getString("team." + team.getColour().name()), Cuboid.class);
+                    placeCage(cage.getMin(), bbuTeam, world);
+                }
+            }
+        }
+    }
+
+    private void placeCage(Position position, BBUTeam bbuTeam, World world) {
         File schem = new File(BBU.getInstance().getSchemsFolder(), "cage.schem");
         Clipboard clipboard;
         try {
-            clipboard = ClipboardFormats.findByFile(schem).load(schem);
+            clipboard = Objects.requireNonNull(ClipboardFormats.findByFile(schem)).load(schem);
         } catch (IOException e) {
             e.printStackTrace();
             Bukkit.shutdown();
             return;
         }
+        BlockVector3 maxOffset = clipboard.getMaximumPoint().subtract(clipboard.getMinimumPoint());
 
-        int length = clipboard.getLength() - 1;
-        int width = clipboard.getWidth() - 1;
-        int height = clipboard.getHeight() - 1;
+        BlockVector3 to = BlockVector3.at(position.getX(), position.getY(), position.getZ());
+        Cuboid cage = new Cuboid(
+                new Position(to.getX(), to.getY(), to.getZ()),
+                new Position(to.add(maxOffset).getX(), to.add(maxOffset).getY(), to.subtract(maxOffset).getZ())
+        );
 
-        List<Position2D> exclusions = new ArrayList<>();
-        for (BBUTeam bbuTeam : BBU.getInstance().getTeamController().getAllTeams()) {
-            String oldCageStr = teamSpawns.getString("team." + bbuTeam.getColour().name());
-            if (oldCageStr != null && !oldCageStr.isEmpty()) {
-                Cuboid oldCage = GsonFactory.getCompactGson().fromJson(oldCageStr, Cuboid.class);
-                for (Position content : oldCage.contents()) {
-                    WorldPosition worldPosition = new WorldPosition(content.getX(), content.getY(), content.getZ(), world.getName());
-                    worldPosition.toBukkitLocation().getBlock().setType(Material.AIR);
+        CuboidRegion region = new CuboidRegion(
+                BlockVector3.at(cage.getLowerX(), cage.getLowerY(), cage.getLowerY()),
+                BlockVector3.at(cage.getUpperX(), cage.getUpperY(), cage.getUpperZ())
+        );
+        BlockArrayClipboard c = new BlockArrayClipboard(region);
+
+        try (EditSession editSession = WorldEdit.getInstance().newEditSession(new BukkitWorld(world))) {
+            ForwardExtentCopy forwardExtentCopy = new ForwardExtentCopy(
+                    editSession, region, c, region.getMinimumPoint()
+            );
+            Operations.complete(forwardExtentCopy);
+        }
+
+        try (ClipboardWriter writer = BuiltInClipboardFormat.FAST.getWriter(new FileOutputStream(new File(BBU.getInstance().getTempSchemsFolder(), bbuTeam.getColour().name() + "-CAGE-OVERRIDEN-BLOCKS.schem")))) {
+            writer.write(c);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        clipboard.paste(new BukkitWorld(world), to).flushQueue();
+
+        bbuTeam.setCage(new BBUCage(bbuTeam, cage, cage.getCenter().toWorldPosition(world.getName())));
+
+        BBU.getInstance().println(
+                "&aTeam '&" + bbuTeam.getColour().getChatColor().getChar() + bbuTeam.getColour().name() + "&a' cage spawned at &7" + bbuTeam.getCage().spawnPosition().toString() + "&a."
+        );
+        BBU.getInstance().getTeamSpawnsConfig().getConfiguration().set("team." + bbuTeam.getColour().name(), GsonFactory.getCompactGson().toJson(cage));
+    }
+
+    private void deleteCages(World world) {
+        for (BBUTeam team : BBU.getInstance().getTeamController().getAllTeams()) {
+            String cageStr = BBU.getInstance().getTeamSpawnsConfig().getString("team." + team.getColour().name());
+
+            if (cageStr != null && !cageStr.isEmpty()) {
+                Cuboid oldCage = GsonFactory.getCompactGson().fromJson(cageStr, Cuboid.class);
+                File cageOverride = new File(BBU.getInstance().getTempSchemsFolder(), team.getColour().name() + "-CAGE-OVERRIDEN-BLOCKS.schem");
+
+                if (cageOverride.exists()) {
+                    try {
+                        BuiltInClipboardFormat.FAST.load(cageOverride).paste(new BukkitWorld(world),
+                                BlockVector3.at(oldCage.getLowerX(), oldCage.getLowerY(), oldCage.getLowerY())).flushQueue();
+
+                        cageOverride.delete();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-
-            Position2D position2D = getRandom2DPositionInsideWorldBorder(world, exclusions, 75);
-            int y = world.getHighestBlockYAt((int) position2D.getX(), (int) position2D.getY()) - 1;
-            exclusions.add(position2D);
-
-            System.out.println(position2D);
-
-            Cuboid cage = new Cuboid(
-                    new Position(position2D.getX(), y, position2D.getY()),
-                    new Position(position2D.getX() + length, y + height, position2D.getY() + (width / 2.0))
-            );
-
-            bbuTeam.setCage(new BBUCage(bbuTeam, cage, cage.getMin().add((length / 2.0) - 0.5, 1, -(width / 2.0)).toWorldPosition(world.getName())));
-
-            BBU.getInstance().println(
-                    "&aTeam '&" + bbuTeam.getColour().getChatColor().getChar() + bbuTeam.getColour().name() + "&a' cage spawned at &7" + bbuTeam.getCage().spawnPosition().toString() + "&a."
-            );
-            EditSession ses = clipboard.paste(new BukkitWorld(world), BlockVector3.at(position2D.getX(), y, position2D.getY()));
-            ses.close();
-            for (Position content : cage.contents()) {
-                WorldPosition worldPosition = new WorldPosition(content.getX(), content.getY(), content.getZ(), world.getName());
-                worldPosition.toBukkitLocation().getBlock().setType(Material.RED_WOOL);
-            }
-
-
-            teamSpawns.getConfiguration().set("team." + bbuTeam.getColour().name(), GsonFactory.getCompactGson().toJson(cage));
         }
     }
 

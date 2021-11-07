@@ -19,6 +19,7 @@ package me.imoltres.bbu.utils.command;
 
 import me.imoltres.bbu.utils.CC;
 import net.kyori.adventure.text.TextComponent;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
@@ -157,7 +158,7 @@ public class CommandFramework implements TabExecutor {
             PluginCommand pluginCommand = constructor.newInstance(splittedCommand, plugin);
             pluginCommand.setTabCompleter(this);
             pluginCommand.setExecutor(this);
-            pluginCommand.setUsage(command.usage());
+            pluginCommand.setUsage(ChatColor.translateAlternateColorCodes('&', command.usage()));
             pluginCommand.setPermission(command.permission());
             pluginCommand.setDescription(command.desc());
             pluginCommand.setAliases(Arrays.asList(command.aliases()));
@@ -170,54 +171,8 @@ public class CommandFramework implements TabExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command cmd, @NotNull String label, String[] args) {
-        for (Map.Entry<CommandInfo, Map.Entry<Method, Command>> entry : commands.entrySet()) {
-            CommandInfo command = entry.getKey();
-            String[] splitted = command.name().split("\\.");
-            String allArgs = args.length == 0 ? "" : String.join(".", Arrays.copyOfRange(args, 0, splitted.length - 1));
-            String cmdName = (command.name().contains(".") ? splitted[0] : cmd.getName()) + (splitted.length == 1 && allArgs.isEmpty() ? "" : "." + allArgs);
-
-            if (command.name().equalsIgnoreCase(cmdName) || Stream.of(command.aliases()).anyMatch(cmdName::equalsIgnoreCase)) {
-                if (!sender.hasPermission(command.permission())) {
-                    sender.sendMessage(NO_PERMISSION);
-                    return true;
-                }
-
-                if (command.senderType() == CommandInfo.SenderType.PLAYER && !(sender instanceof Player)) {
-                    sender.sendMessage(ONLY_BY_PLAYERS);
-                    return true;
-                }
-
-                if (command.senderType() == CommandInfo.SenderType.CONSOLE && sender instanceof Player) {
-                    sender.sendMessage(ONLY_BY_CONSOLE);
-                    return true;
-                }
-
-                if (cooldowns.containsKey(sender)) {
-                    if (command.cooldown() > 0 && ((System.currentTimeMillis() - cooldowns.get(sender)) / 1000) % 60 <= command.cooldown()) {
-                        sender.sendMessage(WAIT_BEFORE_USING_AGAIN);
-                        return true;
-                    } else {
-                        cooldowns.remove(sender);
-                    }
-                } else {
-                    cooldowns.put(sender, System.currentTimeMillis());
-                }
-
-                String[] newArgs = Arrays.copyOfRange(args, splitted.length - 1, args.length);
-
-                if (args.length >= command.min() + splitted.length - 1 && newArgs.length <= (command.max() == -1 ? newArgs.length + 1 : command.max())) {
-                    try {
-                        entry.getValue().getKey().invoke(entry.getValue().getValue(), new CommandArgs(sender, cmd, label, newArgs));
-                        return true;
-                    } catch (IllegalAccessException | InvocationTargetException e) {
-                        e.printStackTrace();
-                        return true;
-                    }
-                } else {
-                    sender.sendMessage(SHORT_OR_LONG_ARG_SIZE);
-                    return true;
-                }
-            }
+        if (handleCommand(sender, cmd, label, args)) {
+            return true;
         }
 
         if (anyMatchConsumer != null) {
@@ -245,6 +200,94 @@ public class CommandFramework implements TabExecutor {
         }
 
         return null;
+    }
+
+    private String getCmdName(CommandInfo command, @NotNull org.bukkit.command.Command cmd, String[] args) {
+        String[] splitted = command.name().split("\\.");
+        String allArgs = args.length == 0 ? "" : String.join(".", Arrays.copyOfRange(args, 0, splitted.length - 1));
+        return (command.name().contains(".") ? splitted[0] : cmd.getName()) + (splitted.length == 1 && allArgs.isEmpty() ? "" : "." + allArgs);
+    }
+
+    private Map.Entry<Object, CommandInfo> getCorrectCommandInfo(Command c, @NotNull org.bukkit.command.Command cmd, String[] args) {
+        for (SubCommand sC : c.subCommands()) {
+            CommandInfo command = sC.getClass().getAnnotation(CommandInfo.class);
+            String cmdName = getCmdName(command, cmd, args);
+            if (command.name().equalsIgnoreCase(cmdName) || Stream.of(command.aliases()).anyMatch(cmdName::equalsIgnoreCase))
+                return new AbstractMap.SimpleEntry<>(sC, command);
+        }
+
+        CommandInfo command = c.getClass().getAnnotation(CommandInfo.class);
+        String cmdName = getCmdName(command, cmd, args);
+
+        if (command.name().equalsIgnoreCase(cmdName) || Stream.of(command.aliases()).anyMatch(cmdName::equalsIgnoreCase))
+            return new AbstractMap.SimpleEntry<>(c, command);
+
+        return null;
+    }
+
+    private boolean handleCommand(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command cmd, @NotNull String label, String[] args) {
+        CommandInfo command = null;
+        Object c = null;
+        for (Map.Entry<CommandInfo, Map.Entry<Method, Command>> entry : commands.entrySet()) {
+            Command commandObject = entry.getValue().getValue();
+            Map.Entry<Object, CommandInfo> a = getCorrectCommandInfo(commandObject, cmd, args);
+
+            if (a != null) {
+                command = a.getValue();
+                c = a.getKey();
+            }
+        }
+
+        if (command == null) {
+            return false;
+        }
+
+        if (!sender.hasPermission(command.permission())) {
+            sender.sendMessage(NO_PERMISSION);
+            return true;
+        }
+
+        if (command.senderType() == CommandInfo.SenderType.PLAYER && !(sender instanceof Player)) {
+            sender.sendMessage(ONLY_BY_PLAYERS);
+            return true;
+        }
+
+        if (command.senderType() == CommandInfo.SenderType.CONSOLE && sender instanceof Player) {
+            sender.sendMessage(ONLY_BY_CONSOLE);
+            return true;
+        }
+
+        if (cooldowns.containsKey(sender)) {
+            if (command.cooldown() > 0 && ((System.currentTimeMillis() - cooldowns.get(sender)) / 1000) % 60 <= command.cooldown()) {
+                sender.sendMessage(WAIT_BEFORE_USING_AGAIN);
+                return true;
+            } else {
+                cooldowns.remove(sender);
+            }
+        } else {
+            cooldowns.put(sender, System.currentTimeMillis());
+        }
+
+        String[] splitted = command.name().split("\\.");
+
+        String[] newArgs = Arrays.copyOfRange(args, splitted.length - 1, args.length);
+
+        if (args.length >= command.min() + splitted.length - 1 && newArgs.length <= (command.max() == -1 ? newArgs.length + 1 : command.max())) {
+            try {
+                if (c instanceof SubCommand)
+                    ((SubCommand) c).execute(new CommandArgs(sender, cmd, label, newArgs));
+                else if (c instanceof Command)
+                    ((Command) c).execute(new CommandArgs(sender, cmd, label, newArgs));
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return true;
+            }
+        } else {
+            sender.sendMessage(SHORT_OR_LONG_ARG_SIZE);
+            return true;
+        }
+
     }
 
     /**

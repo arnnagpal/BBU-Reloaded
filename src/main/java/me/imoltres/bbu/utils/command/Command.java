@@ -17,6 +17,8 @@ public interface Command {
 
     void execute(CommandArgs cmd);
 
+    List<SubCommand> subCommands();
+
     List<String> tabCompleter(CommandArgs cmd);
 
 }

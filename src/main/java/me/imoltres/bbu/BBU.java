@@ -2,8 +2,7 @@ package me.imoltres.bbu;
 
 import com.qrakn.phoenix.lang.file.type.BasicConfigurationFile;
 import lombok.Getter;
-import me.imoltres.bbu.commands.DebugCommand;
-import me.imoltres.bbu.commands.game.GameCommand;
+import me.imoltres.bbu.commands.GameCommand;
 import me.imoltres.bbu.controllers.PlayerController;
 import me.imoltres.bbu.controllers.TeamController;
 import me.imoltres.bbu.data.BBUTeamColour;
@@ -37,6 +36,9 @@ public class BBU extends JavaPlugin {
     private File schemsFolder;
 
     @Getter
+    private File tempSchemsFolder;
+
+    @Getter
     private PlayerController playerController;
     @Getter
     private TeamController teamController;
@@ -61,6 +63,9 @@ public class BBU extends JavaPlugin {
         if (!schemsFolder.exists() || Objects.requireNonNull(schemsFolder.listFiles()).length == 0) {
             println("&bCreating schematics folder and/or writing default schems...");
             writeDefaultSchems();
+
+            tempSchemsFolder = new File(schemsFolder, "tempSchems");
+            tempSchemsFolder.mkdirs();
         }
 
         println("&aInitialising command framework...");
@@ -86,6 +91,8 @@ public class BBU extends JavaPlugin {
 
     @Override
     public void onDisable() {
+
+
         try {
             teamSpawnsConfig.getConfiguration().save(teamSpawnsConfig.getFile());
         } catch (IOException e) {
@@ -95,9 +102,6 @@ public class BBU extends JavaPlugin {
 
     private void registerCommands() {
         Command.registerCommands(
-                //DEBUG STUFF
-                DebugCommand.class,
-
                 //GAME STUFF
                 GameCommand.class
         );

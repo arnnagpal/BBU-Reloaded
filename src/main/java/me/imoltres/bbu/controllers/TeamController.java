@@ -36,6 +36,17 @@ public class TeamController {
         return teams.stream().filter(team -> team.getPlayers().contains(bbuPlayer)).findFirst().orElse(null);
     }
 
+    public boolean allTeamsHaveCagesSet() {
+        int i = 0;
+        for (BBUTeam team : getAllTeams()) {
+            String cageStr = BBU.getInstance().getTeamSpawnsConfig().getString("team." + team.getColour().name());
+            if (cageStr != null && !cageStr.isEmpty())
+                i++;
+        }
+
+        return i == getAllTeams().size();
+    }
+
     public ImmutableSet<BBUTeam> getAllTeams() {
         return ImmutableSet.copyOf(teams);
     }

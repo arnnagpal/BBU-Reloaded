@@ -1,14 +1,1 @@
 scoreboard-title: "BBU RELOADED"
-scoreboards:
-  default: |
-    "&aVery quirky &c&l(DEFAULT)"
-    ""
-    "amirite chat"
-  lobby: |
-    "&aVery epic &c&l(LOBBY)"
-    ""
-    "amirite chat"
-  game: |
-    "&aVery epic &c&l(GAME)"
-    ""
-    "amiriete chat"

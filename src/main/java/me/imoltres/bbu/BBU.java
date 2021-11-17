@@ -7,10 +7,12 @@ import me.imoltres.bbu.controllers.PlayerController;
 import me.imoltres.bbu.controllers.TeamController;
 import me.imoltres.bbu.data.BBUTeamColour;
 import me.imoltres.bbu.game.Game;
+import me.imoltres.bbu.listeners.JoinListener;
 import me.imoltres.bbu.utils.CC;
 import me.imoltres.bbu.utils.command.Command;
 import me.imoltres.bbu.utils.command.CommandFramework;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -22,7 +24,6 @@ import java.util.zip.GZIPOutputStream;
 
 public class BBU extends JavaPlugin {
 
-    @Getter
     private static BBU instance;
 
     @Getter
@@ -79,20 +80,13 @@ public class BBU extends JavaPlugin {
         setupTeams();
     }
 
-    @Override
-    public void onEnable() {
-        println("&aRegistering commands...");
-        registerCommands();
-
-        println("&aRegistering game instance...");
-        game = new Game();
-
+    //for some reason kotlin doesn't want to recognise the getter on the variable
+    public static BBU getInstance() {
+        return instance;
     }
 
     @Override
     public void onDisable() {
-
-
         try {
             teamSpawnsConfig.getConfiguration().save(teamSpawnsConfig.getFile());
         } catch (IOException e) {
@@ -105,6 +99,20 @@ public class BBU extends JavaPlugin {
                 //GAME STUFF
                 GameCommand.class
         );
+    }
+
+    @Override
+    public void onEnable() {
+        println("&aRegistering listeners...");
+        registerListeners();
+
+        println("&aRegistering commands...");
+        registerCommands();
+
+        println("&aRegistering game instance...");
+        game = new Game();
+
+
     }
 
     private void setupTeams() {
@@ -134,6 +142,11 @@ public class BBU extends JavaPlugin {
         for (String line : lines) {
             Bukkit.getConsoleSender().sendMessage(CC.translate(line));
         }
+    }
+
+    private void registerListeners() {
+        PluginManager pluginManager = Bukkit.getPluginManager();
+        pluginManager.registerEvents(new JoinListener(), this);
     }
 
 }

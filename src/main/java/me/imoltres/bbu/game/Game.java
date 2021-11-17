@@ -17,10 +17,7 @@ import me.imoltres.bbu.BBU;
 import me.imoltres.bbu.data.team.BBUCage;
 import me.imoltres.bbu.data.team.BBUTeam;
 import me.imoltres.bbu.utils.GsonFactory;
-import me.imoltres.bbu.utils.world.Cuboid;
-import me.imoltres.bbu.utils.world.Position;
-import me.imoltres.bbu.utils.world.Position2D;
-import me.imoltres.bbu.utils.world.Rectangle;
+import me.imoltres.bbu.utils.world.*;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 
@@ -188,9 +185,12 @@ public class Game {
         );
 
         Position2D position2D = world2D.randomPosition().toIntPosition();
+        double x = position2D.getX();
+        double z = position2D.getY();
+        int y = world.getHighestBlockYAt((int) x, (int) z) + 3;
         for (Position2D p : exclusions) {
             //TODO: make thread-safe
-            while (p.distance(position2D) < range) {
+            while (p.distance(position2D) < range || !new WorldPosition(x, y, z, world.getName()).isSafe()) {
                 position2D = getRandom2DPositionInsideWorldBorder(world, exclusions, range);
             }
         }

@@ -9,6 +9,8 @@ import lombok.NonNull;
 import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 
 import java.io.IOException;
 
@@ -53,6 +55,34 @@ public class WorldPosition extends Position {
         this.world = worldName;
     }
 
+    /**
+     * Converts a WorldPosition to a bukkit Location.
+     *
+     * @param worldPosition WorldPosition
+     * @return bukkit location
+     */
+    public static Location toBukkitLocation(WorldPosition worldPosition) {
+        return new Location(Bukkit.getWorld(worldPosition.getWorld()), worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), worldPosition.getYaw(), worldPosition.getPitch());
+    }
+
+    public boolean isSafe() {
+        try {
+            Block feet = getBlock();
+            if (!feet.getType().isOccluding() && !feet.getLocation().add(0, 1, 0).getBlock().getType().isOccluding()) {
+                return false;
+            }
+            Block head = feet.getRelative(BlockFace.UP);
+            if (!head.getType().isOccluding()) {
+                return false;
+            }
+            Block ground = feet.getRelative(BlockFace.DOWN);
+
+            return ground.getType().isSolid();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     /**
      * Converts a WorldPosition to a bukkit Location.
@@ -63,14 +93,8 @@ public class WorldPosition extends Position {
         return new Location(Bukkit.getWorld(world), getX(), getY(), getZ(), getYaw(), getPitch());
     }
 
-    /**
-     * Converts a WorldPosition to a bukkit Location.
-     *
-     * @param worldPosition WorldPosition
-     * @return              bukkit location
-     */
-    public static Location toBukkitLocation(WorldPosition worldPosition) {
-        return new Location(Bukkit.getWorld(worldPosition.getWorld()), worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), worldPosition.getYaw(), worldPosition.getPitch());
+    public Block getBlock() {
+        return toBukkitLocation().getBlock();
     }
 
     public static class Serializer extends TypeAdapter<WorldPosition> {

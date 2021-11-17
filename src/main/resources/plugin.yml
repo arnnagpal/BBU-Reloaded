@@ -1,10 +1,11 @@
-"main": "@main@"
-"name": "@name@"
-"version": "@version@"
-"api-version": "@api-version@"
-#in alphabetical order
-depend:
+"main": "${main}"
+"name": "\${name}"
+"version": "${pluginVersion}"
+"api-version": "\${apiversion}"
+"depend":
   - FastAsyncWorldEdit
+
+#in alphabetical order
 "authors":
   - "art_i_choked"
   - "babu"

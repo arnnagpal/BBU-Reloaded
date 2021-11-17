@@ -67,8 +67,17 @@ public class PlayerController {
     }
 
     public BBUPlayer createPlayer(UUID uniqueId, String name) {
-        BBUPlayer bbuPlayer = new BBUPlayer(uniqueId, name);
+        BBUPlayer bbuPlayer = getPlayer(uniqueId);
+        if (bbuPlayer != null) {
+            System.out.printf("Player cache for '%s' already exists, ignoring...\n", name);
+            return bbuPlayer;
+        }
+
+        bbuPlayer = new BBUPlayer(uniqueId, name);
         players.add(bbuPlayer);
+
+        System.out.printf("Created new player cache for '%s'\n", name);
+
         return bbuPlayer;
     }
 

@@ -93,6 +93,37 @@ public class CC {
     }
 
     /**
+     * Returns true if the given string is an integer in the given radix
+     *
+     * @param s     str
+     * @param radix radix
+     * @return Boolean
+     */
+    public static boolean isInteger(String s, int radix) {
+        if (s.isEmpty()) {
+            return false;
+        }
+        for (int i = 0; i < s.length(); i++) {
+            if (i == 0 && s.charAt(i) == '-') {
+                if (s.length() == 1) {
+                    return false;
+                } else {
+                    continue;
+                }
+            }
+
+            if (Character.digit(s.charAt(i), radix) < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static String formatTPS(double tps) {
+        return ((tps > 18.0) ? ChatColor.GREEN : ((tps > 16.0) ? ChatColor.YELLOW : ChatColor.RED)) + ((tps > 20.0) ? "*" : "") + Math.min(Math.round(tps * 100.0) / 100.0, 20.0);
+    }
+
+    /**
      * Keeps splitting the given string after the given length.
      *
      * @param str        String

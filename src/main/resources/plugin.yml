@@ -1,14 +1,13 @@
 "main": "${main}"
-"name": "\${name}"
+"name": "${name}"
 "version": "${pluginVersion}"
-"api-version": "\${apiversion}"
+"api-version": "${apiversion}"
 "depend":
   - FastAsyncWorldEdit
 
-#in alphabetical order
 "authors":
+  - "iMoltres"
   - "art_i_choked"
   - "babu"
-  - "iMoltres"
   - "magicflakes"
   - "RuneixX"

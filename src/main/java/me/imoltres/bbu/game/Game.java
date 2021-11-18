@@ -25,8 +25,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
 public class Game {
 
@@ -80,32 +82,39 @@ public class Game {
         netherWorld.getWorldBorder().setCenter(0, 0);
         netherWorld.getWorldBorder().setSize(border);
 
+        Bukkit.getScheduler().runTaskAsynchronously(BBU.getInstance(), () -> {
+            try {
+                placeCages(mainWorld, BBU.getInstance().getTeamController().getTeamsWithCages());
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
-        if (BBU.getInstance().getTeamController().allTeamsHaveCagesSet()) {
-            placeCages(mainWorld, false);
-        } else {
-            resetCages(mainWorld);
+    //TODO: put in a command or config somewhere
+    private void resetCages(World world) {
+        deleteCages(world);
+        try {
+            placeCages(world, new ArrayList<>());
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
-    private void resetCages(World world) {
-        deleteCages(world);
-        placeCages(world, true);
-    }
-
-    private void placeCages(World world, boolean random) {
+    private void placeCages(World world, List<BBUTeam> teamsWithCages) throws ExecutionException, InterruptedException {
         List<Position2D> exclusions = new ArrayList<>();
-        for (BBUTeam bbuTeam : BBU.getInstance().getTeamController().getAllTeams()) {
-            if (random) {
-                Position2D position2D = getRandom2DPositionInsideWorldBorder(world, exclusions, 75);
-                int y = world.getHighestBlockYAt((int) position2D.getX(), (int) position2D.getY());
-                exclusions.add(position2D);
-            } else {
-                for (BBUTeam team : BBU.getInstance().getTeamController().getAllTeams()) {
-                    Cuboid cage = GsonFactory.getCompactGson().fromJson(BBU.getInstance().getTeamSpawnsConfig().getString("team." + team.getColour().name()), Cuboid.class);
-                    placeCage(cage.getMin(), bbuTeam, world);
-                }
-            }
+        for (BBUTeam team : teamsWithCages) {
+            exclusions.add(new Position2D(team.getCage().cuboid().getMin().getX(), team.getCage().cuboid().getMin().getZ()));
+        }
+
+        List<BBUTeam> teams = new ArrayList<>(BBU.getInstance().getTeamController().getAllTeams());
+        teams.removeAll(teamsWithCages);
+        for (BBUTeam team : teams) {
+            System.out.printf("Exclusions: %s\n", Arrays.toString(exclusions.toArray()));
+            Position2D position2D = getRandom2DPositionInsideWorldBorder(world, exclusions, 75);
+            int y = world.getHighestBlockYAt((int) position2D.getX(), (int) position2D.getY());
+            exclusions.add(position2D);
+            placeCage(new Position(position2D.getX(), y, position2D.getY()), team, world);
         }
     }
 
@@ -178,7 +187,7 @@ public class Game {
         }
     }
 
-    private Position2D getRandom2DPositionInsideWorldBorder(World world, List<Position2D> exclusions, int range) {
+    private Position2D getRandom2DPositionInsideWorldBorder(World world, List<Position2D> exclusions, int range) throws ExecutionException, InterruptedException {
         Rectangle world2D = new Rectangle(
                 new Position2D(-(world.getWorldBorder().getSize() / 2), -(world.getWorldBorder().getSize() / 2)),
                 new Position2D(world.getWorldBorder().getSize() / 2, world.getWorldBorder().getSize() / 2)
@@ -187,10 +196,24 @@ public class Game {
         Position2D position2D = world2D.randomPosition().toIntPosition();
         double x = position2D.getX();
         double z = position2D.getY();
+        if (!world.getChunkAt((int) x, (int) z).isLoaded())
+            world.getChunkAt((int) x, (int) z).load();
+
         int y = world.getHighestBlockYAt((int) x, (int) z) + 3;
+        WorldPosition worldPosition = new WorldPosition(position2D.getX(), world.getHighestBlockYAt((int) x, (int) z) + 3, position2D.getY(), world.getName());
+        while (!worldPosition.isSafe()) {
+            worldPosition.add(0, 1, 0);
+        }
+
+        x = worldPosition.getX();
+        y = (int) worldPosition.getY();
+        z = worldPosition.getZ();
+
+        System.out.printf("Checking position: %s, %s, %s\n", x, y, z);
         for (Position2D p : exclusions) {
-            //TODO: make thread-safe
-            while (p.distance(position2D) < range || !new WorldPosition(x, y, z, world.getName()).isSafe()) {
+            while (p.distance(position2D) < range) {
+                if (Bukkit.getScheduler().callSyncMethod(BBU.getInstance(), () -> BBU.getInstance().isDisabling()).get())
+                    break;
                 position2D = getRandom2DPositionInsideWorldBorder(world, exclusions, range);
             }
         }

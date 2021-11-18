@@ -50,6 +50,9 @@ public class BBU extends JavaPlugin {
     @Getter
     private Game game;
 
+    @Getter
+    private boolean disabling = false;
+
     @Override
     public void onLoad() {
         println("&aSetting up instance...");
@@ -61,11 +64,11 @@ public class BBU extends JavaPlugin {
         teamSpawnsConfig = new BasicConfigurationFile(this, "teamSpawns");
 
         schemsFolder = new File(this.getDataFolder(), "schematics");
+        tempSchemsFolder = new File(schemsFolder, "tempSchems");
         if (!schemsFolder.exists() || Objects.requireNonNull(schemsFolder.listFiles()).length == 0) {
             println("&bCreating schematics folder and/or writing default schems...");
             writeDefaultSchems();
 
-            tempSchemsFolder = new File(schemsFolder, "tempSchems");
             tempSchemsFolder.mkdirs();
         }
 
@@ -76,8 +79,6 @@ public class BBU extends JavaPlugin {
         playerController = new PlayerController(this);
         teamController = new TeamController(this);
 
-        println("&aSetting up team colours...");
-        setupTeams();
     }
 
     //for some reason kotlin doesn't want to recognise the getter on the variable
@@ -87,6 +88,9 @@ public class BBU extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        disabling = true;
+
+        Bukkit.getScheduler().cancelTasks(this);
         try {
             teamSpawnsConfig.getConfiguration().save(teamSpawnsConfig.getFile());
         } catch (IOException e) {
@@ -103,6 +107,9 @@ public class BBU extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        println("&aSetting up teams...");
+        setupTeams();
+
         println("&aRegistering listeners...");
         registerListeners();
 

@@ -16,6 +16,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class BBUScoreboard {
@@ -52,6 +53,10 @@ public abstract class BBUScoreboard {
         scoreboard.getTeams().stream().filter(team -> CC.isInteger(team.getName(), 10)).forEach(Team::unregister);
 
         List<String> lines = getLines(parentPlayer);
+
+        lines.add(0, CC.SB_DIV);
+        lines.add(CC.SB_DIV);
+
         if (lines.size() > 15) {
             throw new IllegalArgumentException("You cannot display more than 15 lines at once");
         }
@@ -85,10 +90,11 @@ public abstract class BBUScoreboard {
         objective = scoreboard.registerNewObjective("bbuscoreboard", "dummy", CC.translate("dummy"));
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
         objective.displayName(CC.translate(title));
+        Collections.reverse(lines);
 
-        int cache = startNumber;
+        int cache = lines.size();
         for (int i = 0; i < lines.size(); i++) {
-            createLine(cache++);
+            createLine(cache--);
         }
 
         cache = startNumber;
@@ -142,6 +148,8 @@ public abstract class BBUScoreboard {
             team = createLine(number);
         }
 
+        assert team != null;
+
         String[] split;
         if (line.lastIndexOf('~') == -1 || autoSplit) {
             split = BBUScoreboardUtils.splitTeamText(line);
@@ -162,9 +170,8 @@ public abstract class BBUScoreboard {
 
         team.prefix(CC.translate(prefix));
 
-        if (suffix != null) {
+        if (suffix != null)
             team.suffix(CC.translate(suffix));
-        }
     }
 
     public TextComponent getLine(int number) {

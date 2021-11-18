@@ -9,6 +9,7 @@ import lombok.NonNull;
 import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 
@@ -68,16 +69,16 @@ public class WorldPosition extends Position {
     public boolean isSafe() {
         try {
             Block feet = getBlock();
-            if (!feet.getType().isOccluding() && !feet.getLocation().add(0, 1, 0).getBlock().getType().isOccluding()) {
+            if (feet.getType().isOccluding() && feet.getLocation().add(0, 1, 0).getBlock().getType().isOccluding()) {
                 return false;
             }
             Block head = feet.getRelative(BlockFace.UP);
-            if (!head.getType().isOccluding()) {
+            if (head.getType().isOccluding()) {
                 return false;
             }
             Block ground = feet.getRelative(BlockFace.DOWN);
 
-            return ground.getType().isSolid();
+            return ground.getType() != Material.LAVA;
         } catch (Exception e) {
             e.printStackTrace();
         }

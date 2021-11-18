@@ -4,14 +4,15 @@ import org.bukkit.ChatColor;
 
 public class BBUScoreboardUtils {
     public static String[] splitTeamText(String input) {
-        final int inputLength = input.length();
+        input = ChatColor.translateAlternateColorCodes('&', input);
+
+        int inputLength = input.length();
         if (inputLength > 16) {
             // Make the prefix the first 16 characters of our text
             String prefix = input.substring(0, 16);
 
             // Get the last index of the color char in the prefix
-            final int lastColorIndex = prefix.lastIndexOf(ChatColor.COLOR_CHAR);
-
+            int lastColorIndex = prefix.lastIndexOf(ChatColor.COLOR_CHAR);
             String suffix;
 
             if (lastColorIndex >= 14) {
@@ -24,6 +25,9 @@ public class BBUScoreboardUtils {
             if (suffix.length() > 16) {
                 suffix = suffix.substring(0, 16);
             }
+
+            prefix = prefix.replace(ChatColor.COLOR_CHAR, '&');
+            suffix = suffix.replace(ChatColor.COLOR_CHAR, '&');
 
             return new String[]{prefix, suffix};
         } else {

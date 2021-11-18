@@ -32,6 +32,8 @@ public class CC {
     public static final String DARK_RED = ChatColor.DARK_RED.toString();
     public static final String PINK = ChatColor.LIGHT_PURPLE.toString();
 
+    public static final String SB_DIV = ChatColor.STRIKETHROUGH + "----------------------";
+
     /**
      * Converts a textcomponent to the legacy colour coded string
      *

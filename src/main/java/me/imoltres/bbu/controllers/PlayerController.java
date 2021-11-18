@@ -17,7 +17,7 @@ public class PlayerController {
     private final Set<BBUPlayer> players = new HashSet<>();
 
     public BBUPlayer getPlayer(UUID uniqueId) {
-        return players.stream().filter(bbuPlayer -> bbuPlayer.getUniqueId() == uniqueId).findFirst().orElse(null);
+        return players.stream().filter(bbuPlayer -> bbuPlayer.getUniqueId().equals(uniqueId)).findFirst().orElse(null);
     }
 
     public BBUPlayer getPlayer(String name) {

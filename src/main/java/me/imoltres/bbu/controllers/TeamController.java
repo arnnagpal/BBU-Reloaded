@@ -1,20 +1,20 @@
 package me.imoltres.bbu.controllers;
 
-import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableList;
 import lombok.RequiredArgsConstructor;
 import me.imoltres.bbu.BBU;
 import me.imoltres.bbu.data.BBUTeamColour;
 import me.imoltres.bbu.data.player.BBUPlayer;
 import me.imoltres.bbu.data.team.BBUTeam;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @RequiredArgsConstructor
 public class TeamController {
     private final BBU plugin;
 
-    private final Set<BBUTeam> teams = new HashSet<>();
+    private final List<BBUTeam> teams = new ArrayList<>();
 
     public boolean createTeam(BBUTeamColour colour) {
         return teams.add(new BBUTeam(colour));
@@ -36,19 +36,19 @@ public class TeamController {
         return teams.stream().filter(team -> team.getPlayers().contains(bbuPlayer)).findFirst().orElse(null);
     }
 
-    public boolean allTeamsHaveCagesSet() {
-        int i = 0;
+    public List<BBUTeam> getTeamsWithCages() {
+        List<BBUTeam> teams = new ArrayList<>();
         for (BBUTeam team : getAllTeams()) {
-            String cageStr = BBU.getInstance().getTeamSpawnsConfig().getString("team." + team.getColour().name());
-            if (cageStr != null && !cageStr.isEmpty())
-                i++;
+            if (team.getCage() != null) {
+                teams.add(team);
+            }
         }
 
-        return i == getAllTeams().size();
+        return teams;
     }
 
-    public ImmutableSet<BBUTeam> getAllTeams() {
-        return ImmutableSet.copyOf(teams);
+    public ImmutableList<BBUTeam> getAllTeams() {
+        return ImmutableList.copyOf(teams);
     }
 
 }

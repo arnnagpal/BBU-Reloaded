@@ -9,7 +9,7 @@ import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 
 
-class LobbyScoreboard(player: Player) : BBUScoreboard(1, player, ScoreboardType.LOBBY) {
+class DefaultScoreboard(player: Player) : BBUScoreboard(1, player, ScoreboardType.DEFAULT) {
 
     override fun getLines(player: BBUPlayer): ArrayList<String> {
         val lines = ArrayList<String>()

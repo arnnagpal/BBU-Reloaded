@@ -5,9 +5,11 @@ import lombok.Getter;
 import me.imoltres.bbu.BBU;
 import me.imoltres.bbu.data.player.BBUPlayer;
 import me.imoltres.bbu.utils.CC;
+import me.imoltres.bbu.utils.TickUtils;
 import me.imoltres.bbu.utils.scoreboard.BBUScoreboardSetupException;
 import me.imoltres.bbu.utils.scoreboard.BBUScoreboardUtils;
 import net.kyori.adventure.text.TextComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -28,40 +30,25 @@ public abstract class BBUScoreboard {
 
     @Getter
     private final Scoreboard scoreboard;
-    @Getter
-    private final ScoreboardType scoreboardType;
     private final ChatColor[] chatColourCache = ChatColor.values();
     protected BasicConfigurationFile messages = BBU.getInstance().getMessagesConfig();
     @Getter
     private String title;
     private Objective objective;
 
-    protected BBUScoreboard(int startNumber, Player player, ScoreboardType scoreboardType) {
+    private final int startNumber;
+
+    protected BBUScoreboard(int startNumber, Player player) {
+        this.startNumber = startNumber;
         this.title = messages.getString("scoreboard-title");
         this.scoreboard = player.getScoreboard();
-        this.scoreboardType = scoreboardType;
         this.parentPlayer = BBU.getInstance().getPlayerController().getPlayer(player.getUniqueId());
         this.parentBukkitPlayer = player;
 
-        parentPlayer.setScoreboardUsed(this);
+        parentPlayer.setScoreboard(this);
         parentBukkitPlayer.setScoreboard(scoreboard);
 
-        if (scoreboard.getObjective("bbuscoreboard") != null) {
-            scoreboard.getObjective("bbuscoreboard").unregister();
-        }
-
-        scoreboard.getTeams().stream().filter(team -> CC.isInteger(team.getName(), 10)).forEach(Team::unregister);
-
-        List<String> lines = getLines(parentPlayer);
-
-        lines.add(0, CC.SB_DIV);
-        lines.add(CC.SB_DIV);
-
-        if (lines.size() > 15) {
-            throw new IllegalArgumentException("You cannot display more than 15 lines at once");
-        }
-
-        init(startNumber, lines);
+        update();
     }
 
     public static boolean display(Class<? extends BBUScoreboard> scoreboard, Player... players) {
@@ -86,7 +73,25 @@ public abstract class BBUScoreboard {
         }
     }
 
-    private void init(int startNumber, List<String> lines) {
+    public void update() {
+        if (scoreboard.getObjective("bbuscoreboard") != null) {
+            scoreboard.getObjective("bbuscoreboard").unregister();
+        }
+
+        scoreboard.getTeams().stream().filter(team -> CC.isInteger(team.getName(), 10)).forEach(Team::unregister);
+
+        List<String> lines = getLines(parentPlayer);
+
+        lines.add(0, CC.SB_DIV);
+        lines.add(1, "&bOnline: " + Bukkit.getOnlinePlayers().size());
+        lines.add(2, "&bTPS: " + TickUtils.getTPS());
+        lines.add(3, "");
+        lines.add(CC.SB_DIV);
+
+        if (lines.size() > 15) {
+            throw new IllegalArgumentException("You cannot display more than 15 lines at once");
+        }
+
         objective = scoreboard.registerNewObjective("bbuscoreboard", "dummy", CC.translate("dummy"));
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
         objective.displayName(CC.translate(title));
@@ -190,6 +195,7 @@ public abstract class BBUScoreboard {
 
         return ret;
     }
+
 
     public void remove() {
         scoreboard.getObjective("bbuscoreboard").unregister();

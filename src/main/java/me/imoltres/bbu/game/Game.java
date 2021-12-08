@@ -18,8 +18,7 @@ import me.imoltres.bbu.data.team.BBUCage;
 import me.imoltres.bbu.data.team.BBUTeam;
 import me.imoltres.bbu.utils.GsonFactory;
 import me.imoltres.bbu.utils.world.*;
-import org.bukkit.Bukkit;
-import org.bukkit.World;
+import org.bukkit.*;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -33,7 +32,9 @@ import java.util.concurrent.ExecutionException;
 public class Game {
 
     private final GameProgression progression = new GameProgression();
-    private final GameThread gameThread = new GameThread(this);
+
+    @Getter
+    private final GameThread thread = new GameThread(this);
 
     @Getter
     private boolean paused = false;
@@ -41,7 +42,12 @@ public class Game {
     @Getter
     private final int border;
 
-    private Position fortressPosition;
+    private World OVERWORLD;
+    private World NETHER;
+    private World END;
+
+    @Getter
+    private Position2D fortressPosition;
 
     public Game() {
         border = BBU.getInstance().getMainConfig().getInteger("border");
@@ -50,7 +56,11 @@ public class Game {
     }
 
     public void startGame() {
+        if (thread.isAlive()) {
+            throw new RuntimeException("Game has already started.");
+        }
 
+        thread.start();
     }
 
     public void pauseGame() {
@@ -58,7 +68,7 @@ public class Game {
     }
 
     public void stopGame() {
-
+        setGameState(GameState.POST_GAME);
     }
 
     public GameState getGameState() {
@@ -72,19 +82,29 @@ public class Game {
 
     private void setupWorlds() {
         //Get main world
-        World mainWorld = Bukkit.getWorlds().get(0);
+        OVERWORLD = Bukkit.getWorld(NamespacedKey.minecraft("overworld"));
         //Get nether world
-        World netherWorld = Bukkit.getWorlds().get(1);
+        NETHER = Bukkit.getWorld(NamespacedKey.minecraft("the_nether"));
+        //Get end world
+        END = Bukkit.getWorld(NamespacedKey.minecraft("the_end"));
 
-        mainWorld.getWorldBorder().setCenter(0, 0);
-        mainWorld.getWorldBorder().setSize(border);
+        OVERWORLD.getWorldBorder().setCenter(0, 0);
+        OVERWORLD.getWorldBorder().setSize(border);
 
-        netherWorld.getWorldBorder().setCenter(0, 0);
-        netherWorld.getWorldBorder().setSize(border);
+        NETHER.getWorldBorder().setCenter(0, 0);
+        NETHER.getWorldBorder().setSize(border);
+
+        Location netherSpawn = new Location(NETHER, 0, 70, 0);
+        Location location = NETHER.locateNearestStructure(netherSpawn, StructureType.NETHER_FORTRESS, border, false);
+        if (location != null) {
+            fortressPosition = new Position2D(location.getX(), location.getZ()).toIntPosition();
+        } else {
+            System.out.println("Unable to find a fortress within border, you might have to find a new seed.");
+        }
 
         Bukkit.getScheduler().runTaskAsynchronously(BBU.getInstance(), () -> {
             try {
-                placeCages(mainWorld, BBU.getInstance().getTeamController().getTeamsWithCages());
+                placeCages(OVERWORLD, BBU.getInstance().getTeamController().getTeamsWithCages());
             } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }
@@ -220,5 +240,15 @@ public class Game {
         return position2D;
     }
 
+    public World OVERWORLD() {
+        return OVERWORLD;
+    }
 
+    public World NETHER() {
+        return NETHER;
+    }
+
+    public World END() {
+        return END;
+    }
 }

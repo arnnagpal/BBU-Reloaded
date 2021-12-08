@@ -1,8 +1,7 @@
 package me.imoltres.bbu.listeners;
 
 import me.imoltres.bbu.BBU;
-import me.imoltres.bbu.data.player.BBUPlayer;
-import me.imoltres.bbu.scoreboard.ScoreboardType;
+import me.imoltres.bbu.scoreboard.impl.ScoreboardAdapter;
 import me.imoltres.bbu.utils.CC;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -26,10 +25,9 @@ public class JoinListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
-        BBUPlayer bbuPlayer = BBU.getInstance().getPlayerController().getPlayer(player.getUniqueId());
 
         e.joinMessage(CC.translate("&7[&a+&7] &7" + e.getPlayer().getName()));
-        bbuPlayer.displayBoard(ScoreboardType.LOBBY);
+        new ScoreboardAdapter(player);
     }
 
 }

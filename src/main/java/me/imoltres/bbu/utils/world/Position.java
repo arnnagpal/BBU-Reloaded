@@ -144,7 +144,7 @@ public class Position {
 
         @Override
         public void write(JsonWriter out, Position value) throws IOException {
-            if(value == null) {
+            if (value == null) {
                 out.nullValue();
                 return;
             }
@@ -160,7 +160,7 @@ public class Position {
 
         @Override
         public Position read(JsonReader in) throws IOException {
-            if(in.peek() == JsonToken.NULL) {
+            if (in.peek() == JsonToken.NULL) {
                 in.nextNull();
                 return null;
             }

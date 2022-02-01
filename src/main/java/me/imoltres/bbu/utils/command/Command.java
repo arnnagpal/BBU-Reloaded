@@ -12,7 +12,7 @@ public interface Command {
         framework.registerCommands(classes);
 
         for (Class<? extends Command> c : classes)
-            BBU.getInstance().println("&aRegistered command '&c" + c.getSimpleName() + "&a'");
+            System.out.println("&aRegistered command '&c" + c.getSimpleName() + "&a'");
     }
 
     void execute(CommandArgs cmd);

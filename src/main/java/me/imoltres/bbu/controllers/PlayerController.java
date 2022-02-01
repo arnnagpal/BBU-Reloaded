@@ -1,5 +1,6 @@
 package me.imoltres.bbu.controllers;
 
+import com.google.common.collect.ImmutableList;
 import lombok.RequiredArgsConstructor;
 import me.imoltres.bbu.BBU;
 import me.imoltres.bbu.data.player.BBUPlayer;
@@ -7,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -79,6 +81,10 @@ public class PlayerController {
         System.out.printf("Created new player cache for '%s'\n", name);
 
         return bbuPlayer;
+    }
+
+    public List<BBUPlayer> getPlayers() {
+        return ImmutableList.copyOf(players);
     }
 
     public boolean deletePlayer(UUID uniqueId) {

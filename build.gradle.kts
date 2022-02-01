@@ -2,9 +2,9 @@ val main by extra("me.imoltres.bbu.BBU")
 val ver by extra("0.1-DEV")
 val apiVersion by extra("1.17")
 
-val spigotVersion by extra("1.17.1-R0.1-SNAPSHOT")
+val spigotVersion by extra("1.18.1-R0.1-SNAPSHOT")
 val gsonVersion by extra("2.8.9")
-val faweVersion by extra("1.17-386")
+val faweVersion by extra("1.17-425")
 
 val lombokVersion by extra("1.18.20")
 
@@ -26,7 +26,7 @@ version = extra["ver"]!!
 
 repositories {
     maven {
-        url = uri("https://repo.pl3x.net/")
+        url = uri("https://repo.purpurmc.org/snapshots")
     }
     maven {
         url = uri("https://mvn.intellectualsites.com/content/repositories/releases/")
@@ -42,7 +42,7 @@ dependencies {
     implementation(group = "com.google.code.gson", name = "gson", version = gsonVersion)
     implementation(group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version = "1.6.0")
 
-    compileOnly(group = "net.pl3x.purpur", name = "purpur-api", version = spigotVersion)
+    compileOnly(group = "org.purpurmc.purpur", name = "purpur-api", version = spigotVersion)
     compileOnly(group = "com.fastasyncworldedit", name = "FastAsyncWorldEdit-Bukkit", version = faweVersion)
 
     compileOnly(group = "org.projectlombok", name = "lombok", version = lombokVersion)
@@ -90,7 +90,7 @@ tasks {
 
     compileKotlin {
         kotlinOptions {
-            jvmTarget = "16"
+            jvmTarget = "17"
         }
     }
 }

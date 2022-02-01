@@ -16,7 +16,7 @@ import org.bukkit.entity.Player
 class BuildModeCommand : SubCommand {
     override fun execute(cmd: CommandArgs) {
         val player = cmd.getSender<Player>()
-        val bbuPlayer = BBU.getInstance().playerController.getPlayer(player.uniqueId)
-        bbuPlayer.isBuild = true
+        val bbuPlayer = BBU.instance.playerController.getPlayer(player.uniqueId)
+        bbuPlayer.build = true
     }
 }

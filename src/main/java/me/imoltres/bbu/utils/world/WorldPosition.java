@@ -56,14 +56,8 @@ public class WorldPosition extends Position {
         this.world = worldName;
     }
 
-    /**
-     * Converts a WorldPosition to a bukkit Location.
-     *
-     * @param worldPosition WorldPosition
-     * @return bukkit location
-     */
-    public static Location toBukkitLocation(WorldPosition worldPosition) {
-        return new Location(Bukkit.getWorld(worldPosition.getWorld()), worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), worldPosition.getYaw(), worldPosition.getPitch());
+    public static WorldPosition fromBukkitLocation(Location location) {
+        return new WorldPosition(location.getX(), location.getY(), location.getZ(), location.getWorld().getName());
     }
 
     public boolean isSafe() {
@@ -92,6 +86,16 @@ public class WorldPosition extends Position {
      */
     public Location toBukkitLocation() {
         return new Location(Bukkit.getWorld(world), getX(), getY(), getZ(), getYaw(), getPitch());
+    }
+
+    /**
+     * Converts a WorldPosition to a bukkit Location.
+     *
+     * @param worldPosition WorldPosition
+     * @return bukkit location
+     */
+    public Location toBukkitLocation(WorldPosition worldPosition) {
+        return new Location(Bukkit.getWorld(worldPosition.getWorld()), worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), worldPosition.getYaw(), worldPosition.getPitch());
     }
 
     public Block getBlock() {

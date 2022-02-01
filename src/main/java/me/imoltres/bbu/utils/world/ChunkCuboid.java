@@ -12,60 +12,60 @@ import java.io.IOException;
 @AllArgsConstructor
 public class ChunkCuboid {
 
-	private int x;
-	private int z;
-	private String world;
+    private int x;
+    private int z;
+    private String world;
 
-	/**
-	 * Returns the string representation of a chunk. This is the combination of
-	 * the X and Z position separated by a colon.
-	 *
-	 * @return String
-	 */
-	@Override
-	public String toString() {
-		return x + ";" + z + ";" + world;
-	}
+    /**
+     * Decodes the specified string representation of a chunk into a ChunkCuboid
+     *
+     * @param id String representation of a chunk
+     * @return ChunkCuboid
+     * @throws IllegalArgumentException When the string does not follow the format "X;Z"
+     */
+    public static ChunkCuboid valueOf(String id) {
+        String[] split = id.split(";");
+
+        if (split.length != 3)
+            throw new IllegalArgumentException("Invalid chunk format");
+
+        int x;
+        int z;
+        String world;
+
+        try {
+            x = Integer.parseInt(split[0]);
+            z = Integer.parseInt(split[1]);
+            world = split[2];
+        } catch (NumberFormatException ex) {
+            throw new IllegalArgumentException("Invalid chunk format", ex);
+        }
+
+        return new ChunkCuboid(x, z, world);
+    }
+
+    /**
+     * Returns the string representation of a chunk. This is the combination of
+     * the X and Z position separated by a colon.
+     *
+     * @return String
+     */
+    @Override
+    public String toString() {
+        return x + ";" + z + ";" + world;
+    }
 
     /**
      * Convert this chunk into a cuboid
      *
      * @return Cuboid
      */
-	public Cuboid asCuboid() {
-	    return new Cuboid(
-	        new Position(x * 16, 0, z * 16),
-	        new Position((x * 16) + 16, 255, (z * 16) + 16)
+    public Cuboid asCuboid() {
+        return new Cuboid(
+                new Position(x * 16, 0, z * 16),
+                new Position((x * 16) + 16, 255, (z * 16) + 16)
         );
     }
-
-	/**
-	 * Decodes the specified string representation of a chunk into a ChunkCuboid
-	 *
-	 * @param id String representation of a chunk
-	 * @return ChunkCuboid
-	 * @throws IllegalArgumentException When the string does not follow the format "X;Z"
-	 */
-	public static ChunkCuboid valueOf(String id) {
-		String[] split = id.split(";");
-
-		if(split.length != 3)
-			throw new IllegalArgumentException("Invalid chunk format");
-
-		int x;
-		int z;
-		String world;
-
-		try {
-			x = Integer.parseInt(split[0]);
-			z = Integer.parseInt(split[1]);
-			world = split[2];
-		} catch (NumberFormatException ex) {
-			throw new IllegalArgumentException("Invalid chunk format", ex);
-		}
-
-		return new ChunkCuboid(x, z, world);
-	}
 
     @Override
     public boolean equals(Object o) {

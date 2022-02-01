@@ -2,6 +2,7 @@ package me.imoltres.bbu.commands
 
 import me.imoltres.bbu.BBU
 import me.imoltres.bbu.commands.main.BuildModeCommand
+import me.imoltres.bbu.commands.main.StartCommand
 import me.imoltres.bbu.utils.CC
 import me.imoltres.bbu.utils.command.*
 import net.kyori.adventure.text.Component
@@ -31,6 +32,8 @@ class GameCommand : Command {
     override fun subCommands(): List<SubCommand> {
         return listOf(
             BuildModeCommand(),
+            StartCommand(),
+
             DebugCommand()
         )
     }
@@ -46,7 +49,6 @@ class GameCommand : Command {
                 Arrays.asList(
                     "buildmode",
                     "start",
-                    "pause",
                     "stop",
                     "teams",
                     "team",
@@ -61,7 +63,7 @@ class GameCommand : Command {
                     "teams" -> options.add("clear")
 
                     "team" -> {
-                        for (team in BBU.getInstance().teamController.allTeams) {
+                        for (team in BBU.instance.teamController.allTeams) {
                             options.add(team.colour.name)
                         }
                     }

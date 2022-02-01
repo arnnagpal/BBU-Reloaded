@@ -3,6 +3,7 @@ package me.imoltres.bbu.data.player
 import me.imoltres.bbu.data.team.BBUTeam
 import me.imoltres.bbu.scoreboard.BBUScoreboardAdapter
 import me.imoltres.bbu.utils.CC
+import me.imoltres.bbu.utils.Messages
 import net.kyori.adventure.text.TextComponent
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
@@ -25,9 +26,14 @@ class BBUPlayer(val uniqueId: UUID, val name: String) {
         }
         private set
 
-    var scoreboard: BBUScoreboardAdapter? = null
-    var team: BBUTeam? = null
+    var eliminated = false
 
+    var scoreboard: BBUScoreboardAdapter? = null
+        set(value) {
+            println("Set player's scoreboard.")
+            field = value
+        }
+    var team: BBUTeam? = null
     var build = false
 
     fun getDisplayName(): TextComponent {
@@ -55,6 +61,13 @@ class BBUPlayer(val uniqueId: UUID, val name: String) {
         player?.inventory?.addItem(item)
         player?.sendActionBar(CC.translate("&aAdded " + item.displayName + " to your inventory."))
         return true
+    }
+
+    fun eliminate() {
+        eliminated = true
+        team?.removePlayer(this)
+
+        player?.kick(CC.translate(Messages.FINAL_DEATH.toString()))
     }
 
 }

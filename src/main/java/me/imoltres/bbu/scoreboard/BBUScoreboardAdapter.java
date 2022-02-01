@@ -213,7 +213,6 @@ public abstract class BBUScoreboardAdapter {
         }
 
         Team team = scoreboard.getTeam(String.valueOf(number));
-
         if (team == null) {
             return null;
         }
@@ -229,7 +228,7 @@ public abstract class BBUScoreboardAdapter {
     }
 
     public List<TextComponent> getScoreboardLines() {
-        long linesSize = scoreboard.getTeams().stream().filter(team -> CC.isInteger(team.getName(), 10)).count();
+        long linesSize = new ArrayList<>(scoreboard.getTeams()).stream().filter(team -> CC.isInteger(team.getName(), 10)).count();
 
         List<TextComponent> l = new ArrayList<>();
 
@@ -237,6 +236,7 @@ public abstract class BBUScoreboardAdapter {
             TextComponent line = getLine(i);
             if (line == null)
                 return null;
+
             l.add(getLine(i));
         }
 

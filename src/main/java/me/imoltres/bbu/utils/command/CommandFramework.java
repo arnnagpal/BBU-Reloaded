@@ -19,6 +19,7 @@ package me.imoltres.bbu.utils.command;
 
 import me.imoltres.bbu.utils.CC;
 import net.kyori.adventure.text.TextComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
@@ -117,13 +118,13 @@ public class CommandFramework implements TabExecutor {
                 Method method = instance.getClass().getMethod("execute", CommandArgs.class);
                 if (command != null) {
                     if (method.getParameterTypes().length > 0 && method.getParameterTypes()[0] != CommandArgs.class) {
-                        System.out.println("Invalid command in class '" + instance.getClass().getSimpleName() + "'");
+                        Bukkit.getConsoleSender().sendMessage(CC.translate("Invalid command in class '" + instance.getClass().getSimpleName() + "'"));
                         return;
                     }
 
                     registerCommand(command, method, instance);
                 } else {
-                    System.out.println("Invalid command in class '" + instance.getClass().getSimpleName() + "'");
+                    Bukkit.getConsoleSender().sendMessage(CC.translate("Invalid command in class '" + instance.getClass().getSimpleName() + "'"));
                     return;
                 }
 

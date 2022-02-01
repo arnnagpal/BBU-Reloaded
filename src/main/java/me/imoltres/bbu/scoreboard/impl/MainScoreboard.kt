@@ -22,7 +22,7 @@ class MainScoreboard(player: Player) : BBUScoreboardAdapter(1, player) {
         lines.add("&bTPS: " + TickUtils.getTPS())
 
         if (game.gameState.next() != null) {
-            val tick = game.thread.tick
+            val tick = game.thread.tick / 20
             val timeTill = DateUtils.readableTime(BigDecimal(game.gameState.next()!!.startsAfterTick - tick))
 
             when (game.gameState) {

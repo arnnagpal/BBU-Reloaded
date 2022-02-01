@@ -3,6 +3,11 @@ package me.imoltres.bbu.commands
 import me.imoltres.bbu.BBU
 import me.imoltres.bbu.commands.main.BuildModeCommand
 import me.imoltres.bbu.commands.main.StartCommand
+import me.imoltres.bbu.commands.main.StopCommand
+import me.imoltres.bbu.commands.player.PlayerCommands
+import me.imoltres.bbu.commands.team.TeamCommands
+import me.imoltres.bbu.commands.team.TeamsClearCommand
+import me.imoltres.bbu.commands.team.TeamsCommand
 import me.imoltres.bbu.utils.CC
 import me.imoltres.bbu.utils.command.*
 import net.kyori.adventure.text.Component
@@ -33,6 +38,13 @@ class GameCommand : Command {
         return listOf(
             BuildModeCommand(),
             StartCommand(),
+            StopCommand(),
+
+            TeamsCommand(),
+            TeamsClearCommand(),
+            TeamCommands(),
+
+            PlayerCommands(),
 
             DebugCommand()
         )
@@ -70,18 +82,12 @@ class GameCommand : Command {
 
                     "player" -> {
                         options.addAll(
-                            Arrays.asList(
-                                "revive",
-                                "eliminate"
-                            )
-                        )
-                        options.addAll(
                             Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toSet())
                         )
                     }
 
                     "debug" -> options.addAll(
-                        Arrays.asList(
+                        listOf(
                             "invsee",
                             "givebeacon",
                             "givetracker"
@@ -95,15 +101,15 @@ class GameCommand : Command {
                 when (parentCommand.lowercase()) {
                     "team" -> {
                         options.addAll(
-                            Arrays.asList(
-                                "revive",
+                            listOf(
                                 "eliminate"
                             )
                         )
                     }
 
                     "player" -> options.addAll(
-                        Arrays.asList(
+                        listOf(
+                            "eliminate",
                             "jointeam",
                             "leaveteam"
                         )
@@ -116,11 +122,16 @@ class GameCommand : Command {
             }
 
             4 -> {
-                val parentCommand = args[0]
+                val parentCommand = args[2]
                 when (parentCommand.lowercase()) {
-                    "eliminate", "invsee" -> {
+                    "eliminate" -> {
                         options.add("true")
                         options.add("false")
+                    }
+                    "jointeam" -> {
+                        for (team in BBU.instance.teamController.allTeams) {
+                            options.add(team.colour.name)
+                        }
                     }
                 }
             }
@@ -133,29 +144,27 @@ class GameCommand : Command {
 
     private fun getHelpMessage(): MutableList<Component> {
         return CC.translate(
-            Arrays.asList(
+            listOf(
                 "&3&lBBU Help Menu &8- ",
                 "&3MAIN: ",
                 "  &b* /bbu buildmode &8- &7Enables building/interacting with the game world.",
                 "  &b* /bbu start &8- &7What do you think it does?",
-                "  &b* /bbu pause &8- &7What do you think it does?",
                 "  &b* /bbu stop &8- &7What do you think it does?",
                 "",
                 "&3TEAM: ",
                 "  &b* /bbu teams &8- &7Lists all the teams with players in them.",
                 "  &b* /bbu teams clear &8- &7Clears all teams' players.",
-                "  &b* /bbu team <team> revive &8- &7Respawns the team's beacon, and reviving any dead teammates.",
                 "  &b* /bbu team <team> eliminate [players] &8- &7Eliminates the team's beacon, and if specified, eliminates any players inside of that team.",
                 "",
                 "&3PLAYER: ",
-                "  &b* /bbu player revive &8- &7Allows the player to come back into the game *if* they got eliminated.",
-                "  &b* /bbu player eliminate &8- &7Eliminates the player.",
+                "  &b* /bbu player <player> eliminate &8- &7Eliminates the player.",
                 "  &b* /bbu player <player> jointeam <team> &8- &7Adds <player> to team <team>.",
                 "  &b* /bbu player <player> leaveteam &8- &7Removes <player> from whatever team they were previously in.",
                 "",
                 "&3DEBUG: ",
                 "  &b* /bbu debug givebeacon <player> &8- &7Gives a beacon to another player (Will invalidate any other beacons for that team if placed.)",
                 "  &b* /bbu debug givetracker <player> &8- &7Gives a tracker to another player (only use for debug purposes/person somehow loses it.)",
+                "  &b* /bbu debug setgamestate <state> &8- &7Sets the game state to <state> (only use for debug purposes.)",
                 "",
                 "Made by iUwutres &c\u2665"
             )

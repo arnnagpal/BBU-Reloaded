@@ -4,6 +4,7 @@ import me.imoltres.bbu.BBU
 import me.imoltres.bbu.data.team.BBUTeam
 import me.imoltres.bbu.game.Game
 import me.imoltres.bbu.game.GameState
+import me.imoltres.bbu.utils.CC
 import me.imoltres.bbu.utils.DateUtils
 import me.imoltres.bbu.utils.PlayerUtils
 import org.bukkit.Bukkit
@@ -49,7 +50,7 @@ class GameThread(val game: Game) : Thread() {
                 tick++
 
                 //sleep to tick to next second
-                sleep(5)
+                sleep(50)
             }
         } catch (e: InterruptedException) {
             return
@@ -89,7 +90,8 @@ class GameThread(val game: Game) : Thread() {
     private fun checkTeams() {
         while (teamCheckQueue.peek() != null) {
             val team = teamCheckQueue.pop()
-            println("&aChecking team '&" + team.colour.chatColor.char + team.colour.name + "&a'.")
+            Bukkit.getConsoleSender()
+                .sendMessage(CC.translate("&aChecking team '&" + team.colour.chatColor.char + team.colour.name + "&a'."))
             if (team.players.size == 0 && !team.hasBeacon()) {
                 team.eliminate()
             }

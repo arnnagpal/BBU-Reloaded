@@ -48,20 +48,20 @@ class BBU : JavaPlugin() {
             field = value
 
             if (value)
-                println("&aServer is now joinable.")
+                Bukkit.getConsoleSender().sendMessage(CC.translate("&aServer is now joinable."))
             else {
                 for (player in Bukkit.getOnlinePlayers()) {
                     player.kick(CC.translate("&cServer is no longer joinable\n\n&cTry again later."))
                 }
 
-                println("&cServer is no longer joinable.")
+                Bukkit.getConsoleSender().sendMessage(CC.translate("&cServer is no longer joinable."))
             }
         }
 
     override fun onLoad() {
-        println("&aSetting up instance...")
+        Bukkit.getConsoleSender().sendMessage(CC.translate("&aSetting up instance..."))
         instance = this
-        println("&aLoading config files...")
+        Bukkit.getConsoleSender().sendMessage(CC.translate("&aLoading config files..."))
         mainConfig = BasicConfigurationFile(this, "config")
         messagesConfig = BasicConfigurationFile(this, "messages")
         teamSpawnsConfig = BasicConfigurationFile(this, "teamSpawns")
@@ -70,15 +70,16 @@ class BBU : JavaPlugin() {
         tempSchemesFolder = File(schemesFolder, "tempSchems")
 
         if (!schemesFolder.exists() || Objects.requireNonNull(schemesFolder.listFiles()).isEmpty()) {
-            println("&bCreating schematics folder and/or writing default schems...")
+            Bukkit.getConsoleSender()
+                .sendMessage(CC.translate("&bCreating schematics folder and/or writing default schems..."))
             writeDefaultSchems()
             tempSchemesFolder.mkdirs()
         }
 
-        println("&aInitialising command framework...")
+        Bukkit.getConsoleSender().sendMessage(CC.translate("&aInitialising command framework..."))
         commandFramework = CommandFramework(this)
 
-        println("&aInitialising controllers...")
+        Bukkit.getConsoleSender().sendMessage(CC.translate("&aInitialising controllers..."))
         playerController = PlayerController(this)
         teamController = TeamController(this)
         cageController = CageController(this)
@@ -103,24 +104,26 @@ class BBU : JavaPlugin() {
     }
 
     override fun onEnable() {
-        println("&aSetting up teams...")
+        Bukkit.getConsoleSender().sendMessage(CC.translate("&aSetting up teams..."))
         setupTeams()
-        println("&aRegistering listeners...")
+        Bukkit.getConsoleSender().sendMessage(CC.translate("&aRegistering listeners..."))
         registerListeners()
-        println("&aRegistering commands...")
+        Bukkit.getConsoleSender().sendMessage(CC.translate("&aRegistering commands..."))
         registerCommands()
-        println("&aRegistering game instance...")
+        Bukkit.getConsoleSender().sendMessage(CC.translate("&aRegistering game instance..."))
         game = Game()
         scoreboard = BBUScoreboard()
     }
 
     private fun setupTeams() {
         for (colour in BBUTeamColour.values()) {
-            println(
-                "&aTeam '&" + colour.chatColor.char + colour.name + "&a' created " + if (teamController.createTeam(
-                        colour
-                    )
-                ) "successfully" else "&cunsuccessfully"
+            Bukkit.getConsoleSender().sendMessage(
+                CC.translate(
+                    "&aTeam '&" + colour.chatColor.char + colour.name + "&a' created " + if (teamController.createTeam(
+                            colour
+                        )
+                    ) "successfully" else "&cunsuccessfully"
+                )
             )
         }
     }

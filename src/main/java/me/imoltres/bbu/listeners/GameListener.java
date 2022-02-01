@@ -46,9 +46,7 @@ public class GameListener implements Listener {
                     return;
 
                 if (bukkitPlayer.isDead() && bukkitPlayer.isOnline()) {
-                    bukkitPlayer.spigot().respawn();
-
-                    team.removePlayer(player);
+                    player.eliminate();
                 }
 
             }, 2L);

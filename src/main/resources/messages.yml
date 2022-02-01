@@ -1,5 +1,5 @@
 scoreboard-title: "&3&lBBU RELOADED"
 
-beacon-destroyed: "&a{breaker} has destroyed {team}'s beacon! They can no longer respawn."
+beacon-destroyed: "&a{breaker} &ahas destroyed {team}&a's beacon! They can no longer respawn."
 
 final-death: "&cL bozo\n\n&chttps://twitch.tv/igniMoltres"

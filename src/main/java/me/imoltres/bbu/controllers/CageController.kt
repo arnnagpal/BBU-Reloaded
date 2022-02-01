@@ -13,6 +13,7 @@ import com.sk89q.worldedit.regions.CuboidRegion
 import me.imoltres.bbu.BBU
 import me.imoltres.bbu.data.team.BBUCage
 import me.imoltres.bbu.data.team.BBUTeam
+import me.imoltres.bbu.utils.CC
 import me.imoltres.bbu.utils.GsonFactory
 import me.imoltres.bbu.utils.world.*
 import org.bukkit.Bukkit
@@ -23,7 +24,7 @@ import java.io.IOException
 import java.util.*
 import java.util.concurrent.ExecutionException
 
-class CageController(plugin: BBU) {
+class CageController(val plugin: BBU) {
     fun resetCages(world: World) {
         deleteCages(world)
         try {
@@ -98,13 +99,19 @@ class CageController(plugin: BBU) {
             e.printStackTrace()
         }
         clipboard.paste(BukkitWorld(world), to).flushQueue()
-        bbuTeam.cage = BBUCage(bbuTeam, cage, cage.center.toWorldPosition(world.name))
-        println(
-            "&aTeam '&" + bbuTeam.colour.chatColor.char + bbuTeam.colour.name + "&a' cage spawned at &7" + bbuTeam.cage!!.spawnPosition
-                .toString() + "&a."
-        )
-        BBU.instance.teamSpawnsConfig.configuration["team." + bbuTeam.colour.name] =
-            GsonFactory.getCompactGson().toJson(cage)
+
+        Bukkit.getScheduler().runTask(plugin, Runnable {
+            bbuTeam.cage = BBUCage(bbuTeam, cage, cage.center.toWorldPosition(world.name))
+
+            Bukkit.getConsoleSender().sendMessage(
+                CC.translate(
+                    "&aTeam '&" + bbuTeam.colour.chatColor.char + bbuTeam.colour.name + "&a' cage spawned at &7" + bbuTeam.cage!!.spawnPosition
+                        .toString() + "&a."
+                )
+            )
+            BBU.instance.teamSpawnsConfig.configuration["team." + bbuTeam.colour.name] =
+                GsonFactory.getCompactGson().toJson(cage)
+        })
     }
 
     fun deleteCages(world: World) {
@@ -161,7 +168,7 @@ class CageController(plugin: BBU) {
         x = worldPosition.x
         val y = worldPosition.y.toInt()
         z = worldPosition.z
-        println("Checking position: $x, $y, $z")
+        Bukkit.getConsoleSender().sendMessage(CC.translate("Checking position: $x, $y, $z"))
         for (p in exclusions) {
             while (p.distance(position2D) < range) {
                 if (Bukkit.getScheduler().callSyncMethod(BBU.instance) { BBU.instance.disabling }.get())

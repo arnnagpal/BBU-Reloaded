@@ -11,6 +11,7 @@ import me.imoltres.bbu.utils.world.Cuboid
 import me.imoltres.bbu.utils.world.Position
 import net.kyori.adventure.text.TextComponent
 import org.bukkit.Bukkit
+import org.bukkit.Material
 import java.util.*
 
 class BBUTeam(val colour: BBUTeamColour) {
@@ -97,7 +98,24 @@ class BBUTeam(val colour: BBUTeamColour) {
     }
 
     fun eliminate() {
-        BBU.instance.teamController.deleteTeam(this)
+        eliminate(false)
+
+    }
+
+    fun eliminate(players: Boolean) {
+        if (players) {
+            for (player in this.players) {
+                player.player?.health = 0.0
+
+                removePlayer(player)
+            }
+        }
+
+        if (beacon != null) {
+            beacon!!.toWorldPosition(BBU.instance.game.overworld.name).block.type = Material.AIR
+        }
+
+        beacon = null
     }
 
     fun getDisplayName(): TextComponent {

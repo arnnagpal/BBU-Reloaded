@@ -4,6 +4,7 @@ import me.imoltres.bbu.BBU
 import me.imoltres.bbu.data.team.BBUTeam
 import me.imoltres.bbu.game.threads.GameStartThread
 import me.imoltres.bbu.game.threads.GameThread
+import me.imoltres.bbu.utils.CC
 import me.imoltres.bbu.utils.world.Position2D
 import org.bukkit.*
 import java.util.concurrent.ExecutionException
@@ -28,6 +29,13 @@ class Game {
         if (thread.isAlive) {
             throw RuntimeException("Game has already started.")
         }
+
+        for (team in BBU.instance.teamController.allTeams) {
+            if (team.players.size == 0) {
+                team.eliminate()
+            }
+        }
+
         GameStartThread(this).start()
     }
 
@@ -44,6 +52,7 @@ class Game {
 
 
     fun checkTeam(team: BBUTeam) {
+        println("Added '" + team.colour.name + "' to the checking queue.")
         thread.teamCheckQueue.offer(team)
     }
 
@@ -66,14 +75,17 @@ class Game {
         if (location != null) {
             fortressPosition = Position2D(location.x, location.z).toIntPosition()
         } else {
-            println("Unable to find a fortress within border, you might have to find a new seed.")
+            Bukkit.getConsoleSender()
+                .sendMessage(CC.translate("Unable to find a fortress within border, you might have to find a new seed."))
         }
 
         Bukkit.getScheduler().runTaskAsynchronously(BBU.instance, Runnable {
             try {
                 BBU.instance.cageController.placeCages(overworld, BBU.instance.teamController.teamsWithCages)
 
-                BBU.instance.joinable = true
+                Bukkit.getScheduler().runTaskLater(BBU.instance, Runnable {
+                    BBU.instance.joinable = true
+                }, 20L)
             } catch (e: ExecutionException) {
                 e.printStackTrace()
             } catch (e: InterruptedException) {

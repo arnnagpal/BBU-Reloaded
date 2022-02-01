@@ -1,6 +1,8 @@
 package me.imoltres.bbu.utils.command;
 
 import me.imoltres.bbu.BBU;
+import me.imoltres.bbu.utils.CC;
+import org.bukkit.Bukkit;
 
 import java.util.List;
 
@@ -12,7 +14,7 @@ public interface Command {
         framework.registerCommands(classes);
 
         for (Class<? extends Command> c : classes)
-            System.out.println("&aRegistered command '&c" + c.getSimpleName() + "&a'");
+            Bukkit.getConsoleSender().sendMessage(CC.translate("&aRegistered command '&c" + c.getSimpleName() + "&a'"));
     }
 
     void execute(CommandArgs cmd);

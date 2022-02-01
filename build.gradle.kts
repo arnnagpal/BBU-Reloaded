@@ -4,7 +4,7 @@ val apiVersion by extra("1.17")
 
 val spigotVersion by extra("1.18.1-R0.1-SNAPSHOT")
 val gsonVersion by extra("2.8.9")
-val faweVersion by extra("1.17-425")
+val faweVersion by extra("2.0.1")
 
 val lombokVersion by extra("1.18.20")
 
@@ -27,12 +27,6 @@ version = extra["ver"]!!
 repositories {
     maven {
         url = uri("https://repo.purpurmc.org/snapshots")
-    }
-    maven {
-        url = uri("https://mvn.intellectualsites.com/content/repositories/releases/")
-    }
-    maven {
-        url = uri("https://mvn.intellectualsites.com/content/repositories/snapshots/")
     }
     mavenCentral()
 }

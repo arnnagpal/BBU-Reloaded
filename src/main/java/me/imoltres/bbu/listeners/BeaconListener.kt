@@ -42,7 +42,8 @@ class BeaconListener : Listener {
             player.sendActionBar(CC.translate("&cCannot place that there."))
         } else {
             team.beacon = WorldPosition.fromBukkitLocation(e.block.location)
-            println("&aSet `&${team.colour.chatColor.char}${team.colour.name}` team's beacon to ${team.beacon.toString()}")
+            Bukkit.getConsoleSender()
+                .sendMessage(CC.translate("&aSet `&${team.colour.chatColor.char}${team.colour.name}` team's beacon to ${team.beacon.toString()}"))
         }
 
     }
@@ -73,7 +74,8 @@ class BeaconListener : Listener {
             breaker.sendActionBar(CC.translate("&cCannot break that."))
         } else {
             team.beacon = null
-            println("&aSet `&${team.colour.chatColor.char}${team.colour.name}` team's beacon to null")
+            Bukkit.getConsoleSender()
+                .sendMessage(CC.translate("&aSet `&${team.colour.chatColor.char}${team.colour.name}` team's beacon to null"))
         }
     }
 

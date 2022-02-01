@@ -33,6 +33,9 @@ public class BBUScoreboard {
             bukkitPlayer.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
         }
 
+        if (player.getScoreboard() == null)
+            return;
+
         player.getScoreboard().remove();
         player.setScoreboard(null);
     }

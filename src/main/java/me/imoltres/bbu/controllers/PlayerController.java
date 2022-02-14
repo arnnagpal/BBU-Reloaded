@@ -12,20 +12,41 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * Controller to manage all the player instances
+ */
 @RequiredArgsConstructor
 public class PlayerController {
     private final BBU plugin;
 
     private final Set<BBUPlayer> players = new HashSet<>();
 
+    /**
+     * Retrieve a player based on their UUID
+     *
+     * @param uniqueId UUID of the player
+     * @return BBUPlayer
+     */
     public BBUPlayer getPlayer(UUID uniqueId) {
         return players.stream().filter(bbuPlayer -> bbuPlayer.getUniqueId().equals(uniqueId)).findFirst().orElse(null);
     }
 
+    /**
+     * Retrieve a player based on their name
+     *
+     * @param name name of the player
+     * @return BBUPlayer
+     */
     public BBUPlayer getPlayer(String name) {
         return players.stream().filter(bbuPlayer -> bbuPlayer.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
     }
 
+    /**
+     * Get the username of a player from the UUID
+     *
+     * @param uniqueId UUID of the player
+     * @return username
+     */
     public String getName(UUID uniqueId) {
         //check player set first
         //then check with bukkit
@@ -47,6 +68,12 @@ public class PlayerController {
         return null;
     }
 
+    /**
+     * Get the uuid of the player from their name
+     *
+     * @param name name of the player
+     * @return UUID
+     */
     public UUID getUniqueId(String name) {
         //check player set first
         //then check with bukkit
@@ -68,6 +95,13 @@ public class PlayerController {
         return null;
     }
 
+    /**
+     * Create a BBUPlayer for a unique id and a name, though, if it already exists, we ignore it.
+     *
+     * @param uniqueId uuid of the player
+     * @param name     name of the player
+     * @return BBUPlayer
+     */
     public BBUPlayer createPlayer(UUID uniqueId, String name) {
         BBUPlayer bbuPlayer = getPlayer(uniqueId);
         if (bbuPlayer != null) {
@@ -83,14 +117,29 @@ public class PlayerController {
         return bbuPlayer;
     }
 
+    /**
+     * @return an immutable list of all the players
+     */
     public List<BBUPlayer> getPlayers() {
         return ImmutableList.copyOf(players);
     }
 
+    /**
+     * Delete a BBUPlayer from cache based on the uuid
+     *
+     * @param uniqueId uniqueId of the player
+     * @return if it was successful
+     */
     public boolean deletePlayer(UUID uniqueId) {
         return players.remove(getPlayer(uniqueId));
     }
 
+    /**
+     * Delete a BBUPlayer from cache based on the name
+     *
+     * @param name name of the player
+     * @return if it was successful
+     */
     public boolean deletePlayer(String name) {
         return players.remove(getPlayer(name));
     }

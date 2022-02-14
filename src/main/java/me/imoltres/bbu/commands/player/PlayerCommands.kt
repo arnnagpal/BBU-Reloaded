@@ -27,7 +27,7 @@ class PlayerCommands : SubCommand {
 
         val player: BBUPlayer
         try {
-            player = BBU.instance.playerController.getPlayer(args[0])
+            player = BBU.getInstance().playerController.getPlayer(args[0])
         } catch (e: Exception) {
             sender.sendMessage(CC.translate("&cSpecify a *valid* player."))
             return
@@ -52,7 +52,7 @@ class PlayerCommands : SubCommand {
                     sender.sendMessage(CC.translate("&cSpecify a *valid* team."))
                     return
                 }
-                val team = BBU.instance.teamController.getTeam(colour)
+                val team = BBU.getInstance().teamController.getTeam(colour)
                 team.addPlayer(player)
                 sender.sendMessage(CC.translate("&aAdded '" + player.getRawDisplayName() + "&a' to team '" + team.getRawDisplayName() + "&a'"))
             }

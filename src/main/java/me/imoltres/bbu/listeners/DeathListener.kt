@@ -15,8 +15,8 @@ class DeathListener : Listener {
     @EventHandler
     fun onPlayerDeath(e: PlayerDeathEvent) {
         val player = e.player
-        val bbuPlayer = BBU.instance.playerController.getPlayer(player.uniqueId)
-        val team = BBU.instance.teamController.getTeam(player) ?: return
+        val bbuPlayer = BBU.getInstance().playerController.getPlayer(player.uniqueId)
+        val team = BBU.getInstance().teamController.getTeam(player) ?: return
 
         val iterator: MutableIterator<ItemStack> = e.drops.iterator()
         while (iterator.hasNext()) {
@@ -28,7 +28,7 @@ class DeathListener : Listener {
             }
         }
 
-        val killer = BBU.instance.playerController.getPlayer(player.killer?.uniqueId)
+        val killer = BBU.getInstance().playerController.getPlayer(player.killer?.uniqueId)
 
         val event = BBUPlayerDeathEvent(bbuPlayer, killer, team.hasBeacon())
         Bukkit.getPluginManager().callEvent(event)

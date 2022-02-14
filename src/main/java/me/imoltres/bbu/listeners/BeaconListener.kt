@@ -27,11 +27,11 @@ class BeaconListener : Listener {
 
         //is bbu beacon :D
         val player = e.player
-        val team = BBU.instance.teamController.getTeam(player) ?: return
+        val team = BBU.getInstance().teamController.getTeam(player) ?: return
 
         val event = BBUPlaceBeaconEvent(
             team,
-            BBU.instance.playerController.getPlayer(player.uniqueId),
+            BBU.getInstance().playerController.getPlayer(player.uniqueId),
             WorldPosition.fromBukkitLocation(e.block.location)
         )
         Bukkit.getPluginManager().callEvent(event)
@@ -53,9 +53,9 @@ class BeaconListener : Listener {
         if (e.block.type != Material.BEACON)
             return
 
-        val team = BBU.instance.teamController.getTeam(e.block) ?: return
+        val team = BBU.getInstance().teamController.getTeam(e.block) ?: return
         val breaker = e.player
-        val breakerTeam = BBU.instance.teamController.getTeam(breaker)
+        val breakerTeam = BBU.getInstance().teamController.getTeam(breaker)
 
         e.isDropItems = false
         e.expToDrop = 0
@@ -64,7 +64,7 @@ class BeaconListener : Listener {
         val event = BBUBreakBeaconEvent(
             e.block,
             team,
-            BBU.instance.playerController.getPlayer(breaker.uniqueId),
+            BBU.getInstance().playerController.getPlayer(breaker.uniqueId),
             breakerTeam == team
         )
         Bukkit.getPluginManager().callEvent(event)
@@ -83,8 +83,8 @@ class BeaconListener : Listener {
     fun onLiquidFlow(e: BlockFromToEvent) {
         if (e.block.type == Material.WATER || e.block.type == Material.LAVA) {
             //prevent liquid flow onto invalid surfaces for beacon
-            if (BlockUtils.facesTouching(BlockUtils.faces, e.toBlock)
-                    .any { block -> BBU.instance.teamController.getTeam(block) != null }
+            if (BlockUtils.getFacesTouching(BlockUtils.faces, e.toBlock)
+                    .any { block -> BBU.getInstance().teamController.getTeam(block) != null }
                 || BlockUtils.generatesCobble(BlockUtils.faces, e.block.type, e.toBlock)
             ) {
                 e.isCancelled = true
@@ -94,8 +94,8 @@ class BeaconListener : Listener {
 
     @EventHandler
     fun onEmptyBucket(e: PlayerBucketEmptyEvent) {
-        if (BlockUtils.facesTouching(BlockUtils.faces, e.block)
-                .any { block -> BBU.instance.teamController.getTeam(block) != null }
+        if (BlockUtils.getFacesTouching(BlockUtils.faces, e.block)
+                .any { block -> BBU.getInstance().teamController.getTeam(block) != null }
         ) {
             e.isCancelled = true
             e.player.sendActionBar(CC.translate("&cCannot place that there."))

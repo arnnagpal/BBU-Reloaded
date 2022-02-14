@@ -1,9 +1,7 @@
 package me.imoltres.bbu.commands
 
 import me.imoltres.bbu.BBU
-import me.imoltres.bbu.commands.main.BuildModeCommand
-import me.imoltres.bbu.commands.main.StartCommand
-import me.imoltres.bbu.commands.main.StopCommand
+import me.imoltres.bbu.commands.main.*
 import me.imoltres.bbu.commands.player.PlayerCommands
 import me.imoltres.bbu.commands.team.TeamCommands
 import me.imoltres.bbu.commands.team.TeamsClearCommand
@@ -39,6 +37,8 @@ class GameCommand : Command {
             BuildModeCommand(),
             StartCommand(),
             StopCommand(),
+            SetLobbySpawnCommand(),
+            MoveToCagesCommand(),
 
             TeamsCommand(),
             TeamsClearCommand(),
@@ -62,6 +62,8 @@ class GameCommand : Command {
                     "buildmode",
                     "start",
                     "stop",
+                    "setlobbyspawn",
+                    "movetocages",
                     "teams",
                     "team",
                     "player",
@@ -75,7 +77,7 @@ class GameCommand : Command {
                     "teams" -> options.add("clear")
 
                     "team" -> {
-                        for (team in BBU.instance.teamController.allTeams) {
+                        for (team in BBU.getInstance().teamController.allTeams) {
                             options.add(team.colour.name)
                         }
                     }
@@ -129,7 +131,7 @@ class GameCommand : Command {
                         options.add("false")
                     }
                     "jointeam" -> {
-                        for (team in BBU.instance.teamController.allTeams) {
+                        for (team in BBU.getInstance().teamController.allTeams) {
                             options.add(team.colour.name)
                         }
                     }
@@ -150,6 +152,9 @@ class GameCommand : Command {
                 "  &b* /bbu buildmode &8- &7Enables building/interacting with the game world.",
                 "  &b* /bbu start &8- &7What do you think it does?",
                 "  &b* /bbu stop &8- &7What do you think it does?",
+                "  &b* /bbu setlobbyspawn &8- &7What do you think it does?",
+
+                "  &b* /bbu movetocages &8- &7Moves the players from the lobby phase to the pre-game phase (lobby --> cages)",
                 "",
                 "&3TEAM: ",
                 "  &b* /bbu teams &8- &7Lists all the teams with players in them.",

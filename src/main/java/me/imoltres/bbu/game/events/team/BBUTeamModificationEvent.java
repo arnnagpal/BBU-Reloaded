@@ -8,6 +8,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.AbstractMap;
 
+/**
+ * Whenever a team is modified, this event is called.
+ */
 public class BBUTeamModificationEvent extends BBUTeamEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
 

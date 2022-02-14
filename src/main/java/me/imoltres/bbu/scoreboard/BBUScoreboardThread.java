@@ -5,6 +5,9 @@ import me.imoltres.bbu.data.player.BBUPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+/**
+ * Updates every player's scoreboard every x millis.
+ */
 public class BBUScoreboardThread extends Thread {
 
     public void run() {

@@ -31,7 +31,7 @@ class TeamCommands : SubCommand {
             sender.sendMessage(CC.translate("&cSpecify a *valid* team."))
             return
         }
-        val team = BBU.instance.teamController.getTeam(colour)
+        val team = BBU.getInstance().teamController.getTeam(colour)
         val type = args[1].lowercase()
 
         when (type) {

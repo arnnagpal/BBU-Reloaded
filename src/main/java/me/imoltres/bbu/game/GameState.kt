@@ -1,21 +1,46 @@
 package me.imoltres.bbu.game
 
-enum class GameState(val startsAfterTick: Int, val display: String?, val pvp: Boolean) {
-    PRE_GAME(-1, null, false),
-    GRACE(0, null, false),
-    PVP(1800, "PVP", true),
-    PVP_BORDER_SHRINK(3600, "Border", true),
-    POST_GAME(-1, null, true)
+/**
+ * Game state
+ */
+enum class GameState(val startsAfterTick: Int, val display: String?) {
+    LOBBY(-1, null),
+    PRE_GAME(-1, null),
+    GRACE(0, null),
+    PVP(1800, "PVP"),
+    PVP_BORDER_SHRINK(3600, "Border"),
+    POST_GAME(-1, null)
     ;
 
     val tick: Int
         get() = if (startsAfterTick > 0) values()[ordinal - 1].startsAfterTick + startsAfterTick else startsAfterTick
 
+    /**
+     * @return the next game state after the current one
+     */
     operator fun next(): GameState? {
         return if (this != POST_GAME) values()[ordinal + 1] else null
     }
 
+    /**
+     * @return is the game state allowing pvp
+     */
+    fun isPvp(): Boolean {
+        return this == PVP || this == PVP_BORDER_SHRINK || this == POST_GAME
+    }
+
+    /**
+     * @return is the game state a spawn state
+     */
+    fun isSpawn(): Boolean {
+        return this == LOBBY || this == PRE_GAME
+    }
+
     companion object {
+        /**
+         * get a game state based on the tick that the game is in
+         * @return the gamestate (nullable)
+         */
         fun getGameStateFromTick(tick: Int): GameState? {
             val secondTick = tick / 20
 

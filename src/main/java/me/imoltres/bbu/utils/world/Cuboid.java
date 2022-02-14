@@ -135,7 +135,7 @@ public class Cuboid implements Iterable<Position> {
     }
 
     /**
-     * Get the the center of the Cuboid
+     * Get the center of the Cuboid
      *
      * @return Location at the center of the Cuboid
      */

@@ -6,7 +6,7 @@ val spigotVersion by extra("1.18.1-R0.1-SNAPSHOT")
 val gsonVersion by extra("2.8.9")
 val faweVersion by extra("2.0.1")
 
-val lombokVersion by extra("1.18.20")
+val lombokVersion by extra("1.18.22")
 
 //val outputDir by extra(File(rootProject.projectDir, "dist"))
 val outputDir by extra(File("D:\\test server\\plugins"))
@@ -18,7 +18,9 @@ plugins {
     java
     kotlin("jvm") version "1.6.0"
     kotlin("plugin.lombok") version "1.6.0"
-    id("io.freefair.lombok") version "5.3.0"
+
+    id("org.jetbrains.dokka") version "1.6.10"
+    id("io.freefair.lombok") version "6.4.0"
 }
 
 group = "me.imoltres"
@@ -32,15 +34,13 @@ repositories {
 }
 
 dependencies {
-    implementation(fileTree("compileLibs"))
     implementation(group = "com.google.code.gson", name = "gson", version = gsonVersion)
     implementation(group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version = "1.6.0")
 
     compileOnly(group = "org.purpurmc.purpur", name = "purpur-api", version = spigotVersion)
     compileOnly(group = "com.fastasyncworldedit", name = "FastAsyncWorldEdit-Bukkit", version = faweVersion)
 
-    compileOnly(group = "org.projectlombok", name = "lombok", version = lombokVersion)
-    annotationProcessor(group = "org.projectlombok", name = "lombok", version = lombokVersion)
+    dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.6.10")
 
     testImplementation(group = "org.junit.jupiter", name = "junit-jupiter-api", version = "5.8.1")
     testRuntimeOnly(group = "org.junit.jupiter", name = "junit-jupiter-engine", version = "5.8.1")
@@ -76,6 +76,10 @@ tasks {
         }
 
         outputs.upToDateWhen { false }
+    }
+
+    dokkaHtml.configure {
+        outputDirectory.set(File(projectDir, "docs"))
     }
 
     test {

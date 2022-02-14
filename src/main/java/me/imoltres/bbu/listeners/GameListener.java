@@ -11,7 +11,7 @@ import me.imoltres.bbu.game.events.team.BBUTeamModificationEvent;
 import me.imoltres.bbu.utils.BlockUtils;
 import me.imoltres.bbu.utils.CC;
 import me.imoltres.bbu.utils.ItemConstants;
-import me.imoltres.bbu.utils.Messages;
+import me.imoltres.bbu.utils.config.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -66,7 +66,7 @@ public class GameListener implements Listener {
         if (player.getWorld().getEnvironment() != World.Environment.NORMAL) {
             e.setCancelled(true);
         } else {
-            if (BlockUtils.facesTouching(BlockUtils.Companion.getFaces(), e.getPosition().getBlock()).size() > 1) {
+            if (BlockUtils.getFacesTouching(BlockUtils.Companion.getFaces(), e.getPosition().getBlock()).size() > 1) {
                 e.setCancelled(true);
             }
         }
@@ -77,7 +77,7 @@ public class GameListener implements Listener {
         BBUPlayer player = e.getBreaker();
         BBUTeam team = BBU.getInstance().getTeamController().getTeam(e.getBeacon());
 
-        if (e.isTeamBreak() && BBU.getInstance().getGame().getGameState().getPvp()) {
+        if (e.isTeamBreak() && BBU.getInstance().getGame().getGameState().isPvp()) {
             e.setCancelled(true);
             return;
         }
@@ -105,7 +105,8 @@ public class GameListener implements Listener {
 
     @EventHandler
     public void onTeamModification(BBUTeamModificationEvent e) {
-        BBU.getInstance().getGame().checkTeam(e.getTeam());
+        if (BBU.getInstance().getGame().getAliveTeams().contains(e.getTeam()))
+            BBU.getInstance().getGame().checkTeam(e.getTeam());
     }
 
 }

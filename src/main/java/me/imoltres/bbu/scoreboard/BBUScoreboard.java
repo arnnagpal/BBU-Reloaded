@@ -5,16 +5,25 @@ import me.imoltres.bbu.data.player.BBUPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+/**
+ * Controller for all the {@link BBUScoreboardAdapter} instances
+ */
 public class BBUScoreboard {
 
     private BBUScoreboardThread thread;
 
+    /**
+     * Make a new instance of the 'controller'
+     */
     public BBUScoreboard() {
         thread = new BBUScoreboardThread();
 
         thread.start();
     }
 
+    /**
+     * Cleanup all the scoreboards still being updated
+     */
     public void cleanup() {
         if (this.thread != null) {
             this.thread.interrupt();
@@ -26,6 +35,11 @@ public class BBUScoreboard {
         }
     }
 
+    /**
+     * Cleanup the scoreboard of an individual player
+     *
+     * @param player player
+     */
     public void cleanup(BBUPlayer player) {
         Player bukkitPlayer = Bukkit.getPlayer(player.getUniqueId());
 

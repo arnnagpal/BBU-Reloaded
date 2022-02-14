@@ -243,10 +243,7 @@ public class ItemBuilder {
      * @return The current ItemBuilder instance
      */
     public ItemBuilder localizedName(String name) {
-        ItemMeta meta = is.getItemMeta();
-        meta.setLocalizedName(name);
-        is.setItemMeta(meta);
-
+        is.setLocalizedName(name);
         return this;
     }
 

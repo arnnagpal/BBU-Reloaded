@@ -6,6 +6,9 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Parent team event
+ */
 public class BBUTeamEvent extends Event {
 
     private static final HandlerList handlers = new HandlerList();

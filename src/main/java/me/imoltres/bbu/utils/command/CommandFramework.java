@@ -39,6 +39,9 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
+/**
+ * The command framework to allow for plugin.yml-less commands
+ */
 public class CommandFramework implements TabExecutor {
 
     public static TextComponent ONLY_BY_PLAYERS = CC.translate("&cThis command is only executable by players.");

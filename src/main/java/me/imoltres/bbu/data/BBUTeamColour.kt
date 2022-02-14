@@ -2,6 +2,9 @@ package me.imoltres.bbu.data
 
 import org.bukkit.ChatColor
 
+/**
+ * Enum holding all the team colours
+ */
 enum class BBUTeamColour(val chatColor: ChatColor) {
     RED(ChatColor.RED),
     GREEN(ChatColor.GREEN),

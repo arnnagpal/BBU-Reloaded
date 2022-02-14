@@ -57,7 +57,7 @@ public class WorldPosition extends Position {
     }
 
     public static WorldPosition fromBukkitLocation(Location location) {
-        return new WorldPosition(location.getX(), location.getY(), location.getZ(), location.getWorld().getName());
+        return new WorldPosition(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch(), location.getWorld().getName());
     }
 
     public boolean isSafe() {
@@ -100,6 +100,18 @@ public class WorldPosition extends Position {
 
     public Block getBlock() {
         return toBukkitLocation().getBlock();
+    }
+
+    @Override
+    public String toString() {
+        return "WorldPosition{" +
+                "world='" + world + '\'' +
+                "x='" + getX() + '\'' +
+                ", y='" + getY() + '\'' +
+                ", z='" + getZ() + '\'' +
+                ", pitch='" + getPitch() + '\'' +
+                ", yaw='" + getYaw() + '\'' +
+                '}';
     }
 
     public static class Serializer extends TypeAdapter<WorldPosition> {

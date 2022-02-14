@@ -5,6 +5,9 @@ import me.imoltres.bbu.data.player.BBUPlayer;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Whenever a playing player dies, this event is called.
+ */
 public class BBUPlayerDeathEvent extends BBUPlayerEvent {
 
     private static final HandlerList handlers = new HandlerList();

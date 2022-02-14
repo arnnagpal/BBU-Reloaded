@@ -7,11 +7,11 @@ import me.imoltres.bbu.utils.world.Cuboid;
 import me.imoltres.bbu.utils.world.Position;
 import me.imoltres.bbu.utils.world.WorldPosition;
 
+/**
+ * Create a (de)serialiser in two formats,<br>
+ * Pretty & Compact
+ */
 public class GsonFactory {
-    private static final Gson g = new Gson();
-
-    private final static String CLASS_KEY = "SERIAL-ADAPTER-CLASS-KEY";
-
     private static Gson prettyGson;
     private static Gson compactGson;
 
@@ -25,13 +25,8 @@ public class GsonFactory {
      */
     public static Gson getPrettyGson() {
         if (prettyGson == null)
-            prettyGson = new GsonBuilder().enableComplexMapKeySerialization()
-                    .registerTypeAdapter(Position.class, new Position.Serializer())
-                    .registerTypeAdapter(WorldPosition.class, new WorldPosition.Serializer())
-                    .registerTypeAdapter(Cuboid.class, new Cuboid.Serializer())
-                    .registerTypeAdapter(ChunkCuboid.class, new ChunkCuboid.Serializer())
+            prettyGson = getBuilder()
                     .setPrettyPrinting()
-                    .disableHtmlEscaping()
                     .create();
         return prettyGson;
     }
@@ -46,14 +41,23 @@ public class GsonFactory {
      */
     public static Gson getCompactGson() {
         if (compactGson == null)
-            compactGson = new GsonBuilder().enableComplexMapKeySerialization()
-                    .registerTypeAdapter(Position.class, new Position.Serializer())
-                    .registerTypeAdapter(WorldPosition.class, new WorldPosition.Serializer())
-                    .registerTypeAdapter(Cuboid.class, new Cuboid.Serializer())
-                    .registerTypeAdapter(ChunkCuboid.class, new ChunkCuboid.Serializer())
-                    .disableHtmlEscaping()
+            compactGson = getBuilder()
                     .create();
         return compactGson;
+    }
+
+    /**
+     * Returns a GSON builder that can modified
+     *
+     * @return a {@link com.google.gson.GsonBuilder} instance
+     */
+    private static GsonBuilder getBuilder() {
+        return new GsonBuilder().enableComplexMapKeySerialization()
+                .registerTypeAdapter(Position.class, new Position.Serializer())
+                .registerTypeAdapter(WorldPosition.class, new WorldPosition.Serializer())
+                .registerTypeAdapter(Cuboid.class, new Cuboid.Serializer())
+                .registerTypeAdapter(ChunkCuboid.class, new ChunkCuboid.Serializer())
+                .disableHtmlEscaping();
     }
 
 }

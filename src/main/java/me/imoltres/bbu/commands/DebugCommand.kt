@@ -49,7 +49,7 @@ class DebugCommand : SubCommand {
     private fun updateState(sender: Player, input: String) {
         try {
             val state = GameState.valueOf(input.uppercase())
-            BBU.instance.game.thread.tick = state.tick
+            BBU.getInstance().game.thread.tick = state.tick
             sender.sendMessage(CC.translate("&aUpdated game state to " + input.uppercase()))
         } catch (e: Exception) {
             e.printStackTrace()

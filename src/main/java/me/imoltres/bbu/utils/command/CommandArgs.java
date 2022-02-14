@@ -17,6 +17,7 @@
 
 package me.imoltres.bbu.utils.command;
 
+import lombok.Getter;
 import org.apache.commons.lang.math.NumberUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -24,11 +25,27 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * Arguments passed into the execute method
+ */
 public class CommandArgs {
 
     private final CommandSender commandSender;
+
+    /**
+     * base command
+     */
+    @Getter
     private final Command command;
+    /**
+     * label of the command
+     */
+    @Getter
     private final String label;
+    /**
+     * arguments of the command
+     */
+    @Getter
     private final String[] arguments;
 
     public CommandArgs(CommandSender commandSender, Command command, String label, String... arguments) {
@@ -48,30 +65,6 @@ public class CommandArgs {
     @NotNull
     public <T extends CommandSender> T getSender() {
         return (T) commandSender;
-    }
-
-    /**
-     * @return base command.
-     */
-    @NotNull
-    public Command getCommand() {
-        return command;
-    }
-
-    /**
-     * @return label of the command.
-     */
-    @NotNull
-    public String getLabel() {
-        return label;
-    }
-
-    /**
-     * @return arguments of the command.
-     */
-    @NotNull
-    public String[] getArguments() {
-        return arguments;
     }
 
     // SOME GETTER METHODS FOR COMMON PRIMITIVE TYPES //

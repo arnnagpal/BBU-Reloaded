@@ -8,6 +8,9 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Whenever a beacon is broken this event is called.
+ */
 public class BBUBreakBeaconEvent extends BBUTeamEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
 

@@ -17,7 +17,7 @@ class StartCommand : SubCommand {
         sender.sendMessage(CC.translate("&aAttempting to start the game..."))
 
         try {
-            BBU.instance.game.startGame()
+            BBU.getInstance().game.startGame()
             sender.sendMessage(CC.translate("&aStarted successfully."))
         } catch (e: Exception) {
             sender.sendMessage("&c" + e.message)

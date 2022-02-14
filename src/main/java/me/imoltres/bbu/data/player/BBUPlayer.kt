@@ -3,14 +3,16 @@ package me.imoltres.bbu.data.player
 import me.imoltres.bbu.data.team.BBUTeam
 import me.imoltres.bbu.scoreboard.BBUScoreboardAdapter
 import me.imoltres.bbu.utils.CC
-import me.imoltres.bbu.utils.Messages
+import me.imoltres.bbu.utils.config.Messages
 import net.kyori.adventure.text.TextComponent
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import java.util.*
 
-
+/**
+ * Represents a custom player
+ */
 class BBUPlayer(val uniqueId: UUID, val name: String) {
     @Transient
     var player: Player? = null
@@ -36,20 +38,39 @@ class BBUPlayer(val uniqueId: UUID, val name: String) {
     var team: BBUTeam? = null
     var build = false
 
+    /**
+     * @return the TextComponent version of the display name
+     */
     fun getDisplayName(): TextComponent {
         return CC.translate(getRawDisplayName())
     }
 
+    /**
+     * @return a raw bukkit string version of the display name
+     */
     fun getRawDisplayName(): String {
         team ?: return name
 
         return "&" + team?.colour?.chatColor?.char + name
     }
 
+    /**
+     * Give an item safely to the player, alerting them that they have a full inventory (if it is)
+     *
+     * @param item item to give
+     * @return if it was successful
+     */
     fun giveItemSafely(item: ItemStack): Boolean {
         return giveItemSafely(item, false)
     }
 
+    /**
+     * Give an item safely to the player
+     *
+     * @param item item to give
+     * @param drop should drop the item if the inventory is full
+     * @return if it was successful
+     */
     fun giveItemSafely(item: ItemStack, drop: Boolean): Boolean {
         if (player?.inventory?.firstEmpty() == -1 && !drop) {
             player?.sendActionBar(CC.translate("&cEmpty a slot first."))
@@ -63,6 +84,9 @@ class BBUPlayer(val uniqueId: UUID, val name: String) {
         return true
     }
 
+    /**
+     * eliminate this player
+     */
     fun eliminate() {
         eliminated = true
         team?.removePlayer(this)

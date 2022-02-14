@@ -1,9 +1,15 @@
 package me.imoltres.bbu.listeners
 
 import me.imoltres.bbu.BBU
+import me.imoltres.bbu.game.GameState
+import me.imoltres.bbu.game.events.player.BBUPlayerScoreboardApplyEvent
 import me.imoltres.bbu.scoreboard.impl.MainScoreboard
 import me.imoltres.bbu.utils.CC
-import me.imoltres.bbu.utils.Messages
+import me.imoltres.bbu.utils.GsonFactory
+import me.imoltres.bbu.utils.config.MainConfig
+import me.imoltres.bbu.utils.config.Messages
+import me.imoltres.bbu.utils.world.WorldPosition
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
@@ -14,7 +20,7 @@ import org.bukkit.event.player.PlayerQuitEvent
 class JoinListener : Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     fun onPreJoin(e: AsyncPlayerPreLoginEvent) {
-        if (!BBU.instance.joinable) {
+        if (!BBU.getInstance().isJoinable) {
             e.disallow(
                 AsyncPlayerPreLoginEvent.Result.KICK_OTHER,
                 CC.translate("&cServer isn't finished setting up\n\n&cTry again later.")
@@ -24,7 +30,7 @@ class JoinListener : Listener {
 
         val uniqueId = e.uniqueId
         val name = e.name
-        val player = BBU.instance.playerController.createPlayer(uniqueId, name)
+        val player = BBU.getInstance().playerController.createPlayer(uniqueId, name)
         if (player.eliminated)
             e.disallow(
                 AsyncPlayerPreLoginEvent.Result.KICK_OTHER,
@@ -37,15 +43,36 @@ class JoinListener : Listener {
         val player = e.player
         e.joinMessage(CC.translate("&7[&a+&7] &7" + e.player.name))
 
-        MainScoreboard(player)
+        try {
+            if (BBU.getInstance().game.gameState == GameState.LOBBY) {
+                player.teleportAsync(
+                    GsonFactory.getCompactGson().fromJson(MainConfig.LOBBY_SPAWN.toString(), WorldPosition::class.java)
+                        .toBukkitLocation()
+                )
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            println("Likely problem is that you have an invalid lobby-spawn set in config.yml")
+        }
+
+        val event = BBUPlayerScoreboardApplyEvent(
+            BBU.getInstance().playerController.getPlayer(player.uniqueId),
+            MainScoreboard::class.java
+        )
+        event.callEvent()
+
+        if (event.isCancelled)
+            return
+
+        event.scoreboard.getDeclaredConstructor(Player::class.java).newInstance(player)
     }
 
     @EventHandler
     fun onQuit(e: PlayerQuitEvent) {
         val player = e.player
-        val bbuPlayer = BBU.instance.playerController.getPlayer(player.uniqueId)
+        val bbuPlayer = BBU.getInstance().playerController.getPlayer(player.uniqueId)
         e.quitMessage(CC.translate("&7[&c-&7] &7" + e.player.name))
 
-        BBU.instance.scoreboard.cleanup(bbuPlayer)
+        BBU.getInstance().scoreboard.cleanup(bbuPlayer)
     }
 }

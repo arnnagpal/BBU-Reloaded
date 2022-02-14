@@ -18,7 +18,7 @@ class TeamsCommand : SubCommand {
         val sender = cmd.getSender<Player>()
         sender.sendMessage(CC.translate("&3Teams:"))
 
-        for (team in BBU.instance.teamController.allTeams) {
+        for (team in BBU.getInstance().teamController.allTeams) {
             val players = StringBuilder()
             for (player in team.players) {
                 players.append(player.name).append(", ")

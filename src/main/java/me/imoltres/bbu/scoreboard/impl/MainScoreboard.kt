@@ -15,7 +15,7 @@ class MainScoreboard(player: Player) : BBUScoreboardAdapter(1, player) {
 
     override fun getLines(player: BBUPlayer): ArrayList<String> {
         val lines = ArrayList<String>()
-        val game = BBU.instance.game
+        val game = BBU.getInstance().game
 
         lines.add(CC.SB_DIV)
         lines.add("&bOnline: &f" + Bukkit.getOnlinePlayers().size)
@@ -46,7 +46,7 @@ class MainScoreboard(player: Player) : BBUScoreboardAdapter(1, player) {
             }
         }
 
-        if (game.gameState == GameState.PVP || game.gameState == GameState.PVP_BORDER_SHRINK) {
+        if (game.gameState.isPvp()) {
             lines.add(
                 String.format(
                     "&bFortress&f: %s, %s",
@@ -58,9 +58,9 @@ class MainScoreboard(player: Player) : BBUScoreboardAdapter(1, player) {
 
         lines.add("")
 
-        for (team in BBU.instance.teamController.allTeams) {
+        for (team in BBU.getInstance().teamController.allTeams) {
             val name = CC.capitalize(team.colour.name.lowercase())
-            if (team.hasBeacon()) {
+            if (!team.hasBeacon()) {
                 if (team.players.size > 0) {
                     lines.add(
                         String.format(

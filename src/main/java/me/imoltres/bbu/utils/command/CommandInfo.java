@@ -22,6 +22,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Represents the metadata behind the {@link me.imoltres.bbu.utils.command.Command} and the {@link me.imoltres.bbu.utils.command.SubCommand} classes
+ */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CommandInfo {

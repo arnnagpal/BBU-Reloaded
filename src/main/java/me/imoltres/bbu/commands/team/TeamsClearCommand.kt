@@ -17,7 +17,7 @@ class TeamsClearCommand : SubCommand {
     override fun execute(cmd: CommandArgs) {
         val sender = cmd.getSender<Player>()
 
-        for (team in BBU.instance.teamController.allTeams) {
+        for (team in BBU.getInstance().teamController.allTeams) {
             team.players.clear()
         }
 

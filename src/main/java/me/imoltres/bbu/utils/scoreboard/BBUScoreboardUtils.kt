@@ -2,7 +2,15 @@ package me.imoltres.bbu.utils.scoreboard
 
 import org.bukkit.ChatColor
 
+/**
+ * Useful methods for the BBUScoreboard scoreboard display
+ */
 object BBUScoreboardUtils {
+
+    /**
+     * Split the input into a prefix and a suffix<br>
+     * to bypass the 16-character limit on one line
+     */
     @JvmStatic
     fun splitTeamText(_input: String): Array<String> {
         val input = ChatColor.translateAlternateColorCodes('&', _input)

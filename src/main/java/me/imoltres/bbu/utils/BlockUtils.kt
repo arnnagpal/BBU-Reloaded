@@ -6,13 +6,23 @@ import org.bukkit.block.Block
 import org.bukkit.block.BlockFace
 
 
+/**
+ * Useful utility methods relating to blocks
+ */
 class BlockUtils {
 
     companion object {
         val faces = BlockFace.values().toSet().minus(BlockFace.SELF)
 
+        /**
+         * Retrieve the faces touching the certain block within a set of faces
+         *
+         * @param faces list of faces to check
+         * @param block block to look around
+         * @return set of blocks around the inputted block in terms of the faces provided
+         */
         @JvmStatic
-        fun facesTouching(faces: Set<BlockFace>, block: Block): Set<Block> {
+        fun getFacesTouching(faces: Set<BlockFace>, block: Block): Set<Block> {
             val facesTouching = HashSet<Block>()
             for (face in faces) {
                 val b = block.getRelative(face)
@@ -24,6 +34,16 @@ class BlockUtils {
             return facesTouching
         }
 
+        /**
+         * Checks if the original liquid is going to cause a generation<br>
+         * in cobble within the surrounding faces
+         *
+         * @param faces list of faces to check
+         * @param originalType original block's material (water / lava)
+         * @param toBlock the block that the original fluid is flowing towards
+         *
+         * @return set of blocks around the inputted block in terms of the faces provided
+         */
         fun generatesCobble(faces: Set<BlockFace>, originalType: Material, toBlock: Block): Boolean {
             val mirrorType = if (originalType == Material.WATER) Material.LAVA else Material.WATER
             var gensCobble = false
@@ -41,7 +61,7 @@ class BlockUtils {
             if (gensCobble) {
                 for (face in faces) {
                     val beacon = cobbleBlock!!.getRelative(face)
-                    if (BBU.instance.teamController.getTeam(beacon) != null) {
+                    if (BBU.getInstance().teamController.getTeam(beacon) != null) {
                         return true
                     }
                 }

@@ -1,0 +1,84 @@
+<html>
+<head>
+    <meta charset="UTF-8" content="width=device-width, initial-scale=1" name="viewport">
+    <title>getSender</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    const savedDarkMode = storage ? JSON.parse(storage) : false
+    if (savedDarkMode === true) {
+        document.getElementsByTagName("html")[0].classList.add("theme-dark")
+    }</script>
+    <script async="async" src="../../../scripts/sourceset_dependencies.js" type="text/javascript"></script>
+    <link href="../../../styles/style.css" rel="Stylesheet">
+    <link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+    <link href="../../../styles/main.css" rel="Stylesheet">
+    <link href="../../../styles/prism.css" rel="Stylesheet">
+    <link href="../../../styles/logo-styles.css" rel="Stylesheet">
+    <script async="async" src="../../../scripts/clipboard.js" type="text/javascript"></script>
+    <script async="async" src="../../../scripts/navigation-loader.js" type="text/javascript"></script>
+    <script async="async" src="../../../scripts/platform-content-handler.js" type="text/javascript"></script>
+    <script defer="defer" src="../../../scripts/main.js" type="text/javascript"></script>
+    <script async="async" src="../../../scripts/prism.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name"><a href="../../../index.html">BBUReloaded</a></div>
+    <div>0.1-DEV</div>
+    <div class="pull-right d-flex">
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+        <div class="main-content" id="content"
+             pageIds="BBUReloaded::me.imoltres.bbu.utils.command/CommandArgs/getSender/#/PointingToDeclaration//769193423">
+            <div class="breadcrumbs"><a href="../../../index.html">BBUReloaded</a>/<a href="../index.html">me.imoltres.bbu.utils.command</a>/<a
+                    href="index.html">CommandArgs</a>/<a href="get-sender.html">getSender</a></div>
+            <div class="cover ">
+                <h1 class="cover"><span>get</span>
+                    <wbr></wbr>
+                    <span><span>Sender</span></span></h1>
+            </div>
+            <div class="platform-hinted " data-platform-hinted="data-platform-hinted">
+                <div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main">
+                    <div class="symbol monospace block">
+                        <div class="block">
+                            <div class="block"><span class="token annotation">@</span><span
+                                    data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span
+                                    class="token annotation">NotNull</span></span><span
+                                    class="token punctuation">(</span><span class="token punctuation">)</span></div>
+                        </div>
+                        <span class="token keyword"></span><a href="get-sender.html">T</a> <a
+                            href="get-sender.html"><span class="token function">getSender</span></a><span
+                            class="token operator">&lt;</span>T<span class="token keyword"> extends </span><span
+                            data-unresolved-link="org.bukkit.command/CommandSender///PointingToDeclaration/">CommandSender</span><span
+                            class="token operator">&gt;</span><span class="token punctuation">(</span><span
+                            class="token punctuation">)</span><span class="top-right-position"><span
+                            class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span
+                            class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div>
+                    <p class="paragraph">Do not try to cast objects except subclasses of <span
+                            data-unresolved-link="org.bukkit.command/CommandSender///PointingToDeclaration/">CommandSender</span>
+                        otherwise <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/ClassCastException.html">ClassCastException</a>
+                        will occur. Also casting for <span
+                                data-unresolved-link="org.bukkit.entity/Player///PointingToDeclaration/">Player</span>
+                        or <span
+                                data-unresolved-link="org.bukkit.command/ConsoleCommandSender///PointingToDeclaration/">org.bukkit.command.ConsoleCommandSender</span>
+                        isn't needed.</p><h4 class="">Return</h4>
+                    <p class="paragraph">sender of command as Player or CommandSender</p></div>
+            </div>
+        </div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2022 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

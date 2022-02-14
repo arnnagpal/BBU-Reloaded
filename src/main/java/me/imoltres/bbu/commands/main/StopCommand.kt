@@ -17,7 +17,7 @@ class StopCommand : SubCommand {
         sender.sendMessage(CC.translate("&aAttempting to stop the game..."))
 
         try {
-            BBU.instance.game.stopGame()
+            BBU.getInstance().game.stopGame()
             sender.sendMessage(CC.translate("&aStopped successfully."))
         } catch (e: Exception) {
             sender.sendMessage("&c" + e.message)

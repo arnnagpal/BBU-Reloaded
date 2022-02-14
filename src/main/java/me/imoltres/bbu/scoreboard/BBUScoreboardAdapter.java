@@ -1,10 +1,10 @@
 package me.imoltres.bbu.scoreboard;
 
-import com.qrakn.phoenix.lang.file.type.BasicConfigurationFile;
 import lombok.Getter;
 import me.imoltres.bbu.BBU;
 import me.imoltres.bbu.data.player.BBUPlayer;
 import me.imoltres.bbu.utils.CC;
+import me.imoltres.bbu.utils.config.Messages;
 import me.imoltres.bbu.utils.scoreboard.BBUScoreboardSetupException;
 import me.imoltres.bbu.utils.scoreboard.BBUScoreboardUtils;
 import net.kyori.adventure.text.TextComponent;
@@ -22,6 +22,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The display adapter for the scoreboards
+ */
 public abstract class BBUScoreboardAdapter {
 
     @Getter
@@ -33,14 +36,19 @@ public abstract class BBUScoreboardAdapter {
     private final Scoreboard scoreboard;
     private final ChatColor[] chatColourCache = ChatColor.values();
     private final int startNumber;
-    protected BasicConfigurationFile messages = BBU.getInstance().getMessagesConfig();
     @Getter
     private String title;
     private Objective objective;
 
+    /**
+     * Parent constructor for any implementations
+     *
+     * @param startNumber Number to start the scoreboard lines at
+     * @param player      player to apply the scoreboard to
+     */
     protected BBUScoreboardAdapter(int startNumber, Player player) {
         this.startNumber = startNumber;
-        this.title = messages.getString("scoreboard-title");
+        this.title = Messages.SCOREBOARD_TITLE.toString();
         this.scoreboard = player.getScoreboard();
         this.parentPlayer = BBU.getInstance().getPlayerController().getPlayer(player.getUniqueId());
         this.parentBukkitPlayer = player;
@@ -51,6 +59,13 @@ public abstract class BBUScoreboardAdapter {
         init();
     }
 
+    /**
+     * Display multiple scoreboards at once to a set of players
+     *
+     * @param scoreboard Scoreboard class
+     * @param players    list of players
+     * @return if it was successful
+     */
     public static boolean display(Class<? extends BBUScoreboardAdapter> scoreboard, Player... players) {
         try {
             displayUnsafe(scoreboard, players);
@@ -61,6 +76,13 @@ public abstract class BBUScoreboardAdapter {
         }
     }
 
+    /**
+     * Display multiple scoreboards at once to a set of players
+     *
+     * @param scoreboard scoreboard class
+     * @param players    list of players
+     * @throws BBUScoreboardSetupException throws when the constructor is off
+     */
     private static void displayUnsafe(Class<? extends BBUScoreboardAdapter> scoreboard, Player... players) throws BBUScoreboardSetupException {
         for (Player p : players) {
             try {
@@ -73,6 +95,9 @@ public abstract class BBUScoreboardAdapter {
         }
     }
 
+    /**
+     * Setup the scoreboard
+     */
     private void init() {
         if (scoreboard.getObjective("bbuscoreboard") != null) {
             remove();
@@ -85,6 +110,9 @@ public abstract class BBUScoreboardAdapter {
         updateClearBoard(CC.translate(getLines(parentPlayer)).stream().map(component -> (TextComponent) component).collect(Collectors.toList()));
     }
 
+    /**
+     * Update the scoreboard
+     */
     public void update() {
         List<TextComponent> lines = processLinesComponent(getLines(parentPlayer));
         List<TextComponent> oldLines = getScoreboardLines();
@@ -98,6 +126,12 @@ public abstract class BBUScoreboardAdapter {
             updateNewLines(lines, oldLines);
     }
 
+    /**
+     * Update only the lines that have been changed
+     *
+     * @param lines    new lines
+     * @param oldLines old lines
+     */
     private void updateNewLines(List<TextComponent> lines, List<TextComponent> oldLines) {
         Collections.reverse(lines);
         Collections.reverse(oldLines);
@@ -120,6 +154,11 @@ public abstract class BBUScoreboardAdapter {
         }
     }
 
+    /**
+     * Clear every line and update it
+     *
+     * @param lines new lines
+     */
     private void updateClearBoard(List<TextComponent> lines) {
         scoreboard.getTeams().stream().filter(team -> CC.isInteger(team.getName(), 10)).forEach(Team::unregister);
 
@@ -136,8 +175,20 @@ public abstract class BBUScoreboardAdapter {
         }
     }
 
+    /**
+     * The lines on the scoreboard to get
+     *
+     * @param player player the scoreboard is applied to
+     * @return an ordered list of lines
+     */
     public abstract ArrayList<String> getLines(BBUPlayer player);
 
+    /**
+     * Create a line on the scoreboard
+     *
+     * @param lineNumber line number to create
+     * @return team that the line is on
+     */
     private Team createLine(int lineNumber) {
         try {
             Team team = scoreboard.registerNewTeam(String.valueOf(lineNumber));
@@ -153,23 +204,52 @@ public abstract class BBUScoreboardAdapter {
         }
     }
 
+    /**
+     * Set the title of the scoreboard on the fly
+     *
+     * @param displayName title
+     */
     public void setTitle(String displayName) {
         this.title = displayName;
         objective.displayName(CC.translate(displayName));
     }
 
+    /**
+     * @return if the scoreboard is visible or not
+     */
     public boolean isVisible() {
         return this.objective.getDisplaySlot() == DisplaySlot.SIDEBAR;
     }
 
+    /**
+     * Sets the scoreboard visibility
+     *
+     * @param visible scoreboard visibility
+     */
     public void setVisible(boolean visible) {
         this.objective.setDisplaySlot(visible ? DisplaySlot.SIDEBAR : null);
     }
 
+    /**
+     * Set a specific line on the scoreboard
+     *
+     * @param number line number
+     * @param line   new line
+     */
     public void setLine(int number, String line) {
         setLine(number, line, true);
     }
 
+    /**
+     * Set a specific line on the scoreboard,<br>
+     * specify if the method should automatically<br>
+     * split the lines into a prefix/suffix pair or<br>
+     * if the scoreboard already accounts for that with a '~'
+     *
+     * @param number    line number
+     * @param line      new line
+     * @param autoSplit should auto split?
+     */
     public void setLine(int number, String line, boolean autoSplit) {
         if (number < 1 || number > 15) {
             throw new IllegalArgumentException("The specified line number cannot be less than 1 or bigger than 15");
@@ -207,6 +287,12 @@ public abstract class BBUScoreboardAdapter {
             team.suffix(CC.translate(suffix));
     }
 
+    /**
+     * Get a line from the scoreboard
+     *
+     * @param number line number
+     * @return line
+     */
     public TextComponent getLine(int number) {
         if (number < 1 || number > 15) {
             throw new IllegalArgumentException("The specified line number cannot be less than 1 or bigger than 15");
@@ -217,16 +303,27 @@ public abstract class BBUScoreboardAdapter {
             return null;
         }
 
-        TextComponent ret = (TextComponent) team.prefix();
-        TextComponent suffix = (TextComponent) team.suffix();
+        try {
+            TextComponent ret = (TextComponent) team.prefix();
+            TextComponent suffix = (TextComponent) team.suffix();
 
-        if (!suffix.content().isEmpty()) {
-            ret = ret.append(suffix);
+            if (!suffix.content().isEmpty()) {
+                ret = ret.append(suffix);
+            }
+
+            return ret;
+        } catch (Exception e) {
+            System.out.println("Error while grabbing line " + number);
+            e.printStackTrace();
         }
-
-        return ret;
+        return null;
     }
 
+    /**
+     * Get all current displayed lines
+     *
+     * @return list of current displayed lines
+     */
     public List<TextComponent> getScoreboardLines() {
         long linesSize = new ArrayList<>(scoreboard.getTeams()).stream().filter(team -> CC.isInteger(team.getName(), 10)).count();
 
@@ -245,6 +342,12 @@ public abstract class BBUScoreboardAdapter {
         return l;
     }
 
+    /**
+     * Process the list into a 16-element list
+     *
+     * @param lines list of lines
+     * @return processed list of lines
+     */
     private List<String> processLines(List<String> lines) {
         if (lines.size() > 15) {
             lines = lines.subList(0, 15);
@@ -253,10 +356,19 @@ public abstract class BBUScoreboardAdapter {
         return lines;
     }
 
+    /**
+     * Process the list into a 16-element list
+     *
+     * @param lines list of lines
+     * @return processed list of lines
+     */
     private List<TextComponent> processLinesComponent(List<String> lines) {
         return CC.translate(processLines(lines)).stream().map(component -> (TextComponent) component).collect(Collectors.toList());
     }
 
+    /**
+     * Cleanup this instance of the scoreboard
+     */
     public void remove() {
         scoreboard.getObjective("bbuscoreboard").unregister();
     }

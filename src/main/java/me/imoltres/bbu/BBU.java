@@ -29,11 +29,9 @@ import java.util.Objects;
 import java.util.zip.GZIPOutputStream;
 
 /**
- * BBU Class
- * <br><br>
- * Main java plugin class, used to initialise and serve as the main hub<br>
- * for any controllers, or any other variables needed<br>
- * to be accessed by other classes.<br>
+ * Main class, used to initialise and serve as the main hub
+ * for any controllers, or any other variables needed
+ * to be accessed by other classes.
  *
  * @author iMoltres
  */
@@ -223,7 +221,7 @@ public class BBU extends JavaPlugin {
 
     /**
      * Write the default schematic(s)
-     * <br>
+     * 
      * - cage.schem
      */
     private void writeDefaultSchems() {

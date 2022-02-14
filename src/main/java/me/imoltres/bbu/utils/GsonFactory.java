@@ -8,7 +8,7 @@ import me.imoltres.bbu.utils.world.Position;
 import me.imoltres.bbu.utils.world.WorldPosition;
 
 /**
- * Create a (de)serialiser in two formats,<br>
+ * Create a (de)serialiser in two formats,
  * Pretty & Compact
  */
 public class GsonFactory {

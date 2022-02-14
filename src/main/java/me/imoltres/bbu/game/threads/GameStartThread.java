@@ -12,8 +12,6 @@ import org.bukkit.entity.Player;
 import java.time.Duration;
 
 /**
- * GameStartThread
- * <br>
  * Run before the {@link GameThread} thread, basically an async countdown
  */
 @RequiredArgsConstructor

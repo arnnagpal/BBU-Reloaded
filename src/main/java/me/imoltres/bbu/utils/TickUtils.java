@@ -3,7 +3,7 @@ package me.imoltres.bbu.utils;
 import org.bukkit.Bukkit;
 
 /**
- * Used to replicate the TPS display from the default<br>
+ * Used to replicate the TPS display from the default
  * /tps numbers.
  */
 public class TickUtils {

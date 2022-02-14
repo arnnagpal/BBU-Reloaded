@@ -96,7 +96,7 @@ class Game {
     }
 
     /**
-     * Puts the team instance into a queue to be checked<br>
+     * Puts the team instance into a queue to be checked
      * determines if the team should be eliminated.
      */
     fun checkTeam(team: BBUTeam) {

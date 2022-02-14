@@ -145,8 +145,9 @@ class CageController(private val plugin: BBU) {
     }
 
     /**
-     * Get a random 2d position inside the configured border<br>
-     * Ensures a range between the positions
+     * Get a random 2d position inside the configured border.
+     *
+     * Ensures a range between the positions.
      *
      * @param world world
      * @param exclusions positions to avoid within a range

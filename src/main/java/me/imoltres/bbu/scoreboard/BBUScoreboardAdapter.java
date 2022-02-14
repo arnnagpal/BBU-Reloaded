@@ -241,9 +241,9 @@ public abstract class BBUScoreboardAdapter {
     }
 
     /**
-     * Set a specific line on the scoreboard,<br>
-     * specify if the method should automatically<br>
-     * split the lines into a prefix/suffix pair or<br>
+     * Set a specific line on the scoreboard,
+     * specify if the method should automatically
+     * split the lines into a prefix/suffix pair or
      * if the scoreboard already accounts for that with a '~'
      *
      * @param number    line number

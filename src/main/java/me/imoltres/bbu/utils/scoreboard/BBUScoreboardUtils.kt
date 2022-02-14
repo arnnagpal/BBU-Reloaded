@@ -8,7 +8,7 @@ import org.bukkit.ChatColor
 object BBUScoreboardUtils {
 
     /**
-     * Split the input into a prefix and a suffix<br>
+     * Split the input into a prefix and a suffix
      * to bypass the 16-character limit on one line
      */
     @JvmStatic

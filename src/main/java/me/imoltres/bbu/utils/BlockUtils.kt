@@ -35,7 +35,7 @@ class BlockUtils {
         }
 
         /**
-         * Checks if the original liquid is going to cause a generation<br>
+         * Checks if the original liquid is going to cause a generation
          * in cobble within the surrounding faces
          *
          * @param faces list of faces to check

@@ -16,7 +16,7 @@ public class BasicConfigurationFile extends AbstractConfigurationFile {
     private final YamlConfiguration configuration;
 
     /**
-     * Initialise an instance with a plugin, name, and if<br>
+     * Initialise an instance with a plugin, name, and if
      * the original config file should be overwritten
      *
      * @param plugin    bukkit plugin
@@ -31,8 +31,8 @@ public class BasicConfigurationFile extends AbstractConfigurationFile {
     }
 
     /**
-     * Initialise an instance with a plugin, name, if<br>
-     * the original config file should be overwritten, and<br>
+     * Initialise an instance with a plugin, name, if
+     * the original config file should be overwritten, and
      * a destination folder to put the config file in
      *
      * @param plugin    bukkit plugin
@@ -52,7 +52,7 @@ public class BasicConfigurationFile extends AbstractConfigurationFile {
 
     /**
      * Initialise an instance with a plugin, name
-     * <br>
+     * 
      * doesn't overwrite by default.
      *
      * @param plugin bukkit plugin

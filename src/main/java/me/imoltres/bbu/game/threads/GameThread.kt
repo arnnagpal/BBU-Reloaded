@@ -12,9 +12,7 @@ import java.math.BigDecimal
 import java.util.*
 
 /**
- * Main game thread loop,
- * <br>
- * swaps the game states, checks the teams, and ticks the game.
+ * Main game thread loop, swaps the game states, checks the teams, and ticks the game.
  */
 class GameThread(val game: Game) : Thread() {
 
@@ -79,7 +77,7 @@ class GameThread(val game: Game) : Thread() {
 
     /**
      * Get the amount of time that the border should shrink for
-     * <br>
+     * 
      * based on the size of the border
      */
     private fun getBorderShrinkTime(border: Int): Int {

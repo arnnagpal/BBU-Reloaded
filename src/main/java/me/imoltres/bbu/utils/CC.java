@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A short form for {@link org.bukkit.ChatColor}<br>
+ * A short form for {@link org.bukkit.ChatColor}
  * contains some useful string utilities as well.
  */
 public class CC {

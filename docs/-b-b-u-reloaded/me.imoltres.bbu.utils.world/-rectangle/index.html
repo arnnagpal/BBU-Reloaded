@@ -1,721 +1,318 @@
 <html>
-<head>
-    <meta charset="UTF-8" content="width=device-width, initial-scale=1" name="viewport">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>Rectangle</title>
-    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
-    <script>var pathToRoot = "../../../";</script>
-    <script>const storage = localStorage.getItem("dokka-dark-mode")
-    const savedDarkMode = storage ? JSON.parse(storage) : false
-    if (savedDarkMode === true) {
-        document.getElementsByTagName("html")[0].classList.add("theme-dark")
-    }</script>
-    <script async="async" src="../../../scripts/sourceset_dependencies.js" type="text/javascript"></script>
-    <link href="../../../styles/style.css" rel="Stylesheet">
-    <link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
-    <link href="../../../styles/main.css" rel="Stylesheet">
-    <link href="../../../styles/prism.css" rel="Stylesheet">
-    <link href="../../../styles/logo-styles.css" rel="Stylesheet">
-    <script async="async" src="../../../scripts/clipboard.js" type="text/javascript"></script>
-    <script async="async" src="../../../scripts/navigation-loader.js" type="text/javascript"></script>
-    <script async="async" src="../../../scripts/platform-content-handler.js" type="text/javascript"></script>
-    <script defer="defer" src="../../../scripts/main.js" type="text/javascript"></script>
-    <script async="async" src="../../../scripts/prism.js" type="text/javascript"></script>
-</head>
-<body>
-<div class="navigation-wrapper" id="navigation-wrapper">
-    <div id="leftToggler"><span class="icon-toggler"></span></div>
-    <div class="library-name"><a href="../../../index.html">BBUReloaded</a></div>
-    <div>0.1-DEV</div>
-    <div class="pull-right d-flex">
-        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+const savedDarkMode = storage ? JSON.parse(storage) : false
+if(savedDarkMode === true){
+    document.getElementsByTagName("html")[0].classList.add("theme-dark")
+}</script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><link href="../../../styles/prism.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script><script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>  </head>
+  <body>
+    <div class="navigation-wrapper" id="navigation-wrapper">
+      <div id="leftToggler"><span class="icon-toggler"></span></div>
+      <div class="library-name"><a href="../../../index.html">BBUReloaded</a></div>
+      <div>0.1-DEV</div>
+      <div class="pull-right d-flex"><button id="theme-toggle-button"><span id="theme-toggle"></span></button>
         <div id="searchBar"></div>
+      </div>
     </div>
-</div>
-<div id="container">
-    <div id="leftColumn">
+    <div id="container">
+      <div id="leftColumn">
         <div id="sideMenu"></div>
-    </div>
-    <div id="main">
-        <div class="main-content" id="content"
-             pageIds="BBUReloaded::me.imoltres.bbu.utils.world/Rectangle///PointingToDeclaration//769193423">
-            <div class="breadcrumbs"><a href="../../../index.html">BBUReloaded</a>/<a href="../index.html">me.imoltres.bbu.utils.world</a>/<a
-                    href="index.html">Rectangle</a></div>
-            <div class="cover ">
-                <h1 class="cover"><span><span>Rectangle</span></span></h1>
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted">
-                    <div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main">
-                        <div class="symbol monospace"><span class="token keyword">public </span><span
-                                class="token keyword">class </span><a href="index.html">Rectangle</a><span
-                                class="token keyword"> implements </span><a
-                                href="https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html">Iterable</a><span
-                                class="token operator">&lt;</span><a
-                                href="../-position2-d/index.html">Position2D</a><span class="token operator">&gt;</span><span
-                                class="top-right-position"><span class="copy-icon"></span><div
-                                class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span>
-                        </div>
-                        <p class="paragraph">Construct a new rectangular shape that exists of 2 positions (2d)</p></div>
-                </div>
-            </div>
-            <div class="tabbedcontent">
-                <div class="tabs-section" tabs-section="tabs-section">
-                    <button class="section-tab" data-active="" data-togglable="Constructors">Constructors</button>
-                    <button class="section-tab" data-togglable="Functions">Functions</button>
-                    <button class="section-tab" data-togglable="Properties">Properties</button>
-                </div>
-                <div class="tabs-section-body">
-                    <h2 class="tabbedcontent">Constructors</h2>
-                    <div class="table" data-togglable="Constructors"><a anchor-label="Rectangle"
-                                                                        data-filterable-set=":dokkaHtml/main"
-                                                                        data-name="1818338067%2FConstructors%2F769193423"
-                                                                        id="1818338067%2FConstructors%2F769193423"></a>
-                        <div class="table-row" data-filterable-current=":dokkaHtml/main"
-                             data-filterable-set=":dokkaHtml/main">
-                            <div class="main-subrow keyValue TabbedContent">
-                                <div class=""><span class="inline-flex">
+      </div>
+      <div id="main">
+        <div class="main-content" id="content" pageIds="BBUReloaded::me.imoltres.bbu.utils.world/Rectangle///PointingToDeclaration//769193423">
+          <div class="breadcrumbs"><a href="../../../index.html">BBUReloaded</a>/<a href="../index.html">me.imoltres.bbu.utils.world</a>/<a href="index.html">Rectangle</a></div>
+          <div class="cover ">
+            <h1 class="cover"><span><span>Rectangle</span></span></h1>
+            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="index.html">Rectangle</a><span class="token keyword"> implements </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html">Iterable</a><span class="token operator">&lt;</span><a href="../-position2-d/index.html">Position2D</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Construct a new rectangular shape that exists of 2 positions (2d)</p></div></div>
+          </div>
+          <div class="tabbedcontent">
+            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button></div>
+            <div class="tabs-section-body">
+              <h2 class="tabbedcontent">Constructors</h2>
+              <div class="table" data-togglable="Constructors"><a data-name="1818338067%2FConstructors%2F769193423" anchor-label="Rectangle" id="1818338067%2FConstructors%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue TabbedContent">
+                    <div class=""><span class="inline-flex">
                         <div><a href="-rectangle.html"><span><span>Rectangle</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1818338067%2FConstructors%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
-                                <div>
-                                    <div class="title">
-                                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted">
-                                            <div class="content sourceset-depenent-content" data-active=""
-                                                 data-togglable=":dokkaHtml/main">
-                                                <div class="symbol monospace block"><span class="token keyword"></span>void <a
-                                                        href="-rectangle.html"><span
-                                                        class="token function">Rectangle</span></a><span
-                                                        class="token punctuation">(</span><span
-                                                        class="token keyword"></span><a
-                                                        href="../-position2-d/index.html">Position2D</a> min<span
-                                                        class="token punctuation">, </span><span
-                                                        class="token keyword"></span><a
-                                                        href="../-position2-d/index.html">Position2D</a> max<span
-                                                        class="token punctuation">)</span><span
-                                                        class="top-right-position"><span class="copy-icon"></span><div
-                                                        class="copy-popup-wrapper popup-to-left"><span
-                                                        class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace block"><span class="token keyword"></span>void <a href="-rectangle.html"><span class="token function">Rectangle</span></a><span class="token punctuation">(</span><span class="token keyword"></span><a href="../-position2-d/index.html">Position2D</a> min<span class="token punctuation">, </span><span class="token keyword"></span><a href="../-position2-d/index.html">Position2D</a> max<span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
                     </div>
-                    <h2 class="">Functions</h2>
-                    <div class="table" data-togglable="Functions"><a anchor-label="contains"
-                                                                     data-filterable-set=":dokkaHtml/main"
-                                                                     data-name="1460969576%2FFunctions%2F769193423"
-                                                                     id="1460969576%2FFunctions%2F769193423"></a>
-                        <div class="table-row" data-filterable-current=":dokkaHtml/main"
-                             data-filterable-set=":dokkaHtml/main">
-                            <div class="main-subrow keyValue ">
-                                <div class=""><span class="inline-flex">
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Functions</h2>
+              <div class="table" data-togglable="Functions"><a data-name="1460969576%2FFunctions%2F769193423" anchor-label="contains" id="1460969576%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex">
                         <div><a href="contains.html"><span><span>contains</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1460969576%2FFunctions%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
-                                <div>
-                                    <div class="title">
-                                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted">
-                                            <div class="content sourceset-depenent-content" data-active=""
-                                                 data-togglable=":dokkaHtml/main">
-                                                <div class="symbol monospace block"><span class="token keyword"></span>boolean <a
-                                                        href="contains.html"><span
-                                                        class="token function">contains</span></a><span
-                                                        class="token punctuation">(</span><span
-                                                        class="token keyword"></span><a
-                                                        href="../-position2-d/index.html">Position2D</a> position<span
-                                                        class="token punctuation">)</span><span
-                                                        class="top-right-position"><span class="copy-icon"></span><div
-                                                        class="copy-popup-wrapper popup-to-left"><span
-                                                        class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span>
-                                                </div>
-                                                <div class="brief ">Returns true if the given Position is located within
-                                                    the bounds of this cuboid.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a anchor-label="contents" data-filterable-set=":dokkaHtml/main"
-                           data-name="565434565%2FFunctions%2F769193423" id="565434565%2FFunctions%2F769193423"></a>
-                        <div class="table-row" data-filterable-current=":dokkaHtml/main"
-                             data-filterable-set=":dokkaHtml/main">
-                            <div class="main-subrow keyValue ">
-                                <div class=""><span class="inline-flex">
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace block"><span class="token keyword"></span>boolean <a href="contains.html"><span class="token function">contains</span></a><span class="token punctuation">(</span><span class="token keyword"></span><a href="../-position2-d/index.html">Position2D</a> position<span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief ">Returns true if the given Position is located within the bounds of this cuboid.</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="565434565%2FFunctions%2F769193423" anchor-label="contents" id="565434565%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex">
                         <div><a href="contents.html"><span><span>contents</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="565434565%2FFunctions%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
-                                <div>
-                                    <div class="title">
-                                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted">
-                                            <div class="content sourceset-depenent-content" data-active=""
-                                                 data-togglable=":dokkaHtml/main">
-                                                <div class="symbol monospace block"><span
-                                                        class="token keyword"></span><a
-                                                        href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span
-                                                        class="token operator">&lt;</span><a
-                                                        href="../-position2-d/index.html">Position2D</a><span
-                                                        class="token operator">&gt;</span> <a href="contents.html"><span
-                                                        class="token function">contents</span></a><span
-                                                        class="token punctuation">(</span><span
-                                                        class="token punctuation">)</span><span
-                                                        class="top-right-position"><span class="copy-icon"></span><div
-                                                        class="copy-popup-wrapper popup-to-left"><span
-                                                        class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span>
-                                                </div>
-                                                <div class="brief ">Return all positions contained within this cuboid
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a anchor-label="forEach" data-filterable-set=":dokkaHtml/main"
-                           data-name="-904352472%2FFunctions%2F769193423" id="-904352472%2FFunctions%2F769193423"></a>
-                        <div class="table-row" data-filterable-current=":dokkaHtml/main"
-                             data-filterable-set=":dokkaHtml/main">
-                            <div class="main-subrow keyValue ">
-                                <div class=""><span class="inline-flex">
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace block"><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><a href="../-position2-d/index.html">Position2D</a><span class="token operator">&gt;</span> <a href="contents.html"><span class="token function">contents</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief ">Return all positions contained within this cuboid</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-904352472%2FFunctions%2F769193423" anchor-label="forEach" id="-904352472%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex">
                         <div><a href="index.html#-904352472%2FFunctions%2F769193423"><span>for</span><wbr></wbr><span><span>Each</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-904352472%2FFunctions%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
-                                <div>
-                                    <div class="title">
-                                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted">
-                                            <div class="content sourceset-depenent-content" data-active=""
-                                                 data-togglable=":dokkaHtml/main">
-                                                <div class="symbol monospace block"><span class="token keyword"></span>void <a
-                                                        href="index.html#-904352472%2FFunctions%2F769193423"><span
-                                                        class="token function">forEach</span></a><span
-                                                        class="token punctuation">(</span><span
-                                                        class="token keyword"></span><a
-                                                        href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Consumer.html">Consumer</a><span
-                                                        class="token operator">&lt;</span><span class="token keyword">? extends </span><a
-                                                        href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html">Object</a><span
-                                                        class="token operator">&gt;</span> action<span
-                                                        class="token punctuation">)</span><span
-                                                        class="top-right-position"><span class="copy-icon"></span><div
-                                                        class="copy-popup-wrapper popup-to-left"><span
-                                                        class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a anchor-label="getMax" data-filterable-set=":dokkaHtml/main"
-                           data-name="1868303537%2FFunctions%2F769193423" id="1868303537%2FFunctions%2F769193423"></a>
-                        <div class="table-row" data-filterable-current=":dokkaHtml/main"
-                             data-filterable-set=":dokkaHtml/main">
-                            <div class="main-subrow keyValue ">
-                                <div class=""><span class="inline-flex">
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace block"><span class="token keyword"></span>void <a href="index.html#-904352472%2FFunctions%2F769193423"><span class="token function">forEach</span></a><span class="token punctuation">(</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Consumer.html">Consumer</a><span class="token operator">&lt;</span><span class="token keyword">? extends </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html">Object</a><span class="token operator">&gt;</span> action<span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="1868303537%2FFunctions%2F769193423" anchor-label="getMax" id="1868303537%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex">
                         <div><a href="get-max.html"><span>get</span><wbr></wbr><span><span>Max</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1868303537%2FFunctions%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
-                                <div>
-                                    <div class="title">
-                                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted">
-                                            <div class="content sourceset-depenent-content" data-active=""
-                                                 data-togglable=":dokkaHtml/main">
-                                                <div class="symbol monospace block"><span
-                                                        class="token keyword"></span><a
-                                                        href="../-position2-d/index.html">Position2D</a> <a
-                                                        href="get-max.html"><span
-                                                        class="token function">getMax</span></a><span
-                                                        class="token punctuation">(</span><span
-                                                        class="token punctuation">)</span><span
-                                                        class="top-right-position"><span class="copy-icon"></span><div
-                                                        class="copy-popup-wrapper popup-to-left"><span
-                                                        class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a anchor-label="getMin" data-filterable-set=":dokkaHtml/main"
-                           data-name="661083011%2FFunctions%2F769193423" id="661083011%2FFunctions%2F769193423"></a>
-                        <div class="table-row" data-filterable-current=":dokkaHtml/main"
-                             data-filterable-set=":dokkaHtml/main">
-                            <div class="main-subrow keyValue ">
-                                <div class=""><span class="inline-flex">
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace block"><span class="token keyword"></span><a href="../-position2-d/index.html">Position2D</a> <a href="get-max.html"><span class="token function">getMax</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="661083011%2FFunctions%2F769193423" anchor-label="getMin" id="661083011%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex">
                         <div><a href="get-min.html"><span>get</span><wbr></wbr><span><span>Min</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="661083011%2FFunctions%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
-                                <div>
-                                    <div class="title">
-                                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted">
-                                            <div class="content sourceset-depenent-content" data-active=""
-                                                 data-togglable=":dokkaHtml/main">
-                                                <div class="symbol monospace block"><span
-                                                        class="token keyword"></span><a
-                                                        href="../-position2-d/index.html">Position2D</a> <a
-                                                        href="get-min.html"><span
-                                                        class="token function">getMin</span></a><span
-                                                        class="token punctuation">(</span><span
-                                                        class="token punctuation">)</span><span
-                                                        class="top-right-position"><span class="copy-icon"></span><div
-                                                        class="copy-popup-wrapper popup-to-left"><span
-                                                        class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a anchor-label="getWidthX" data-filterable-set=":dokkaHtml/main"
-                           data-name="203633619%2FFunctions%2F769193423" id="203633619%2FFunctions%2F769193423"></a>
-                        <div class="table-row" data-filterable-current=":dokkaHtml/main"
-                             data-filterable-set=":dokkaHtml/main">
-                            <div class="main-subrow keyValue ">
-                                <div class=""><span class="inline-flex">
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace block"><span class="token keyword"></span><a href="../-position2-d/index.html">Position2D</a> <a href="get-min.html"><span class="token function">getMin</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="203633619%2FFunctions%2F769193423" anchor-label="getWidthX" id="203633619%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex">
                         <div><a href="get-width-x.html"><span>get</span><wbr></wbr><span>Width</span><wbr></wbr><span><span>X</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="203633619%2FFunctions%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
-                                <div>
-                                    <div class="title">
-                                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted">
-                                            <div class="content sourceset-depenent-content" data-active=""
-                                                 data-togglable=":dokkaHtml/main">
-                                                <div class="symbol monospace block"><span class="token keyword"></span>double <a
-                                                        href="get-width-x.html"><span
-                                                        class="token function">getWidthX</span></a><span
-                                                        class="token punctuation">(</span><span
-                                                        class="token punctuation">)</span><span
-                                                        class="top-right-position"><span class="copy-icon"></span><div
-                                                        class="copy-popup-wrapper popup-to-left"><span
-                                                        class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span>
-                                                </div>
-                                                <div class="brief ">Returns the cuboid width on the X axis</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a anchor-label="getWidthZ" data-filterable-set=":dokkaHtml/main"
-                           data-name="265673233%2FFunctions%2F769193423" id="265673233%2FFunctions%2F769193423"></a>
-                        <div class="table-row" data-filterable-current=":dokkaHtml/main"
-                             data-filterable-set=":dokkaHtml/main">
-                            <div class="main-subrow keyValue ">
-                                <div class=""><span class="inline-flex">
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace block"><span class="token keyword"></span>double <a href="get-width-x.html"><span class="token function">getWidthX</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief ">Returns the cuboid width on the X axis</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="265673233%2FFunctions%2F769193423" anchor-label="getWidthZ" id="265673233%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex">
                         <div><a href="get-width-z.html"><span>get</span><wbr></wbr><span>Width</span><wbr></wbr><span><span>Z</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="265673233%2FFunctions%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
-                                <div>
-                                    <div class="title">
-                                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted">
-                                            <div class="content sourceset-depenent-content" data-active=""
-                                                 data-togglable=":dokkaHtml/main">
-                                                <div class="symbol monospace block"><span class="token keyword"></span>double <a
-                                                        href="get-width-z.html"><span
-                                                        class="token function">getWidthZ</span></a><span
-                                                        class="token punctuation">(</span><span
-                                                        class="token punctuation">)</span><span
-                                                        class="top-right-position"><span class="copy-icon"></span><div
-                                                        class="copy-popup-wrapper popup-to-left"><span
-                                                        class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span>
-                                                </div>
-                                                <div class="brief ">Returns the cuboid width on the Z axis</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a anchor-label="grow" data-filterable-set=":dokkaHtml/main"
-                           data-name="-129830612%2FFunctions%2F769193423" id="-129830612%2FFunctions%2F769193423"></a>
-                        <div class="table-row" data-filterable-current=":dokkaHtml/main"
-                             data-filterable-set=":dokkaHtml/main">
-                            <div class="main-subrow keyValue ">
-                                <div class=""><span class="inline-flex">
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace block"><span class="token keyword"></span>double <a href="get-width-z.html"><span class="token function">getWidthZ</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief ">Returns the cuboid width on the Z axis</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-129830612%2FFunctions%2F769193423" anchor-label="grow" id="-129830612%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex">
                         <div><a href="grow.html"><span><span>grow</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-129830612%2FFunctions%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
-                                <div>
-                                    <div class="title">
-                                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted">
-                                            <div class="content sourceset-depenent-content" data-active=""
-                                                 data-togglable=":dokkaHtml/main">
-                                                <div class="symbol monospace block"><span
-                                                        class="token keyword"></span><a href="index.html">Rectangle</a> <a
-                                                        href="grow.html"><span
-                                                        class="token function">grow</span></a><span
-                                                        class="token punctuation">(</span><span
-                                                        class="token keyword"></span>double delta<span
-                                                        class="token punctuation">)</span><span
-                                                        class="top-right-position"><span class="copy-icon"></span><div
-                                                        class="copy-popup-wrapper popup-to-left"><span
-                                                        class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span>
-                                                </div>
-                                                <div class="brief ">Returns a grown version of this cuboid</div>
-                                                <div class="symbol monospace block"><span
-                                                        class="token keyword"></span><a href="index.html">Rectangle</a> <a
-                                                        href="grow.html"><span
-                                                        class="token function">grow</span></a><span
-                                                        class="token punctuation">(</span><span
-                                                        class="token keyword"></span>double x<span
-                                                        class="token punctuation">, </span><span
-                                                        class="token keyword"></span>double y<span
-                                                        class="token punctuation">, </span><span
-                                                        class="token keyword"></span>double z<span
-                                                        class="token punctuation">)</span><span
-                                                        class="top-right-position"><span class="copy-icon"></span><div
-                                                        class="copy-popup-wrapper popup-to-left"><span
-                                                        class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span>
-                                                </div>
-                                                <div class="brief ">Return a grown version of this cuboid</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a anchor-label="iterator" data-filterable-set=":dokkaHtml/main"
-                           data-name="-547155471%2FFunctions%2F769193423" id="-547155471%2FFunctions%2F769193423"></a>
-                        <div class="table-row" data-filterable-current=":dokkaHtml/main"
-                             data-filterable-set=":dokkaHtml/main">
-                            <div class="main-subrow keyValue ">
-                                <div class=""><span class="inline-flex">
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace block"><span class="token keyword"></span><a href="index.html">Rectangle</a> <a href="grow.html"><span class="token function">grow</span></a><span class="token punctuation">(</span><span class="token keyword"></span>double delta<span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief ">Returns a grown version of this cuboid</div><div class="symbol monospace block"><span class="token keyword"></span><a href="index.html">Rectangle</a> <a href="grow.html"><span class="token function">grow</span></a><span class="token punctuation">(</span><span class="token keyword"></span>double x<span class="token punctuation">, </span><span class="token keyword"></span>double y<span class="token punctuation">, </span><span class="token keyword"></span>double z<span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief ">Return a grown version of this cuboid</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-547155471%2FFunctions%2F769193423" anchor-label="iterator" id="-547155471%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex">
                         <div><a href="iterator.html"><span><span>iterator</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-547155471%2FFunctions%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
-                                <div>
-                                    <div class="title">
-                                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted">
-                                            <div class="content sourceset-depenent-content" data-active=""
-                                                 data-togglable=":dokkaHtml/main">
-                                                <div class="symbol monospace block"><span
-                                                        class="token keyword"></span><a
-                                                        href="https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html">Iterator</a><span
-                                                        class="token operator">&lt;</span><a
-                                                        href="../-position2-d/index.html">Position2D</a><span
-                                                        class="token operator">&gt;</span> <a href="iterator.html"><span
-                                                        class="token function">iterator</span></a><span
-                                                        class="token punctuation">(</span><span
-                                                        class="token punctuation">)</span><span
-                                                        class="top-right-position"><span class="copy-icon"></span><div
-                                                        class="copy-popup-wrapper popup-to-left"><span
-                                                        class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a anchor-label="randomPosition" data-filterable-set=":dokkaHtml/main"
-                           data-name="299665299%2FFunctions%2F769193423" id="299665299%2FFunctions%2F769193423"></a>
-                        <div class="table-row" data-filterable-current=":dokkaHtml/main"
-                             data-filterable-set=":dokkaHtml/main">
-                            <div class="main-subrow keyValue ">
-                                <div class=""><span class="inline-flex">
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace block"><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html">Iterator</a><span class="token operator">&lt;</span><a href="../-position2-d/index.html">Position2D</a><span class="token operator">&gt;</span> <a href="iterator.html"><span class="token function">iterator</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="299665299%2FFunctions%2F769193423" anchor-label="randomPosition" id="299665299%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex">
                         <div><a href="random-position.html"><span>random</span><wbr></wbr><span><span>Position</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="299665299%2FFunctions%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
-                                <div>
-                                    <div class="title">
-                                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted">
-                                            <div class="content sourceset-depenent-content" data-active=""
-                                                 data-togglable=":dokkaHtml/main">
-                                                <div class="symbol monospace block"><span
-                                                        class="token keyword"></span><a
-                                                        href="../-position2-d/index.html">Position2D</a> <a
-                                                        href="random-position.html"><span class="token function">randomPosition</span></a><span
-                                                        class="token punctuation">(</span><span
-                                                        class="token punctuation">)</span><span
-                                                        class="top-right-position"><span class="copy-icon"></span><div
-                                                        class="copy-popup-wrapper popup-to-left"><span
-                                                        class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span>
-                                                </div>
-                                                <div class="brief ">Returns a random position from this Cuboid</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a anchor-label="setMax" data-filterable-set=":dokkaHtml/main"
-                           data-name="1227203845%2FFunctions%2F769193423" id="1227203845%2FFunctions%2F769193423"></a>
-                        <div class="table-row" data-filterable-current=":dokkaHtml/main"
-                             data-filterable-set=":dokkaHtml/main">
-                            <div class="main-subrow keyValue ">
-                                <div class=""><span class="inline-flex">
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace block"><span class="token keyword"></span><a href="../-position2-d/index.html">Position2D</a> <a href="random-position.html"><span class="token function">randomPosition</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief ">Returns a random position from this Cuboid</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="1227203845%2FFunctions%2F769193423" anchor-label="setMax" id="1227203845%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex">
                         <div><a href="set-max.html"><span>set</span><wbr></wbr><span><span>Max</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1227203845%2FFunctions%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
-                                <div>
-                                    <div class="title">
-                                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted">
-                                            <div class="content sourceset-depenent-content" data-active=""
-                                                 data-togglable=":dokkaHtml/main">
-                                                <div class="symbol monospace block"><span class="token keyword"></span>void <a
-                                                        href="set-max.html"><span
-                                                        class="token function">setMax</span></a><span
-                                                        class="token punctuation">(</span><span
-                                                        class="token keyword"></span><a
-                                                        href="../-position2-d/index.html">Position2D</a> max<span
-                                                        class="token punctuation">)</span><span
-                                                        class="top-right-position"><span class="copy-icon"></span><div
-                                                        class="copy-popup-wrapper popup-to-left"><span
-                                                        class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a anchor-label="setMin" data-filterable-set=":dokkaHtml/main"
-                           data-name="-950583721%2FFunctions%2F769193423" id="-950583721%2FFunctions%2F769193423"></a>
-                        <div class="table-row" data-filterable-current=":dokkaHtml/main"
-                             data-filterable-set=":dokkaHtml/main">
-                            <div class="main-subrow keyValue ">
-                                <div class=""><span class="inline-flex">
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace block"><span class="token keyword"></span>void <a href="set-max.html"><span class="token function">setMax</span></a><span class="token punctuation">(</span><span class="token keyword"></span><a href="../-position2-d/index.html">Position2D</a> max<span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-950583721%2FFunctions%2F769193423" anchor-label="setMin" id="-950583721%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex">
                         <div><a href="set-min.html"><span>set</span><wbr></wbr><span><span>Min</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-950583721%2FFunctions%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
-                                <div>
-                                    <div class="title">
-                                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted">
-                                            <div class="content sourceset-depenent-content" data-active=""
-                                                 data-togglable=":dokkaHtml/main">
-                                                <div class="symbol monospace block"><span class="token keyword"></span>void <a
-                                                        href="set-min.html"><span
-                                                        class="token function">setMin</span></a><span
-                                                        class="token punctuation">(</span><span
-                                                        class="token keyword"></span><a
-                                                        href="../-position2-d/index.html">Position2D</a> min<span
-                                                        class="token punctuation">)</span><span
-                                                        class="top-right-position"><span class="copy-icon"></span><div
-                                                        class="copy-popup-wrapper popup-to-left"><span
-                                                        class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a anchor-label="shrink" data-filterable-set=":dokkaHtml/main"
-                           data-name="326023852%2FFunctions%2F769193423" id="326023852%2FFunctions%2F769193423"></a>
-                        <div class="table-row" data-filterable-current=":dokkaHtml/main"
-                             data-filterable-set=":dokkaHtml/main">
-                            <div class="main-subrow keyValue ">
-                                <div class=""><span class="inline-flex">
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace block"><span class="token keyword"></span>void <a href="set-min.html"><span class="token function">setMin</span></a><span class="token punctuation">(</span><span class="token keyword"></span><a href="../-position2-d/index.html">Position2D</a> min<span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="326023852%2FFunctions%2F769193423" anchor-label="shrink" id="326023852%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex">
                         <div><a href="shrink.html"><span><span>shrink</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="326023852%2FFunctions%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
-                                <div>
-                                    <div class="title">
-                                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted">
-                                            <div class="content sourceset-depenent-content" data-active=""
-                                                 data-togglable=":dokkaHtml/main">
-                                                <div class="symbol monospace block"><span
-                                                        class="token keyword"></span><a href="index.html">Rectangle</a> <a
-                                                        href="shrink.html"><span
-                                                        class="token function">shrink</span></a><span
-                                                        class="token punctuation">(</span><span
-                                                        class="token keyword"></span>double delta<span
-                                                        class="token punctuation">)</span><span
-                                                        class="top-right-position"><span class="copy-icon"></span><div
-                                                        class="copy-popup-wrapper popup-to-left"><span
-                                                        class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span>
-                                                </div>
-                                                <div class="brief ">Returns a shrunken version of this cuboid</div>
-                                                <div class="symbol monospace block"><span
-                                                        class="token keyword"></span><a href="index.html">Rectangle</a> <a
-                                                        href="shrink.html"><span
-                                                        class="token function">shrink</span></a><span
-                                                        class="token punctuation">(</span><span
-                                                        class="token keyword"></span>double x<span
-                                                        class="token punctuation">, </span><span
-                                                        class="token keyword"></span>double y<span
-                                                        class="token punctuation">, </span><span
-                                                        class="token keyword"></span>double z<span
-                                                        class="token punctuation">)</span><span
-                                                        class="top-right-position"><span class="copy-icon"></span><div
-                                                        class="copy-popup-wrapper popup-to-left"><span
-                                                        class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span>
-                                                </div>
-                                                <div class="brief ">Return a shrunken version of this cuboid</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a anchor-label="spliterator" data-filterable-set=":dokkaHtml/main"
-                           data-name="413044853%2FFunctions%2F769193423" id="413044853%2FFunctions%2F769193423"></a>
-                        <div class="table-row" data-filterable-current=":dokkaHtml/main"
-                             data-filterable-set=":dokkaHtml/main">
-                            <div class="main-subrow keyValue ">
-                                <div class=""><span class="inline-flex">
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace block"><span class="token keyword"></span><a href="index.html">Rectangle</a> <a href="shrink.html"><span class="token function">shrink</span></a><span class="token punctuation">(</span><span class="token keyword"></span>double delta<span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief ">Returns a shrunken version of this cuboid</div><div class="symbol monospace block"><span class="token keyword"></span><a href="index.html">Rectangle</a> <a href="shrink.html"><span class="token function">shrink</span></a><span class="token punctuation">(</span><span class="token keyword"></span>double x<span class="token punctuation">, </span><span class="token keyword"></span>double y<span class="token punctuation">, </span><span class="token keyword"></span>double z<span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief ">Return a shrunken version of this cuboid</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="413044853%2FFunctions%2F769193423" anchor-label="spliterator" id="413044853%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex">
                         <div><a href="index.html#413044853%2FFunctions%2F769193423"><span><span>spliterator</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="413044853%2FFunctions%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
-                                <div>
-                                    <div class="title">
-                                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted">
-                                            <div class="content sourceset-depenent-content" data-active=""
-                                                 data-togglable=":dokkaHtml/main">
-                                                <div class="symbol monospace block"><span
-                                                        class="token keyword"></span><a
-                                                        href="https://docs.oracle.com/javase/8/docs/api/java/util/Spliterator.html">Spliterator</a><span
-                                                        class="token operator">&lt;</span><a
-                                                        href="https://docs.oracle.com/javase/8/docs/api/java/lang/Enum.html#valueOf-java.lang.Class&amp;lt;T&amp;gt;-java.lang.String-">T</a><span
-                                                        class="token operator">&gt;</span> <a
-                                                        href="index.html#413044853%2FFunctions%2F769193423"><span
-                                                        class="token function">spliterator</span></a><span
-                                                        class="token punctuation">(</span><span
-                                                        class="token punctuation">)</span><span
-                                                        class="top-right-position"><span class="copy-icon"></span><div
-                                                        class="copy-popup-wrapper popup-to-left"><span
-                                                        class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a anchor-label="toString" data-filterable-set=":dokkaHtml/main"
-                           data-name="1063084467%2FFunctions%2F769193423" id="1063084467%2FFunctions%2F769193423"></a>
-                        <div class="table-row" data-filterable-current=":dokkaHtml/main"
-                             data-filterable-set=":dokkaHtml/main">
-                            <div class="main-subrow keyValue ">
-                                <div class=""><span class="inline-flex">
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace block"><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Spliterator.html">Spliterator</a><span class="token operator">&lt;</span><span data-unresolved-link="org.bukkit.plugin.java/JavaPlugin/getPlugin/#java.lang.Class&amp;lt;T&amp;gt;/PointingToGenericParameters(0)/">T</span><span class="token operator">&gt;</span> <a href="index.html#413044853%2FFunctions%2F769193423"><span class="token function">spliterator</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="1063084467%2FFunctions%2F769193423" anchor-label="toString" id="1063084467%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex">
                         <div><a href="to-string.html"><span>to</span><wbr></wbr><span><span>String</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1063084467%2FFunctions%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
-                                <div>
-                                    <div class="title">
-                                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted">
-                                            <div class="content sourceset-depenent-content" data-active=""
-                                                 data-togglable=":dokkaHtml/main">
-                                                <div class="symbol monospace block"><span
-                                                        class="token keyword"></span><a
-                                                        href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> <a
-                                                        href="to-string.html"><span
-                                                        class="token function">toString</span></a><span
-                                                        class="token punctuation">(</span><span
-                                                        class="token punctuation">)</span><span
-                                                        class="top-right-position"><span class="copy-icon"></span><div
-                                                        class="copy-popup-wrapper popup-to-left"><span
-                                                        class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace block"><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> <a href="to-string.html"><span class="token function">toString</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
                     </div>
-                    <h2 class="">Properties</h2>
-                    <div class="table" data-togglable="Properties"><a anchor-label="max"
-                                                                      data-filterable-set=":dokkaHtml/main"
-                                                                      data-name="536482487%2FProperties%2F769193423"
-                                                                      id="536482487%2FProperties%2F769193423"></a>
-                        <div class="table-row" data-filterable-current=":dokkaHtml/main"
-                             data-filterable-set=":dokkaHtml/main">
-                            <div class="main-subrow keyValue ">
-                                <div class=""><span class="inline-flex">
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Properties</h2>
+              <div class="table" data-togglable="Properties"><a data-name="536482487%2FProperties%2F769193423" anchor-label="max" id="536482487%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex">
                         <div><a href="index.html#536482487%2FProperties%2F769193423">max</a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="536482487%2FProperties%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
-                                <div>
-                                    <div class="title">
-                                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"
-                                             data-togglable="Properties">
-                                            <div class="content sourceset-depenent-content" data-active=""
-                                                 data-togglable=":dokkaHtml/main"><a anchor-label="max"
-                                                                                     data-filterable-set=":dokkaHtml/main"
-                                                                                     data-name="536482487%2FProperties%2F769193423"
-                                                                                     id="536482487%2FProperties%2F769193423"></a>
-                                                <div class="symbol monospace block"><span
-                                                        class="token keyword">private </span><span
-                                                        class="token keyword"> </span><span
-                                                        class="token keyword"></span><a
-                                                        href="../-position2-d/index.html">Position2D</a> <a
-                                                        href="index.html#536482487%2FProperties%2F769193423">max</a><span
-                                                        class="top-right-position"><span class="copy-icon"></span><div
-                                                        class="copy-popup-wrapper popup-to-left"><span
-                                                        class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a anchor-label="min" data-filterable-set=":dokkaHtml/main"
-                           data-name="-670738039%2FProperties%2F769193423" id="-670738039%2FProperties%2F769193423"></a>
-                        <div class="table-row" data-filterable-current=":dokkaHtml/main"
-                             data-filterable-set=":dokkaHtml/main">
-                            <div class="main-subrow keyValue ">
-                                <div class=""><span class="inline-flex">
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="536482487%2FProperties%2F769193423" anchor-label="max" id="536482487%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword"> </span><span class="token keyword"></span><a href="../-position2-d/index.html">Position2D</a> <a href="index.html#536482487%2FProperties%2F769193423">max</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-670738039%2FProperties%2F769193423" anchor-label="min" id="-670738039%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex">
                         <div><a href="index.html#-670738039%2FProperties%2F769193423">min</a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-670738039%2FProperties%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
-                                <div>
-                                    <div class="title">
-                                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"
-                                             data-togglable="Properties">
-                                            <div class="content sourceset-depenent-content" data-active=""
-                                                 data-togglable=":dokkaHtml/main"><a anchor-label="min"
-                                                                                     data-filterable-set=":dokkaHtml/main"
-                                                                                     data-name="-670738039%2FProperties%2F769193423"
-                                                                                     id="-670738039%2FProperties%2F769193423"></a>
-                                                <div class="symbol monospace block"><span
-                                                        class="token keyword">private </span><span
-                                                        class="token keyword"> </span><span
-                                                        class="token keyword"></span><a
-                                                        href="../-position2-d/index.html">Position2D</a> <a
-                                                        href="index.html#-670738039%2FProperties%2F769193423">min</a><span
-                                                        class="top-right-position"><span class="copy-icon"></span><div
-                                                        class="copy-popup-wrapper popup-to-left"><span
-                                                        class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="-670738039%2FProperties%2F769193423" anchor-label="min" id="-670738039%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword"> </span><span class="token keyword"></span><a href="../-position2-d/index.html">Position2D</a> <a href="index.html#-670738039%2FProperties%2F769193423">min</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
                     </div>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2022 Copyright</span><span
-                class="pull-right"><span>Generated by </span><a
-                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
-        </div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2022 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
     </div>
-</div>
-</body>
+  </body>
 </html>
 

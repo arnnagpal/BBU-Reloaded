@@ -10,6 +10,7 @@ import me.imoltres.bbu.utils.scoreboard.BBUScoreboardUtils;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import org.apache.commons.lang.StringUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -48,8 +49,8 @@ public abstract class BBUScoreboardAdapter {
      */
     protected BBUScoreboardAdapter(int startNumber, Player player) {
         this.startNumber = startNumber;
-        this.title = Messages.SCOREBOARD_TITLE.toString();
-        this.scoreboard = player.getScoreboard();
+        this.title = Messages.SCOREBOARD_TITLE;
+        this.scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
         this.parentPlayer = BBU.getInstance().getPlayerController().getPlayer(player.getUniqueId());
         this.parentBukkitPlayer = player;
 
@@ -370,7 +371,10 @@ public abstract class BBUScoreboardAdapter {
      * Cleanup this instance of the scoreboard
      */
     public void remove() {
-        scoreboard.getObjective("bbuscoreboard").unregister();
+        Objective objective = scoreboard.getObjective("bbuscoreboard");
+
+        if (objective != null)
+            objective.unregister();
     }
 
 }

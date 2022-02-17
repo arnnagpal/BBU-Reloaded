@@ -7,10 +7,13 @@ import me.imoltres.bbu.game.threads.GameStartThread
 import me.imoltres.bbu.game.threads.GameThread
 import me.imoltres.bbu.utils.CC
 import me.imoltres.bbu.utils.config.MainConfig
+import me.imoltres.bbu.utils.general.PlayerUtils
 import me.imoltres.bbu.utils.world.Position2D
 import org.bukkit.*
 import org.bukkit.command.CommandSender
+import org.bukkit.entity.Firework
 import java.util.concurrent.ExecutionException
+
 
 /**
  * Game class to control the state of the game
@@ -20,12 +23,14 @@ class Game {
 
     val thread = GameThread(this)
 
-    val border: Int = MainConfig.BORDER.toInt()
+    val border: Int = MainConfig.BORDER
 
     lateinit var overworld: World
     lateinit var nether: World
     lateinit var end: World
     lateinit var spawnWorld: World
+
+    lateinit var worlds: Array<World>
 
     init {
         setupWorlds()
@@ -63,8 +68,40 @@ class Game {
     /**
      * Stop the game
      */
-    fun stopGame() {
+    fun stopGame(winner: BBUTeam?) {
         gameState = GameState.POST_GAME
+
+        Bukkit.getScheduler().runTask(BBU.getInstance(), Runnable {
+            if (winner != null) {
+                for (player in winner.players) {
+                    val f = player.player?.location?.let { player.player?.world?.spawn(it, Firework::class.java) }
+                    val fm = f?.fireworkMeta
+                    if (fm != null) {
+                        fm.addEffect(
+                            FireworkEffect.builder()
+                                .flicker(true)
+                                .trail(true)
+                                .with(FireworkEffect.Type.STAR)
+                                .with(FireworkEffect.Type.BALL)
+                                .with(FireworkEffect.Type.BALL_LARGE)
+                                .withColor(Color.AQUA)
+                                .withColor(Color.YELLOW)
+                                .withColor(Color.RED)
+                                .withColor(Color.WHITE)
+                                .build()
+                        )
+
+                        fm.power = 0
+                        f.fireworkMeta = fm
+                    }
+                }
+
+                PlayerUtils.broadcastTitle(
+                    "&cGame ended!",
+                    "&7The winning team is ${winner.getRawDisplayName()}&7!"
+                )
+            }
+        })
     }
 
     /**
@@ -74,20 +111,29 @@ class Game {
     fun preLobby(sender: CommandSender?) {
         Thread {
             for (team in BBU.getInstance().teamController.teamsWithCages) {
-                team.distributeItems()
                 for (player in team.players) {
-                    Bukkit.getScheduler().runTask(
+                    player.preventMovement()
+                    Bukkit.getScheduler().runTaskLater(
                         BBU.getInstance(),
                         Runnable {
                             team.cage?.spawnPosition?.toBukkitLocation()?.let {
                                 println(it)
-                                player.player?.teleportAsync(it)
+                                it.chunk.load()
+
+                                player.player?.teleport(it)
+                                Bukkit.getScheduler().runTaskLater(
+                                    BBU.getInstance(), Runnable {
+                                        player.allowMovement()
+                                    }, 20L
+                                )
                             }
-                        }
+                        },
+                        20L
                     )
                     sender?.sendMessage(CC.translate("&7${player.getRawDisplayName()} &ahas been put in a cage."))
                     Thread.sleep(750)
                 }
+                team.distributeItems()
             }
 
             gameState = GameState.PRE_GAME
@@ -135,11 +181,17 @@ class Game {
         //Get spawn world
         spawnWorld = WorldCreator("bbuSpawnWorld").generator(EmptyChunkGenerator()).createWorld()!!
 
-        overworld.worldBorder.setCenter(0.0, 0.0)
-        overworld.worldBorder.size = border.toDouble()
+        worlds = arrayOf(overworld, nether, end, spawnWorld);
+        for (world in worlds) {
+            world.worldBorder.setCenter(0.0, 0.0)
+            world.worldBorder.size = border.toDouble()
 
-        nether.worldBorder.setCenter(0.0, 0.0)
-        nether.worldBorder.size = border.toDouble()
+            world.time = 0
+            world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false)
+
+            world.setStorm(false)
+            world.isThundering = false
+        }
 
         val netherSpawn = Location(nether, 0.0, 70.0, 0.0)
         val location = nether.locateNearestStructure(netherSpawn, StructureType.NETHER_FORTRESS, border, false)
@@ -152,7 +204,10 @@ class Game {
 
         Bukkit.getScheduler().runTaskAsynchronously(BBU.getInstance(), Runnable {
             try {
-                BBU.getInstance().cageController.placeCages(overworld, BBU.getInstance().teamController.teamsWithCages)
+                BBU.getInstance().cageController.placeCages(
+                    overworld,
+                    BBU.getInstance().teamController.teamsWithCages
+                )
 
                 Bukkit.getScheduler().runTaskLater(BBU.getInstance(), Runnable {
                     BBU.getInstance().isJoinable = true

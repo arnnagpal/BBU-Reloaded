@@ -1,5 +1,6 @@
-package me.imoltres.bbu.utils;
+package me.imoltres.bbu.utils.general;
 
+import me.imoltres.bbu.utils.CC;
 import org.bukkit.Bukkit;
 
 /**

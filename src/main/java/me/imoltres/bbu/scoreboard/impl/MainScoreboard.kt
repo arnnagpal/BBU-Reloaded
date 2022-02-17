@@ -5,8 +5,8 @@ import me.imoltres.bbu.data.player.BBUPlayer
 import me.imoltres.bbu.game.GameState
 import me.imoltres.bbu.scoreboard.BBUScoreboardAdapter
 import me.imoltres.bbu.utils.CC
-import me.imoltres.bbu.utils.DateUtils
-import me.imoltres.bbu.utils.TickUtils
+import me.imoltres.bbu.utils.general.DateUtils
+import me.imoltres.bbu.utils.general.TickUtils
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import java.math.BigDecimal

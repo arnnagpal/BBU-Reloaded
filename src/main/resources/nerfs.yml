@@ -1,0 +1,16 @@
+"potions":
+  #INCLUDES ALL TIERS OF THE EFFECT
+
+  #for damage equation is (damage_factor * original_damage), meaning >1.0 = higher damage & <1.0 = lower damage
+  "damage": 1.0
+  #for weakness equation is (weakness_factor * original_damage), meaning >1.0 = higher damage & <1.0 = even lower damage
+  "weakness": 1.0
+  #for strength equation is (strength_factor * original_damage), meaning >1.0 = higher damage & <1.0 = lower damage
+  "strength": 1.0
+
+#reference https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html for specific entities to remove spawning of
+#case-sensitive
+"remove-mobs-spawn": [
+  "PIGLIN_BRUTE", #aint no one like brutes
+  "BAT" #why do they even exist
+]

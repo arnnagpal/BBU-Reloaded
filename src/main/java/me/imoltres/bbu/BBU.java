@@ -2,20 +2,20 @@ package me.imoltres.bbu;
 
 import lombok.Getter;
 import me.imoltres.bbu.commands.GameCommand;
+import me.imoltres.bbu.commands.main.TrackPositionCommand;
+import me.imoltres.bbu.commands.team.TeamPosCommand;
 import me.imoltres.bbu.controllers.CageController;
 import me.imoltres.bbu.controllers.PlayerController;
 import me.imoltres.bbu.controllers.TeamController;
 import me.imoltres.bbu.data.BBUTeamColour;
 import me.imoltres.bbu.game.Game;
-import me.imoltres.bbu.listeners.BeaconListener;
-import me.imoltres.bbu.listeners.DeathListener;
-import me.imoltres.bbu.listeners.GameListener;
-import me.imoltres.bbu.listeners.JoinListener;
+import me.imoltres.bbu.listeners.*;
 import me.imoltres.bbu.scoreboard.BBUScoreboard;
 import me.imoltres.bbu.utils.CC;
 import me.imoltres.bbu.utils.command.Command;
 import me.imoltres.bbu.utils.command.CommandFramework;
 import me.imoltres.bbu.utils.config.type.BasicConfigurationFile;
+import me.imoltres.bbu.utils.menu.MenuListener;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
@@ -47,6 +47,8 @@ public class BBU extends JavaPlugin {
     private BasicConfigurationFile messagesConfig;
     @Getter
     private BasicConfigurationFile teamSpawnsConfig;
+    @Getter
+    private BasicConfigurationFile nerfsConfig;
 
     //schems folder for cage
     @Getter
@@ -98,8 +100,9 @@ public class BBU extends JavaPlugin {
         //setup configs / folders
         Bukkit.getConsoleSender().sendMessage(CC.translate("&aLoading config files..."));
 
-        this.mainConfig = new BasicConfigurationFile(this, "config");
+        mainConfig = new BasicConfigurationFile(this, "config");
         messagesConfig = new BasicConfigurationFile(this, "messages");
+        nerfsConfig = new BasicConfigurationFile(this, "nerfs");
         teamSpawnsConfig = new BasicConfigurationFile(this, new File("world"), "teamSpawns", false);
 
         schemesFolder = new File(getDataFolder(), "schematics");
@@ -190,7 +193,9 @@ public class BBU extends JavaPlugin {
      */
     private void registerCommands() {
         Command.registerCommands( //GAME STUFF
-                GameCommand.class
+                GameCommand.class,
+                TrackPositionCommand.class,
+                TeamPosCommand.class
         );
     }
 
@@ -214,9 +219,14 @@ public class BBU extends JavaPlugin {
     private void registerListeners() {
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new BeaconListener(), this);
+        pluginManager.registerEvents(new BlockListener(), this);
+        pluginManager.registerEvents(new InteractListener(), this);
         pluginManager.registerEvents(new DeathListener(), this);
         pluginManager.registerEvents(new GameListener(), this);
         pluginManager.registerEvents(new JoinListener(), this);
+        pluginManager.registerEvents(new NerfsListener(), this);
+
+        pluginManager.registerEvents(new MenuListener(), this);
     }
 
     /**

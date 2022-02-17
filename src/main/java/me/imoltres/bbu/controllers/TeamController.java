@@ -9,6 +9,7 @@ import me.imoltres.bbu.data.team.BBUTeam;
 import me.imoltres.bbu.utils.world.WorldPosition;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +80,7 @@ public class TeamController {
      * @param player player inside the team
      * @return BBUTeam
      */
+    @Nullable
     public BBUTeam getTeam(Player player) {
         return BBU.getInstance().getPlayerController().getPlayer(player.getUniqueId()).getTeam();
     }

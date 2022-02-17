@@ -1,2 +1,5 @@
 border: 1000
 lobby-spawn: ""
+
+#allow teammates to hit eachother
+friendly-fire: true

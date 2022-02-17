@@ -14,7 +14,7 @@ class BBUCage(
 
     val spawnPosition: WorldPosition = spawnPosition
         get() {
-            return field.subtract(0.0, 1.0, 0.0).toWorldPosition(field.world)
+            return field
         }
 
     override fun toString(): String {

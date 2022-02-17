@@ -1,4 +1,4 @@
-package me.imoltres.bbu.utils;
+package me.imoltres.bbu.utils.item;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -40,5 +40,9 @@ public class ItemConstants {
                     )
                     .localizedName("bbu-beacon")
                     .build();
+
+    public static boolean isSimilar(ItemStack original, ItemStack newItem) {
+        return original.isSimilar(newItem) || original.getLocalizedName().equals(newItem.getLocalizedName());
+    }
 
 }

@@ -13,6 +13,7 @@ public class BBUScoreboardThread extends Thread {
     public void run() {
         while (true) {
             try {
+                sleep(1000);
                 if (Thread.currentThread().isInterrupted()) {
                     return;
                 }
@@ -23,8 +24,6 @@ public class BBUScoreboardThread extends Thread {
                     if (bbuPlayer.getScoreboard() != null)
                         bbuPlayer.getScoreboard().update();
                 }
-
-                sleep(100);
             } catch (InterruptedException e) {
                 return;
             }

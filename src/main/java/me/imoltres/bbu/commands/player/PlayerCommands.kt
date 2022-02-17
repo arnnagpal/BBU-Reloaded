@@ -60,7 +60,7 @@ class PlayerCommands : SubCommand {
             "leaveteam" -> {
                 val team = player?.team
                 team?.removePlayer(player)
-                sender.sendMessage(CC.translate("&cRemoved '" + player.getRawDisplayName() + "&a' from team '" + team?.getRawDisplayName() + "&a'"))
+                sender.sendMessage(CC.translate("&aRemoved '" + player.getRawDisplayName() + "&a' from team '" + team?.getRawDisplayName() + "&a'"))
             }
         }
 

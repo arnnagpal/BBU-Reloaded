@@ -2,25 +2,20 @@ package me.imoltres.bbu.utils.config;
 
 import lombok.RequiredArgsConstructor;
 import me.imoltres.bbu.BBU;
+import me.imoltres.bbu.utils.config.type.BasicConfigurationFile;
 
 /**
  * Configuration properties imported from config.yml
  */
-@RequiredArgsConstructor
-public enum MainConfig {
+public class MainConfig<T> extends ConfigGetter<T> {
 
-    BORDER("border"),
-    LOBBY_SPAWN("lobby-spawn");
+    public static int BORDER = new MainConfig<Integer>("border").get();
+    public static String LOBBY_SPAWN = new MainConfig<String>("lobby-spawn").get();
 
-    private final String path;
+    public static boolean FRIENDLY_FIRE = new MainConfig<Boolean>("friendly-fire").get();
 
-    @Override
-    public String toString() {
-        return BBU.getInstance().getMainConfig().getString(path);
-    }
-
-    public int toInt() {
-        return BBU.getInstance().getMainConfig().getInteger(path);
+    MainConfig(String path) {
+        super(BBU.getInstance().getMainConfig(), path);
     }
 
 }

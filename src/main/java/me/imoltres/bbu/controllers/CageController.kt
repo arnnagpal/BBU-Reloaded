@@ -8,7 +8,7 @@ import me.imoltres.bbu.BBU
 import me.imoltres.bbu.data.team.BBUCage
 import me.imoltres.bbu.data.team.BBUTeam
 import me.imoltres.bbu.utils.CC
-import me.imoltres.bbu.utils.GsonFactory
+import me.imoltres.bbu.utils.json.GsonFactory
 import me.imoltres.bbu.utils.world.*
 import org.bukkit.Bukkit
 import org.bukkit.Material

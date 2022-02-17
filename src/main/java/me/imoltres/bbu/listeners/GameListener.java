@@ -4,23 +4,27 @@ import me.imoltres.bbu.BBU;
 import me.imoltres.bbu.data.player.BBUPlayer;
 import me.imoltres.bbu.data.team.BBUTeam;
 import me.imoltres.bbu.game.GameState;
+import me.imoltres.bbu.game.events.player.BBUPlayerCompassOpenEvent;
 import me.imoltres.bbu.game.events.player.BBUPlayerDeathEvent;
 import me.imoltres.bbu.game.events.team.BBUBreakBeaconEvent;
 import me.imoltres.bbu.game.events.team.BBUPlaceBeaconEvent;
 import me.imoltres.bbu.game.events.team.BBUTeamModificationEvent;
-import me.imoltres.bbu.utils.BlockUtils;
+import me.imoltres.bbu.utils.general.BlockUtils;
 import me.imoltres.bbu.utils.CC;
-import me.imoltres.bbu.utils.ItemConstants;
+import me.imoltres.bbu.utils.item.ItemConstants;
 import me.imoltres.bbu.utils.config.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Arrays;
 import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class GameListener implements Listener {
@@ -66,7 +70,9 @@ public class GameListener implements Listener {
         if (player.getWorld().getEnvironment() != World.Environment.NORMAL) {
             e.setCancelled(true);
         } else {
-            if (BlockUtils.getFacesTouching(BlockUtils.Companion.getFaces(), e.getPosition().getBlock()).size() > 1) {
+            Set<Block> facesTouching = BlockUtils.getFacesTouching(BlockUtils.Companion.getFaces(), e.getPosition().getBlock());
+            System.out.println(Arrays.toString(facesTouching.stream().map(Block::getType).toArray()));
+            if (facesTouching.size() > 1) {
                 e.setCancelled(true);
             }
         }

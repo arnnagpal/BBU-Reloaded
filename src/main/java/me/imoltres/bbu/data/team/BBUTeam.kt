@@ -5,7 +5,7 @@ import me.imoltres.bbu.data.BBUTeamColour
 import me.imoltres.bbu.data.player.BBUPlayer
 import me.imoltres.bbu.game.events.team.BBUTeamModificationEvent
 import me.imoltres.bbu.utils.CC
-import me.imoltres.bbu.utils.ItemConstants
+import me.imoltres.bbu.utils.item.ItemConstants
 import me.imoltres.bbu.utils.world.Position
 import net.kyori.adventure.text.TextComponent
 import org.bukkit.Bukkit
@@ -98,10 +98,20 @@ class BBUTeam(val colour: BBUTeamColour) {
     }
 
     /**
+     * Broadcasts a message to all team members
+     * @param msg message to broadcast
+     */
+    fun broadcastMessage(msg: String) {
+        for (player in players) {
+            player.player?.sendMessage(CC.translate(msg))
+        }
+    }
+
+    /**
      * @return does the team have their beacon
      */
     fun hasBeacon(): Boolean {
-        return if (BBU.getInstance().game.gameState.isSpawn()) true else beacon != null
+        return if (!BBU.getInstance().game.gameState.isPvp()) true else beacon != null
     }
 
     /**

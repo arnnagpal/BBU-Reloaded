@@ -2,21 +2,18 @@ package me.imoltres.bbu.utils.config;
 
 import lombok.RequiredArgsConstructor;
 import me.imoltres.bbu.BBU;
+import me.imoltres.bbu.utils.config.type.BasicConfigurationFile;
 
 /**
  * Messages imported from the messages.yml config
  */
-@RequiredArgsConstructor
-public enum Messages {
+public class Messages<T> extends ConfigGetter<T> {
 
-    SCOREBOARD_TITLE("scoreboard-title"),
-    BEACON_DESTROYED("beacon-destroyed"),
-    FINAL_DEATH("final-death");
+    public static String SCOREBOARD_TITLE = new Messages<String>("scoreboard-title").get();
+    public static String BEACON_DESTROYED = new Messages<String>("beacon-destroyed").get();
+    public static String FINAL_DEATH = new Messages<String>("final-death").get();
 
-    private final String path;
-
-    @Override
-    public String toString() {
-        return BBU.getInstance().getMessagesConfig().getString(path);
+    Messages(String path) {
+        super(BBU.getInstance().getMessagesConfig(), path);
     }
 }

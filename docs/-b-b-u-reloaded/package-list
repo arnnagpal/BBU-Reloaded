@@ -22,6 +22,11 @@ $dokka.location:me.imoltres.bbu.commands.main/StartCommand/execute/#me.imoltres.
 $dokka.location:me.imoltres.bbu.commands.main/StopCommand///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.main/-stop-command/index.html
 $dokka.location:me.imoltres.bbu.commands.main/StopCommand/StopCommand/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.main/-stop-command/-stop-command.html
 $dokka.location:me.imoltres.bbu.commands.main/StopCommand/execute/#me.imoltres.bbu.utils.command.CommandArgs/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.main/-stop-command/execute.html
+$dokka.location:me.imoltres.bbu.commands.main/TrackPositionCommand///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.main/-track-position-command/index.html
+$dokka.location:me.imoltres.bbu.commands.main/TrackPositionCommand/TrackPositionCommand/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.main/-track-position-command/-track-position-command.html
+$dokka.location:me.imoltres.bbu.commands.main/TrackPositionCommand/execute/#me.imoltres.bbu.utils.command.CommandArgs/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.main/-track-position-command/execute.html
+$dokka.location:me.imoltres.bbu.commands.main/TrackPositionCommand/subCommands/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.main/-track-position-command/sub-commands.html
+$dokka.location:me.imoltres.bbu.commands.main/TrackPositionCommand/tabCompleter/#me.imoltres.bbu.utils.command.CommandArgs?/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.main/-track-position-command/tab-completer.html
 $dokka.location:me.imoltres.bbu.commands.player////PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.player/index.html
 $dokka.location:me.imoltres.bbu.commands.player/PlayerCommands///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.player/-player-commands/index.html
 $dokka.location:me.imoltres.bbu.commands.player/PlayerCommands/PlayerCommands/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.player/-player-commands/-player-commands.html
@@ -30,6 +35,11 @@ $dokka.location:me.imoltres.bbu.commands.team////PointingToDeclaration/-b-b-u-r
 $dokka.location:me.imoltres.bbu.commands.team/TeamCommands///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.team/-team-commands/index.html
 $dokka.location:me.imoltres.bbu.commands.team/TeamCommands/TeamCommands/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.team/-team-commands/-team-commands.html
 $dokka.location:me.imoltres.bbu.commands.team/TeamCommands/execute/#me.imoltres.bbu.utils.command.CommandArgs/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.team/-team-commands/execute.html
+$dokka.location:me.imoltres.bbu.commands.team/TeamPosCommand///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.team/-team-pos-command/index.html
+$dokka.location:me.imoltres.bbu.commands.team/TeamPosCommand/TeamPosCommand/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.team/-team-pos-command/-team-pos-command.html
+$dokka.location:me.imoltres.bbu.commands.team/TeamPosCommand/execute/#me.imoltres.bbu.utils.command.CommandArgs/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.team/-team-pos-command/execute.html
+$dokka.location:me.imoltres.bbu.commands.team/TeamPosCommand/subCommands/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.team/-team-pos-command/sub-commands.html
+$dokka.location:me.imoltres.bbu.commands.team/TeamPosCommand/tabCompleter/#me.imoltres.bbu.utils.command.CommandArgs?/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.team/-team-pos-command/tab-completer.html
 $dokka.location:me.imoltres.bbu.commands.team/TeamsClearCommand///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.team/-teams-clear-command/index.html
 $dokka.location:me.imoltres.bbu.commands.team/TeamsClearCommand/TeamsClearCommand/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.team/-teams-clear-command/-teams-clear-command.html
 $dokka.location:me.imoltres.bbu.commands.team/TeamsClearCommand/execute/#me.imoltres.bbu.utils.command.CommandArgs/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.team/-teams-clear-command/execute.html
@@ -73,6 +83,7 @@ $dokka.location:me.imoltres.bbu.controllers/TeamController/getTeamsWithCages/#/P
 $dokka.location:me.imoltres.bbu.data.player////PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.player/index.html
 $dokka.location:me.imoltres.bbu.data.player/BBUPlayer///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.player/-b-b-u-player/index.html
 $dokka.location:me.imoltres.bbu.data.player/BBUPlayer/BBUPlayer/#java.util.UUID#kotlin.String/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.player/-b-b-u-player/-b-b-u-player.html
+$dokka.location:me.imoltres.bbu.data.player/BBUPlayer/allowMovement/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.player/-b-b-u-player/allow-movement.html
 $dokka.location:me.imoltres.bbu.data.player/BBUPlayer/eliminate/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.player/-b-b-u-player/eliminate.html
 $dokka.location:me.imoltres.bbu.data.player/BBUPlayer/getBuild/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.player/-b-b-u-player/get-build.html
 $dokka.location:me.imoltres.bbu.data.player/BBUPlayer/getDisplayName/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.player/-b-b-u-player/get-display-name.html
@@ -85,6 +96,7 @@ $dokka.location:me.imoltres.bbu.data.player/BBUPlayer/getTeam/#/PointingToDeclar
 $dokka.location:me.imoltres.bbu.data.player/BBUPlayer/getUniqueId/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.player/-b-b-u-player/get-unique-id.html
 $dokka.location:me.imoltres.bbu.data.player/BBUPlayer/giveItemSafely/#org.bukkit.inventory.ItemStack#kotlin.Boolean/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.player/-b-b-u-player/give-item-safely.html
 $dokka.location:me.imoltres.bbu.data.player/BBUPlayer/giveItemSafely/#org.bukkit.inventory.ItemStack/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.player/-b-b-u-player/give-item-safely.html
+$dokka.location:me.imoltres.bbu.data.player/BBUPlayer/preventMovement/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.player/-b-b-u-player/prevent-movement.html
 $dokka.location:me.imoltres.bbu.data.player/BBUPlayer/setBuild/#kotlin.Boolean/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.player/-b-b-u-player/set-build.html
 $dokka.location:me.imoltres.bbu.data.player/BBUPlayer/setEliminated/#kotlin.Boolean/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.player/-b-b-u-player/set-eliminated.html
 $dokka.location:me.imoltres.bbu.data.player/BBUPlayer/setPlayer/#org.bukkit.entity.Player?/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.player/-b-b-u-player/set-player.html
@@ -100,6 +112,7 @@ $dokka.location:me.imoltres.bbu.data.team/BBUCage/toString/#/PointingToDeclarati
 $dokka.location:me.imoltres.bbu.data.team/BBUTeam///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.team/-b-b-u-team/index.html
 $dokka.location:me.imoltres.bbu.data.team/BBUTeam/BBUTeam/#me.imoltres.bbu.data.BBUTeamColour/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.team/-b-b-u-team/-b-b-u-team.html
 $dokka.location:me.imoltres.bbu.data.team/BBUTeam/addPlayer/#me.imoltres.bbu.data.player.BBUPlayer/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.team/-b-b-u-team/add-player.html
+$dokka.location:me.imoltres.bbu.data.team/BBUTeam/broadcastMessage/#kotlin.String/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.team/-b-b-u-team/broadcast-message.html
 $dokka.location:me.imoltres.bbu.data.team/BBUTeam/distributeItems/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.team/-b-b-u-team/distribute-items.html
 $dokka.location:me.imoltres.bbu.data.team/BBUTeam/eliminate/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.team/-b-b-u-team/eliminate.html
 $dokka.location:me.imoltres.bbu.data.team/BBUTeam/eliminate/#kotlin.Boolean/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.team/-b-b-u-team/eliminate.html
@@ -127,6 +140,12 @@ $dokka.location:me.imoltres.bbu.data/BBUTeamColour.YELLOW///PointingToDeclaratio
 $dokka.location:me.imoltres.bbu.data/BBUTeamColour///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data/-b-b-u-team-colour/index.html
 $dokka.location:me.imoltres.bbu.data/BBUTeamColour/getChatColor/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data/-b-b-u-team-colour/get-chat-color.html
 $dokka.location:me.imoltres.bbu.game.events.player////PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.events.player/index.html
+$dokka.location:me.imoltres.bbu.game.events.player/BBUPlayerCompassOpenEvent///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.events.player/-b-b-u-player-compass-open-event/index.html
+$dokka.location:me.imoltres.bbu.game.events.player/BBUPlayerCompassOpenEvent/BBUPlayerCompassOpenEvent/#me.imoltres.bbu.data.player.BBUPlayer/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.events.player/-b-b-u-player-compass-open-event/-b-b-u-player-compass-open-event.html
+$dokka.location:me.imoltres.bbu.game.events.player/BBUPlayerCompassOpenEvent/getHandlerList/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.events.player/-b-b-u-player-compass-open-event/get-handler-list.html
+$dokka.location:me.imoltres.bbu.game.events.player/BBUPlayerCompassOpenEvent/getHandlers/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.events.player/-b-b-u-player-compass-open-event/get-handlers.html
+$dokka.location:me.imoltres.bbu.game.events.player/BBUPlayerCompassOpenEvent/isCancelled/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.events.player/-b-b-u-player-compass-open-event/is-cancelled.html
+$dokka.location:me.imoltres.bbu.game.events.player/BBUPlayerCompassOpenEvent/setCancelled/#boolean/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.events.player/-b-b-u-player-compass-open-event/set-cancelled.html
 $dokka.location:me.imoltres.bbu.game.events.player/BBUPlayerDeathEvent///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.events.player/-b-b-u-player-death-event/index.html
 $dokka.location:me.imoltres.bbu.game.events.player/BBUPlayerDeathEvent/BBUPlayerDeathEvent/#me.imoltres.bbu.data.player.BBUPlayer#me.imoltres.bbu.data.player.BBUPlayer#boolean/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.events.player/-b-b-u-player-death-event/-b-b-u-player-death-event.html
 $dokka.location:me.imoltres.bbu.game.events.player/BBUPlayerDeathEvent/getHandlerList/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.events.player/-b-b-u-player-death-event/get-handler-list.html
@@ -199,6 +218,7 @@ $dokka.location:me.imoltres.bbu.game/Game/getOverworld/#/PointingToDeclaration/
 $dokka.location:me.imoltres.bbu.game/Game/getSpawnWorld/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-spawn-world.html
 $dokka.location:me.imoltres.bbu.game/Game/getTeams/#kotlin.Boolean/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-teams.html
 $dokka.location:me.imoltres.bbu.game/Game/getThread/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-thread.html
+$dokka.location:me.imoltres.bbu.game/Game/getWorlds/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-worlds.html
 $dokka.location:me.imoltres.bbu.game/Game/preLobby/#org.bukkit.command.CommandSender?/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/pre-lobby.html
 $dokka.location:me.imoltres.bbu.game/Game/setEnd/#org.bukkit.World/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/set-end.html
 $dokka.location:me.imoltres.bbu.game/Game/setFortressPosition/#me.imoltres.bbu.utils.world.Position2D/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/set-fortress-position.html
@@ -206,8 +226,9 @@ $dokka.location:me.imoltres.bbu.game/Game/setGameState/#me.imoltres.bbu.game.Gam
 $dokka.location:me.imoltres.bbu.game/Game/setNether/#org.bukkit.World/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/set-nether.html
 $dokka.location:me.imoltres.bbu.game/Game/setOverworld/#org.bukkit.World/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/set-overworld.html
 $dokka.location:me.imoltres.bbu.game/Game/setSpawnWorld/#org.bukkit.World/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/set-spawn-world.html
+$dokka.location:me.imoltres.bbu.game/Game/setWorlds/#kotlin.Array[org.bukkit.World]/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/set-worlds.html
 $dokka.location:me.imoltres.bbu.game/Game/startGame/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/start-game.html
-$dokka.location:me.imoltres.bbu.game/Game/stopGame/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/stop-game.html
+$dokka.location:me.imoltres.bbu.game/Game/stopGame/#me.imoltres.bbu.data.team.BBUTeam?/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/stop-game.html
 $dokka.location:me.imoltres.bbu.game/GameProgression///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game-progression/index.html
 $dokka.location:me.imoltres.bbu.game/GameProgression/GameProgression/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game-progression/-game-progression.html
 $dokka.location:me.imoltres.bbu.game/GameProgression/getGameState/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game-progression/get-game-state.html
@@ -234,6 +255,7 @@ $dokka.location:me.imoltres.bbu.listeners/BeaconListener///PointingToDeclaration
 $dokka.location:me.imoltres.bbu.listeners/BeaconListener/BeaconListener/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-beacon-listener/-beacon-listener.html
 $dokka.location:me.imoltres.bbu.listeners/BeaconListener/onBeaconBreak/#org.bukkit.event.block.BlockBreakEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-beacon-listener/on-beacon-break.html
 $dokka.location:me.imoltres.bbu.listeners/BeaconListener/onBeaconPlace/#org.bukkit.event.block.BlockPlaceEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-beacon-listener/on-beacon-place.html
+$dokka.location:me.imoltres.bbu.listeners/BeaconListener/onBlockPlaceNearBeacon/#org.bukkit.event.block.BlockPlaceEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-beacon-listener/on-block-place-near-beacon.html
 $dokka.location:me.imoltres.bbu.listeners/BeaconListener/onEmptyBucket/#org.bukkit.event.player.PlayerBucketEmptyEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-beacon-listener/on-empty-bucket.html
 $dokka.location:me.imoltres.bbu.listeners/BeaconListener/onLiquidFlow/#org.bukkit.event.block.BlockFromToEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-beacon-listener/on-liquid-flow.html
 $dokka.location:me.imoltres.bbu.listeners/BlockListener///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-block-listener/index.html
@@ -247,11 +269,23 @@ $dokka.location:me.imoltres.bbu.listeners/GameListener/onBeaconBreak/#me.imoltre
 $dokka.location:me.imoltres.bbu.listeners/GameListener/onBeaconPlace/#me.imoltres.bbu.game.events.team.BBUPlaceBeaconEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-game-listener/on-beacon-place.html
 $dokka.location:me.imoltres.bbu.listeners/GameListener/onPlayerDeath/#me.imoltres.bbu.game.events.player.BBUPlayerDeathEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-game-listener/on-player-death.html
 $dokka.location:me.imoltres.bbu.listeners/GameListener/onTeamModification/#me.imoltres.bbu.game.events.team.BBUTeamModificationEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-game-listener/on-team-modification.html
+$dokka.location:me.imoltres.bbu.listeners/InteractListener///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-interact-listener/index.html
+$dokka.location:me.imoltres.bbu.listeners/InteractListener/onDamage/#org.bukkit.event.entity.EntityDamageByEntityEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-interact-listener/on-damage.html
+$dokka.location:me.imoltres.bbu.listeners/InteractListener/onPlayerInteract/#org.bukkit.event.player.PlayerInteractEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-interact-listener/on-player-interact.html
 $dokka.location:me.imoltres.bbu.listeners/JoinListener///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-join-listener/index.html
 $dokka.location:me.imoltres.bbu.listeners/JoinListener/JoinListener/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-join-listener/-join-listener.html
 $dokka.location:me.imoltres.bbu.listeners/JoinListener/onJoin/#org.bukkit.event.player.PlayerJoinEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-join-listener/on-join.html
 $dokka.location:me.imoltres.bbu.listeners/JoinListener/onPreJoin/#org.bukkit.event.player.AsyncPlayerPreLoginEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-join-listener/on-pre-join.html
 $dokka.location:me.imoltres.bbu.listeners/JoinListener/onQuit/#org.bukkit.event.player.PlayerQuitEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-join-listener/on-quit.html
+$dokka.location:me.imoltres.bbu.listeners/NerfsListener///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-nerfs-listener/index.html
+$dokka.location:me.imoltres.bbu.listeners/NerfsListener/onEntityDamage/#org.bukkit.event.entity.EntityDamageByEntityEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-nerfs-listener/on-entity-damage.html
+$dokka.location:me.imoltres.bbu.listeners/NerfsListener/onEntitySpawn/#org.bukkit.event.entity.EntitySpawnEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-nerfs-listener/on-entity-spawn.html
+$dokka.location:me.imoltres.bbu.listeners/WeatherListener///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-weather-listener/index.html
+$dokka.location:me.imoltres.bbu.listeners/WeatherListener/onWeatherChange/#org.bukkit.event.weather.WeatherChangeEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-weather-listener/on-weather-change.html
+$dokka.location:me.imoltres.bbu.menus////PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.menus/index.html
+$dokka.location:me.imoltres.bbu.menus/TrackingCompassMenu///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.menus/-tracking-compass-menu/index.html
+$dokka.location:me.imoltres.bbu.menus/TrackingCompassMenu/getButtons/#org.bukkit.entity.Player/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.menus/-tracking-compass-menu/get-buttons.html
+$dokka.location:me.imoltres.bbu.menus/TrackingCompassMenu/getTitle/#org.bukkit.entity.Player/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.menus/-tracking-compass-menu/get-title.html
 $dokka.location:me.imoltres.bbu.scoreboard.impl////PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.scoreboard.impl/index.html
 $dokka.location:me.imoltres.bbu.scoreboard.impl/MainScoreboard///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.scoreboard.impl/-main-scoreboard/index.html
 $dokka.location:me.imoltres.bbu.scoreboard.impl/MainScoreboard/MainScoreboard/#org.bukkit.entity.Player/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.scoreboard.impl/-main-scoreboard/-main-scoreboard.html
@@ -275,6 +309,13 @@ $dokka.location:me.imoltres.bbu.scoreboard/BBUScoreboardAdapter/setVisible/#bool
 $dokka.location:me.imoltres.bbu.scoreboard/BBUScoreboardAdapter/update/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.scoreboard/-b-b-u-scoreboard-adapter/update.html
 $dokka.location:me.imoltres.bbu.scoreboard/BBUScoreboardThread///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.scoreboard/-b-b-u-scoreboard-thread/index.html
 $dokka.location:me.imoltres.bbu.scoreboard/BBUScoreboardThread/run/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.scoreboard/-b-b-u-scoreboard-thread/run.html
+$dokka.location:me.imoltres.bbu.utils.callback////PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.callback/index.html
+$dokka.location:me.imoltres.bbu.utils.callback/Callback///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.callback/-callback/index.html
+$dokka.location:me.imoltres.bbu.utils.callback/Callback/callback/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.callback/-callback/callback.html
+$dokka.location:me.imoltres.bbu.utils.callback/ReturnableTypeCallback///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.callback/-returnable-type-callback/index.html
+$dokka.location:me.imoltres.bbu.utils.callback/ReturnableTypeCallback/call/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.callback/-returnable-type-callback/call.html
+$dokka.location:me.imoltres.bbu.utils.callback/TypeCallback///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.callback/-type-callback/index.html
+$dokka.location:me.imoltres.bbu.utils.callback/TypeCallback/callback/#T/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.callback/-type-callback/callback.html
 $dokka.location:me.imoltres.bbu.utils.command////PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.command/index.html
 $dokka.location:me.imoltres.bbu.utils.command/Command///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.command/-command/index.html
 $dokka.location:me.imoltres.bbu.utils.command/Command/execute/#me.imoltres.bbu.utils.command.CommandArgs/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.command/-command/execute.html
@@ -339,25 +380,116 @@ $dokka.location:me.imoltres.bbu.utils.config/AbstractConfigurationFile/getIntege
 $dokka.location:me.imoltres.bbu.utils.config/AbstractConfigurationFile/getString/#java.lang.String/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-abstract-configuration-file/get-string.html
 $dokka.location:me.imoltres.bbu.utils.config/AbstractConfigurationFile/getStringList/#java.lang.String/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-abstract-configuration-file/get-string-list.html
 $dokka.location:me.imoltres.bbu.utils.config/AbstractConfigurationFile/getStringOrDefault/#java.lang.String#java.lang.String/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-abstract-configuration-file/get-string-or-default.html
-$dokka.location:me.imoltres.bbu.utils.config/MainConfig.BORDER///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-b-o-r-d-e-r/index.html
-$dokka.location:me.imoltres.bbu.utils.config/MainConfig.LOBBY_SPAWN///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-l-o-b-b-y_-s-p-a-w-n/index.html
+$dokka.location:me.imoltres.bbu.utils.config/ConfigGetter///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-config-getter/index.html
+$dokka.location:me.imoltres.bbu.utils.config/ConfigGetter/get/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-config-getter/get.html
+$dokka.location:me.imoltres.bbu.utils.config/ConfigGetter/toString/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-config-getter/to-string.html
 $dokka.location:me.imoltres.bbu.utils.config/MainConfig///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/index.html
-$dokka.location:me.imoltres.bbu.utils.config/MainConfig/toInt/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/to-int.html
-$dokka.location:me.imoltres.bbu.utils.config/MainConfig/toString/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/to-string.html
-$dokka.location:me.imoltres.bbu.utils.config/MainConfig/valueOf/#java.lang.String/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/value-of.html
-$dokka.location:me.imoltres.bbu.utils.config/MainConfig/values/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/values.html
-$dokka.location:me.imoltres.bbu.utils.config/Messages.BEACON_DESTROYED///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-messages/-b-e-a-c-o-n_-d-e-s-t-r-o-y-e-d/index.html
-$dokka.location:me.imoltres.bbu.utils.config/Messages.FINAL_DEATH///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-messages/-f-i-n-a-l_-d-e-a-t-h/index.html
-$dokka.location:me.imoltres.bbu.utils.config/Messages.SCOREBOARD_TITLE///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-messages/-s-c-o-r-e-b-o-a-r-d_-t-i-t-l-e/index.html
 $dokka.location:me.imoltres.bbu.utils.config/Messages///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-messages/index.html
-$dokka.location:me.imoltres.bbu.utils.config/Messages/toString/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-messages/to-string.html
-$dokka.location:me.imoltres.bbu.utils.config/Messages/valueOf/#java.lang.String/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-messages/value-of.html
-$dokka.location:me.imoltres.bbu.utils.config/Messages/values/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-messages/values.html
+$dokka.location:me.imoltres.bbu.utils.config/Nerfs///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-nerfs/index.html
+$dokka.location:me.imoltres.bbu.utils.general////PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.general/index.html
+$dokka.location:me.imoltres.bbu.utils.general/BlockUtils.Companion///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.general/-block-utils/-companion/index.html
+$dokka.location:me.imoltres.bbu.utils.general/BlockUtils.Companion/generatesCobble/#kotlin.collections.Set[org.bukkit.block.BlockFace]#org.bukkit.Material#org.bukkit.block.Block/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.general/-block-utils/-companion/generates-cobble.html
+$dokka.location:me.imoltres.bbu.utils.general/BlockUtils.Companion/getFaces/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.general/-block-utils/-companion/get-faces.html
+$dokka.location:me.imoltres.bbu.utils.general/BlockUtils.Companion/getFacesTouching/#kotlin.collections.Set[org.bukkit.block.BlockFace]#org.bukkit.block.Block/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.general/-block-utils/-companion/get-faces-touching.html
+$dokka.location:me.imoltres.bbu.utils.general/BlockUtils///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.general/-block-utils/index.html
+$dokka.location:me.imoltres.bbu.utils.general/BlockUtils/BlockUtils/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.general/-block-utils/-block-utils.html
+$dokka.location:me.imoltres.bbu.utils.general/DateUtils///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.general/-date-utils/index.html
+$dokka.location:me.imoltres.bbu.utils.general/DateUtils/readableTime/#java.math.BigDecimal/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.general/-date-utils/readable-time.html
+$dokka.location:me.imoltres.bbu.utils.general/PlayerUtils///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.general/-player-utils/index.html
+$dokka.location:me.imoltres.bbu.utils.general/PlayerUtils/broadcastTitle/#java.lang.String#java.lang.String/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.general/-player-utils/broadcast-title.html
+$dokka.location:me.imoltres.bbu.utils.general/PlayerUtils/getLocation/#org.bukkit.Location/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.general/-player-utils/get-location.html
+$dokka.location:me.imoltres.bbu.utils.general/PlayerUtils/trackPosition/#org.bukkit.entity.Player#me.imoltres.bbu.utils.world.WorldPosition#boolean/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.general/-player-utils/track-position.html
+$dokka.location:me.imoltres.bbu.utils.general/PlayerUtils/trackPosition/#org.bukkit.entity.Player#me.imoltres.bbu.utils.world.WorldPosition/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.general/-player-utils/track-position.html
+$dokka.location:me.imoltres.bbu.utils.general/TickUtils///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.general/-tick-utils/index.html
+$dokka.location:me.imoltres.bbu.utils.general/TickUtils/getTPS/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.general/-tick-utils/get-t-p-s.html
+$dokka.location:me.imoltres.bbu.utils.item////PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.item/index.html
+$dokka.location:me.imoltres.bbu.utils.item/ItemBuilder///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.item/-item-builder/index.html
+$dokka.location:me.imoltres.bbu.utils.item/ItemBuilder/ItemBuilder/#org.bukkit.Material/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.item/-item-builder/-item-builder.html
+$dokka.location:me.imoltres.bbu.utils.item/ItemBuilder/ItemBuilder/#org.bukkit.inventory.ItemStack/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.item/-item-builder/-item-builder.html
+$dokka.location:me.imoltres.bbu.utils.item/ItemBuilder/amount/#int/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.item/-item-builder/amount.html
+$dokka.location:me.imoltres.bbu.utils.item/ItemBuilder/build/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.item/-item-builder/build.html
+$dokka.location:me.imoltres.bbu.utils.item/ItemBuilder/clearEnchantments/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.item/-item-builder/clear-enchantments.html
+$dokka.location:me.imoltres.bbu.utils.item/ItemBuilder/clearLore/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.item/-item-builder/clear-lore.html
+$dokka.location:me.imoltres.bbu.utils.item/ItemBuilder/durability/#int/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.item/-item-builder/durability.html
+$dokka.location:me.imoltres.bbu.utils.item/ItemBuilder/enchantment/#org.bukkit.enchantments.Enchantment#int/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.item/-item-builder/enchantment.html
+$dokka.location:me.imoltres.bbu.utils.item/ItemBuilder/enchantment/#org.bukkit.enchantments.Enchantment/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.item/-item-builder/enchantment.html
+$dokka.location:me.imoltres.bbu.utils.item/ItemBuilder/hideAttributes/#boolean/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.item/-item-builder/hide-attributes.html
+$dokka.location:me.imoltres.bbu.utils.item/ItemBuilder/localizedName/#java.lang.String/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.item/-item-builder/localized-name.html
+$dokka.location:me.imoltres.bbu.utils.item/ItemBuilder/lore/#java.lang.String.../PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.item/-item-builder/lore.html
+$dokka.location:me.imoltres.bbu.utils.item/ItemBuilder/lore/#java.lang.String/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.item/-item-builder/lore.html
+$dokka.location:me.imoltres.bbu.utils.item/ItemBuilder/lore/#java.util.List<java.lang.String>/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.item/-item-builder/lore.html
+$dokka.location:me.imoltres.bbu.utils.item/ItemBuilder/name/#java.lang.String/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.item/-item-builder/name.html
+$dokka.location:me.imoltres.bbu.utils.item/ItemBuilder/potionEffect/#org.bukkit.potion.PotionType/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.item/-item-builder/potion-effect.html
+$dokka.location:me.imoltres.bbu.utils.item/ItemBuilder/type/#org.bukkit.Material/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.item/-item-builder/type.html
+$dokka.location:me.imoltres.bbu.utils.item/ItemBuilder/unbreakable/#boolean/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.item/-item-builder/unbreakable.html
+$dokka.location:me.imoltres.bbu.utils.item/ItemConstants///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.item/-item-constants/index.html
+$dokka.location:me.imoltres.bbu.utils.item/ItemConstants/isSimilar/#org.bukkit.inventory.ItemStack#org.bukkit.inventory.ItemStack/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.item/-item-constants/is-similar.html
+$dokka.location:me.imoltres.bbu.utils.json////PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.json/index.html
+$dokka.location:me.imoltres.bbu.utils.json/GsonFactory///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.json/-gson-factory/index.html
+$dokka.location:me.imoltres.bbu.utils.json/GsonFactory/getCompactGson/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.json/-gson-factory/get-compact-gson.html
+$dokka.location:me.imoltres.bbu.utils.json/GsonFactory/getPrettyGson/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.json/-gson-factory/get-pretty-gson.html
+$dokka.location:me.imoltres.bbu.utils.menu.button////PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu.button/index.html
+$dokka.location:me.imoltres.bbu.utils.menu.button/BackButton///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu.button/-back-button/index.html
+$dokka.location:me.imoltres.bbu.utils.menu.button/BackButton/clicked/#org.bukkit.entity.Player#org.bukkit.event.inventory.ClickType/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu.button/-back-button/clicked.html
+$dokka.location:me.imoltres.bbu.utils.menu.button/BackButton/getButtonItem/#org.bukkit.entity.Player/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu.button/-back-button/get-button-item.html
+$dokka.location:me.imoltres.bbu.utils.menu.button/ConfirmationButton///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu.button/-confirmation-button/index.html
+$dokka.location:me.imoltres.bbu.utils.menu.button/ConfirmationButton/clicked/#org.bukkit.entity.Player#org.bukkit.event.inventory.ClickType/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu.button/-confirmation-button/clicked.html
+$dokka.location:me.imoltres.bbu.utils.menu.button/ConfirmationButton/getButtonItem/#org.bukkit.entity.Player/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu.button/-confirmation-button/get-button-item.html
+$dokka.location:me.imoltres.bbu.utils.menu.button/DisplayButton///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu.button/-display-button/index.html
+$dokka.location:me.imoltres.bbu.utils.menu.button/DisplayButton/getButtonItem/#org.bukkit.entity.Player/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu.button/-display-button/get-button-item.html
+$dokka.location:me.imoltres.bbu.utils.menu.button/DisplayButton/shouldCancel/#org.bukkit.entity.Player#org.bukkit.event.inventory.ClickType/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu.button/-display-button/should-cancel.html
+$dokka.location:me.imoltres.bbu.utils.menu.button/Filler///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu.button/-filler/index.html
+$dokka.location:me.imoltres.bbu.utils.menu.button/Filler/Filler/#boolean/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu.button/-filler/-filler.html
+$dokka.location:me.imoltres.bbu.utils.menu.button/Filler/Filler/#org.bukkit.Material/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu.button/-filler/-filler.html
+$dokka.location:me.imoltres.bbu.utils.menu.button/Filler/getButtonItem/#org.bukkit.entity.Player/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu.button/-filler/get-button-item.html
+$dokka.location:me.imoltres.bbu.utils.menu.button/JumpToMenuButton///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu.button/-jump-to-menu-button/index.html
+$dokka.location:me.imoltres.bbu.utils.menu.button/JumpToMenuButton/JumpToMenuButton/#me.imoltres.bbu.utils.menu.Menu#org.bukkit.inventory.ItemStack/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu.button/-jump-to-menu-button/-jump-to-menu-button.html
+$dokka.location:me.imoltres.bbu.utils.menu.button/JumpToMenuButton/clicked/#org.bukkit.entity.Player#org.bukkit.event.inventory.ClickType/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu.button/-jump-to-menu-button/clicked.html
+$dokka.location:me.imoltres.bbu.utils.menu.button/JumpToMenuButton/getButtonItem/#org.bukkit.entity.Player/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu.button/-jump-to-menu-button/get-button-item.html
+$dokka.location:me.imoltres.bbu.utils.menu.menus////PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu.menus/index.html
+$dokka.location:me.imoltres.bbu.utils.menu.menus/ConfirmMenu///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu.menus/-confirm-menu/index.html
+$dokka.location:me.imoltres.bbu.utils.menu.menus/ConfirmMenu/ConfirmMenu/#java.lang.String#me.imoltres.bbu.utils.callback.TypeCallback<java.lang.Boolean>#boolean#me.imoltres.bbu.utils.menu.Button.../PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu.menus/-confirm-menu/-confirm-menu.html
+$dokka.location:me.imoltres.bbu.utils.menu.menus/ConfirmMenu/getButtons/#org.bukkit.entity.Player/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu.menus/-confirm-menu/get-buttons.html
+$dokka.location:me.imoltres.bbu.utils.menu.menus/ConfirmMenu/getTitle/#org.bukkit.entity.Player/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu.menus/-confirm-menu/get-title.html
+$dokka.location:me.imoltres.bbu.utils.menu////PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu/index.html
+$dokka.location:me.imoltres.bbu.utils.menu/Button///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu/-button/index.html
+$dokka.location:me.imoltres.bbu.utils.menu/Button/clicked/#org.bukkit.entity.Player#int#org.bukkit.event.inventory.ClickType#int/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu/-button/clicked.html
+$dokka.location:me.imoltres.bbu.utils.menu/Button/clicked/#org.bukkit.entity.Player#org.bukkit.event.inventory.ClickType/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu/-button/clicked.html
+$dokka.location:me.imoltres.bbu.utils.menu/Button/getButtonItem/#org.bukkit.entity.Player/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu/-button/get-button-item.html
+$dokka.location:me.imoltres.bbu.utils.menu/Button/placeholder/#org.bukkit.Material#java.lang.String.../PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu/-button/placeholder.html
+$dokka.location:me.imoltres.bbu.utils.menu/Button/playFail/#org.bukkit.entity.Player/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu/-button/play-fail.html
+$dokka.location:me.imoltres.bbu.utils.menu/Button/playNeutral/#org.bukkit.entity.Player/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu/-button/play-neutral.html
+$dokka.location:me.imoltres.bbu.utils.menu/Button/playSuccess/#org.bukkit.entity.Player/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu/-button/play-success.html
+$dokka.location:me.imoltres.bbu.utils.menu/Button/shouldCancel/#org.bukkit.entity.Player#org.bukkit.event.inventory.ClickType/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu/-button/should-cancel.html
+$dokka.location:me.imoltres.bbu.utils.menu/Button/shouldUpdate/#org.bukkit.entity.Player#org.bukkit.event.inventory.ClickType/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu/-button/should-update.html
+$dokka.location:me.imoltres.bbu.utils.menu/Menu///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu/-menu/index.html
+$dokka.location:me.imoltres.bbu.utils.menu/Menu/getButtons/#org.bukkit.entity.Player/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu/-menu/get-buttons.html
+$dokka.location:me.imoltres.bbu.utils.menu/Menu/getSize/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu/-menu/get-size.html
+$dokka.location:me.imoltres.bbu.utils.menu/Menu/getSlot/#int#int/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu/-menu/get-slot.html
+$dokka.location:me.imoltres.bbu.utils.menu/Menu/getTitle/#org.bukkit.entity.Player/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu/-menu/get-title.html
+$dokka.location:me.imoltres.bbu.utils.menu/Menu/onClose/#org.bukkit.entity.Player/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu/-menu/on-close.html
+$dokka.location:me.imoltres.bbu.utils.menu/Menu/onOpen/#org.bukkit.entity.Player/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu/-menu/on-open.html
+$dokka.location:me.imoltres.bbu.utils.menu/Menu/openMenu/#org.bukkit.entity.Player/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu/-menu/open-menu.html
+$dokka.location:me.imoltres.bbu.utils.menu/Menu/size/#java.util.Map<java.lang.Integer,me.imoltres.bbu.utils.menu.Button>/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu/-menu/size.html
+$dokka.location:me.imoltres.bbu.utils.menu/MenuListener///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu/-menu-listener/index.html
+$dokka.location:me.imoltres.bbu.utils.menu/MenuListener/onButtonPress/#org.bukkit.event.inventory.InventoryClickEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu/-menu-listener/on-button-press.html
+$dokka.location:me.imoltres.bbu.utils.menu/MenuListener/onInventoryClose/#org.bukkit.event.inventory.InventoryCloseEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.menu/-menu-listener/on-inventory-close.html
 $dokka.location:me.imoltres.bbu.utils.scoreboard////PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.scoreboard/index.html
 $dokka.location:me.imoltres.bbu.utils.scoreboard/BBUScoreboardSetupException///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.scoreboard/-b-b-u-scoreboard-setup-exception/index.html
 $dokka.location:me.imoltres.bbu.utils.scoreboard/BBUScoreboardSetupException/BBUScoreboardSetupException/#kotlin.String#java.lang.Exception/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.scoreboard/-b-b-u-scoreboard-setup-exception/-b-b-u-scoreboard-setup-exception.html
 $dokka.location:me.imoltres.bbu.utils.scoreboard/BBUScoreboardUtils///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.scoreboard/-b-b-u-scoreboard-utils/index.html
 $dokka.location:me.imoltres.bbu.utils.scoreboard/BBUScoreboardUtils/splitTeamText/#kotlin.String/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.scoreboard/-b-b-u-scoreboard-utils/split-team-text.html
+$dokka.location:me.imoltres.bbu.utils.sound////PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.sound/index.html
+$dokka.location:me.imoltres.bbu.utils.sound/SoundBuilder///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.sound/-sound-builder/index.html
+$dokka.location:me.imoltres.bbu.utils.sound/SoundBuilder/SoundBuilder/#org.bukkit.Sound#float#float/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.sound/-sound-builder/-sound-builder.html
+$dokka.location:me.imoltres.bbu.utils.sound/SoundBuilder/SoundBuilder/#org.bukkit.Sound#float/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.sound/-sound-builder/-sound-builder.html
+$dokka.location:me.imoltres.bbu.utils.sound/SoundBuilder/SoundBuilder/#org.bukkit.Sound/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.sound/-sound-builder/-sound-builder.html
+$dokka.location:me.imoltres.bbu.utils.sound/SoundBuilder/broadcast/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.sound/-sound-builder/broadcast.html
+$dokka.location:me.imoltres.bbu.utils.sound/SoundBuilder/pitch/#float/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.sound/-sound-builder/pitch.html
+$dokka.location:me.imoltres.bbu.utils.sound/SoundBuilder/play/#org.bukkit.Location/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.sound/-sound-builder/play.html
+$dokka.location:me.imoltres.bbu.utils.sound/SoundBuilder/play/#org.bukkit.entity.Player.../PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.sound/-sound-builder/play.html
+$dokka.location:me.imoltres.bbu.utils.sound/SoundBuilder/sound/#org.bukkit.Sound/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.sound/-sound-builder/sound.html
+$dokka.location:me.imoltres.bbu.utils.sound/SoundBuilder/volume/#float/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.sound/-sound-builder/volume.html
 $dokka.location:me.imoltres.bbu.utils.world////PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.world/index.html
 $dokka.location:me.imoltres.bbu.utils.world/ChunkCuboid.Serializer///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.world/-chunk-cuboid/-serializer/index.html
 $dokka.location:me.imoltres.bbu.utils.world/ChunkCuboid.Serializer/read/#com.google.gson.stream.JsonReader/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.world/-chunk-cuboid/-serializer/read.html
@@ -476,12 +608,6 @@ $dokka.location:me.imoltres.bbu.utils.world/WorldPosition/toBukkitLocation/#/Poi
 $dokka.location:me.imoltres.bbu.utils.world/WorldPosition/toBukkitLocation/#me.imoltres.bbu.utils.world.WorldPosition/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.world/-world-position/to-bukkit-location.html
 $dokka.location:me.imoltres.bbu.utils.world/WorldPosition/toString/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.world/-world-position/to-string.html
 $dokka.location:me.imoltres.bbu.utils////PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/index.html
-$dokka.location:me.imoltres.bbu.utils/BlockUtils.Companion///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-block-utils/-companion/index.html
-$dokka.location:me.imoltres.bbu.utils/BlockUtils.Companion/generatesCobble/#kotlin.collections.Set[org.bukkit.block.BlockFace]#org.bukkit.Material#org.bukkit.block.Block/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-block-utils/-companion/generates-cobble.html
-$dokka.location:me.imoltres.bbu.utils/BlockUtils.Companion/getFaces/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-block-utils/-companion/get-faces.html
-$dokka.location:me.imoltres.bbu.utils/BlockUtils.Companion/getFacesTouching/#kotlin.collections.Set[org.bukkit.block.BlockFace]#org.bukkit.block.Block/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-block-utils/-companion/get-faces-touching.html
-$dokka.location:me.imoltres.bbu.utils/BlockUtils///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-block-utils/index.html
-$dokka.location:me.imoltres.bbu.utils/BlockUtils/BlockUtils/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-block-utils/-block-utils.html
 $dokka.location:me.imoltres.bbu.utils/CC///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-c-c/index.html
 $dokka.location:me.imoltres.bbu.utils/CC/capitalize/#java.lang.String/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-c-c/capitalize.html
 $dokka.location:me.imoltres.bbu.utils/CC/isInteger/#java.lang.String#int/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-c-c/is-integer.html
@@ -490,35 +616,6 @@ $dokka.location:me.imoltres.bbu.utils/CC/translate/#java.lang.String[]/PointingT
 $dokka.location:me.imoltres.bbu.utils/CC/translate/#java.util.List<java.lang.String>/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-c-c/translate.html
 $dokka.location:me.imoltres.bbu.utils/CC/translateLegacy/#net.kyori.adventure.text.TextComponent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-c-c/translate-legacy.html
 $dokka.location:me.imoltres.bbu.utils/CC/wrapString/#java.lang.String#int/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-c-c/wrap-string.html
-$dokka.location:me.imoltres.bbu.utils/DateUtils///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-date-utils/index.html
-$dokka.location:me.imoltres.bbu.utils/DateUtils/readableTime/#java.math.BigDecimal/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-date-utils/readable-time.html
-$dokka.location:me.imoltres.bbu.utils/GsonFactory///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-gson-factory/index.html
-$dokka.location:me.imoltres.bbu.utils/GsonFactory/getCompactGson/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-gson-factory/get-compact-gson.html
-$dokka.location:me.imoltres.bbu.utils/GsonFactory/getPrettyGson/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-gson-factory/get-pretty-gson.html
-$dokka.location:me.imoltres.bbu.utils/ItemBuilder///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-item-builder/index.html
-$dokka.location:me.imoltres.bbu.utils/ItemBuilder/ItemBuilder/#org.bukkit.Material/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-item-builder/-item-builder.html
-$dokka.location:me.imoltres.bbu.utils/ItemBuilder/ItemBuilder/#org.bukkit.inventory.ItemStack/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-item-builder/-item-builder.html
-$dokka.location:me.imoltres.bbu.utils/ItemBuilder/amount/#int/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-item-builder/amount.html
-$dokka.location:me.imoltres.bbu.utils/ItemBuilder/build/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-item-builder/build.html
-$dokka.location:me.imoltres.bbu.utils/ItemBuilder/clearEnchantments/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-item-builder/clear-enchantments.html
-$dokka.location:me.imoltres.bbu.utils/ItemBuilder/clearLore/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-item-builder/clear-lore.html
-$dokka.location:me.imoltres.bbu.utils/ItemBuilder/durability/#int/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-item-builder/durability.html
-$dokka.location:me.imoltres.bbu.utils/ItemBuilder/enchantment/#org.bukkit.enchantments.Enchantment#int/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-item-builder/enchantment.html
-$dokka.location:me.imoltres.bbu.utils/ItemBuilder/enchantment/#org.bukkit.enchantments.Enchantment/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-item-builder/enchantment.html
-$dokka.location:me.imoltres.bbu.utils/ItemBuilder/hideAttributes/#boolean/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-item-builder/hide-attributes.html
-$dokka.location:me.imoltres.bbu.utils/ItemBuilder/localizedName/#java.lang.String/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-item-builder/localized-name.html
-$dokka.location:me.imoltres.bbu.utils/ItemBuilder/lore/#java.lang.String.../PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-item-builder/lore.html
-$dokka.location:me.imoltres.bbu.utils/ItemBuilder/lore/#java.lang.String/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-item-builder/lore.html
-$dokka.location:me.imoltres.bbu.utils/ItemBuilder/lore/#java.util.List<java.lang.String>/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-item-builder/lore.html
-$dokka.location:me.imoltres.bbu.utils/ItemBuilder/name/#java.lang.String/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-item-builder/name.html
-$dokka.location:me.imoltres.bbu.utils/ItemBuilder/potionEffect/#org.bukkit.potion.PotionType/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-item-builder/potion-effect.html
-$dokka.location:me.imoltres.bbu.utils/ItemBuilder/type/#org.bukkit.Material/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-item-builder/type.html
-$dokka.location:me.imoltres.bbu.utils/ItemBuilder/unbreakable/#boolean/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-item-builder/unbreakable.html
-$dokka.location:me.imoltres.bbu.utils/ItemConstants///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-item-constants/index.html
-$dokka.location:me.imoltres.bbu.utils/PlayerUtils///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-player-utils/index.html
-$dokka.location:me.imoltres.bbu.utils/PlayerUtils/broadcastTitle/#java.lang.String#java.lang.String/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-player-utils/broadcast-title.html
-$dokka.location:me.imoltres.bbu.utils/TickUtils///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-tick-utils/index.html
-$dokka.location:me.imoltres.bbu.utils/TickUtils/getTPS/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils/-tick-utils/get-t-p-s.html
 $dokka.location:me.imoltres.bbu////PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu/index.html
 $dokka.location:me.imoltres.bbu/BBU///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu/-b-b-u/index.html
 $dokka.location:me.imoltres.bbu/BBU/getInstance/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu/-b-b-u/get-instance.html
@@ -541,12 +638,21 @@ me.imoltres.bbu.game.events.team
 me.imoltres.bbu.game.generator
 me.imoltres.bbu.game.threads
 me.imoltres.bbu.listeners
+me.imoltres.bbu.menus
 me.imoltres.bbu.scoreboard
 me.imoltres.bbu.scoreboard.impl
 me.imoltres.bbu.utils
+me.imoltres.bbu.utils.callback
 me.imoltres.bbu.utils.command
 me.imoltres.bbu.utils.config
 me.imoltres.bbu.utils.config.type
+me.imoltres.bbu.utils.general
+me.imoltres.bbu.utils.item
+me.imoltres.bbu.utils.json
+me.imoltres.bbu.utils.menu
+me.imoltres.bbu.utils.menu.button
+me.imoltres.bbu.utils.menu.menus
 me.imoltres.bbu.utils.scoreboard
+me.imoltres.bbu.utils.sound
 me.imoltres.bbu.utils.world
 

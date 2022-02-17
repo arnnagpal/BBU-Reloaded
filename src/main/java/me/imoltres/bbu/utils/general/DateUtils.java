@@ -1,4 +1,4 @@
-package me.imoltres.bbu.utils;
+package me.imoltres.bbu.utils.general;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;

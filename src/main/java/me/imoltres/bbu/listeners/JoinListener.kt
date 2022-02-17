@@ -3,13 +3,13 @@ package me.imoltres.bbu.listeners
 import me.imoltres.bbu.BBU
 import me.imoltres.bbu.game.GameState
 import me.imoltres.bbu.game.events.player.BBUPlayerScoreboardApplyEvent
+import me.imoltres.bbu.scoreboard.BBUScoreboardAdapter
 import me.imoltres.bbu.scoreboard.impl.MainScoreboard
 import me.imoltres.bbu.utils.CC
-import me.imoltres.bbu.utils.GsonFactory
+import me.imoltres.bbu.utils.json.GsonFactory
 import me.imoltres.bbu.utils.config.MainConfig
 import me.imoltres.bbu.utils.config.Messages
 import me.imoltres.bbu.utils.world.WorldPosition
-import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
@@ -43,10 +43,22 @@ class JoinListener : Listener {
         val player = e.player
         e.joinMessage(CC.translate("&7[&a+&7] &7" + e.player.name))
 
+        if (BBU.getInstance().game.gameState == GameState.LOBBY) {
+            player.inventory.clear()
+            player.equipment.clear()
+            player.activePotionEffects.forEach { potionEffect -> player.removePotionEffect(potionEffect.type) }
+            player.updateInventory()
+            player.exp = 0.0F
+            player.level = 0
+            player.saturation = 20.0F
+            player.foodLevel = 20
+            player.health = 20.0
+        }
+
         try {
             if (BBU.getInstance().game.gameState == GameState.LOBBY) {
                 player.teleportAsync(
-                    GsonFactory.getCompactGson().fromJson(MainConfig.LOBBY_SPAWN.toString(), WorldPosition::class.java)
+                    GsonFactory.getCompactGson().fromJson(MainConfig.LOBBY_SPAWN, WorldPosition::class.java)
                         .toBukkitLocation()
                 )
             }
@@ -64,7 +76,7 @@ class JoinListener : Listener {
         if (event.isCancelled)
             return
 
-        event.scoreboard.getDeclaredConstructor(Player::class.java).newInstance(player)
+        println("Applied scoreboard to ${player.name}: ${BBUScoreboardAdapter.display(event.scoreboard, player)}")
     }
 
     @EventHandler

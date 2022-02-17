@@ -1,5 +1,5 @@
 val main by extra("me.imoltres.bbu.BBU")
-val ver by extra("0.1-DEV")
+val ver by extra("0.0.1-PRE")
 val apiVersion by extra("1.17")
 
 val spigotVersion by extra("1.18.1-R0.1-SNAPSHOT")
@@ -8,8 +8,7 @@ val faweVersion by extra("2.0.1")
 
 val lombokVersion by extra("1.18.22")
 
-//val outputDir by extra(File(rootProject.projectDir, "dist"))
-val outputDir by extra(File("D:\\test server\\plugins"))
+val outputDir by extra(File(rootProject.projectDir, "dist"))
 val outputName by extra(rootProject.name + "-" + ver + ".jar")
 outputDir.mkdirs()
 

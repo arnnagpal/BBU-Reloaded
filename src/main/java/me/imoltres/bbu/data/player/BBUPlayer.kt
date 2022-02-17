@@ -1,5 +1,6 @@
 package me.imoltres.bbu.data.player
 
+import me.imoltres.bbu.BBU
 import me.imoltres.bbu.data.team.BBUTeam
 import me.imoltres.bbu.scoreboard.BBUScoreboardAdapter
 import me.imoltres.bbu.utils.CC
@@ -8,6 +9,8 @@ import net.kyori.adventure.text.TextComponent
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
+import org.bukkit.potion.PotionEffect
+import org.bukkit.potion.PotionEffectType
 import java.util.*
 
 /**
@@ -72,16 +75,38 @@ class BBUPlayer(val uniqueId: UUID, val name: String) {
      * @return if it was successful
      */
     fun giveItemSafely(item: ItemStack, drop: Boolean): Boolean {
-        if (player?.inventory?.firstEmpty() == -1 && !drop) {
-            player?.sendActionBar(CC.translate("&cEmpty a slot first."))
-            return false
+        if (player?.inventory?.firstEmpty() == -1) {
+            if (drop) {
+                player?.location?.let { player?.world?.dropItemNaturally(it, item) }
+            } else {
+                player?.sendActionBar(CC.translate("&cEmpty a slot first."))
+                return false
+            }
         } else {
-            player?.location?.let { player?.world?.dropItemNaturally(it, item) }
+            player?.inventory?.addItem(item)
         }
 
-        player?.inventory?.addItem(item)
-        player?.sendActionBar(CC.translate("&aAdded " + item.displayName + " to your inventory."))
+        player?.sendActionBar(CC.translate("&aAdded ${item.displayName} &ato your inventory."))
         return true
+    }
+
+    fun preventMovement() {
+        Bukkit.getScheduler().runTask(BBU.getInstance(), Runnable {
+            player?.addPotionEffect(PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 255, false, false))
+            player?.addPotionEffect(PotionEffect(PotionEffectType.JUMP, Integer.MAX_VALUE, 255, false, false))
+            player?.addPotionEffect(PotionEffect(PotionEffectType.BLINDNESS, Integer.MAX_VALUE, 255, false, false))
+            player?.walkSpeed = 0.0F
+        })
+    }
+
+    fun allowMovement() {
+        Bukkit.getScheduler().runTask(BBU.getInstance(), Runnable {
+            player?.activePotionEffects?.forEach { potionEffect ->
+                player?.removePotionEffect(potionEffect.type)
+            }
+
+            player?.walkSpeed = 0.2F
+        })
     }
 
     /**

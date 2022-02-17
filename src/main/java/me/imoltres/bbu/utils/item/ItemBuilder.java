@@ -1,5 +1,6 @@
-package me.imoltres.bbu.utils;
+package me.imoltres.bbu.utils.item;
 
+import me.imoltres.bbu.utils.CC;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;

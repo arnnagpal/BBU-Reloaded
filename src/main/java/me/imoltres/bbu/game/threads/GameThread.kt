@@ -5,8 +5,8 @@ import me.imoltres.bbu.data.team.BBUTeam
 import me.imoltres.bbu.game.Game
 import me.imoltres.bbu.game.GameState
 import me.imoltres.bbu.utils.CC
-import me.imoltres.bbu.utils.DateUtils
-import me.imoltres.bbu.utils.PlayerUtils
+import me.imoltres.bbu.utils.general.DateUtils
+import me.imoltres.bbu.utils.general.PlayerUtils
 import org.bukkit.Bukkit
 import java.math.BigDecimal
 import java.util.*
@@ -21,6 +21,7 @@ class GameThread(val game: Game) : Thread() {
     private val shrinkTo = 250.0
 
     private var shrinking = false
+    private var pvp = false
 
     val teamCheckQueue = LinkedList<BBUTeam>()
 
@@ -36,12 +37,19 @@ class GameThread(val game: Game) : Thread() {
 
                 swapGameStateIfAvailable()
                 checkTeams()
+                checkWinConditions()
 
                 when (game.gameState) {
-                    GameState.PVP -> PlayerUtils.broadcastTitle(
-                        "&cPvP is now enabled.",
-                        "&7" + DateUtils.readableTime(BigDecimal(GameState.PVP_BORDER_SHRINK.startsAfterTick)) + " till border shrink."
-                    )
+                    GameState.PVP -> {
+                        if (!pvp) {
+                            PlayerUtils.broadcastTitle(
+                                "&cPvP is now enabled.",
+                                "&7" + DateUtils.readableTime(BigDecimal(GameState.PVP_BORDER_SHRINK.startsAfterTick - (tick / 20))) + " till border shrink."
+                            )
+
+                            pvp = !pvp
+                        }
+                    }
 
                     GameState.PVP_BORDER_SHRINK -> {
                         if (!shrinking) {
@@ -121,5 +129,15 @@ class GameThread(val game: Game) : Thread() {
                 })
             }
         }
+    }
+
+    private fun checkWinConditions() {
+        val teamsLeft = BBU.getInstance().game.getAliveTeams().toList()
+
+        if (teamsLeft.size == 1) {
+            Bukkit.broadcast(CC.translate("&a" + teamsLeft[0].getRawDisplayName() + " &ahas won the BBU!! GGS"))
+            BBU.getInstance().game.stopGame(teamsLeft[0])
+        }
+
     }
 }

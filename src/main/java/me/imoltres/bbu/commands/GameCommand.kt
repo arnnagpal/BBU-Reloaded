@@ -4,6 +4,7 @@ import me.imoltres.bbu.BBU
 import me.imoltres.bbu.commands.main.*
 import me.imoltres.bbu.commands.player.PlayerCommands
 import me.imoltres.bbu.commands.team.TeamCommands
+import me.imoltres.bbu.commands.team.TeamPosCommand
 import me.imoltres.bbu.commands.team.TeamsClearCommand
 import me.imoltres.bbu.commands.team.TeamsCommand
 import me.imoltres.bbu.utils.CC
@@ -160,6 +161,9 @@ class GameCommand : Command {
                 "  &b* /bbu teams &8- &7Lists all the teams with players in them.",
                 "  &b* /bbu teams clear &8- &7Clears all teams' players.",
                 "  &b* /bbu team <team> eliminate [players] &8- &7Eliminates the team's beacon, and if specified, eliminates any players inside of that team.",
+                "",
+                "  &b* /teamposition &8- &7Gives your team's position to you",
+                "  &bAliases: [\"teampos\", \"bbuteampos\"]",
                 "",
                 "&3PLAYER: ",
                 "  &b* /bbu player <player> eliminate &8- &7Eliminates the player.",

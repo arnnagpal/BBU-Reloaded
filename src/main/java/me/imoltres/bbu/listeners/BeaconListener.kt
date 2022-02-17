@@ -3,20 +3,40 @@ package me.imoltres.bbu.listeners
 import me.imoltres.bbu.BBU
 import me.imoltres.bbu.game.events.team.BBUBreakBeaconEvent
 import me.imoltres.bbu.game.events.team.BBUPlaceBeaconEvent
-import me.imoltres.bbu.utils.BlockUtils
+import me.imoltres.bbu.utils.general.BlockUtils
+import me.imoltres.bbu.utils.general.BlockUtils.Companion.faces
+import me.imoltres.bbu.utils.general.BlockUtils.Companion.getFacesTouching
 import me.imoltres.bbu.utils.CC
-import me.imoltres.bbu.utils.ItemConstants
+import me.imoltres.bbu.utils.item.ItemConstants
 import me.imoltres.bbu.utils.world.WorldPosition
 import org.bukkit.Bukkit
 import org.bukkit.Material
+import org.bukkit.block.Block
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.BlockFromToEvent
 import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.player.PlayerBucketEmptyEvent
+import java.util.stream.Collectors
 
 class BeaconListener : Listener {
+
+    //todo: figure out a better method to handle beacon place ranges
+    @EventHandler
+    fun onBlockPlaceNearBeacon(e: BlockPlaceEvent) {
+        val materialList =
+            getFacesTouching(faces, e.block).stream().collect(Collectors.toMap(Block::getLocation, Block::getType))
+
+        for (entry in materialList.entries) {
+            if (entry.value == Material.BEACON) {
+                if (BBU.getInstance().teamController.getTeam(entry.key.block) != null) {
+                    e.isCancelled = true
+                    return
+                }
+            }
+        }
+    }
 
     @EventHandler
     fun onBeaconPlace(e: BlockPlaceEvent) {
@@ -43,7 +63,7 @@ class BeaconListener : Listener {
         } else {
             team.beacon = WorldPosition.fromBukkitLocation(e.block.location)
             Bukkit.getConsoleSender()
-                .sendMessage(CC.translate("&aSet `&${team.colour.chatColor.char}${team.colour.name}` team's beacon to ${team.beacon.toString()}"))
+                .sendMessage(CC.translate("&aSet `&${team.colour.chatColor.char}${team.colour.name}` &ateam's beacon to ${team.beacon.toString()}"))
         }
 
     }
@@ -75,7 +95,7 @@ class BeaconListener : Listener {
         } else {
             team.beacon = null
             Bukkit.getConsoleSender()
-                .sendMessage(CC.translate("&aSet `&${team.colour.chatColor.char}${team.colour.name}` team's beacon to null"))
+                .sendMessage(CC.translate("&aSet `&${team.colour.chatColor.char}${team.colour.name}` &ateam's beacon to null"))
         }
     }
 
@@ -83,9 +103,9 @@ class BeaconListener : Listener {
     fun onLiquidFlow(e: BlockFromToEvent) {
         if (e.block.type == Material.WATER || e.block.type == Material.LAVA) {
             //prevent liquid flow onto invalid surfaces for beacon
-            if (BlockUtils.getFacesTouching(BlockUtils.faces, e.toBlock)
+            if (getFacesTouching(faces, e.toBlock)
                     .any { block -> BBU.getInstance().teamController.getTeam(block) != null }
-                || BlockUtils.generatesCobble(BlockUtils.faces, e.block.type, e.toBlock)
+                || BlockUtils.generatesCobble(faces, e.block.type, e.toBlock)
             ) {
                 e.isCancelled = true
             }
@@ -94,7 +114,7 @@ class BeaconListener : Listener {
 
     @EventHandler
     fun onEmptyBucket(e: PlayerBucketEmptyEvent) {
-        if (BlockUtils.getFacesTouching(BlockUtils.faces, e.block)
+        if (getFacesTouching(faces, e.block)
                 .any { block -> BBU.getInstance().teamController.getTeam(block) != null }
         ) {
             e.isCancelled = true

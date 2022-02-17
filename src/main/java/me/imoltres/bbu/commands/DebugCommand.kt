@@ -3,7 +3,7 @@ package me.imoltres.bbu.commands
 import me.imoltres.bbu.BBU
 import me.imoltres.bbu.game.GameState
 import me.imoltres.bbu.utils.CC
-import me.imoltres.bbu.utils.ItemConstants
+import me.imoltres.bbu.utils.item.ItemConstants
 import me.imoltres.bbu.utils.command.CommandArgs
 import me.imoltres.bbu.utils.command.CommandInfo
 import me.imoltres.bbu.utils.command.SubCommand
@@ -49,7 +49,7 @@ class DebugCommand : SubCommand {
     private fun updateState(sender: Player, input: String) {
         try {
             val state = GameState.valueOf(input.uppercase())
-            BBU.getInstance().game.thread.tick = state.tick
+            BBU.getInstance().game.thread.tick = state.tick * 20
             sender.sendMessage(CC.translate("&aUpdated game state to " + input.uppercase()))
         } catch (e: Exception) {
             e.printStackTrace()

@@ -1,4 +1,4 @@
-package me.imoltres.bbu.utils
+package me.imoltres.bbu.utils.general
 
 import me.imoltres.bbu.BBU
 import org.bukkit.Material
@@ -26,7 +26,7 @@ class BlockUtils {
             val facesTouching = HashSet<Block>()
             for (face in faces) {
                 val b = block.getRelative(face)
-                if (!b.isEmpty) {
+                if (b.isSolid || b.isLiquid) {
                     facesTouching.add(b)
                 }
             }

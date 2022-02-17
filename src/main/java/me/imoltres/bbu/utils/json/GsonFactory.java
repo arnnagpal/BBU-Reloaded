@@ -1,4 +1,4 @@
-package me.imoltres.bbu.utils;
+package me.imoltres.bbu.utils.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

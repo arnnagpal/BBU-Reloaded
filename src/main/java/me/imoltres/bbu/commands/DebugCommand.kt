@@ -63,13 +63,13 @@ class DebugCommand : SubCommand {
                 player.showTitle(
                     Title.title(
                         CC.translate("&cYou might have to empty your inventory (FULL_INV)"),
-                        CC.translate("&7An admin attempted to give you a tracking compass.")
+                        CC.translate("&7An admin attempted to give you a $display.")
                     )
                 )
-                sender.sendMessage(CC.translate("&cError while giving " + player.name + " a " + display + ". (FULL_INV)"))
+                sender.sendMessage(CC.translate("&cError while giving ${player.name} a $display. (FULL_INV)"))
             } else {
                 player.inventory.addItem(item)
-                sender.sendMessage(CC.translate("&aGiven " + player.name + " a " + display + " successfully."))
+                sender.sendMessage(CC.translate("&aGiven ${player.name} a $display. successfully."))
             }
         }
     }

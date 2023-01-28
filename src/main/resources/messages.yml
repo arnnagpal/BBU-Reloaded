@@ -3,3 +3,19 @@ scoreboard-title: "&3&lBBU RELOADED"
 beacon-destroyed: "&a{breaker} &ahas destroyed {team}&a's beacon! They can no longer respawn."
 
 final-death: "&cL bozo\n\n&chttps://twitch.tv/igniMoltres"
+
+commands:
+  teams:
+    error:
+      no-team-specified: "&cSpecify a team."
+      invalid-team-specified: "&cSpecify a *valid* team."
+      invalid-boolean: "&cUse a valid boolean type (true / false)"
+
+
+    clear-success: "&aDone clearing teams!"
+    team-pos-hover-msg: "&7Click me to track!"
+  player:
+    error:
+      no-player-specified: "&cSpecify a player."
+      invalid-player-specified: "&cSpecify a *valid* player."
+

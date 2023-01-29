@@ -33,44 +33,41 @@ class GameThread(val game: Game) : BukkitRunnable() {
      * Game loop
      */
     override fun run() {
-        started = true;
-        try {
-            while (game.gameState != GameState.POST_GAME) {
-                if (isCancelled) {
-                    return
-                }
-
-                swapGameStateIfAvailable()
-                checkTeams()
-                checkWinConditions()
-
-                when (game.gameState) {
-                    GameState.PVP -> {
-                        if (!pvp) {
-                            PlayerUtils.broadcastTitle(
-                                "&cPvP is now enabled.",
-                                "&7" + DateUtils.readableTime(BigDecimal(GameState.PVP_BORDER_SHRINK.startsAfterTick - (tick / 20))) + " till border shrink."
-                            )
-
-                            pvp = !pvp
-                        }
-                    }
-
-                    GameState.PVP_BORDER_SHRINK -> {
-                        if (!shrinking) {
-                            val border = game.border
-                            shrinkBorder(getBorderShrinkTime(border))
-                            shrinking = !shrinking
-                        }
-                    }
-                    else -> {}
-                }
-
-                tick++
-            }
-        } catch (e: InterruptedException) {
+        started = true
+        if (game.gameState == GameState.POST_GAME)
+            return
+        if (isCancelled) {
             return
         }
+
+        swapGameStateIfAvailable()
+        checkTeams()
+        checkWinConditions()
+
+        when (game.gameState) {
+            GameState.PVP -> {
+                if (!pvp) {
+                    PlayerUtils.broadcastTitle(
+                        "&cPvP is now enabled.",
+                        "&7" + DateUtils.readableTime(BigDecimal(GameState.PVP_BORDER_SHRINK.startsAfterTick - (tick / 20))) + " till border shrink."
+                    )
+
+                    pvp = !pvp
+                }
+            }
+
+            GameState.PVP_BORDER_SHRINK -> {
+                if (!shrinking) {
+                    val border = game.border
+                    shrinkBorder(getBorderShrinkTime(border))
+                    shrinking = !shrinking
+                }
+            }
+
+            else -> {}
+        }
+
+        tick++
     }
 
     /**
@@ -87,7 +84,7 @@ class GameThread(val game: Game) : BukkitRunnable() {
 
     /**
      * Get the amount of time that the border should shrink for
-     * 
+     *
      * based on the size of the border
      */
     private fun getBorderShrinkTime(border: Int): Int {

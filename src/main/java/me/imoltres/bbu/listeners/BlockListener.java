@@ -8,7 +8,6 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -28,7 +27,7 @@ public class BlockListener implements Listener {
         // prevent pistons from pushing blocks near beacons
         for (Block block : e.getBlocks()) {
             // get all blocks touching the end location's block of the piston
-            Set<Block> blocksTouching = BlockUtils.getFacesTouching(BlockUtils.Companion.getFaces(), block);
+            Set<Block> blocksTouching = BlockUtils.getFacesTouching(BlockUtils.Companion.getFaces(), block.getRelative(e.getDirection()));
             for (Block b : blocksTouching) {
                 // not a beacon
                 if (b.getType() != Material.BEACON) {
@@ -68,7 +67,6 @@ public class BlockListener implements Listener {
     @EventHandler
     public void onBlockFall(EntityChangeBlockEvent e) {
         // prevent gravel and sand from falling near beacons
-        Entity entity = e.getEntity();
         if (!(e instanceof FallingBlock))
             return;
 

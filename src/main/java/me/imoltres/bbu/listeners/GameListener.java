@@ -73,7 +73,6 @@ public class GameListener implements Listener {
             e.setCancelled(true);
         } else {
             Set<Block> facesTouching = BlockUtils.getFacesTouching(BlockUtils.Companion.getFaces(), e.getPosition().getBlock());
-            System.out.println(Arrays.toString(facesTouching.stream().map(Block::getType).toArray()));
             if (facesTouching.size() > 1) {
                 e.setCancelled(true);
             }

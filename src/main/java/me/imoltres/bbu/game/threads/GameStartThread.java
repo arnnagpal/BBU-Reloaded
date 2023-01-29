@@ -48,7 +48,7 @@ public class GameStartThread extends Thread {
 
                 BBU.getInstance().getCageController().deleteCages(game.overworld);
 
-                game.getThread().runTaskTimerAsynchronously(BBU.getInstance(), 0, 1L);
+                game.getThread().runTaskTimer(BBU.getInstance(), 0L, 1L);
                 return;
             }
 

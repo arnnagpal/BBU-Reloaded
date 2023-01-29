@@ -121,6 +121,8 @@ class BBUTeam(val colour: BBUTeamColour) {
         )
         player.team = null
         bukkitTeam?.removePlayer(player.player!!)
+        player.player!!.playerListName(Component.text(player.name))
+        player.player!!.displayName(Component.text(player.name))
         return players.remove(player)
     }
 

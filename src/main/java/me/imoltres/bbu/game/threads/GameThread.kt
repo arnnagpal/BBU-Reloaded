@@ -9,6 +9,7 @@ import me.imoltres.bbu.utils.general.DateUtils
 import me.imoltres.bbu.utils.general.PlayerUtils
 import me.imoltres.bbu.utils.world.Position
 import org.bukkit.Bukkit
+import org.bukkit.Location
 import org.bukkit.Material
 import java.math.BigDecimal
 import java.util.*
@@ -25,6 +26,7 @@ class GameThread(val game: Game) : Thread() {
     private var shrinking = false
     private var pvp = false
     private var deathmatch = false
+    private var deathmatchPVP = false
 
     val teamCheckQueue = LinkedList<BBUTeam>()
 
@@ -77,7 +79,8 @@ class GameThread(val game: Game) : Thread() {
                             val beaconLoc = team.beacon!!.toWorldPosition("world").toBukkitLocation()
                             if (team.beacon != null) {
                                 if (beaconLoc.distance(world!!.worldBorder.center) > world.worldBorder.size / 2) {
-                                    team.beacon!!.toWorldPosition(BBU.getInstance().game.overworld.name).block.type = Material.AIR
+                                    team.beacon!!.toWorldPosition(BBU.getInstance().game.overworld.name).block.type =
+                                        Material.AIR
                                     team.beacon = null
                                     Bukkit.broadcast(
                                         CC.translate("${team.getRawDisplayName()}&c's beacon has been destroyed because it was out of the border.")
@@ -91,10 +94,33 @@ class GameThread(val game: Game) : Thread() {
                         if (!deathmatch) {
                             PlayerUtils.broadcastTitle(
                                 "&cDeath Match has started!",
-                                "&7till border shrink."
+                                "&7"
                             )
 
+                            for (team in game.getAliveTeams()) {
+                                team.beacon!!.toWorldPosition(BBU.getInstance().game.overworld.name).block.type =
+                                    Material.AIR
+                                team.beacon = null
+
+                                for (player in team.players) {
+                                    // *IMPORTANT* This is where the death match world is set
+                                    // May cause entity cramming if too many players are alive, but eh
+                                    // TODO make this configurable
+                                    player.player!!.teleport(Location(Bukkit.getWorld("bbuDeathMatchWorld"), 0.0, 100.0, 0.0))
+                                }
+                            }
                             deathmatch = !deathmatch
+                        }
+                    }
+
+                    GameState.DEATH_MATCH_PVP -> {
+                        if (!deathmatchPVP) {
+                            PlayerUtils.broadcastTitle(
+                                "&cPvP is now enabled.",
+                                "&7"
+                            )
+
+                            deathmatchPVP = !deathmatchPVP
                         }
                     }
 

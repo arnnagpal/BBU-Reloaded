@@ -133,7 +133,7 @@ public class GameListener implements Listener {
 
     @EventHandler
     public void onTakenDamage(EntityDamageEvent e) {
-        if (BBU.getInstance().getGame().getGameState() == GameState.LOBBY) {
+        if (BBU.getInstance().getGame().getGameState() == GameState.LOBBY || BBU.getInstance().getGame().getGameState() == GameState.DEATH_MATCH) {
             e.setCancelled(true);
         }
     }

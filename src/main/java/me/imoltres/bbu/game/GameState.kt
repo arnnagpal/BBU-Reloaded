@@ -10,6 +10,7 @@ enum class GameState(val startsAfterTick: Int, val display: String?) {
     PVP(1800, "PVP"),
     PVP_BORDER_SHRINK(3600, "Border"),
     DEATH_MATCH(4500, "Deathmatch"),
+    DEATH_MATCH_PVP(4530, "Deathmatch PVP"),
     POST_GAME(-1, null)
     ;
 
@@ -27,7 +28,7 @@ enum class GameState(val startsAfterTick: Int, val display: String?) {
      * @return is the game state allowing pvp
      */
     fun isPvp(): Boolean {
-        return this == PVP || this == PVP_BORDER_SHRINK || this == POST_GAME
+        return this == PVP || this == PVP_BORDER_SHRINK || this == DEATH_MATCH_PVP
     }
 
     /**

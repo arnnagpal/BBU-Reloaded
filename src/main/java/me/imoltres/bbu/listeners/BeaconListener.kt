@@ -99,6 +99,7 @@ class BeaconListener : Listener {
         }
     }
 
+    //These are very bad and should be replaced with a better method & also dont seem to work -Ender
     @EventHandler
     fun onLiquidFlow(e: BlockFromToEvent) {
         if (e.block.type == Material.WATER || e.block.type == Material.LAVA) {

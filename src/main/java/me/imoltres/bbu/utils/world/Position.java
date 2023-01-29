@@ -4,6 +4,7 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
+import org.bukkit.Location;
 
 import java.io.IOException;
 
@@ -46,6 +47,14 @@ public class Position {
         this.z = z;
         this.pitch = pitch;
         this.yaw = yaw;
+    }
+
+    public Position(Location location) {
+        this.x = location.getX();
+        this.y = location.getY();
+        this.z = location.getZ();
+        this.pitch = location.getPitch();
+        this.yaw = location.getYaw();
     }
 
     public double getX() {

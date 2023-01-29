@@ -14,6 +14,8 @@ public class MainConfig<T> extends ConfigGetter<T> {
 
     public static boolean FRIENDLY_FIRE = new MainConfig<Boolean>("friendly-fire").get();
 
+    public static boolean SHOW_FORTRESS = new MainConfig<Boolean>("show-fortress").get();
+
     MainConfig(String path) {
         super(BBU.getInstance().getMainConfig(), path);
     }

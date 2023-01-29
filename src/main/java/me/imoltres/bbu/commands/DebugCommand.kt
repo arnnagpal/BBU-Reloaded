@@ -42,6 +42,10 @@ class DebugCommand : SubCommand {
                     sender,
                     args[1]
                 )
+
+                "teleportWorld" -> {
+                    sender.teleport(Bukkit.getWorld(args[1])!!.spawnLocation)
+                }
             }
         }
     }

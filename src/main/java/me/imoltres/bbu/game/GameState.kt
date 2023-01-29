@@ -9,6 +9,7 @@ enum class GameState(val startsAfterTick: Int, val display: String?) {
     GRACE(0, null),
     PVP(1800, "PVP"),
     PVP_BORDER_SHRINK(3600, "Border"),
+    DEATH_MATCH(4500, "Deathmatch"),
     POST_GAME(-1, null)
     ;
 

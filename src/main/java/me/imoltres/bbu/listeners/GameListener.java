@@ -20,6 +20,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
@@ -54,7 +55,20 @@ public class GameListener implements Listener {
                 }
 
             }, 2L);
-
+        } else {
+            Player bukkitPlayer = player.getPlayer();
+            if (bukkitPlayer.getBedSpawnLocation() != null) {
+                bukkitPlayer.teleport(bukkitPlayer.getBedSpawnLocation());
+            }
+            if (team.hasBeacon()) {
+                if (bukkitPlayer == null)
+                    return;
+                bukkitPlayer.teleport(team.getBeacon().toWorldPosition("world").toBukkitLocation().add(0.5, 0.5, 0.5));
+            } else {
+                if (bukkitPlayer == null)
+                    return;
+                bukkitPlayer.teleport(team.getCage().getSpawnPosition().toBukkitLocation());
+            }
         }
 
     }
@@ -70,6 +84,7 @@ public class GameListener implements Listener {
         if (player.getWorld().getEnvironment() != World.Environment.NORMAL) {
             e.setCancelled(true);
         } else {
+            //This needs some work TODO fix this
             Set<Block> facesTouching = BlockUtils.getFacesTouching(BlockUtils.Companion.getFaces(), e.getPosition().getBlock());
             System.out.println(Arrays.toString(facesTouching.stream().map(Block::getType).toArray()));
             if (facesTouching.size() > 1) {
@@ -106,6 +121,7 @@ public class GameListener implements Listener {
         );
 
         Random random = ThreadLocalRandom.current();
+        //This needs to be fixed
         player.giveItemSafely(new ItemStack(Material.DIAMOND, random.nextInt(5) + 1), true);
     }
 
@@ -113,6 +129,13 @@ public class GameListener implements Listener {
     public void onTeamModification(BBUTeamModificationEvent e) {
         if (BBU.getInstance().getGame().getAliveTeams().contains(e.getTeam()))
             BBU.getInstance().getGame().checkTeam(e.getTeam());
+    }
+
+    @EventHandler
+    public void onTakenDamage(EntityDamageEvent e) {
+        if (BBU.getInstance().getGame().getGameState() == GameState.LOBBY) {
+            e.setCancelled(true);
+        }
     }
 
 }

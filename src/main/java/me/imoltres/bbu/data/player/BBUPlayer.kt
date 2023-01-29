@@ -40,6 +40,7 @@ class BBUPlayer(val uniqueId: UUID, val name: String) {
         }
     var team: BBUTeam? = null
     var build = false
+    var teamChat = false
 
     /**
      * @return the TextComponent version of the display name

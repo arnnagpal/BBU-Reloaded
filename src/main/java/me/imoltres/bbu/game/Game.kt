@@ -52,7 +52,7 @@ class Game {
      * Start the game
      */
     fun startGame() {
-        if (thread.isAlive) {
+        if (thread.started) {
             throw RuntimeException("Game has already started.")
         }
 

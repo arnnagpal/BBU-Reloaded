@@ -4,15 +4,17 @@ import me.imoltres.bbu.BBU;
 import me.imoltres.bbu.data.player.BBUPlayer;
 import me.imoltres.bbu.data.team.BBUTeam;
 import me.imoltres.bbu.game.GameState;
-import me.imoltres.bbu.game.events.player.BBUPlayerCompassOpenEvent;
 import me.imoltres.bbu.game.events.player.BBUPlayerDeathEvent;
 import me.imoltres.bbu.game.events.team.BBUBreakBeaconEvent;
 import me.imoltres.bbu.game.events.team.BBUPlaceBeaconEvent;
 import me.imoltres.bbu.game.events.team.BBUTeamModificationEvent;
-import me.imoltres.bbu.utils.general.BlockUtils;
 import me.imoltres.bbu.utils.CC;
-import me.imoltres.bbu.utils.item.ItemConstants;
 import me.imoltres.bbu.utils.config.Messages;
+import me.imoltres.bbu.utils.general.BlockUtils;
+import me.imoltres.bbu.utils.item.ItemConstants;
+import net.kyori.adventure.key.Key;
+import net.kyori.adventure.sound.Sound;
+import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -98,8 +100,26 @@ public class GameListener implements Listener {
             return;
         }
 
+        Sound wardenRoar = Sound.sound()
+                .type(Key.key("entity.warden.roar"))
+                .volume(1.0f)
+                .pitch(1.0f)
+                .build();
+        for (BBUPlayer teamPlayer : team.getPlayers()) {
+            Player bukkitPlayer = Bukkit.getPlayer(teamPlayer.getUniqueId());
+            if (bukkitPlayer == null)
+                continue;
+
+            bukkitPlayer.playSound(wardenRoar, net.kyori.adventure.sound.Sound.Emitter.self());
+            //todo: add configuration for this
+            bukkitPlayer.showTitle(Title.title(
+                            CC.translate("&c&lYour beacon has been destroyed!"),
+                            CC.translate("&7You will no longer respawn")
+                    )
+            );
+        }
         //destroyed beacon, reward diamonds, and broadcast
-        Bukkit.broadcast(CC.translate(Messages.BEACON_DESTROYED.toString()
+        Bukkit.broadcast(CC.translate(Messages.BEACON_DESTROYED
                         .replace("{breaker}", player.getRawDisplayName())
                         .replace("{team}", team.getRawDisplayName())
                 )

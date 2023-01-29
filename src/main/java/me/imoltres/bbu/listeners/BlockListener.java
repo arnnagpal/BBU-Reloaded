@@ -12,12 +12,39 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.*;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockFertilizeEvent;
+import org.bukkit.event.block.BlockPistonExtendEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 
 import java.util.Set;
 
 public class BlockListener implements Listener {
+
+    //prevent pistons from pushing blocks near beacons
+    @EventHandler
+    public void onPistonPush(BlockPistonExtendEvent e) {
+        // prevent pistons from pushing blocks near beacons
+        for (Block block : e.getBlocks()) {
+            // get all blocks touching the end location's block of the piston
+            Set<Block> blocksTouching = BlockUtils.getFacesTouching(BlockUtils.Companion.getFaces(), block);
+            for (Block b : blocksTouching) {
+                // not a beacon
+                if (b.getType() != Material.BEACON) {
+                    continue;
+                }
+
+                // team beacon exists at this block
+                if (BBU.getInstance().getTeamController().getTeam(b) == null) {
+                    continue;
+                }
+
+                // cancel the event
+                e.setCancelled(true);
+            }
+        }
+    }
 
     //prevent mushrooms from growing on beacons (they can be used to break beacons)
     @EventHandler

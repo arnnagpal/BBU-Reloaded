@@ -6,9 +6,9 @@ import me.imoltres.bbu.game.events.player.BBUPlayerScoreboardApplyEvent
 import me.imoltres.bbu.scoreboard.BBUScoreboardAdapter
 import me.imoltres.bbu.scoreboard.impl.MainScoreboard
 import me.imoltres.bbu.utils.CC
-import me.imoltres.bbu.utils.json.GsonFactory
 import me.imoltres.bbu.utils.config.MainConfig
 import me.imoltres.bbu.utils.config.Messages
+import me.imoltres.bbu.utils.json.GsonFactory
 import me.imoltres.bbu.utils.world.WorldPosition
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
@@ -40,6 +40,11 @@ class JoinListener : Listener {
 
     @EventHandler
     fun onJoin(e: PlayerJoinEvent) {
+        if (!BBU.getInstance().isJoinable) {
+            e.joinMessage(CC.translate(""))
+            return
+        }
+
         val player = e.player
         e.joinMessage(CC.translate("&7[&a+&7] &7" + e.player.name))
 

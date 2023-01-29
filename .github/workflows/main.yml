@@ -1,0 +1,33 @@
+name: Publish Docs (Dokka)
+
+on:
+  push:
+    branches: [ master, dev ]
+    
+  workflow_dispatch:
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Cache gradle dependencies
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+          
+      - name: Fetch the latest git history
+        run: git fetch
+      
+      - name: Generate docs
+        run: gradle clean dokkaHtml
+      
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          publish_branch: docs

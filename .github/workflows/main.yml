@@ -25,23 +25,9 @@ jobs:
       - name: Generate docs
         run: gradle clean dokkaHtml
       
-      - name: Add docs to git
-        run: git add *
-      
-      - name: Stash docs changes
-        run: git stash push
-      
-      - name: Switch to docs branch
-        run: git checkout docs
-      
-      - name: Remove previous docs
-        run: rm -rf docs
-      
-      - name: Pop docs stash
-        run: git stash pop
-      
-      - name: Commit new docs
-        run: git commit -m 'Updated docs'
-      
-      - name: Push docs to origin
-        run: git push origin
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          publish_branch: docs

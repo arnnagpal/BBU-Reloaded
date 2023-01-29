@@ -1,5 +1,7 @@
 package me.imoltres.bbu.game.threads
 
+import io.papermc.paper.event.world.border.WorldBorderBoundsChangeEvent
+import io.papermc.paper.event.world.border.WorldBorderEvent
 import me.imoltres.bbu.BBU
 import me.imoltres.bbu.data.team.BBUTeam
 import me.imoltres.bbu.game.Game
@@ -50,7 +52,7 @@ class GameThread(val game: Game) : Thread() {
                         for (player in game.getAliveTeams().flatMap { it.players }) {
                             if (player.team != null) {
                                 if (!player.team!!.cage!!.cuboid.contains(Position(player.player!!.location))) {
-                                    player.player!!.teleport(player.team!!.cage!!.spawnPosition.toBukkitLocation())
+                                    player.player!!.teleportAsync(player.team!!.cage!!.spawnPosition.toBukkitLocation())
                                 }
                             }
                         }
@@ -73,54 +75,23 @@ class GameThread(val game: Game) : Thread() {
                             shrinkBorder(getBorderShrinkTime(border))
                             shrinking = !shrinking
                         }
-                        //check and see if any teams beacons are out of the border
-                        for (team in game.getTeams(true)) {
-                            val world = Bukkit.getWorld("world")
-                            val beaconLoc = team.beacon!!.toWorldPosition("world").toBukkitLocation()
-                            if (team.beacon != null) {
-                                if (beaconLoc.distance(world!!.worldBorder.center) > world.worldBorder.size / 2) {
-                                    team.beacon!!.toWorldPosition(BBU.getInstance().game.overworld.name).block.type =
-                                        Material.AIR
-                                    team.beacon = null
-                                    Bukkit.broadcast(
-                                        CC.translate("${team.getRawDisplayName()}&c's beacon has been destroyed because it was out of the border.")
-                                    )
+                        //check and see if any teams beacons are out of the border, This cannot be changed to a listener because there is no event for border shrink
+                        //I will however make this run every 5 seconds instead of every second
+                        if (tick % 5 == 0) {
+                            for (team in game.getTeams(true)) {
+                                val world = game.overworld
+                                val beaconLoc = team.beacon!!.toWorldPosition(game.overworld.name).toBukkitLocation()
+                                if (team.beacon != null) {
+                                    if (beaconLoc.distance(world.worldBorder.center) > world.worldBorder.size / 2) {
+                                        team.beacon!!.toWorldPosition(game.overworld.name).block.type =
+                                            Material.AIR
+                                        team.beacon = null
+                                        Bukkit.broadcast(
+                                            CC.translate("${team.getRawDisplayName()}&c's beacon has been destroyed because it was out of the border.")
+                                        )
+                                    }
                                 }
                             }
-                        }
-                    }
-
-                    GameState.DEATH_MATCH -> {
-                        if (!deathmatch) {
-                            PlayerUtils.broadcastTitle(
-                                "&cDeath Match has started!",
-                                "&7"
-                            )
-
-                            for (team in game.getAliveTeams()) {
-                                team.beacon!!.toWorldPosition(BBU.getInstance().game.overworld.name).block.type =
-                                    Material.AIR
-                                team.beacon = null
-
-                                for (player in team.players) {
-                                    // *IMPORTANT* This is where the death match world is set
-                                    // May cause entity cramming if too many players are alive, but eh
-                                    // TODO make this configurable
-                                    player.player!!.teleport(Location(Bukkit.getWorld("bbuDeathMatchWorld"), 0.0, 100.0, 0.0))
-                                }
-                            }
-                            deathmatch = !deathmatch
-                        }
-                    }
-
-                    GameState.DEATH_MATCH_PVP -> {
-                        if (!deathmatchPVP) {
-                            PlayerUtils.broadcastTitle(
-                                "&cPvP is now enabled.",
-                                "&7"
-                            )
-
-                            deathmatchPVP = !deathmatchPVP
                         }
                     }
 

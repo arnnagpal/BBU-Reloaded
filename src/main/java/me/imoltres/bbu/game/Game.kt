@@ -29,7 +29,6 @@ class Game {
     lateinit var nether: World
     lateinit var end: World
     lateinit var spawnWorld: World
-    lateinit var deathMatchWorld: World
 
     lateinit var worlds: Array<World>
 
@@ -181,10 +180,7 @@ class Game {
         end = Bukkit.getWorld(NamespacedKey.minecraft("the_end"))!!
         //Get spawn world
         spawnWorld = WorldCreator("bbuSpawnWorld").generator(EmptyChunkGenerator()).createWorld()!!
-        //Get death match world
-        deathMatchWorld = WorldCreator("bbuDeathMatchWorld").generator(EmptyChunkGenerator()).createWorld()!!
-
-        worlds = arrayOf(overworld, nether, end, spawnWorld, deathMatchWorld);
+        worlds = arrayOf(overworld, nether, end, spawnWorld);
         for (world in worlds) {
             world.worldBorder.setCenter(0.0, 0.0)
             world.worldBorder.size = border.toDouble()

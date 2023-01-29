@@ -58,7 +58,7 @@ class JoinListener : Listener {
             player.health = 20.0
 
             try {
-                player.teleport(
+                player.teleportAsync(
                     GsonFactory.getCompactGson().fromJson(MainConfig.LOBBY_SPAWN, WorldPosition::class.java)
                         .toBukkitLocation()
                 )

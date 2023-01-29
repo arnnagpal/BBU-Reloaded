@@ -37,17 +37,6 @@ class BBUTeam(val colour: BBUTeamColour) {
 
     val players: MutableSet<BBUPlayer> = HashSet()
 
-    var bukkitTeam: Team? = null
-        get() {
-            if (field == null) {
-                field = Bukkit.getScoreboardManager().mainScoreboard.registerNewTeam(colour.name)
-                field!!.color(NamedTextColor.nearestTo(TextColor.color(colour.chatColor.asBungee().color.rgb)))
-                field!!.prefix(Component.text(colour.chatColor.toString()))
-            }
-
-            return field!!
-        }
-
     var beacon: Position? = null
         set(value) {
             val event = BBUTeamModificationEvent(
@@ -84,7 +73,6 @@ class BBUTeam(val colour: BBUTeamColour) {
             CC.capitalize(colour.name.lowercase(Locale.getDefault()))
         )
         player.team = this
-        bukkitTeam?.addPlayer(player.player!!)
         player.player!!.playerListName(
             Component.text(
                 colour.chatColor.toString() + player.name,
@@ -120,7 +108,6 @@ class BBUTeam(val colour: BBUTeamColour) {
             CC.capitalize(colour.name.lowercase(Locale.getDefault()))
         )
         player.team = null
-        bukkitTeam?.removePlayer(player.player!!)
         player.player!!.playerListName(Component.text(player.name))
         player.player!!.displayName(Component.text(player.name))
         return players.remove(player)

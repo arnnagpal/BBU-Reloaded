@@ -55,22 +55,7 @@ public class GameListener implements Listener {
                 }
 
             }, 2L);
-        } else {
-            Player bukkitPlayer = player.getPlayer();
-            if (bukkitPlayer.getBedSpawnLocation() != null) {
-                bukkitPlayer.teleport(bukkitPlayer.getBedSpawnLocation());
-            }
-            if (team.hasBeacon()) {
-                if (bukkitPlayer == null)
-                    return;
-                bukkitPlayer.teleport(team.getBeacon().toWorldPosition("world").toBukkitLocation().add(0.5, 0.5, 0.5));
-            } else {
-                if (bukkitPlayer == null)
-                    return;
-                bukkitPlayer.teleport(team.getCage().getSpawnPosition().toBukkitLocation());
-            }
         }
-
     }
 
     @EventHandler
@@ -133,7 +118,7 @@ public class GameListener implements Listener {
 
     @EventHandler
     public void onTakenDamage(EntityDamageEvent e) {
-        if (BBU.getInstance().getGame().getGameState() == GameState.LOBBY || BBU.getInstance().getGame().getGameState() == GameState.DEATH_MATCH) {
+        if (BBU.getInstance().getGame().getGameState() == GameState.LOBBY) {
             e.setCancelled(true);
         }
     }

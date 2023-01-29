@@ -77,7 +77,7 @@ class GameThread(val game: Game) : Thread() {
                         }
                         //check and see if any teams beacons are out of the border, This cannot be changed to a listener because there is no event for border shrink
                         //I will however make this run every 5 seconds instead of every second
-                        if (tick % 5 == 0) {
+                        if (tick % 120 == 0) {
                             for (team in game.getTeams(true)) {
                                 val world = game.overworld
                                 val beaconLoc = team.beacon!!.toWorldPosition(game.overworld.name).toBukkitLocation()

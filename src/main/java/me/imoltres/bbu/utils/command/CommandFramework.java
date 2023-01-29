@@ -246,7 +246,7 @@ public class CommandFramework implements TabExecutor {
             return false;
         }
 
-        if (!sender.hasPermission(command.permission())) {
+        if (!command.permission().equals("") && !sender.hasPermission(command.permission())) {
             sender.sendMessage(NO_PERMISSION);
             return true;
         }

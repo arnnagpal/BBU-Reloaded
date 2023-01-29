@@ -3,3 +3,4 @@ lobby-spawn: ""
 
 #allow teammates to hit eachother
 friendly-fire: true
+show-fortress: true

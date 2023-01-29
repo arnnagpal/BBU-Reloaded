@@ -119,4 +119,12 @@ class BBUPlayer(val uniqueId: UUID, val name: String) {
         player?.kick(CC.translate(Messages.FINAL_DEATH.toString()))
     }
 
+    /**
+     * revive this player
+     */
+    fun revive() {
+        eliminated = false
+        team?.addPlayer(this)
+    }
+
 }

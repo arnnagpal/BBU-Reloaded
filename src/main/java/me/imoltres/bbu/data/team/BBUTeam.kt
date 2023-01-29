@@ -7,9 +7,13 @@ import me.imoltres.bbu.game.events.team.BBUTeamModificationEvent
 import me.imoltres.bbu.utils.CC
 import me.imoltres.bbu.utils.item.ItemConstants
 import me.imoltres.bbu.utils.world.Position
+import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.TextComponent
+import net.kyori.adventure.text.format.NamedTextColor
+import net.kyori.adventure.text.format.TextColor
 import org.bukkit.Bukkit
 import org.bukkit.Material
+import org.bukkit.scoreboard.Team
 import java.util.*
 import java.util.concurrent.ThreadLocalRandom
 
@@ -69,6 +73,16 @@ class BBUTeam(val colour: BBUTeamColour) {
             CC.capitalize(colour.name.lowercase(Locale.getDefault()))
         )
         player.team = this
+        player.player!!.playerListName(
+            Component.text(
+                colour.chatColor.toString() + player.name,
+                NamedTextColor.nearestTo(TextColor.color(colour.chatColor.asBungee().color.rgb))
+            ))
+        player.player!!.displayName(
+            Component.text(
+                colour.chatColor.toString() + player.name,
+                NamedTextColor.nearestTo(TextColor.color(colour.chatColor.asBungee().color.rgb))
+            ))
         return players.add(player)
     }
 
@@ -94,6 +108,8 @@ class BBUTeam(val colour: BBUTeamColour) {
             CC.capitalize(colour.name.lowercase(Locale.getDefault()))
         )
         player.team = null
+        player.player!!.playerListName(Component.text(player.name))
+        player.player!!.displayName(Component.text(player.name))
         return players.remove(player)
     }
 

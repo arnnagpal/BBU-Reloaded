@@ -180,7 +180,6 @@ class Game {
         end = Bukkit.getWorld(NamespacedKey.minecraft("the_end"))!!
         //Get spawn world
         spawnWorld = WorldCreator("bbuSpawnWorld").generator(EmptyChunkGenerator()).createWorld()!!
-
         worlds = arrayOf(overworld, nether, end, spawnWorld);
         for (world in worlds) {
             world.worldBorder.setCenter(0.0, 0.0)

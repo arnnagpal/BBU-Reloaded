@@ -39,6 +39,10 @@ class PlayerCommands : SubCommand {
                 player.eliminate()
             }
 
+            "revive" -> {
+                player.revive()
+            }
+
             "jointeam" -> {
                 if (args.size < 3) {
                     sender.sendMessage(CC.translate("&cSpecify a team."))
@@ -61,6 +65,11 @@ class PlayerCommands : SubCommand {
                 val team = player?.team
                 team?.removePlayer(player)
                 sender.sendMessage(CC.translate("&aRemoved '" + player.getRawDisplayName() + "&a' from team '" + team?.getRawDisplayName() + "&a'"))
+            }
+
+            "fixmovement" -> {
+                player.allowMovement()
+                sender.sendMessage(CC.translate("&aFixed movement for '" + player.getRawDisplayName() + "&a'"))
             }
         }
 

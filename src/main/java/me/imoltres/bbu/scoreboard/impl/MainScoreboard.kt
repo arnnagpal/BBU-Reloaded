@@ -5,6 +5,7 @@ import me.imoltres.bbu.data.player.BBUPlayer
 import me.imoltres.bbu.game.GameState
 import me.imoltres.bbu.scoreboard.BBUScoreboardAdapter
 import me.imoltres.bbu.utils.CC
+import me.imoltres.bbu.utils.config.MainConfig
 import me.imoltres.bbu.utils.general.DateUtils
 import me.imoltres.bbu.utils.general.TickUtils
 import org.bukkit.Bukkit
@@ -46,7 +47,7 @@ class MainScoreboard(player: Player) : BBUScoreboardAdapter(1, player) {
             }
         }
 
-        if (game.gameState.isPvp()) {
+        if (game.gameState.isPvp() && MainConfig.SHOW_FORTRESS) {
             lines.add(
                 String.format(
                     "&bFortress&f: %s, %s",

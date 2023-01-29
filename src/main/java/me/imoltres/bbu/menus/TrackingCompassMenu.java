@@ -45,7 +45,7 @@ public class TrackingCompassMenu extends Menu {
         int x = 0;
         for (int i = 10; i < 17; i++) {
             if (x > (teams.size() - 1)) {
-                buttons.put(i, new Filler(Material.AIR));
+                buttons.put(i, new Filler(true));
                 continue;
             }
 
@@ -66,7 +66,7 @@ public class TrackingCompassMenu extends Menu {
         @Override
         public ItemStack getButtonItem(Player player) {
             if (team != null) {
-                ItemBuilder builder = new ItemBuilder(Material.getMaterial(team.getColour().name() + "_WOOL"));
+                ItemBuilder builder = new ItemBuilder(Material.getMaterial((team.getColour().getMaterial() == null ? team.getColour().name() : team.getColour().getMaterial()) + "_WOOL"));
                 if (!BBU.getInstance().getGame().getGameState().isPvp()) {
                     builder = builder.name(team.getRawDisplayName()).lore("&cCan't track teams on grace period.");
                 } else {

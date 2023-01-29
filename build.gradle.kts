@@ -1,8 +1,8 @@
 val main by extra("me.imoltres.bbu.BBU")
-val ver by extra("0.0.1-PRE")
+val ver by extra("0.0.3-PRE")
 val apiVersion by extra("1.17")
 
-val spigotVersion by extra("1.18.1-R0.1-SNAPSHOT")
+val spigotVersion by extra("1.18.2-R0.1-SNAPSHOT")
 val gsonVersion by extra("2.8.9")
 val faweVersion by extra("2.0.1")
 

@@ -1,5 +1,7 @@
 package me.imoltres.bbu.game.threads
 
+import io.papermc.paper.event.world.border.WorldBorderBoundsChangeEvent
+import io.papermc.paper.event.world.border.WorldBorderEvent
 import me.imoltres.bbu.BBU
 import me.imoltres.bbu.data.team.BBUTeam
 import me.imoltres.bbu.game.Game
@@ -7,7 +9,10 @@ import me.imoltres.bbu.game.GameState
 import me.imoltres.bbu.utils.CC
 import me.imoltres.bbu.utils.general.DateUtils
 import me.imoltres.bbu.utils.general.PlayerUtils
+import me.imoltres.bbu.utils.world.Position
 import org.bukkit.Bukkit
+import org.bukkit.Location
+import org.bukkit.Material
 import java.math.BigDecimal
 import java.util.*
 
@@ -22,6 +27,8 @@ class GameThread(val game: Game) : Thread() {
 
     private var shrinking = false
     private var pvp = false
+    private var deathmatch = false
+    private var deathmatchPVP = false
 
     val teamCheckQueue = LinkedList<BBUTeam>()
 
@@ -40,6 +47,17 @@ class GameThread(val game: Game) : Thread() {
                 checkWinConditions()
 
                 when (game.gameState) {
+                    GameState.PRE_GAME -> { //This should probably be more efficient
+                        //check and see if all players are in their cages
+                        for (player in game.getAliveTeams().flatMap { it.players }) {
+                            if (player.team != null) {
+                                if (!player.team!!.cage!!.cuboid.contains(Position(player.player!!.location))) {
+                                    player.player!!.teleportAsync(player.team!!.cage!!.spawnPosition.toBukkitLocation())
+                                }
+                            }
+                        }
+                    }
+
                     GameState.PVP -> {
                         if (!pvp) {
                             PlayerUtils.broadcastTitle(
@@ -57,7 +75,26 @@ class GameThread(val game: Game) : Thread() {
                             shrinkBorder(getBorderShrinkTime(border))
                             shrinking = !shrinking
                         }
+                        //check and see if any teams beacons are out of the border, This cannot be changed to a listener because there is no event for border shrink
+                        //I will however make this run every 5 seconds instead of every second
+                        if (tick % 120 == 0) {
+                            for (team in game.getTeams(true)) {
+                                val world = game.overworld
+                                val beaconLoc = team.beacon!!.toWorldPosition(game.overworld.name).toBukkitLocation()
+                                if (team.beacon != null) {
+                                    if (beaconLoc.distance(world.worldBorder.center) > world.worldBorder.size / 2) {
+                                        team.beacon!!.toWorldPosition(game.overworld.name).block.type =
+                                            Material.AIR
+                                        team.beacon = null
+                                        Bukkit.broadcast(
+                                            CC.translate("${team.getRawDisplayName()}&c's beacon has been destroyed because it was out of the border.")
+                                        )
+                                    }
+                                }
+                            }
+                        }
                     }
+
                     else -> {}
                 }
 
@@ -85,7 +122,7 @@ class GameThread(val game: Game) : Thread() {
 
     /**
      * Get the amount of time that the border should shrink for
-     * 
+     *
      * based on the size of the border
      */
     private fun getBorderShrinkTime(border: Int): Int {

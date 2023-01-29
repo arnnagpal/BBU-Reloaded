@@ -91,9 +91,10 @@ class GameCommand : Command {
 
                     "debug" -> options.addAll(
                         listOf(
-                            "invsee",
                             "givebeacon",
-                            "givetracker"
+                            "givetracker",
+                            "setgamestate",
+                            "teleportWorld"
                         )
                     )
                 }
@@ -113,8 +114,10 @@ class GameCommand : Command {
                     "player" -> options.addAll(
                         listOf(
                             "eliminate",
+                            "revive",
                             "jointeam",
-                            "leaveteam"
+                            "leaveteam",
+                            "fixmovement"
                         )
                     )
 

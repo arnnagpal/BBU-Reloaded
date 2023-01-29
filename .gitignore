@@ -1,8 +1,0 @@
-# IGNORE AUTO-GENERATED FILES
-.gradle/*
-.idea/*
-build/*
-dist/*
-gradle/*
-gradlew
-gradlew.bat

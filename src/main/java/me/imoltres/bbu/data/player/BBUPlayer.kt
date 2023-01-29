@@ -86,7 +86,7 @@ class BBUPlayer(val uniqueId: UUID, val name: String) {
             player?.inventory?.addItem(item)
         }
 
-        player?.sendActionBar(CC.translate("&aAdded ${item.displayName} &ato your inventory."))
+        player?.sendActionBar(CC.translate("&aAdded ${item.type.name} &ato your inventory."))
         return true
     }
 

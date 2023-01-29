@@ -10,16 +10,37 @@ import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 
 import java.io.IOException;
+import java.util.Set;
 
 /**
  * Represents a location in a world. This is a generic base object that acts as
  * a bukkit-like location.
  */
 public class WorldPosition extends Position {
+
+    private static final Set<Biome> BAD_BIOMES = Set.of(
+            Biome.SWAMP,
+            Biome.MUSHROOM_FIELDS,
+            Biome.BEACH,
+            Biome.RIVER,
+            Biome.FROZEN_RIVER,
+
+            //oceans
+            Biome.OCEAN,
+            Biome.DEEP_OCEAN,
+            Biome.COLD_OCEAN,
+            Biome.DEEP_COLD_OCEAN,
+            Biome.DEEP_FROZEN_OCEAN,
+            Biome.DEEP_LUKEWARM_OCEAN,
+            Biome.FROZEN_OCEAN,
+            Biome.LUKEWARM_OCEAN,
+            Biome.WARM_OCEAN
+    );
 
     @Getter
     @Setter
@@ -71,8 +92,14 @@ public class WorldPosition extends Position {
                 return false;
             }
             Block ground = feet.getRelative(BlockFace.DOWN);
+            if (ground.getType() == Material.LAVA) {
+                return false;
+            }
 
-            return ground.getType() != Material.LAVA;
+
+
+            //check biome too!
+            return !BAD_BIOMES.contains(getBlock().getBiome());
         } catch (Exception e) {
             e.printStackTrace();
         }

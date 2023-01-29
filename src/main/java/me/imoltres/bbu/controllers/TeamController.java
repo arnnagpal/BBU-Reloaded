@@ -109,6 +109,12 @@ public class TeamController {
         return ImmutableList.copyOf(teams);
     }
 
+    public void clearTeams() {
+        for (BBUTeam team : teams) {
+            team.getPlayers().clear();
+        }
+    }
+
     /**
      * @return immutable list of all teams
      */

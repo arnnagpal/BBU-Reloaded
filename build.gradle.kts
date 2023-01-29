@@ -1,10 +1,9 @@
 val main by extra("me.imoltres.bbu.BBU")
-val ver by extra("0.0.1-PRE")
-val apiVersion by extra("1.17")
+val ver by extra("0.0.3-DEV")
+val apiVersion by extra("1.19")
 
-val spigotVersion by extra("1.18.1-R0.1-SNAPSHOT")
-val gsonVersion by extra("2.8.9")
-val faweVersion by extra("2.0.1")
+val spigotVersion by extra("1.19.3-R0.1-SNAPSHOT")
+val gsonVersion by extra("2.10.1")
 
 val lombokVersion by extra("1.18.22")
 
@@ -15,17 +14,20 @@ outputDir.mkdirs()
 plugins {
     id("com.github.johnrengelman.shadow") version "7.0.0"
     java
-    kotlin("jvm") version "1.6.0"
-    kotlin("plugin.lombok") version "1.6.0"
+    kotlin("jvm") version "1.8.0"
+    kotlin("plugin.lombok") version "1.8.0"
 
-    id("org.jetbrains.dokka") version "1.6.10"
-    id("io.freefair.lombok") version "6.4.0"
+    id("org.jetbrains.dokka") version "1.7.20"
+    id("io.freefair.lombok") version "6.6.1"
 }
 
 group = "me.imoltres"
 version = extra["ver"]!!
 
 repositories {
+    maven {
+        url = uri("https://repo.papermc.io/repository/maven-public/")
+    }
     maven {
         url = uri("https://repo.purpurmc.org/snapshots")
     }
@@ -34,12 +36,20 @@ repositories {
 
 dependencies {
     implementation(group = "com.google.code.gson", name = "gson", version = gsonVersion)
-    implementation(group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version = "1.6.0")
+    implementation(group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version = "1.8.0")
+    implementation(group = "org.apache.commons", name = "commons-lang3", version = "3.12.0")
 
     compileOnly(group = "org.purpurmc.purpur", name = "purpur-api", version = spigotVersion)
-    compileOnly(group = "com.fastasyncworldedit", name = "FastAsyncWorldEdit-Bukkit", version = faweVersion)
 
-    dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.6.10")
+    implementation(platform("com.intellectualsites.bom:bom-1.18.x:1.23"))
+    compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Core")
+    compileOnly(group = "com.fastasyncworldedit", name = "FastAsyncWorldEdit-Bukkit") {
+        isTransitive = false
+    }
+
+
+
+    dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.7.20")
 
     testImplementation(group = "org.junit.jupiter", name = "junit-jupiter-api", version = "5.8.1")
     testRuntimeOnly(group = "org.junit.jupiter", name = "junit-jupiter-engine", version = "5.8.1")

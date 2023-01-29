@@ -1,6 +1,7 @@
 package me.imoltres.bbu.listeners
 
 import me.imoltres.bbu.BBU
+import me.imoltres.bbu.game.GameState
 import me.imoltres.bbu.game.events.team.BBUBreakBeaconEvent
 import me.imoltres.bbu.game.events.team.BBUPlaceBeaconEvent
 import me.imoltres.bbu.utils.general.BlockUtils
@@ -48,6 +49,8 @@ class BeaconListener : Listener {
         //is bbu beacon :D
         val player = e.player
         val team = BBU.getInstance().teamController.getTeam(player) ?: return
+        if (BBU.getInstance().game.gameState != GameState.GRACE)
+            return
 
         val event = BBUPlaceBeaconEvent(
             team,

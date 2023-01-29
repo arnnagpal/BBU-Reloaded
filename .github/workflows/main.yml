@@ -19,11 +19,8 @@ jobs:
           distribution: 'temurin'
           cache: gradle
       
-      - name: Make gradlew executable
-        run: chmod +x gradlew
-      
       - name: Generate docs
-        run: ./gradlew clean dokkaHtml
+        run: gradle clean dokkaHtml
       
       - name: Add docs to git
         run: git add *

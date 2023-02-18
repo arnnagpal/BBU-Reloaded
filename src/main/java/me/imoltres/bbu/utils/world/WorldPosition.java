@@ -81,28 +81,40 @@ public class WorldPosition extends Position {
         return new WorldPosition(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch(), location.getWorld().getName());
     }
 
-    public boolean isSafe() {
-        try {
-            Block feet = getBlock();
-            if (feet.getType().isOccluding() && feet.getLocation().add(0, 1, 0).getBlock().getType().isOccluding()) {
-                return false;
-            }
-            Block head = feet.getRelative(BlockFace.UP);
-            if (head.getType().isOccluding()) {
-                return false;
-            }
-            Block ground = feet.getRelative(BlockFace.DOWN);
-            if (ground.getType() == Material.LAVA) {
-                return false;
-            }
+    public boolean isSafe(int width) {
+        Cuboid cuboid = new Cuboid(new Position(
+                getX() - width,
+                getY() - 2,
+                getZ() - width
+        ), new Position(
+                getX() + width,
+                getY() + 3,
+                getZ() + width
+        ));
 
+        for (Position position : cuboid) {
+            WorldPosition worldPosition = position.toWorldPosition(world);
+            try {
+                Block feet = worldPosition.getBlock();
+                if (feet.getType().isOccluding() && feet.getLocation().add(0, 1, 0).getBlock().getType().isOccluding()) {
+                    return false;
+                }
+                Block head = feet.getRelative(BlockFace.UP);
+                if (head.getType().isOccluding()) {
+                    return false;
+                }
+                Block ground = feet.getRelative(BlockFace.DOWN);
+                if (ground.getType() == Material.LAVA) {
+                    return false;
+                }
 
-
-            //check biome too!
-            return !BAD_BIOMES.contains(getBlock().getBiome());
-        } catch (Exception e) {
-            e.printStackTrace();
+                //check biome too!
+                return !BAD_BIOMES.contains(feet.getBiome());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
         return false;
     }
 

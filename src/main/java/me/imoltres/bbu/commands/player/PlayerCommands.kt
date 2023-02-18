@@ -36,7 +36,9 @@ class PlayerCommands : SubCommand {
 
         when (type) {
             "eliminate" -> {
-                player.eliminate()
+                // kill player
+                player.player?.let { player.player?.health = 0.0 }
+                player.player?.let { player.eliminate(it.location) }
             }
 
             "jointeam" -> {

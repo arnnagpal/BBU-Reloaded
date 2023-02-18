@@ -6,6 +6,7 @@ import me.imoltres.bbu.data.team.BBUTeam
 import me.imoltres.bbu.game.events.player.BBUPlayerDeathEvent
 import me.imoltres.bbu.utils.config.MainConfig
 import me.imoltres.bbu.utils.item.ItemConstants
+import me.imoltres.bbu.utils.world.WorldPosition
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Arrow
@@ -99,7 +100,8 @@ class DamageListener : Listener {
 
         val killer = BBU.getInstance().playerController.getPlayer(player.killer?.uniqueId)
 
-        val event = BBUPlayerDeathEvent(bbuPlayer, killer, !team.hasBeacon())
+        val event =
+            BBUPlayerDeathEvent(WorldPosition.fromBukkitLocation(player.location), bbuPlayer, killer, !team.hasBeacon())
         Bukkit.getPluginManager().callEvent(event)
     }
 

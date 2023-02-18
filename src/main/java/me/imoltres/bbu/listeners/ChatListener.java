@@ -41,6 +41,16 @@ public class ChatListener implements Listener {
             return;
         }
 
+        if (bbuPlayer.getEliminated()) {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                BBUPlayer bPlayer = BBU.getInstance().getPlayerController().getPlayer(player.getUniqueId());
+                if (bPlayer.getEliminated() || player.isOp())
+                    player.sendMessage(format);
+            }
+
+            return;
+        }
+
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.sendMessage(format);
         }

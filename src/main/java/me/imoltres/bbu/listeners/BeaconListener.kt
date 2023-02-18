@@ -4,10 +4,10 @@ import me.imoltres.bbu.BBU
 import me.imoltres.bbu.game.GameState
 import me.imoltres.bbu.game.events.team.BBUBreakBeaconEvent
 import me.imoltres.bbu.game.events.team.BBUPlaceBeaconEvent
+import me.imoltres.bbu.utils.CC
 import me.imoltres.bbu.utils.general.BlockUtils
 import me.imoltres.bbu.utils.general.BlockUtils.Companion.faces
 import me.imoltres.bbu.utils.general.BlockUtils.Companion.getFacesTouching
-import me.imoltres.bbu.utils.CC
 import me.imoltres.bbu.utils.item.ItemConstants
 import me.imoltres.bbu.utils.world.WorldPosition
 import org.bukkit.Bukkit
@@ -82,7 +82,6 @@ class BeaconListener : Listener {
 
         e.isDropItems = false
         e.expToDrop = 0
-
 
         val event = BBUBreakBeaconEvent(
             e.block,

@@ -10,12 +10,14 @@ import me.imoltres.bbu.controllers.TeamController;
 import me.imoltres.bbu.data.BBUTeamColour;
 import me.imoltres.bbu.game.Game;
 import me.imoltres.bbu.listeners.*;
+import me.imoltres.bbu.nametags.NametagAdapterImpl;
 import me.imoltres.bbu.scoreboard.BBUScoreboard;
 import me.imoltres.bbu.utils.CC;
 import me.imoltres.bbu.utils.command.Command;
 import me.imoltres.bbu.utils.command.CommandFramework;
 import me.imoltres.bbu.utils.config.type.BasicConfigurationFile;
 import me.imoltres.bbu.utils.menu.MenuListener;
+import me.imoltres.bbu.utils.nametag.NametagHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
@@ -71,6 +73,9 @@ public class BBU extends JavaPlugin {
     private Game game;
     @Getter
     private BBUScoreboard scoreboard;
+
+    //nametag stuff
+    private NametagHandler nametagHandler;
 
     //boolean to hold if the server is done setting up or not
     @Getter
@@ -130,6 +135,10 @@ public class BBU extends JavaPlugin {
      */
     @Override
     public void onEnable() {
+        //setup nametag handler
+        Bukkit.getConsoleSender().sendMessage(CC.translate("&aSetting up nametag handler..."));
+        nametagHandler = new NametagHandler(this, new NametagAdapterImpl());
+
         //team setup
         Bukkit.getConsoleSender().sendMessage(CC.translate("&aSetting up teams..."));
         setupTeams();
@@ -155,6 +164,9 @@ public class BBU extends JavaPlugin {
      */
     @Override
     public void onDisable() {
+        joinable = false;
+        nametagHandler.cleanup();
+
         Bukkit.getScheduler().cancelTasks(this);
         scoreboard.cleanup();
 

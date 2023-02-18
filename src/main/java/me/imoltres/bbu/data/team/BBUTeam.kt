@@ -193,6 +193,10 @@ class BBUTeam(val colour: BBUTeamColour) {
         return colour.name
     }
 
+    fun getPlayersAsList(): List<BBUPlayer> {
+        return players.toList()
+    }
+
     override fun equals(other: Any?): Boolean {
         other?.let {
             if (other is BBUTeam && other.colour == colour)

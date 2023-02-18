@@ -173,14 +173,29 @@ class CageController(private val plugin: BBU) {
             world.getChunkAt(x.toInt(), z.toInt()).load()
 
         val worldPosition = WorldPosition(
-            position2D.x,
+            x,
             (world.getHighestBlockYAt(x.toInt(), z.toInt()) + 3).toDouble(),
-            position2D.y,
+            z,
             world.name
         )
 
-        while (!worldPosition.isSafe) {
-            worldPosition.add(0.0, 1.0, 0.0)
+
+        while (!worldPosition.isSafe(8)) {
+            println("Rerolling position: $x, ${worldPosition.y.toInt()}, $z")
+
+            position2D = world2D.randomPosition().toIntPosition()
+            x = position2D.x
+            z = position2D.y
+
+            if (!world.getChunkAt(x.toInt(), z.toInt()).isLoaded) {
+                println("Loading chunk at $x, $z")
+                world.getChunkAt(x.toInt(), z.toInt()).load()
+            }
+
+            worldPosition.x = x
+            worldPosition.y = (world.getHighestBlockYAt(x.toInt(), z.toInt()) + 3).toDouble()
+            worldPosition.z = z
+            println("Trying position: $x, ${worldPosition.y.toInt()}, $z")
         }
 
         x = worldPosition.x

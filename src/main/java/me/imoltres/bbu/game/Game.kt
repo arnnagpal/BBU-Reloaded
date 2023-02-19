@@ -13,6 +13,7 @@ import me.imoltres.bbu.utils.world.Position2D
 import org.bukkit.*
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Firework
+import org.bukkit.generator.structure.StructureType
 import java.util.concurrent.ExecutionException
 
 
@@ -184,6 +185,7 @@ class Game {
 
         worlds = arrayOf(overworld, nether, end, spawnWorld);
         for (world in worlds) {
+            world.loadChunk(0, 0)
             world.worldBorder.setCenter(0.0, 0.0)
             world.worldBorder.size = border.toDouble()
 
@@ -195,7 +197,7 @@ class Game {
         }
 
         val netherSpawn = Location(nether, 0.0, 70.0, 0.0)
-        val location = nether.locateNearestStructure(netherSpawn, StructureType.NETHER_FORTRESS, border, false)
+        val location = nether.locateNearestStructure(netherSpawn, StructureType.FORTRESS, border, false)?.location
         if (location != null) {
             fortressPosition = Position2D(location.x, location.z).toIntPosition()
         } else {

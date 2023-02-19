@@ -67,8 +67,10 @@ class CageController(private val plugin: BBU) {
 
             val cuboid = getConfiguredCage(team)
             val position = if (cuboid == null) {
+                println("Getting random position...")
                 getRandomValidWorldPosition(world, exclusions, 75)
             } else {
+                println("Using configured position...")
                 WorldPosition(cuboid.min.x, cuboid.min.y, cuboid.min.z, world.name)
             }
 
@@ -149,6 +151,23 @@ class CageController(private val plugin: BBU) {
     }
 
     /**
+     * Loads a chunk at a given position
+     * @param world world to load the chunk in
+     * @param x x position
+     * @param z z position
+     */
+    private fun loadChunkAt(world: World, x: Int, z: Int) {
+        // loads the chunk
+        println("Loading chunk at $x, $z")
+        world.getChunkAtAsyncUrgently(x shr 4, z shr 4).thenAccept { chunk ->
+            if (!chunk.isLoaded) {
+                chunk.load()
+            }
+        }.get()
+        println("Loaded chunk at $x, $z")
+    }
+
+    /**
      * Get a random world position inside the world border
      * @param world world to get the position in
      */
@@ -163,12 +182,7 @@ class CageController(private val plugin: BBU) {
         var z = position2D.y
 
         // loads the chunk
-        println("Loading chunk at $x, $z")
-        world.getChunkAtAsync(x.toInt() shr 4, z.toInt() shr 4).thenAccept { chunk ->
-            if (!chunk.isLoaded) {
-                chunk.load()
-            }
-        }.get()
+        loadChunkAt(world, x.toInt(), z.toInt())
 
         val worldPosition = WorldPosition(
             x,
@@ -177,21 +191,14 @@ class CageController(private val plugin: BBU) {
             world.name
         )
 
-
-        while (!worldPosition.isSafe(8)) {
+        while (!worldPosition.isSafe(3, 3)) {
             println("Rerolling position: $x, ${worldPosition.y.toInt()}, $z")
 
             position2D = world2D.randomPosition().toIntPosition()
             x = position2D.x
             z = position2D.y
 
-            // loads the chunk
-            println("Loading chunk at $x, $z")
-            world.getChunkAtAsync(x.toInt() shr 4, z.toInt() shr 4).thenAccept { chunk ->
-                if (!chunk.isLoaded) {
-                    chunk.load()
-                }
-            }.get()
+            loadChunkAt(world, x.toInt(), z.toInt())
 
             worldPosition.x = x
             worldPosition.y = (world.getHighestBlockYAt(x.toInt(), z.toInt()) + 3).toDouble()

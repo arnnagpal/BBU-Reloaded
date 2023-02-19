@@ -7,6 +7,7 @@ import com.google.gson.stream.JsonWriter;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import me.imoltres.bbu.utils.CC;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -56,7 +57,7 @@ public class WorldPosition extends Position {
      * @param z         z-pos
      * @param worldName World
      */
-    public WorldPosition(double x, double y, double z, String worldName) {
+    public WorldPosition(double x, double y, double z, @NonNull String worldName) {
         super(x, y, z);
         this.world = worldName;
     }
@@ -72,7 +73,7 @@ public class WorldPosition extends Position {
      * @param pitch     pitch
      * @param worldName World
      */
-    public WorldPosition(double x, double y, double z, float yaw, float pitch, String worldName) {
+    public WorldPosition(double x, double y, double z, float yaw, float pitch, @NonNull String worldName) {
         super(x, y, z, yaw, pitch);
         this.world = worldName;
     }
@@ -81,14 +82,14 @@ public class WorldPosition extends Position {
         return new WorldPosition(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch(), location.getWorld().getName());
     }
 
-    public boolean isSafe(int width) {
+    public boolean isSafe(int width, int height) {
         Cuboid cuboid = new Cuboid(new Position(
                 getX() - width,
-                getY() - 2,
+                getY(),
                 getZ() - width
         ), new Position(
                 getX() + width,
-                getY() + 3,
+                getY() + height,
                 getZ() + width
         ));
 
@@ -97,25 +98,32 @@ public class WorldPosition extends Position {
             try {
                 Block feet = worldPosition.getBlock();
                 if (feet.getType().isOccluding() && feet.getLocation().add(0, 1, 0).getBlock().getType().isOccluding()) {
+                    Bukkit.getConsoleSender().sendMessage(CC.translate("&c[DEBUG] BLOCK IS OCCLUDING: &7" + feet.getType().name()));
                     return false;
                 }
                 Block head = feet.getRelative(BlockFace.UP);
                 if (head.getType().isOccluding()) {
+                    Bukkit.getConsoleSender().sendMessage(CC.translate("&c[DEBUG] BLOCK IS OCCLUDING: &7" + head.getType().name()));
                     return false;
                 }
                 Block ground = feet.getRelative(BlockFace.DOWN);
                 if (ground.getType() == Material.LAVA) {
+                    Bukkit.getConsoleSender().sendMessage(CC.translate("&c[DEBUG] BLOCK IS LAVA: &7" + ground.getType().name()));
                     return false;
                 }
 
                 //check biome too!
-                return !BAD_BIOMES.contains(feet.getBiome());
+                if (BAD_BIOMES.contains(feet.getBiome())) {
+                    Bukkit.getConsoleSender().sendMessage(CC.translate("&c[DEBUG] BLOCK IS IN BAD BIOME: &7" + feet.getBiome().name()));
+                    return false;
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
-        return false;
+        Bukkit.getConsoleSender().sendMessage(CC.translate("&a[DEBUG] BLOCK IS SAFE"));
+        return true;
     }
 
     /**

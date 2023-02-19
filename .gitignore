@@ -6,3 +6,4 @@ dist/*
 gradle/*
 gradlew
 gradlew.bat
+lombok.config

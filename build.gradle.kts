@@ -36,6 +36,7 @@ repositories {
 
 dependencies {
     implementation(group = "com.google.code.gson", name = "gson", version = gsonVersion)
+    implementation(group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version = "1.6.4")
     implementation(group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version = "1.8.0")
     implementation(group = "org.apache.commons", name = "commons-lang3", version = "3.12.0")
 

@@ -1,5 +1,6 @@
 package me.imoltres.bbu.game
 
+import kotlinx.coroutines.launch
 import me.imoltres.bbu.BBU
 import me.imoltres.bbu.data.team.BBUTeam
 import me.imoltres.bbu.game.generator.EmptyChunkGenerator
@@ -202,22 +203,23 @@ class Game {
                 .sendMessage(CC.translate("Unable to find a fortress within border, you might have to find a new seed."))
         }
 
-        Bukkit.getScheduler().runTaskAsynchronously(BBU.getInstance(), Runnable {
-            try {
+        try {
+            BBU.getInstance().cageController.scope.launch {
                 BBU.getInstance().cageController.placeCages(
                     overworld,
                     BBU.getInstance().teamController.teamsWithCages
                 )
-
+            }.invokeOnCompletion {
+                //after scope is done, allow players to join
                 Bukkit.getScheduler().runTaskLater(BBU.getInstance(), Runnable {
                     BBU.getInstance().isJoinable = true
                 }, 20L)
-            } catch (e: ExecutionException) {
-                e.printStackTrace()
-            } catch (e: InterruptedException) {
-                e.printStackTrace()
             }
-        })
+        } catch (e: ExecutionException) {
+            e.printStackTrace()
+        } catch (e: InterruptedException) {
+            e.printStackTrace()
+        }
 
     }
 

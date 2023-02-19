@@ -119,6 +119,16 @@ public class WorldPosition extends Position {
     }
 
     /**
+     * Distance between two WorldPositions.
+     *
+     * @param other Other WorldPosition
+     * @return distance
+     */
+    public double distance(WorldPosition other) {
+        return Math.sqrt(Math.pow(getX() - other.getX(), 2) + Math.pow(getY() - other.getY(), 2) + Math.pow(getZ() - other.getZ(), 2));
+    }
+
+    /**
      * Converts a WorldPosition to a bukkit Location.
      *
      * @return bukkit location

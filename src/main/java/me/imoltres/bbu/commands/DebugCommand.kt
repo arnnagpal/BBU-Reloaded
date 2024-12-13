@@ -6,11 +6,15 @@ import me.imoltres.bbu.utils.CC
 import me.imoltres.bbu.utils.item.ItemConstants
 import me.imoltres.bbu.utils.command.CommandArgs
 import me.imoltres.bbu.utils.command.CommandInfo
+import me.imoltres.bbu.utils.command.Completer
 import me.imoltres.bbu.utils.command.SubCommand
 import net.kyori.adventure.title.Title
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
+import org.bukkit.util.StringUtil
+import java.util.*
+import java.util.stream.Collectors
 
 @CommandInfo(
     name = "bbu.debug",

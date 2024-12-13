@@ -1,15 +1,13 @@
 package me.imoltres.bbu.controllers
 
-import com.sk89q.worldedit.bukkit.BukkitWorld
-import com.sk89q.worldedit.extent.clipboard.Clipboard
-import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormats
-import com.sk89q.worldedit.math.BlockVector3
+import com.github.steveice10.opennbt.NBTIO
 import kotlinx.coroutines.*
 import me.imoltres.bbu.BBU
 import me.imoltres.bbu.data.team.BBUCage
 import me.imoltres.bbu.data.team.BBUTeam
 import me.imoltres.bbu.utils.CC
 import me.imoltres.bbu.utils.json.GsonFactory
+import me.imoltres.bbu.utils.schematic.SchematicParser
 import me.imoltres.bbu.utils.world.*
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -18,11 +16,43 @@ import java.io.File
 import java.io.IOException
 import java.util.*
 import java.util.concurrent.ExecutionException
+import kotlin.collections.HashMap
 
 /**
  * Controls all the cages
  */
 class CageController(private val plugin: BBU) {
+
+    private val cageSchematic: HashMap<Position, Material>
+    private val cageCuboid: Cuboid
+
+    init {
+        try {
+            val cagesSchematicFile = File(plugin.schemesFolder, "cage.schem")
+            cageSchematic = SchematicParser.parseSchematic(NBTIO.readFile(cagesSchematicFile))
+
+            val min = Position(0.0, 0.0, 0.0)
+            // find largest position
+            var max = Position(0.0, 0.0, 0.0)
+            for (pos in cageSchematic.keys) {
+                if (pos.x > max.x) {
+                    max = Position(pos.x, max.y, max.z)
+                }
+                if (pos.y > max.y) {
+                    max = Position(max.x, pos.y, max.z)
+                }
+                if (pos.z > max.z) {
+                    max = Position(max.x, max.y, pos.z)
+                }
+            }
+
+            cageCuboid = Cuboid(min, max)
+
+            println("Loaded cage schematic")
+        } catch (e: IOException) {
+            throw Exception("Failed to load cage schematic")
+        }
+    }
 
     val scope = CoroutineScope(Dispatchers.IO)
 
@@ -75,7 +105,7 @@ class CageController(private val plugin: BBU) {
             }
 
             exclusions.add(position)
-            placeCage(Position(position.x, position.y, position.y), team, world)
+            placeCage(Position(position.x, position.y, position.z), team, world)
         }
 
     }
@@ -101,26 +131,27 @@ class CageController(private val plugin: BBU) {
      * @param world world to place it in
      */
     fun placeCage(position: Position, bbuTeam: BBUTeam, world: World) {
-        val scheme = File(plugin.schemesFolder, "cage.schem")
-        val clipboard: Clipboard = try {
-            Objects.requireNonNull(ClipboardFormats.findByFile(scheme))!!.load(scheme)
-        } catch (e: IOException) {
-            e.printStackTrace()
-            Bukkit.shutdown()
-            return
-        }
-
-        val maxOffset = clipboard.maximumPoint.subtract(clipboard.minimumPoint)
-        val to = BlockVector3.at(position.x, position.y, position.z)
+        println("Placing cage for team: " + bbuTeam.colour.name)
+        println("Position: $position")
+        val to = Position(position.x, position.y, position.z)
         val cage = Cuboid(
-            Position(to.x.toDouble(), to.y.toDouble(), to.z.toDouble()),
+            Position(to.x, to.y, to.z),
             Position(
-                to.add(maxOffset).x.toDouble(), to.add(maxOffset).y.toDouble(), to.subtract(maxOffset).z.toDouble()
+                to.x + cageCuboid.max.x, to.y + cageCuboid.max.y, to.z + cageCuboid.max.z
             )
         )
+        println("Cage: $cage")
 
         Bukkit.getScheduler().runTask(plugin, Runnable {
-            clipboard.paste(BukkitWorld(world), to).flushQueue()
+            // paste the schematic
+            for ((pos, material) in cageSchematic) {
+                val block = world.getBlockAt(
+                    (to.x + pos.x).toInt(),
+                    (to.y + pos.y).toInt(),
+                    (to.z + pos.z).toInt()
+                )
+                block.type = material
+            }
 
             bbuTeam.cage = BBUCage(bbuTeam, cage, cage.center.subtract(0.0, 1.0, 0.0).toWorldPosition(world.name))
 
@@ -191,7 +222,7 @@ class CageController(private val plugin: BBU) {
             world.name
         )
 
-        while (!worldPosition.isSafe(3, 3)) {
+        while (!worldPosition.isSafe(4, 4)) {
             println("Rerolling position: $x, ${worldPosition.y.toInt()}, $z")
 
             position2D = world2D.randomPosition().toIntPosition()

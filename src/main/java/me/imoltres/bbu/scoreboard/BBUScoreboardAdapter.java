@@ -192,6 +192,10 @@ public abstract class BBUScoreboardAdapter {
      */
     private Team createLine(int lineNumber) {
         try {
+            if (scoreboard.getTeam(String.valueOf(lineNumber)) != null) {
+                scoreboard.getTeam(String.valueOf(lineNumber)).unregister(); // remove the old team
+            }
+
             Team team = scoreboard.registerNewTeam(String.valueOf(lineNumber));
 
             String pl = chatColourCache[lineNumber].toString() + ChatColor.WHITE;

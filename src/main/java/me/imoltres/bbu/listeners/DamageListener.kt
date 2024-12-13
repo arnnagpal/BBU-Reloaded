@@ -76,8 +76,6 @@ class DamageListener : Listener {
             )
     }
 
-    //todo: add respawn listener
-
     @EventHandler
     fun onPlayerDeath(e: PlayerDeathEvent) {
         val player = e.player

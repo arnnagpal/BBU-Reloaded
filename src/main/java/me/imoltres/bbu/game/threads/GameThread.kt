@@ -8,6 +8,7 @@ import me.imoltres.bbu.utils.CC
 import me.imoltres.bbu.utils.general.DateUtils
 import me.imoltres.bbu.utils.general.PlayerUtils
 import org.bukkit.Bukkit
+import org.bukkit.Material
 import org.bukkit.scheduler.BukkitRunnable
 import java.math.BigDecimal
 import java.util.*
@@ -53,6 +54,26 @@ class GameThread(val game: Game) : BukkitRunnable() {
                     )
 
                     pvp = !pvp
+                }
+
+                // @sinender (taken from the closed PR)
+                //check and see if any teams beacons are out of the border, This cannot be changed to a listener because there is no event for border shrink
+                //I will however make this run every 5 seconds instead of every second
+                if (tick % 120 == 0) {
+                    for (team in game.getTeams(true)) {
+                        val world = game.overworld
+                        val beaconLoc = team.beacon!!.toWorldPosition(game.overworld.name).toBukkitLocation()
+                        if (team.beacon != null) {
+                            if (beaconLoc.distance(world.worldBorder.center) > world.worldBorder.size / 2) {
+                                team.beacon!!.toWorldPosition(game.overworld.name).block.type =
+                                    Material.AIR
+                                team.beacon = null
+                                Bukkit.broadcast(
+                                    CC.translate("${team.getRawDisplayName()}&c's beacon has been destroyed because it was out of the border.")
+                                )
+                            }
+                        }
+                    }
                 }
             }
 

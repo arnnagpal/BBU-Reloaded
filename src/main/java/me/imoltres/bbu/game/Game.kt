@@ -107,7 +107,7 @@ class Game {
     }
 
     /**
-     * Move the server into a pre-lobby from a pre-game state
+     * Move the server into a pre-game from a lobby state
      * @param sender person who initiated the move (nullable)
      */
     fun preLobby(sender: CommandSender?) {

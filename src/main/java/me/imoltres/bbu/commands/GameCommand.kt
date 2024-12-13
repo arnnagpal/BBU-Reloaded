@@ -6,6 +6,7 @@ import me.imoltres.bbu.commands.player.PlayerCommands
 import me.imoltres.bbu.commands.team.TeamCommands
 import me.imoltres.bbu.commands.team.TeamsClearCommand
 import me.imoltres.bbu.commands.team.TeamsCommand
+import me.imoltres.bbu.game.GameState
 import me.imoltres.bbu.utils.CC
 import me.imoltres.bbu.utils.command.*
 import net.kyori.adventure.text.Component
@@ -117,9 +118,21 @@ class GameCommand : Command {
                         )
                     )
 
-                    "debug" -> options.addAll(
-                        Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toSet())
-                    )
+                    "debug" -> {
+                        val option = args[1]
+                        when (option.lowercase()) {
+                            "setgamestate" -> {
+                                options.addAll(
+                                    GameState.entries.map { it.name.uppercase() }
+                                )
+                            }
+                            else -> {
+                                options.addAll(
+                                    Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toSet())
+                                )
+                            }
+                        }
+                    }
                 }
             }
 

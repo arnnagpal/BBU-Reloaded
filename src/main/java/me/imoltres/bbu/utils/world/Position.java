@@ -120,6 +120,10 @@ public class Position {
         return this;
     }
 
+    public Position clone() {
+        return new Position(x, y, z, yaw, pitch);
+    }
+
     public WorldPosition toWorldPosition(String worldName) {
         return new WorldPosition(x, y, z, worldName);
     }

@@ -312,6 +312,9 @@ $dokka.location:me.imoltres.bbu.listeners/NerfsListener///PointingToDeclaration/
 $dokka.location:me.imoltres.bbu.listeners/NerfsListener/NerfsListener/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-nerfs-listener/-nerfs-listener.html
 $dokka.location:me.imoltres.bbu.listeners/NerfsListener/onEntityDamage/#org.bukkit.event.entity.EntityDamageByEntityEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-nerfs-listener/on-entity-damage.html
 $dokka.location:me.imoltres.bbu.listeners/NerfsListener/onEntitySpawn/#org.bukkit.event.entity.EntitySpawnEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-nerfs-listener/on-entity-spawn.html
+$dokka.location:me.imoltres.bbu.listeners/RespawnListener///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-respawn-listener/index.html
+$dokka.location:me.imoltres.bbu.listeners/RespawnListener/RespawnListener/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-respawn-listener/-respawn-listener.html
+$dokka.location:me.imoltres.bbu.listeners/RespawnListener/onRespawn/#org.bukkit.event.player.PlayerRespawnEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-respawn-listener/on-respawn.html
 $dokka.location:me.imoltres.bbu.listeners/WeatherListener///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-weather-listener/index.html
 $dokka.location:me.imoltres.bbu.listeners/WeatherListener/WeatherListener/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-weather-listener/-weather-listener.html
 $dokka.location:me.imoltres.bbu.listeners/WeatherListener/onWeatherChange/#org.bukkit.event.weather.WeatherChangeEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-weather-listener/on-weather-change.html
@@ -548,6 +551,10 @@ $dokka.location:me.imoltres.bbu.utils.nametag/NametagListeners/onPlayerQuit/#org
 $dokka.location:me.imoltres.bbu.utils.nametag/NametagThread///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.nametag/-nametag-thread/index.html
 $dokka.location:me.imoltres.bbu.utils.nametag/NametagThread/NametagThread/#me.imoltres.bbu.utils.nametag.NametagHandler/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.nametag/-nametag-thread/-nametag-thread.html
 $dokka.location:me.imoltres.bbu.utils.nametag/NametagThread/run/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.nametag/-nametag-thread/run.html
+$dokka.location:me.imoltres.bbu.utils.schematic////PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.schematic/index.html
+$dokka.location:me.imoltres.bbu.utils.schematic/SchematicParser///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.schematic/-schematic-parser/index.html
+$dokka.location:me.imoltres.bbu.utils.schematic/SchematicParser/SchematicParser/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.schematic/-schematic-parser/-schematic-parser.html
+$dokka.location:me.imoltres.bbu.utils.schematic/SchematicParser/parseSchematic/#com.github.steveice10.opennbt.tag.builtin.CompoundTag/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.schematic/-schematic-parser/parse-schematic.html
 $dokka.location:me.imoltres.bbu.utils.scoreboard////PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.scoreboard/index.html
 $dokka.location:me.imoltres.bbu.utils.scoreboard/BBUScoreboardSetupException///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.scoreboard/-b-b-u-scoreboard-setup-exception/index.html
 $dokka.location:me.imoltres.bbu.utils.scoreboard/BBUScoreboardSetupException/BBUScoreboardSetupException/#kotlin.String#java.lang.Exception/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.scoreboard/-b-b-u-scoreboard-setup-exception/-b-b-u-scoreboard-setup-exception.html
@@ -620,6 +627,7 @@ $dokka.location:me.imoltres.bbu.utils.world/Position/Position/#double#double#dou
 $dokka.location:me.imoltres.bbu.utils.world/Position/Position/#double#double#double/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.world/-position/-position.html
 $dokka.location:me.imoltres.bbu.utils.world/Position/add/#double#double#double/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.world/-position/add.html
 $dokka.location:me.imoltres.bbu.utils.world/Position/add/#me.imoltres.bbu.utils.world.Position/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.world/-position/add.html
+$dokka.location:me.imoltres.bbu.utils.world/Position/clone/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.world/-position/clone.html
 $dokka.location:me.imoltres.bbu.utils.world/Position/equals/#java.lang.Object/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.world/-position/equals.html
 $dokka.location:me.imoltres.bbu.utils.world/Position/getPitch/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.world/-position/get-pitch.html
 $dokka.location:me.imoltres.bbu.utils.world/Position/getX/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.world/-position/get-x.html
@@ -737,6 +745,7 @@ me.imoltres.bbu.utils.menu
 me.imoltres.bbu.utils.menu.button
 me.imoltres.bbu.utils.menu.menus
 me.imoltres.bbu.utils.nametag
+me.imoltres.bbu.utils.schematic
 me.imoltres.bbu.utils.scoreboard
 me.imoltres.bbu.utils.sound
 me.imoltres.bbu.utils.world

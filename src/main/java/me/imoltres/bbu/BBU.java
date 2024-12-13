@@ -1,5 +1,6 @@
 package me.imoltres.bbu;
 
+import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import lombok.Getter;
 import me.imoltres.bbu.commands.GameCommand;
 import me.imoltres.bbu.commands.main.TrackPositionCommand;
@@ -28,6 +29,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.zip.GZIPOutputStream;
 
 /**
@@ -159,6 +161,8 @@ public class BBU extends JavaPlugin {
         scoreboard = new BBUScoreboard();
     }
 
+
+
     /**
      * Saves the team config and cleans up all player scoreboards, stops any ongoing tasks
      */
@@ -215,7 +219,7 @@ public class BBU extends JavaPlugin {
      * Sets up all the teams according to the {@link me.imoltres.bbu.data.BBUTeamColour} class
      */
     private void setupTeams() {
-        for (BBUTeamColour colour : BBUTeamColour.values()) {
+        for (BBUTeamColour colour : BBUTeamColour.getEntries()) {
             Bukkit.getConsoleSender().sendMessage(
                     CC.translate(
                             "&aTeam '&" + colour.getChatColor().getChar() + colour.name() + "&a' created " +

@@ -17,6 +17,8 @@ import org.bukkit.event.Listener
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
+import org.bukkit.potion.PotionEffect
+import org.bukkit.potion.PotionEffectType
 
 class JoinListener : Listener {
     @EventHandler(priority = EventPriority.MONITOR)
@@ -56,6 +58,7 @@ class JoinListener : Listener {
             player.inventory.clear()
             player.equipment.clear()
             player.activePotionEffects.forEach { potionEffect -> player.removePotionEffect(potionEffect.type) }
+            player.addPotionEffect(PotionEffect(PotionEffectType.SATURATION, 999999, 0, false, false))
             player.updateInventory()
             player.exp = 0.0F
             player.level = 0
@@ -78,7 +81,7 @@ class JoinListener : Listener {
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            println("Likely problem is that you have an invalid lobby-spawn set in config.yml")
+            println("Failed to teleport player ${player.name}. Invalid lobby-spawn?")
         }
 
         val event = BBUPlayerScoreboardApplyEvent(

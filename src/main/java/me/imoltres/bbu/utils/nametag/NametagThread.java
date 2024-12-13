@@ -67,11 +67,6 @@ public class NametagThread extends Thread {
                         objective.setDisplaySlot(DisplaySlot.BELOW_NAME);
                         listObjective.setDisplaySlot(DisplaySlot.PLAYER_LIST);
                         listObjective.setRenderType(RenderType.HEARTS);
-
-                        for (Player loopPlayer : Bukkit.getOnlinePlayers()) {
-                            objective.getScore(loopPlayer.getName()).setScore((int) Math.floor(loopPlayer.getHealth()));
-                            listObjective.getScore(loopPlayer.getName()).setScore((int) Math.floor(loopPlayer.getHealth()));
-                        }
                     }
                 } else {
                     if (scoreboard.getObjective(DisplaySlot.BELOW_NAME) != null) {

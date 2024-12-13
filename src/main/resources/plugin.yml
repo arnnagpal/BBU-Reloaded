@@ -2,8 +2,6 @@
 "name": "${name}"
 "version": "${pluginVersion}"
 "api-version": "${apiversion}"
-"depend":
-  - FastAsyncWorldEdit
 
 "authors":
   - "iMoltres"

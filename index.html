@@ -1,486 +1,700 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html class="no-js">
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>BBUReloaded</title>
-<link href="images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
-const savedDarkMode = storage ? JSON.parse(storage) : false
-if(savedDarkMode === true){
-    document.getElementsByTagName("html")[0].classList.add("theme-dark")
-}</script>
-<script type="text/javascript" src="scripts/sourceset_dependencies.js" async="async"></script><link href="styles/style.css" rel="Stylesheet"><link href="styles/jetbrains-mono.css" rel="Stylesheet"><link href="styles/main.css" rel="Stylesheet"><link href="styles/prism.css" rel="Stylesheet"><link href="styles/logo-styles.css" rel="Stylesheet"><script type="text/javascript" src="scripts/clipboard.js" async="async"></script><script type="text/javascript" src="scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="scripts/main.js" defer="defer"></script><script type="text/javascript" src="scripts/prism.js" async="async"></script>  </head>
-  <body>
-    <div class="navigation-wrapper" id="navigation-wrapper">
-      <div id="leftToggler"><span class="icon-toggler"></span></div>
-      <div class="library-name"><a href="index.html">BBUReloaded</a></div>
-      <div>0.0.1-PRE</div>
-      <div class="pull-right d-flex"><button id="theme-toggle-button"><span id="theme-toggle"></span></button>
-        <div id="searchBar"></div>
-      </div>
+    <link href="images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="scripts/sourceset_dependencies.js" async="async"></script>
+<link href="styles/style.css" rel="Stylesheet">
+<link href="styles/main.css" rel="Stylesheet">
+<link href="styles/prism.css" rel="Stylesheet">
+<link href="styles/logo-styles.css" rel="Stylesheet">
+<link href="styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="ui-kit/ui-kit.min.js" async="async"></script>
+<script type="text/javascript" src="scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+                    <a class="library-name--link" href="index.html">
+                            BBUReloaded
+                    </a>
+            </div>
+            <div class="library-version">
+0.1-BETA            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":/main">jvm</button>
+        </div>
     </div>
-    <div id="container">
-      <div id="leftColumn">
-        <div id="sideMenu"></div>
-      </div>
-      <div id="main">
-        <div class="main-content" id="content" pageIds="BBUReloaded::////PointingToDeclaration//769193423">
-          <div class="breadcrumbs"></div>
-          <div class="cover ">
-            <h1 class="cover"><span><span>BBUReloaded</span></span></h1>
-          </div>
-          <h2 class="">Packages</h2>
-          <div class="table"><a data-name="670075116%2FPackages%2F769193423" anchor-label="me.imoltres.bbu" id="670075116%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu/index.html">me.imoltres.bbu</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="670075116%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
             </div>
-<a data-name="1186855246%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.commands" id="1186855246%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.commands/index.html">me.imoltres.bbu.commands</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1186855246%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="431650845%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.commands.main" id="431650845%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.commands.main/index.html">me.imoltres.bbu.commands.main</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="431650845%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="1324073669%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.commands.player" id="1324073669%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.commands.player/index.html">me.imoltres.bbu.commands.player</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1324073669%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="64581569%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.commands.team" id="64581569%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.commands.team/index.html">me.imoltres.bbu.commands.team</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="64581569%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="1969598485%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.controllers" id="1969598485%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.controllers/index.html">me.imoltres.bbu.controllers</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1969598485%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="-1540199952%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.data" id="-1540199952%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.data/index.html">me.imoltres.bbu.data</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1540199952%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="-417875997%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.data.player" id="-417875997%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.data.player/index.html">me.imoltres.bbu.data.player</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-417875997%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="572265567%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.data.team" id="572265567%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.data.team/index.html">me.imoltres.bbu.data.team</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="572265567%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="-171606984%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.game" id="-171606984%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.game/index.html">me.imoltres.bbu.game</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-171606984%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="-482658400%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.game.events.player" id="-482658400%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.game.events.player/index.html">me.imoltres.bbu.game.events.player</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-482658400%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="1470521180%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.game.events.team" id="1470521180%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.game.events.team/index.html">me.imoltres.bbu.game.events.team</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1470521180%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="-1913335075%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.game.generator" id="-1913335075%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.game.generator/index.html">me.imoltres.bbu.game.generator</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1913335075%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="-1604319693%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.game.threads" id="-1604319693%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.game.threads/index.html">me.imoltres.bbu.game.threads</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1604319693%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="-1352919299%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.listeners" id="-1352919299%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.listeners/index.html">me.imoltres.bbu.listeners</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1352919299%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="812278130%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.menus" id="812278130%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.menus/index.html">me.imoltres.bbu.menus</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="812278130%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="-930280870%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.scoreboard" id="-930280870%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.scoreboard/index.html">me.imoltres.bbu.scoreboard</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-930280870%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="-2008463304%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.scoreboard.impl" id="-2008463304%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.scoreboard.impl/index.html">me.imoltres.bbu.scoreboard.impl</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2008463304%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="-1679427345%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.utils" id="-1679427345%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.utils/index.html">me.imoltres.bbu.utils</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1679427345%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="572657704%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.utils.callback" id="572657704%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.utils.callback/index.html">me.imoltres.bbu.utils.callback</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="572657704%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="1349640460%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.utils.command" id="1349640460%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.utils.command/index.html">me.imoltres.bbu.utils.command</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1349640460%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="1763335461%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.utils.config" id="1763335461%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.utils.config/index.html">me.imoltres.bbu.utils.config</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1763335461%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="-442917657%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.utils.config.type" id="-442917657%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.utils.config.type/index.html">me.imoltres.bbu.utils.config.type</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-442917657%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="1403719785%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.utils.general" id="1403719785%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.utils.general/index.html">me.imoltres.bbu.utils.general</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1403719785%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="756821494%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.utils.item" id="756821494%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.utils.item/index.html">me.imoltres.bbu.utils.item</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="756821494%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="-1510715509%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.utils.json" id="-1510715509%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.utils.json/index.html">me.imoltres.bbu.utils.json</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1510715509%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="100811074%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.utils.menu" id="100811074%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.utils.menu/index.html">me.imoltres.bbu.utils.menu</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="100811074%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="468400482%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.utils.menu.button" id="468400482%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.utils.menu.button/index.html">me.imoltres.bbu.utils.menu.button</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="468400482%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="-1112932024%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.utils.menu.menus" id="-1112932024%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.utils.menu.menus/index.html">me.imoltres.bbu.utils.menu.menus</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1112932024%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="-1998157193%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.utils.scoreboard" id="-1998157193%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.utils.scoreboard/index.html">me.imoltres.bbu.utils.scoreboard</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1998157193%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="623507856%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.utils.sound" id="623507856%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.utils.sound/index.html">me.imoltres.bbu.utils.sound</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="623507856%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
-            </div>
-<a data-name="456875603%2FPackages%2F769193423" anchor-label="me.imoltres.bbu.utils.world" id="456875603%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-            <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-              <div>
-                <div class="main-subrow ">
-                  <div class=""><span class="inline-flex">
-                      <div><a href="-b-b-u-reloaded/me.imoltres.bbu.utils.world/index.html">me.imoltres.bbu.utils.world</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="456875603%2FPackages%2F769193423"></span>
-                        <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="pull-right"></div>
-                </div>
-                <div></div>
-              </div>
+            <div id="main">
+<div class="main-content" id="content" pageIds="BBUReloaded::////PointingToDeclaration//-251573632">
+  <div class="breadcrumbs"></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>BBUReloaded</span></span></h1>
+  </div>
+  <h2 class="">Packages</h2>
+  <div class="table"><a data-name="670075116%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu" id="670075116%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu/index.html">me.imoltres.bbu</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="670075116%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+        <div></div>
       </div>
     </div>
-  </body>
+<a data-name="1186855246%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.commands" id="1186855246%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.commands/index.html">me.imoltres.bbu.commands</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1186855246%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="431650845%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.commands.main" id="431650845%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.commands.main/index.html">me.imoltres.bbu.commands.main</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="431650845%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1324073669%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.commands.player" id="1324073669%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.commands.player/index.html">me.imoltres.bbu.commands.player</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1324073669%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="64581569%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.commands.team" id="64581569%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.commands.team/index.html">me.imoltres.bbu.commands.team</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="64581569%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1969598485%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.controllers" id="1969598485%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.controllers/index.html">me.imoltres.bbu.controllers</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1969598485%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1540199952%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.data" id="-1540199952%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.data/index.html">me.imoltres.bbu.data</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1540199952%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-417875997%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.data.player" id="-417875997%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.data.player/index.html">me.imoltres.bbu.data.player</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-417875997%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="572265567%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.data.team" id="572265567%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.data.team/index.html">me.imoltres.bbu.data.team</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="572265567%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-171606984%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.game" id="-171606984%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.game/index.html">me.imoltres.bbu.game</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-171606984%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-482658400%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.game.events.player" id="-482658400%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.game.events.player/index.html">me.imoltres.bbu.game.events.player</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-482658400%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1470521180%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.game.events.team" id="1470521180%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.game.events.team/index.html">me.imoltres.bbu.game.events.team</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1470521180%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1913335075%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.game.generator" id="-1913335075%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.game.generator/index.html">me.imoltres.bbu.game.generator</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1913335075%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1604319693%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.game.threads" id="-1604319693%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.game.threads/index.html">me.imoltres.bbu.game.threads</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1604319693%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1352919299%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.listeners" id="-1352919299%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.listeners/index.html">me.imoltres.bbu.listeners</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1352919299%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="812278130%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.menus" id="812278130%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.menus/index.html">me.imoltres.bbu.menus</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="812278130%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="608048362%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.nametags" id="608048362%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.nametags/index.html">me.imoltres.bbu.nametags</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="608048362%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-930280870%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.scoreboard" id="-930280870%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.scoreboard/index.html">me.imoltres.bbu.scoreboard</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-930280870%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-2008463304%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.scoreboard.impl" id="-2008463304%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.scoreboard.impl/index.html">me.imoltres.bbu.scoreboard.impl</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2008463304%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1679427345%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.utils" id="-1679427345%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.utils/index.html">me.imoltres.bbu.utils</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1679427345%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="572657704%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.utils.callback" id="572657704%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.utils.callback/index.html">me.imoltres.bbu.utils.callback</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="572657704%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1349640460%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.utils.command" id="1349640460%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.utils.command/index.html">me.imoltres.bbu.utils.command</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1349640460%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1763335461%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.utils.config" id="1763335461%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.utils.config/index.html">me.imoltres.bbu.utils.config</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1763335461%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-442917657%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.utils.config.type" id="-442917657%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.utils.config.type/index.html">me.imoltres.bbu.utils.config.type</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-442917657%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1403719785%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.utils.general" id="1403719785%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.utils.general/index.html">me.imoltres.bbu.utils.general</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1403719785%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="756821494%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.utils.item" id="756821494%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.utils.item/index.html">me.imoltres.bbu.utils.item</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="756821494%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1510715509%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.utils.json" id="-1510715509%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.utils.json/index.html">me.imoltres.bbu.utils.json</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1510715509%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="100811074%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.utils.menu" id="100811074%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.utils.menu/index.html">me.imoltres.bbu.utils.menu</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="100811074%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="468400482%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.utils.menu.button" id="468400482%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.utils.menu.button/index.html">me.imoltres.bbu.utils.menu.button</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="468400482%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1112932024%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.utils.menu.menus" id="-1112932024%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.utils.menu.menus/index.html">me.imoltres.bbu.utils.menu.menus</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1112932024%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1024335376%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.utils.nametag" id="-1024335376%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.utils.nametag/index.html">me.imoltres.bbu.utils.nametag</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1024335376%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1998157193%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.utils.scoreboard" id="-1998157193%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.utils.scoreboard/index.html">me.imoltres.bbu.utils.scoreboard</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1998157193%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="623507856%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.utils.sound" id="623507856%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.utils.sound/index.html">me.imoltres.bbu.utils.sound</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="623507856%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="456875603%2FPackages%2F-251573632" anchor-label="me.imoltres.bbu.utils.world" id="456875603%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-b-b-u-reloaded/me.imoltres.bbu.utils.world/index.html">me.imoltres.bbu.utils.world</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="456875603%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2024 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
-

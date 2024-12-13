@@ -55,14 +55,7 @@ dependencies {
 
     implementation("com.github.GeyserMC:OpenNBT:1.4")
 
-    implementation(platform("com.intellectualsites.bom:bom-newest:1.51"))
-    compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Core")
-    compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Bukkit") { isTransitive = false }
-
     dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:2.0.0-Beta")
-
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
 }
 
 dokka {

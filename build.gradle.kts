@@ -60,7 +60,13 @@ dependencies {
     dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:2.0.0-Beta")
 }
 
+dokka {
+    moduleName.set("BBUReloaded")
 
+    dokkaPublications.html {
+        outputDirectory.set(File(projectDir, "docs"))
+    }
+}
 
 tasks {
     shadowJar {
@@ -92,10 +98,6 @@ tasks {
         }
 
         outputs.upToDateWhen { false }
-    }
-
-    dokkaHtml.configure {
-        outputDirectory.set(File(projectDir, "docs"))
     }
 
     compileKotlin {

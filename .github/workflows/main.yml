@@ -2,7 +2,7 @@ name: Publish Docs (Dokka)
 
 on:
   push:
-    branches: [ master, dev ]
+    branches: [ master ]
     
   workflow_dispatch:
 
@@ -15,7 +15,7 @@ jobs:
       - name: Cache gradle dependencies
         uses: actions/setup-java@v2
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'temurin'
           cache: gradle
           
@@ -23,7 +23,7 @@ jobs:
         run: git fetch
       
       - name: Generate docs
-        run: gradle clean dokkaHtml
+        run: gradle clean dokkaGenerate
       
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

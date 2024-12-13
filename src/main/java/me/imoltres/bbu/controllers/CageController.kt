@@ -4,6 +4,7 @@ import com.sk89q.worldedit.bukkit.BukkitWorld
 import com.sk89q.worldedit.extent.clipboard.Clipboard
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormats
 import com.sk89q.worldedit.math.BlockVector3
+import kotlinx.coroutines.*
 import me.imoltres.bbu.BBU
 import me.imoltres.bbu.data.team.BBUCage
 import me.imoltres.bbu.data.team.BBUTeam
@@ -23,18 +24,22 @@ import java.util.concurrent.ExecutionException
  */
 class CageController(private val plugin: BBU) {
 
+    val scope = CoroutineScope(Dispatchers.IO)
+
     /**
      * Delete all the cages, then place them all back
      * @param world world to place the cages in
      */
     fun resetCages(world: World) {
-        deleteCages(world)
-        try {
-            placeCages(world, ArrayList())
-        } catch (e: ExecutionException) {
-            e.printStackTrace()
-        } catch (e: InterruptedException) {
-            e.printStackTrace()
+        scope.launch {
+            deleteCages(world)
+            try {
+                placeCages(world, ArrayList())
+            } catch (e: ExecutionException) {
+                e.printStackTrace()
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
         }
     }
 
@@ -47,10 +52,11 @@ class CageController(private val plugin: BBU) {
      * @throws InterruptedException
      */
     @Throws(ExecutionException::class, InterruptedException::class)
-    fun placeCages(world: World, teamsWithCages: List<BBUTeam>) {
-        val exclusions: MutableList<Position2D> = ArrayList()
+    suspend fun placeCages(world: World, teamsWithCages: List<BBUTeam>) {
+        val exclusions: MutableList<WorldPosition> = ArrayList()
         for (team in teamsWithCages) {
-            exclusions.add(Position2D(team.cage!!.cuboid.min.x, team.cage!!.cuboid.min.z))
+            val a = team.cage!!.cuboid
+            exclusions.add(WorldPosition(a.min.x, a.min.y, a.min.z, world.name))
         }
 
         val teams: MutableList<BBUTeam> = ArrayList(plugin.teamController.allTeams)
@@ -60,16 +66,16 @@ class CageController(private val plugin: BBU) {
             System.out.printf("Exclusions: %s\n", exclusions.toTypedArray().contentToString())
 
             val cuboid = getConfiguredCage(team)
-            val position2D = if (cuboid == null) {
-                getRandom2DPositionInsideWorldBorder(world, exclusions, 75)
+            val position = if (cuboid == null) {
+                println("Getting random position...")
+                getRandomValidWorldPosition(world, exclusions, 75)
             } else {
-                Position2D(cuboid.min.x, cuboid.min.z)
+                println("Using configured position...")
+                WorldPosition(cuboid.min.x, cuboid.min.y, cuboid.min.z, world.name)
             }
 
-            val y = cuboid?.min?.y ?: world.getHighestBlockYAt(position2D.x.toInt(), position2D.y.toInt())
-
-            exclusions.add(position2D)
-            placeCage(Position(position2D.x, y.toDouble(), position2D.y), team, world)
+            exclusions.add(position)
+            placeCage(Position(position.x, position.y, position.y), team, world)
         }
 
     }
@@ -113,9 +119,9 @@ class CageController(private val plugin: BBU) {
             )
         )
 
-        clipboard.paste(BukkitWorld(world), to).flushQueue()
-
         Bukkit.getScheduler().runTask(plugin, Runnable {
+            clipboard.paste(BukkitWorld(world), to).flushQueue()
+
             bbuTeam.cage = BBUCage(bbuTeam, cage, cage.center.subtract(0.0, 1.0, 0.0).toWorldPosition(world.name))
 
             Bukkit.getConsoleSender().sendMessage(
@@ -145,21 +151,27 @@ class CageController(private val plugin: BBU) {
     }
 
     /**
-     * Get a random 2d position inside the configured border.
-     *
-     * Ensures a range between the positions.
-     *
-     * @param world world
-     * @param exclusions positions to avoid within a range
-     * @param range range to avoid positions in
-     * @return a 2D position in the world
+     * Loads a chunk at a given position
+     * @param world world to load the chunk in
+     * @param x x position
+     * @param z z position
      */
-    @Throws(ExecutionException::class, InterruptedException::class)
-    private fun getRandom2DPositionInsideWorldBorder(
-        world: World,
-        exclusions: List<Position2D>,
-        range: Int
-    ): Position2D {
+    private fun loadChunkAt(world: World, x: Int, z: Int) {
+        // loads the chunk
+        println("Loading chunk at $x, $z")
+        world.getChunkAtAsyncUrgently(x shr 4, z shr 4).thenAccept { chunk ->
+            if (!chunk.isLoaded) {
+                chunk.load()
+            }
+        }.get()
+        println("Loaded chunk at $x, $z")
+    }
+
+    /**
+     * Get a random world position inside the world border
+     * @param world world to get the position in
+     */
+    private suspend fun getRandomWorldPosition(world: World): WorldPosition = withContext(Dispatchers.IO) {
         val world2D = Rectangle(
             Position2D(-(world.worldBorder.size / 2), -(world.worldBorder.size / 2)),
             Position2D(world.worldBorder.size / 2, world.worldBorder.size / 2)
@@ -169,30 +181,59 @@ class CageController(private val plugin: BBU) {
         var x = position2D.x
         var z = position2D.y
 
-        if (!world.getChunkAt(x.toInt(), z.toInt()).isLoaded)
-            world.getChunkAt(x.toInt(), z.toInt()).load()
+        // loads the chunk
+        loadChunkAt(world, x.toInt(), z.toInt())
 
         val worldPosition = WorldPosition(
-            position2D.x,
+            x,
             (world.getHighestBlockYAt(x.toInt(), z.toInt()) + 3).toDouble(),
-            position2D.y,
+            z,
             world.name
         )
 
-        while (!worldPosition.isSafe) {
-            worldPosition.add(0.0, 1.0, 0.0)
+        while (!worldPosition.isSafe(3, 3)) {
+            println("Rerolling position: $x, ${worldPosition.y.toInt()}, $z")
+
+            position2D = world2D.randomPosition().toIntPosition()
+            x = position2D.x
+            z = position2D.y
+
+            loadChunkAt(world, x.toInt(), z.toInt())
+
+            worldPosition.x = x
+            worldPosition.y = (world.getHighestBlockYAt(x.toInt(), z.toInt()) + 3).toDouble()
+            worldPosition.z = z
+            println("Trying position: $x, ${worldPosition.y.toInt()}, $z")
         }
 
-        x = worldPosition.x
-        val y = worldPosition.y.toInt()
-        z = worldPosition.z
-        Bukkit.getConsoleSender().sendMessage(CC.translate("Checking position: $x, $y, $z"))
+        return@withContext worldPosition
+    }
+
+    /**
+     * Get a random 2d position inside the configured border.
+     *
+     * Ensures a range between the positions.
+     *
+     * @param world world
+     * @param exclusions positions to avoid within a range
+     * @param range range to avoid positions in
+     * @return a 2D position in the world
+     */
+    private suspend fun getRandomValidWorldPosition(
+        world: World,
+        exclusions: List<WorldPosition>,
+        range: Int
+    ): WorldPosition = scope.async {
+        var worldPos = getRandomWorldPosition(world)
+
+        Bukkit.getConsoleSender()
+            .sendMessage(CC.translate("Checking position: ${worldPos.x}, ${worldPos.y}, ${worldPos.z}"))
         for (p in exclusions) {
-            while (p.distance(position2D) < range) {
-                position2D = getRandom2DPositionInsideWorldBorder(world, exclusions, range)
+            while (worldPos.distance(p) < range) {
+                worldPos = getRandomWorldPosition(world)
             }
         }
 
-        return position2D
-    }
+        return@async worldPos
+    }.await()
 }

@@ -6,10 +6,11 @@ import me.imoltres.bbu.game.events.player.BBUPlayerScoreboardApplyEvent
 import me.imoltres.bbu.scoreboard.BBUScoreboardAdapter
 import me.imoltres.bbu.scoreboard.impl.MainScoreboard
 import me.imoltres.bbu.utils.CC
-import me.imoltres.bbu.utils.json.GsonFactory
 import me.imoltres.bbu.utils.config.MainConfig
 import me.imoltres.bbu.utils.config.Messages
+import me.imoltres.bbu.utils.json.GsonFactory
 import me.imoltres.bbu.utils.world.WorldPosition
+import org.bukkit.GameMode
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
@@ -31,19 +32,27 @@ class JoinListener : Listener {
         val uniqueId = e.uniqueId
         val name = e.name
         val player = BBU.getInstance().playerController.createPlayer(uniqueId, name)
-        if (player.eliminated)
+        if (player.eliminated && !MainConfig.SPECTATE_AFTER_DEATH)
             e.disallow(
                 AsyncPlayerPreLoginEvent.Result.KICK_OTHER,
                 CC.translate(Messages.FINAL_DEATH.toString())
             )
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     fun onJoin(e: PlayerJoinEvent) {
+        if (!BBU.getInstance().isJoinable) {
+            e.joinMessage(CC.translate(""))
+            return
+        }
+
         val player = e.player
+        val bbuPlayer = BBU.getInstance().playerController.getPlayer(player.uniqueId);
+
         e.joinMessage(CC.translate("&7[&a+&7] &7" + e.player.name))
 
         if (BBU.getInstance().game.gameState == GameState.LOBBY) {
+            player.gameMode = GameMode.ADVENTURE
             player.inventory.clear()
             player.equipment.clear()
             player.activePotionEffects.forEach { potionEffect -> player.removePotionEffect(potionEffect.type) }
@@ -53,6 +62,11 @@ class JoinListener : Listener {
             player.saturation = 20.0F
             player.foodLevel = 20
             player.health = 20.0
+        } else {
+            if (!player.isOp && !bbuPlayer.eliminated)
+                player.gameMode = GameMode.SURVIVAL
+
+            bbuPlayer.allowMovement()
         }
 
         try {
@@ -68,7 +82,7 @@ class JoinListener : Listener {
         }
 
         val event = BBUPlayerScoreboardApplyEvent(
-            BBU.getInstance().playerController.getPlayer(player.uniqueId),
+            bbuPlayer,
             MainScoreboard::class.java
         )
         event.callEvent()

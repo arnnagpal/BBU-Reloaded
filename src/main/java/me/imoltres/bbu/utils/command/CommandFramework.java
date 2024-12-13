@@ -27,7 +27,6 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.SimplePluginManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -82,14 +81,14 @@ public class CommandFramework implements TabExecutor {
     @Nullable
     private CommandMap commandMap;
 
+    @SuppressWarnings("removal")
     public CommandFramework(@NotNull Plugin plugin) {
         this.plugin = plugin;
 
-        if (plugin.getServer().getPluginManager() instanceof SimplePluginManager) {
-            SimplePluginManager manager = (SimplePluginManager) plugin.getServer().getPluginManager();
+        if (plugin.getServer().getPluginManager() instanceof org.bukkit.plugin.SimplePluginManager manager) {
 
             try {
-                Field field = SimplePluginManager.class.getDeclaredField("commandMap");
+                Field field = org.bukkit.plugin.SimplePluginManager.class.getDeclaredField("commandMap");
                 field.setAccessible(true);
 
                 commandMap = (CommandMap) field.get(manager);

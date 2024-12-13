@@ -186,7 +186,15 @@ class BBUTeam(val colour: BBUTeamColour) {
      * @return a raw bukkit string version of the display name
      */
     fun getRawDisplayName(): String {
-        return "&" + colour.chatColor.char + CC.capitalize(colour.name)
+        return "&" + colour.chatColor.char + CC.capitalize(getName())
+    }
+
+    fun getName(): String {
+        return colour.name
+    }
+
+    fun getPlayersAsList(): List<BBUPlayer> {
+        return players.toList()
     }
 
     override fun equals(other: Any?): Boolean {

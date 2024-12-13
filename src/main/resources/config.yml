@@ -1,5 +1,7 @@
 border: 1000
 lobby-spawn: ""
 
+spectate-after-death: true
+
 #allow teammates to hit eachother
 friendly-fire: true

@@ -1,6 +1,9 @@
 package me.imoltres.bbu.utils.general
 
 import me.imoltres.bbu.BBU
+import me.imoltres.bbu.utils.world.Position
+import me.imoltres.bbu.utils.world.WorldPosition
+import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.block.Block
 import org.bukkit.block.BlockFace
@@ -12,7 +15,14 @@ import org.bukkit.block.BlockFace
 class BlockUtils {
 
     companion object {
-        val faces = BlockFace.values().toSet().minus(BlockFace.SELF)
+        val faces = arrayOf(
+                BlockFace.NORTH,
+                BlockFace.EAST,
+                BlockFace.SOUTH,
+                BlockFace.WEST,
+                BlockFace.UP,
+                BlockFace.DOWN
+        )
 
         /**
          * Retrieve the faces touching the certain block within a set of faces
@@ -22,7 +32,7 @@ class BlockUtils {
          * @return set of blocks around the inputted block in terms of the faces provided
          */
         @JvmStatic
-        fun getFacesTouching(faces: Set<BlockFace>, block: Block): Set<Block> {
+        fun getFacesTouching(faces: Array<BlockFace>, block: Block): Set<Block> {
             val facesTouching = HashSet<Block>()
             for (face in faces) {
                 val b = block.getRelative(face)
@@ -44,7 +54,7 @@ class BlockUtils {
          *
          * @return set of blocks around the inputted block in terms of the faces provided
          */
-        fun generatesCobble(faces: Set<BlockFace>, originalType: Material, toBlock: Block): Boolean {
+        fun generatesCobble(faces: Array<BlockFace>, originalType: Material, toBlock: Block): Boolean {
             val mirrorType = if (originalType == Material.WATER) Material.LAVA else Material.WATER
             var gensCobble = false
             var cobbleBlock: Block? = null

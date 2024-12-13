@@ -4,7 +4,6 @@ import me.imoltres.bbu.BBU
 import me.imoltres.bbu.commands.main.*
 import me.imoltres.bbu.commands.player.PlayerCommands
 import me.imoltres.bbu.commands.team.TeamCommands
-import me.imoltres.bbu.commands.team.TeamPosCommand
 import me.imoltres.bbu.commands.team.TeamsClearCommand
 import me.imoltres.bbu.commands.team.TeamsCommand
 import me.imoltres.bbu.utils.CC
@@ -91,7 +90,7 @@ class GameCommand : Command {
 
                     "debug" -> options.addAll(
                         listOf(
-                            "invsee",
+                            "setgamestate",
                             "givebeacon",
                             "givetracker"
                         )

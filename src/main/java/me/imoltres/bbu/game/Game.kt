@@ -1,5 +1,6 @@
 package me.imoltres.bbu.game
 
+import kotlinx.coroutines.launch
 import me.imoltres.bbu.BBU
 import me.imoltres.bbu.data.team.BBUTeam
 import me.imoltres.bbu.game.generator.EmptyChunkGenerator
@@ -12,6 +13,7 @@ import me.imoltres.bbu.utils.world.Position2D
 import org.bukkit.*
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Firework
+import org.bukkit.generator.structure.StructureType
 import java.util.concurrent.ExecutionException
 
 
@@ -52,7 +54,7 @@ class Game {
      * Start the game
      */
     fun startGame() {
-        if (thread.isAlive) {
+        if (thread.started) {
             throw RuntimeException("Game has already started.")
         }
 
@@ -183,6 +185,7 @@ class Game {
 
         worlds = arrayOf(overworld, nether, end, spawnWorld);
         for (world in worlds) {
+            world.loadChunk(0, 0)
             world.worldBorder.setCenter(0.0, 0.0)
             world.worldBorder.size = border.toDouble()
 
@@ -194,7 +197,7 @@ class Game {
         }
 
         val netherSpawn = Location(nether, 0.0, 70.0, 0.0)
-        val location = nether.locateNearestStructure(netherSpawn, StructureType.NETHER_FORTRESS, border, false)
+        val location = nether.locateNearestStructure(netherSpawn, StructureType.FORTRESS, border, false)?.location
         if (location != null) {
             fortressPosition = Position2D(location.x, location.z).toIntPosition()
         } else {
@@ -202,22 +205,23 @@ class Game {
                 .sendMessage(CC.translate("Unable to find a fortress within border, you might have to find a new seed."))
         }
 
-        Bukkit.getScheduler().runTaskAsynchronously(BBU.getInstance(), Runnable {
-            try {
+        try {
+            BBU.getInstance().cageController.scope.launch {
                 BBU.getInstance().cageController.placeCages(
                     overworld,
                     BBU.getInstance().teamController.teamsWithCages
                 )
-
+            }.invokeOnCompletion {
+                //after scope is done, allow players to join
                 Bukkit.getScheduler().runTaskLater(BBU.getInstance(), Runnable {
                     BBU.getInstance().isJoinable = true
                 }, 20L)
-            } catch (e: ExecutionException) {
-                e.printStackTrace()
-            } catch (e: InterruptedException) {
-                e.printStackTrace()
             }
-        })
+        } catch (e: ExecutionException) {
+            e.printStackTrace()
+        } catch (e: InterruptedException) {
+            e.printStackTrace()
+        }
 
     }
 

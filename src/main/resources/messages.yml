@@ -19,3 +19,8 @@ commands:
       no-player-specified: "&cSpecify a player."
       invalid-player-specified: "&cSpecify a *valid* player."
 
+
+chat-format:
+  all: "[{team_name}] {team_color}{player_name}&f: {message}"
+  no-team: "&a{player_name}&f: {message}"
+  team: "{team_color}[TEAM CHAT] &f{player_name}: {message}"

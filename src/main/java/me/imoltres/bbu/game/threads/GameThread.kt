@@ -8,20 +8,24 @@ import me.imoltres.bbu.utils.CC
 import me.imoltres.bbu.utils.general.DateUtils
 import me.imoltres.bbu.utils.general.PlayerUtils
 import org.bukkit.Bukkit
+import org.bukkit.scheduler.BukkitRunnable
 import java.math.BigDecimal
 import java.util.*
 
 /**
  * Main game thread loop, swaps the game states, checks the teams, and ticks the game.
  */
-class GameThread(val game: Game) : Thread() {
+class GameThread(val game: Game) : BukkitRunnable() {
 
     var tick: Int = 0
 
-    private val shrinkTo = 250.0
+    //TODO: replace with some sort of deathmatch feature
+    private val shrinkTo = 75.0
 
     private var shrinking = false
     private var pvp = false
+
+    var started = false
 
     val teamCheckQueue = LinkedList<BBUTeam>()
 
@@ -29,46 +33,41 @@ class GameThread(val game: Game) : Thread() {
      * Game loop
      */
     override fun run() {
-        try {
-            while (game.gameState != GameState.POST_GAME) {
-                if (currentThread().isInterrupted) {
-                    return
-                }
-
-                swapGameStateIfAvailable()
-                checkTeams()
-                checkWinConditions()
-
-                when (game.gameState) {
-                    GameState.PVP -> {
-                        if (!pvp) {
-                            PlayerUtils.broadcastTitle(
-                                "&cPvP is now enabled.",
-                                "&7" + DateUtils.readableTime(BigDecimal(GameState.PVP_BORDER_SHRINK.startsAfterTick - (tick / 20))) + " till border shrink."
-                            )
-
-                            pvp = !pvp
-                        }
-                    }
-
-                    GameState.PVP_BORDER_SHRINK -> {
-                        if (!shrinking) {
-                            val border = game.border
-                            shrinkBorder(getBorderShrinkTime(border))
-                            shrinking = !shrinking
-                        }
-                    }
-                    else -> {}
-                }
-
-                tick++
-
-                //sleep to tick to next second
-                sleep(50)
-            }
-        } catch (e: InterruptedException) {
+        started = true
+        if (game.gameState == GameState.POST_GAME)
+            return
+        if (isCancelled) {
             return
         }
+
+        swapGameStateIfAvailable()
+        checkTeams()
+        checkWinConditions()
+
+        when (game.gameState) {
+            GameState.PVP -> {
+                if (!pvp) {
+                    PlayerUtils.broadcastTitle(
+                        "&cPvP is now enabled.",
+                        "&7" + DateUtils.readableTime(BigDecimal(GameState.PVP_BORDER_SHRINK.startsAfterTick - (tick / 20))) + " till border shrink."
+                    )
+
+                    pvp = !pvp
+                }
+            }
+
+            GameState.PVP_BORDER_SHRINK -> {
+                if (!shrinking) {
+                    val border = game.border
+                    shrinkBorder(getBorderShrinkTime(border))
+                    shrinking = !shrinking
+                }
+            }
+
+            else -> {}
+        }
+
+        tick++
     }
 
     /**
@@ -85,15 +84,11 @@ class GameThread(val game: Game) : Thread() {
 
     /**
      * Get the amount of time that the border should shrink for
-     * 
+     *
      * based on the size of the border
      */
     private fun getBorderShrinkTime(border: Int): Int {
-        var time = 0
-        for (i in 1..6) {
-            time += ((border / 200 - 2.5 * (0.3 + (i * 0.1))) * 60).toInt()
-        }
-        return time / 2
+        return (border / 6) * 60
     }
 
     /**

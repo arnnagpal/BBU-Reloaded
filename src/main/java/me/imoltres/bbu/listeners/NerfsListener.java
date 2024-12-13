@@ -31,7 +31,7 @@ public class NerfsListener implements Listener {
     public void onEntityDamage(EntityDamageByEntityEvent e) {
         if (e.getDamager() instanceof Player damager) {
             //if they have strength
-            if (damager.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE)) {
+            if (damager.hasPotionEffect(PotionEffectType.STRENGTH)) {
                 e.setDamage(Nerfs.POTION_STRENGTH * e.getDamage());
             }
 
@@ -41,7 +41,7 @@ public class NerfsListener implements Listener {
         }
 
         if (e.getEntity() instanceof LivingEntity entity) {
-            if (entity.hasPotionEffect(PotionEffectType.HARM)) {
+            if (entity.hasPotionEffect(PotionEffectType.INSTANT_DAMAGE)) {
                 e.setDamage(Nerfs.POTION_DAMAGE * e.getDamage());
             }
         }

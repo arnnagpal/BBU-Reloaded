@@ -9,7 +9,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
 
 import java.util.ArrayList;
@@ -231,7 +230,7 @@ public class ItemBuilder {
      */
     public ItemBuilder potionEffect(PotionType effect) {
         PotionMeta meta = (PotionMeta) is.getItemMeta();
-        meta.setBasePotionData(new PotionData(effect));
+        meta.setBasePotionType(effect);
         is.setItemMeta(meta);
 
         return this;

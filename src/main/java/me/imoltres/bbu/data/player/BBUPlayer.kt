@@ -104,8 +104,8 @@ class BBUPlayer(val uniqueId: UUID, val name: String) {
 
     fun preventMovement() {
         Bukkit.getScheduler().runTask(BBU.getInstance(), Runnable {
-            player?.addPotionEffect(PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 255, false, false))
-            player?.addPotionEffect(PotionEffect(PotionEffectType.JUMP, Integer.MAX_VALUE, 255, false, false))
+            player?.addPotionEffect(PotionEffect(PotionEffectType.SLOWNESS, Integer.MAX_VALUE, 255, false, false))
+            player?.addPotionEffect(PotionEffect(PotionEffectType.JUMP_BOOST, Integer.MAX_VALUE, 255, false, false))
             player?.addPotionEffect(PotionEffect(PotionEffectType.BLINDNESS, Integer.MAX_VALUE, 255, false, false))
             player?.walkSpeed = 0.0F
         })
@@ -134,7 +134,7 @@ class BBUPlayer(val uniqueId: UUID, val name: String) {
             val z = deathLocation.z + Math.random() * particleRadius - particleRadius / 2
             val loc = Location(deathLocation.world, x, y, z)
             deathLocation.world.spawnParticle(
-                Particle.REDSTONE,
+                Particle.DUST,
                 loc,
                 5,
                 Particle.DustOptions(Color.RED, 1.0F)
@@ -144,7 +144,7 @@ class BBUPlayer(val uniqueId: UUID, val name: String) {
 
     private fun showFirework(deathLocation: Location) {
         val loc = deathLocation.toHighestLocation()
-        val firework: Firework = loc.world.spawnEntity(loc.clone().add(0.0, 50.0, 0.0), EntityType.FIREWORK) as Firework
+        val firework: Firework = loc.world.spawnEntity(loc.clone().add(0.0, 50.0, 0.0), EntityType.FIREWORK_ROCKET) as Firework
         val fireworkMeta: FireworkMeta = firework.fireworkMeta
 
         // Set the type of the firework

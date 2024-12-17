@@ -52,7 +52,7 @@ public class BasicConfigurationFile extends AbstractConfigurationFile {
 
     /**
      * Initialise an instance with a plugin, name
-     * 
+     * <p>
      * doesn't overwrite by default.
      *
      * @param plugin bukkit plugin

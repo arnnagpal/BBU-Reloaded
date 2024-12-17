@@ -49,7 +49,7 @@ class JoinListener : Listener {
         }
 
         val player = e.player
-        val bbuPlayer = BBU.getInstance().playerController.getPlayer(player.uniqueId);
+        val bbuPlayer = BBU.getInstance().playerController.getPlayer(player.uniqueId)
 
         e.joinMessage(CC.translate("&7[&a+&7] &7" + e.player.name))
 

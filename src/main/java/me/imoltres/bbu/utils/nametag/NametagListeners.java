@@ -10,7 +10,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 @Getter
 public class NametagListeners implements Listener {
 
-    private NametagHandler handler;
+    private final NametagHandler handler;
 
     public NametagListeners(NametagHandler handler) {
         this.handler = handler;

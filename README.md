@@ -1,5 +1,5 @@
 ## BBU Reloaded (WIP)
-Last updated: 11/2/2021
+Last updated: 12/17/2024
 
 This project represents a Minecraft Plugin for a tournament that I used to host called BBU (discord linked at the
 bottom). The plans for this plugin are currently still in progress, I'd like to make it as customizable/easy to modify

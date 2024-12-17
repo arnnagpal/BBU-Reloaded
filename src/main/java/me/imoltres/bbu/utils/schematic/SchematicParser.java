@@ -14,6 +14,7 @@ public class SchematicParser {
 
     /**
      * Very barebones schematic parser, only parses the blocks and returns their positions and materials.
+     *
      * @param schematic
      * @return HashMap of positions (relative to the origin) and materials
      */

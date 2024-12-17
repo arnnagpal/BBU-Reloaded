@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.io.IOException;
+import java.util.Objects;
 
 @Getter
 @AllArgsConstructor
@@ -74,7 +75,7 @@ public class ChunkCuboid {
 
         ChunkCuboid that = (ChunkCuboid) o;
 
-        return x == that.x && z == that.z && (world != null ? world.equals(that.world) : that.world == null);
+        return x == that.x && z == that.z && (Objects.equals(world, that.world));
     }
 
     @Override

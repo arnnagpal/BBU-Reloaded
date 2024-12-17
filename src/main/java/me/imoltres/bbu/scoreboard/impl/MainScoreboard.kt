@@ -33,6 +33,7 @@ class MainScoreboard(player: Player) : BBUScoreboardAdapter(1, player) {
                         timeTill
                     )
                 )
+
                 GameState.PVP_BORDER_SHRINK -> {
                     lines.add(
                         String.format(
@@ -42,6 +43,7 @@ class MainScoreboard(player: Player) : BBUScoreboardAdapter(1, player) {
                         )
                     )
                 }
+
                 else -> {}
             }
         }

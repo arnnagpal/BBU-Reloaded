@@ -1,6 +1,5 @@
 package me.imoltres.bbu;
 
-import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import lombok.Getter;
 import me.imoltres.bbu.commands.GameCommand;
 import me.imoltres.bbu.commands.main.TrackPositionCommand;
@@ -29,7 +28,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Objects;
-import java.util.function.Function;
 import java.util.zip.GZIPOutputStream;
 
 /**
@@ -162,7 +160,6 @@ public class BBU extends JavaPlugin {
     }
 
 
-
     /**
      * Saves the team config and cleans up all player scoreboards, stops any ongoing tasks
      */
@@ -249,7 +246,7 @@ public class BBU extends JavaPlugin {
 
     /**
      * Write the default schematic(s)
-     * 
+     * <p>
      * - cage.schem
      */
     private void writeDefaultSchems() {

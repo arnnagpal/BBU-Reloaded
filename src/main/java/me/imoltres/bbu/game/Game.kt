@@ -183,7 +183,7 @@ class Game {
         //Get spawn world
         spawnWorld = WorldCreator("bbuSpawnWorld").generator(EmptyChunkGenerator()).createWorld()!!
 
-        worlds = arrayOf(overworld, nether, end, spawnWorld);
+        worlds = arrayOf(overworld, nether, end, spawnWorld)
         for (world in worlds) {
             world.loadChunk(0, 0)
             world.worldBorder.setCenter(0.0, 0.0)

@@ -11,8 +11,6 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.event.ClickEvent
 import net.kyori.adventure.text.event.HoverEvent
 import net.kyori.adventure.text.format.NamedTextColor
-import net.kyori.adventure.text.format.TextDecoration
-import org.bukkit.Location
 import org.bukkit.entity.Player
 
 @CommandInfo(
@@ -45,8 +43,18 @@ class TeamPosCommand : Command {
                 .append(
                     Component.text(location)
                         .color(NamedTextColor.AQUA)
-                        .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/trackposition $location true"))
-                        .hoverEvent(HoverEvent.hoverEvent(HoverEvent.Action.SHOW_TEXT, CC.translate("&7Click me to track!")))
+                        .clickEvent(
+                            ClickEvent.clickEvent(
+                                ClickEvent.Action.RUN_COMMAND,
+                                "/trackposition $location true"
+                            )
+                        )
+                        .hoverEvent(
+                            HoverEvent.hoverEvent(
+                                HoverEvent.Action.SHOW_TEXT,
+                                CC.translate("&7Click me to track!")
+                            )
+                        )
                 )
                 .append(Component.text("\n"))
                 .build()
@@ -62,7 +70,6 @@ class TeamPosCommand : Command {
     override fun tabCompleter(cmd: CommandArgs?): MutableList<String> {
         return arrayListOf()
     }
-
 
 
 }

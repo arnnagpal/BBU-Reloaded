@@ -144,7 +144,8 @@ class BBUPlayer(val uniqueId: UUID, val name: String) {
 
     private fun showFirework(deathLocation: Location) {
         val loc = deathLocation.toHighestLocation()
-        val firework: Firework = loc.world.spawnEntity(loc.clone().add(0.0, 50.0, 0.0), EntityType.FIREWORK_ROCKET) as Firework
+        val firework: Firework =
+            loc.world.spawnEntity(loc.clone().add(0.0, 50.0, 0.0), EntityType.FIREWORK_ROCKET) as Firework
         val fireworkMeta: FireworkMeta = firework.fireworkMeta
 
         // Set the type of the firework
@@ -181,7 +182,7 @@ class BBUPlayer(val uniqueId: UUID, val name: String) {
 
         if (MainConfig.SPECTATE_AFTER_DEATH) {
             // put player in spectator mode where they can either only spectate their teammates if they have any, otherwise they spectate freely
-            player?.gameMode = org.bukkit.GameMode.SPECTATOR
+            player?.gameMode = GameMode.SPECTATOR
             spectatingActionMsgThread = Bukkit.getScheduler().runTaskTimer(BBU.getInstance(), Runnable {
                 val str = "&7To switch teammates &eLEFT CLICK &7or &eRIGHT CLICK."
                 player?.sendActionBar(

@@ -135,7 +135,8 @@ public class CommandFramework implements TabExecutor {
                         completions.put(command, new AbstractMap.SimpleEntry<>(m, instance));
                     }
                 }
-            } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
+            } catch (NoSuchMethodException | InvocationTargetException | InstantiationException |
+                     IllegalAccessException e) {
                 e.printStackTrace();
             }
         }

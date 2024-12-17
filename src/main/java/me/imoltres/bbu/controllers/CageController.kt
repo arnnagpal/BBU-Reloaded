@@ -14,9 +14,7 @@ import org.bukkit.Material
 import org.bukkit.World
 import java.io.File
 import java.io.IOException
-import java.util.*
 import java.util.concurrent.ExecutionException
-import kotlin.collections.HashMap
 
 /**
  * Controls all the cages

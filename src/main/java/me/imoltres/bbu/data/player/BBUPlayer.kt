@@ -42,7 +42,7 @@ class BBUPlayer(val uniqueId: UUID, val name: String) {
     var eliminated = false
     var switchingSpectator = false
     var spectatingTeam: BBUTeam? = null
-    var spectatingActionMsgThread: BukkitTask? = null
+    private var spectatingActionMsgThread: BukkitTask? = null
 
     var scoreboard: BBUScoreboardAdapter? = null
         set(value) {

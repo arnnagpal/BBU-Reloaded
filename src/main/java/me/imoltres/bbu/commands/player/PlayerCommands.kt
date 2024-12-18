@@ -1,7 +1,7 @@
 package me.imoltres.bbu.commands.player
 
 import me.imoltres.bbu.BBU
-import me.imoltres.bbu.data.BBUTeamColour
+import me.imoltres.bbu.data.BBUTeamColor
 import me.imoltres.bbu.data.player.BBUPlayer
 import me.imoltres.bbu.utils.CC
 import me.imoltres.bbu.utils.command.CommandArgs
@@ -47,9 +47,9 @@ class PlayerCommands : SubCommand {
                     return
                 }
 
-                val colour: BBUTeamColour
+                val colour: BBUTeamColor
                 try {
-                    colour = BBUTeamColour.valueOf(args[2].uppercase())
+                    colour = BBUTeamColor.valueOf(args[2].uppercase())
                 } catch (e: Exception) {
                     sender.sendMessage(CC.translate("&cSpecify a *valid* team."))
                     return

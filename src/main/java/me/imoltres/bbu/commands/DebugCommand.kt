@@ -50,7 +50,7 @@ class DebugCommand : SubCommand {
     private fun updateState(sender: Player, input: String) {
         try {
             val state = GameState.valueOf(input.uppercase())
-            BBU.getInstance().game.thread.tick = state.tick * 20
+            BBU.getInstance().game.thread.tick = state.startTime * 20
             sender.sendMessage(CC.translate("&aUpdated game state to " + input.uppercase()))
         } catch (e: Exception) {
             e.printStackTrace()

@@ -188,11 +188,7 @@ class CageController(private val plugin: BBU) {
     private fun loadChunkAt(world: World, x: Int, z: Int) {
         // loads the chunk
         println("Loading chunk at $x, $z")
-        world.getChunkAtAsyncUrgently(x shr 4, z shr 4).thenAccept { chunk ->
-            if (!chunk.isLoaded) {
-                chunk.load()
-            }
-        }.get()
+        world.loadChunk(x shr 4, z shr 4)
         println("Loaded chunk at $x, $z")
     }
 

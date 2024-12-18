@@ -1,7 +1,9 @@
 package me.imoltres.bbu.utils.config.type;
 
 import lombok.Getter;
+import me.imoltres.bbu.utils.CC;
 import me.imoltres.bbu.utils.config.AbstractConfigurationFile;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -13,7 +15,7 @@ public class BasicConfigurationFile extends AbstractConfigurationFile {
     @Getter
     private final File file;
     @Getter
-    private final YamlConfiguration configuration;
+    private YamlConfiguration configuration;
 
     /**
      * Initialise an instance with a plugin, name, and if
@@ -89,6 +91,16 @@ public class BasicConfigurationFile extends AbstractConfigurationFile {
 
     public List<String> getStringList(String path) {
         return this.configuration.contains(path) ? this.configuration.getStringList(path) : null;
+    }
+
+    @Override
+    public void reloadConfig() {
+        Bukkit.getConsoleSender().sendMessage(CC.translate("&aReloading " + this.file.getName() + "..."));
+        try {
+            this.configuration = YamlConfiguration.loadConfiguration(this.file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void saveResource(String resourcePath, File outDir, boolean replace) {

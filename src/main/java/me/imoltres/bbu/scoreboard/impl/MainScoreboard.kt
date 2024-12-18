@@ -23,7 +23,7 @@ class MainScoreboard(player: Player) : BBUScoreboardAdapter(1, player) {
 
         if (game.gameState.next() != null) {
             val tick = game.thread.tick / 20
-            val timeTill = DateUtils.readableTime(BigDecimal(game.gameState.next()!!.startsAfterTick - tick))
+            val timeTill = DateUtils.readableTime(BigDecimal(game.gameState.next()!!.startTime - tick))
 
             when (game.gameState) {
                 GameState.GRACE, GameState.PVP -> lines.add(
@@ -35,11 +35,21 @@ class MainScoreboard(player: Player) : BBUScoreboardAdapter(1, player) {
                 )
 
                 GameState.PVP_BORDER_SHRINK -> {
+                    val timeTillShrink = DateUtils.readableTime(BigDecimal((game.thread.shrinkingTime / 20) - tick))
+
                     lines.add(
                         String.format(
                             "&b%s&f: %.1f",
                             game.gameState.display,
                             game.overworld.worldBorder.size
+                        )
+                    )
+
+                    lines.add(
+                        String.format(
+                            "&b%s&f:%s",
+                            "Next shrink",
+                            timeTillShrink
                         )
                     )
                 }

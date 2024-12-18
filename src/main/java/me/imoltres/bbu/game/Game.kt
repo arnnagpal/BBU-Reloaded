@@ -9,7 +9,9 @@ import me.imoltres.bbu.game.threads.GameThread
 import me.imoltres.bbu.utils.CC
 import me.imoltres.bbu.utils.config.MainConfig
 import me.imoltres.bbu.utils.general.PlayerUtils
+import me.imoltres.bbu.utils.json.GsonFactory
 import me.imoltres.bbu.utils.world.Position2D
+import me.imoltres.bbu.utils.world.WorldPosition
 import org.bukkit.*
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Firework
@@ -25,7 +27,7 @@ class Game {
 
     val thread = GameThread(this)
 
-    val border: Int = MainConfig.BORDER
+    var border: Int = MainConfig.BORDER_SIZE
 
     lateinit var overworld: World
     lateinit var nether: World
@@ -61,8 +63,12 @@ class Game {
         for (team in BBU.getInstance().teamController.allTeams) {
             if (team.players.size == 0) {
                 team.eliminate()
+                team.delete()
             }
         }
+
+        // reload the scoreboards
+
 
         GameStartThread(this).start()
     }
@@ -111,6 +117,13 @@ class Game {
      * @param sender person who initiated the move (nullable)
      */
     fun preLobby(sender: CommandSender?) {
+        for (world in worlds) {
+            if (world == spawnWorld) continue
+
+            world.setGameRule(GameRule.DO_WEATHER_CYCLE, true)
+            world.setGameRule(GameRule.DO_MOB_SPAWNING, true)
+        }
+
         Thread {
             for (team in BBU.getInstance().teamController.teamsWithCages) {
                 for (player in team.players) {
@@ -180,8 +193,27 @@ class Game {
         nether = Bukkit.getWorld(NamespacedKey.minecraft("the_nether"))!!
         //Get end world
         end = Bukkit.getWorld(NamespacedKey.minecraft("the_end"))!!
+
+        val generateSpawn = Bukkit.getWorld("bbuSpawnWorld") == null
         //Get spawn world
         spawnWorld = WorldCreator("bbuSpawnWorld").generator(EmptyChunkGenerator()).createWorld()!!
+
+        if (generateSpawn) {
+            Bukkit.getConsoleSender().sendMessage(CC.translate("&cCouldn't find a valid lobby spawn. Generating..."))
+
+            spawnWorld.loadChunk(0, 0)
+            spawnWorld.setBlockData(0, 99, 0, Material.GLASS.createBlockData())
+
+            BBU.getInstance().mainConfig.configuration.set(
+                "lobby-spawn",
+                GsonFactory.getCompactGson().toJson(WorldPosition(0.0, 100.0, 0.0, 90.0f, 0.0f, "bbuSpawnWorld"))
+            )
+            BBU.getInstance().mainConfig.configuration.save(BBU.getInstance().mainConfig.file)
+
+            Bukkit.getConsoleSender().sendMessage(CC.translate("&aGenerated lobby spawn at 0, 100, 0 in bbuSpawnWorld"))
+            MainConfig.reload()
+        }
+
 
         worlds = arrayOf(overworld, nether, end, spawnWorld)
         for (world in worlds) {
@@ -194,6 +226,9 @@ class Game {
 
             world.setStorm(false)
             world.isThundering = false
+            world.setGameRule(GameRule.DO_WEATHER_CYCLE, false)
+            world.setGameRule(GameRule.DO_MOB_SPAWNING, false)
+            world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false)
         }
 
         val netherSpawn = Location(nether, 0.0, 70.0, 0.0)

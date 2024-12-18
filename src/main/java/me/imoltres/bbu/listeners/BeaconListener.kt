@@ -49,8 +49,15 @@ class BeaconListener : Listener {
         //is bbu beacon :D
         val player = e.player
         val team = BBU.getInstance().teamController.getTeam(player) ?: return
-        if (BBU.getInstance().game.gameState != GameState.GRACE)
+        if (BBU.getInstance().game.gameState != GameState.GRACE) {
+            // only allow beacon placement in grace
+            e.isCancelled = true
+
+            // take away the beacon!
+            player.inventory.removeItem(ItemConstants.TEAM_BEACON)
+            player.sendMessage(CC.translate("&cYou have lost your beacon because you didn't place it during the grace period."))
             return
+        }
 
         val event = BBUPlaceBeaconEvent(
             team,

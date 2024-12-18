@@ -3,7 +3,7 @@ package me.imoltres.bbu.controllers;
 import com.google.common.collect.ImmutableList;
 import lombok.RequiredArgsConstructor;
 import me.imoltres.bbu.BBU;
-import me.imoltres.bbu.data.BBUTeamColour;
+import me.imoltres.bbu.data.BBUTeamColor;
 import me.imoltres.bbu.data.player.BBUPlayer;
 import me.imoltres.bbu.data.team.BBUTeam;
 import me.imoltres.bbu.utils.world.WorldPosition;
@@ -30,7 +30,7 @@ public class TeamController {
      * @param colour colour of the team
      * @return if it was successful
      */
-    public boolean createTeam(BBUTeamColour colour) {
+    public boolean createTeam(BBUTeamColor colour) {
         return teams.add(new BBUTeam(colour));
     }
 
@@ -40,7 +40,7 @@ public class TeamController {
      * @param colour colour of the team
      * @return if it was successful
      */
-    public boolean deleteTeam(BBUTeamColour colour) {
+    public boolean deleteTeam(BBUTeamColor colour) {
         return teams.remove(getTeam(colour));
     }
 
@@ -60,7 +60,7 @@ public class TeamController {
      * @param colour colour of the team
      * @return BBUTeam
      */
-    public BBUTeam getTeam(BBUTeamColour colour) {
+    public BBUTeam getTeam(BBUTeamColor colour) {
         return teams.stream().filter(team -> team.getColour() == colour).findFirst().orElse(null);
     }
 

@@ -1,7 +1,7 @@
 package me.imoltres.bbu.data.team
 
 import me.imoltres.bbu.BBU
-import me.imoltres.bbu.data.BBUTeamColour
+import me.imoltres.bbu.data.BBUTeamColor
 import me.imoltres.bbu.data.player.BBUPlayer
 import me.imoltres.bbu.game.events.team.BBUTeamModificationEvent
 import me.imoltres.bbu.utils.CC
@@ -16,7 +16,7 @@ import java.util.concurrent.ThreadLocalRandom
 /**
  * Represents a team within the game
  */
-class BBUTeam(val colour: BBUTeamColour) {
+class BBUTeam(val colour: BBUTeamColor) {
     var cage: BBUCage? = null
         set(value) {
             val event = BBUTeamModificationEvent(
@@ -138,6 +138,10 @@ class BBUTeam(val colour: BBUTeamColour) {
             beacon!!.toWorldPosition(BBU.getInstance().game.overworld.name).block.type = Material.AIR
             beacon = null
         }
+    }
+
+    fun delete() {
+        BBU.getInstance().teamController.deleteTeam(this)
     }
 
     /**

@@ -5,6 +5,7 @@ import me.imoltres.bbu.BBU;
 import me.imoltres.bbu.data.player.BBUPlayer;
 import me.imoltres.bbu.utils.CC;
 import me.imoltres.bbu.utils.config.Messages;
+import me.imoltres.bbu.utils.json.GsonFactory;
 import me.imoltres.bbu.utils.scoreboard.BBUScoreboardSetupException;
 import me.imoltres.bbu.utils.scoreboard.BBUScoreboardUtils;
 import net.kyori.adventure.text.TextComponent;
@@ -108,7 +109,7 @@ public abstract class BBUScoreboardAdapter {
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
         objective.displayName(CC.translate(title));
 
-        updateClearBoard(CC.translate(getLines(parentPlayer)).stream().map(component -> (TextComponent) component).collect(Collectors.toList()));
+        updateClearBoard(processLinesComponent(getLines(parentPlayer)));
     }
 
     /**
@@ -121,7 +122,7 @@ public abstract class BBUScoreboardAdapter {
         if (oldLines == null)
             return;
 
-        if (lines.size() > oldLines.size())
+        if (lines.size() != oldLines.size())
             updateClearBoard(lines);
         else
             updateNewLines(lines, oldLines);
@@ -161,7 +162,13 @@ public abstract class BBUScoreboardAdapter {
      * @param lines new lines
      */
     private void updateClearBoard(List<TextComponent> lines) {
-        scoreboard.getTeams().stream().filter(team -> CC.isInteger(team.getName(), 10)).forEach(Team::unregister);
+        for (int i = 1; i <= 15; i++) {
+            if (scoreboard.getTeam(String.valueOf(i)) != null) {
+                var team = scoreboard.getTeam(String.valueOf(i));
+                scoreboard.resetScores(team.getEntries().stream().findFirst().get()); // delete the blank lines
+                scoreboard.getTeam(String.valueOf(i)).unregister();
+            }
+        }
 
         Collections.reverse(lines);
 
@@ -193,6 +200,10 @@ public abstract class BBUScoreboardAdapter {
     private Team createLine(int lineNumber) {
         try {
             if (scoreboard.getTeam(String.valueOf(lineNumber)) != null) {
+                System.out.println("[UNEXPECTED] Team already exists for line " + lineNumber);
+                // print all teams for debug
+                scoreboard.getTeams().forEach(team -> System.out.println(team.getName()));
+
                 scoreboard.getTeam(String.valueOf(lineNumber)).unregister(); // remove the old team
             }
 
@@ -330,7 +341,7 @@ public abstract class BBUScoreboardAdapter {
      * @return list of current displayed lines
      */
     public List<TextComponent> getScoreboardLines() {
-        long linesSize = new ArrayList<>(scoreboard.getTeams()).stream().filter(team -> CC.isInteger(team.getName(), 10)).count();
+        long linesSize = scoreboard.getTeams().stream().filter(team -> CC.isInteger(team.getName(), 10)).count();
 
         List<TextComponent> l = new ArrayList<>();
 
@@ -339,7 +350,7 @@ public abstract class BBUScoreboardAdapter {
             if (line == null)
                 return null;
 
-            l.add(getLine(i));
+            l.add(line);
         }
 
         Collections.reverse(l);
@@ -362,13 +373,18 @@ public abstract class BBUScoreboardAdapter {
     }
 
     /**
-     * Process the list into a 16-element list
+     * Upgrade from legacy colours to adventure colours
+     * and process the list into a 16-element list
      *
      * @param lines list of lines
      * @return processed list of lines
      */
     private List<TextComponent> processLinesComponent(List<String> lines) {
         return CC.translate(processLines(lines)).stream().map(component -> (TextComponent) component).collect(Collectors.toList());
+    }
+
+    private List<String> unprocessLinesComponent(List<TextComponent> lines) {
+        return lines.stream().map(TextComponent::content).collect(Collectors.toList());
     }
 
     /**

@@ -12,11 +12,11 @@ public class NametagBoard {
     @Getter
     private final UUID uuid;
     @Getter
-    private Set<String> bufferedTeams = new HashSet<>();
+    private final Set<String> bufferedTeams = new HashSet<>();
     @Getter
-    private Map<String, List<String>> bufferedPlayers = new HashMap<>();
+    private final Map<String, List<String>> bufferedPlayers = new HashMap<>();
     @Getter
-    private NametagHandler handler;
+    private final NametagHandler handler;
 
     public NametagBoard(Player player, NametagHandler handler) {
         this.uuid = player.getUniqueId();

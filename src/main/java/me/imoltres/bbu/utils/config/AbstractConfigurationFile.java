@@ -76,5 +76,5 @@ public abstract class AbstractConfigurationFile {
      */
     public abstract List<String> getStringList(String var1);
 
-
+    public abstract void reloadConfig();
 }

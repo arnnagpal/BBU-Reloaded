@@ -7,13 +7,11 @@ import me.imoltres.bbu.utils.item.ItemBuilder;
 import me.imoltres.bbu.utils.menu.Button;
 import me.imoltres.bbu.utils.menu.Menu;
 import me.imoltres.bbu.utils.sound.SoundBuilder;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 @AllArgsConstructor
 public class ConfirmationButton extends Button {

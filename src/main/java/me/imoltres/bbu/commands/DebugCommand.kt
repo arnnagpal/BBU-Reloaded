@@ -3,18 +3,14 @@ package me.imoltres.bbu.commands
 import me.imoltres.bbu.BBU
 import me.imoltres.bbu.game.GameState
 import me.imoltres.bbu.utils.CC
-import me.imoltres.bbu.utils.item.ItemConstants
 import me.imoltres.bbu.utils.command.CommandArgs
 import me.imoltres.bbu.utils.command.CommandInfo
-import me.imoltres.bbu.utils.command.Completer
 import me.imoltres.bbu.utils.command.SubCommand
+import me.imoltres.bbu.utils.item.ItemConstants
 import net.kyori.adventure.title.Title
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
-import org.bukkit.util.StringUtil
-import java.util.*
-import java.util.stream.Collectors
 
 @CommandInfo(
     name = "bbu.debug",
@@ -35,6 +31,7 @@ class DebugCommand : SubCommand {
                     ItemConstants.TEAM_BEACON,
                     "team beacon"
                 )
+
                 "givetracker" -> giveItem(
                     sender,
                     Bukkit.getPlayer(args[1]),
@@ -53,7 +50,7 @@ class DebugCommand : SubCommand {
     private fun updateState(sender: Player, input: String) {
         try {
             val state = GameState.valueOf(input.uppercase())
-            BBU.getInstance().game.thread.tick = state.tick * 20
+            BBU.getInstance().game.thread.tick = state.startTime * 20
             sender.sendMessage(CC.translate("&aUpdated game state to " + input.uppercase()))
         } catch (e: Exception) {
             e.printStackTrace()

@@ -14,9 +14,7 @@ import org.bukkit.Material
 import org.bukkit.World
 import java.io.File
 import java.io.IOException
-import java.util.*
 import java.util.concurrent.ExecutionException
-import kotlin.collections.HashMap
 
 /**
  * Controls all the cages
@@ -190,11 +188,17 @@ class CageController(private val plugin: BBU) {
     private fun loadChunkAt(world: World, x: Int, z: Int) {
         // loads the chunk
         println("Loading chunk at $x, $z")
-        world.getChunkAtAsyncUrgently(x shr 4, z shr 4).thenAccept { chunk ->
-            if (!chunk.isLoaded) {
-                chunk.load()
+
+        val chunkX = x shr 4
+        val chunkZ = z shr 4
+
+        // load the chunks 6x6 around the chunk
+        for (i in -3..3) {
+            for (j in -3..3) {
+                world.loadChunk(chunkX + i, chunkZ + j, true)
             }
-        }.get()
+        }
+
         println("Loaded chunk at $x, $z")
     }
 

@@ -1,6 +1,5 @@
 package me.imoltres.bbu.utils.sound;
 
-import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -60,7 +59,7 @@ public class SoundBuilder {
      * @param players Players to play sound to
      */
     public void play(Player... players) {
-        for(Player player : players) {
+        for (Player player : players) {
             player.playSound(player.getLocation(), sound, volume, pitch);
         }
     }
@@ -69,7 +68,7 @@ public class SoundBuilder {
      * Broadcast a sound to all players
      */
     public void broadcast() {
-        for(Player player : Bukkit.getOnlinePlayers()) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
             play(player);
         }
     }

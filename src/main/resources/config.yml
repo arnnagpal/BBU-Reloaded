@@ -1,7 +1,24 @@
-border: 1000
-lobby-spawn: ""
+border:
+  size: 1000
+  shrink-phases:
+    # phase 1
+    -  size: 500 # size of border after 1st shrink
+       length: 450 # time it takes to shrink to this size in seconds
+       # 450 seconds = 7.5 minutes
+
+    # phase 2
+    -  size: 100 # size of border after 2nd shrink
+       length: 900 # time it takes to shrink to this size
+       # 900 seconds = 15 minutes
+
+deathmatch:
+  enabled: true
+  time: 900 # time in seconds after border is DONE shrinking
+  spawn: "" # location of deathmatch spawn
 
 spectate-after-death: true
 
 #allow teammates to hit eachother
 friendly-fire: true
+
+lobby-spawn: ""

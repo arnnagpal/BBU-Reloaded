@@ -29,6 +29,7 @@ class DamageListener : Listener {
             return
         }
 
+        // cancel damage if the game is not in pvp mode
         e.isCancelled = !BBU.getInstance().game.gameState.isPvp()
     }
 
@@ -52,11 +53,10 @@ class DamageListener : Listener {
         }
 
         if (damager == null) {
-            println("Damager is null, ignoring damage event")
             return
         }
 
-        var bbuDamager: BBUPlayer? = BBU.getInstance().playerController.getPlayer(damager.uniqueId)
+        val bbuDamager: BBUPlayer? = BBU.getInstance().playerController.getPlayer(damager.uniqueId)
 
         //if pvp is disabled, cancel the damage
         if (!MainConfig.FRIENDLY_FIRE) {

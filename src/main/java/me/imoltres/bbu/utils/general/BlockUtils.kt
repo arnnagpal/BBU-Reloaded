@@ -1,9 +1,6 @@
 package me.imoltres.bbu.utils.general
 
 import me.imoltres.bbu.BBU
-import me.imoltres.bbu.utils.world.Position
-import me.imoltres.bbu.utils.world.WorldPosition
-import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.block.Block
 import org.bukkit.block.BlockFace
@@ -16,12 +13,12 @@ class BlockUtils {
 
     companion object {
         val faces = arrayOf(
-                BlockFace.NORTH,
-                BlockFace.EAST,
-                BlockFace.SOUTH,
-                BlockFace.WEST,
-                BlockFace.UP,
-                BlockFace.DOWN
+            BlockFace.NORTH,
+            BlockFace.EAST,
+            BlockFace.SOUTH,
+            BlockFace.WEST,
+            BlockFace.UP,
+            BlockFace.DOWN
         )
 
         /**

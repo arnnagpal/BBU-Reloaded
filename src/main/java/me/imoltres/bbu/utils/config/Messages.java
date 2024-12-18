@@ -1,8 +1,6 @@
 package me.imoltres.bbu.utils.config;
 
-import lombok.RequiredArgsConstructor;
 import me.imoltres.bbu.BBU;
-import me.imoltres.bbu.utils.config.type.BasicConfigurationFile;
 
 /**
  * Messages imported from the messages.yml config

@@ -126,6 +126,7 @@ class GameCommand : Command {
                                     GameState.entries.map { it.name.uppercase() }
                                 )
                             }
+
                             else -> {
                                 options.addAll(
                                     Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toSet())
@@ -143,6 +144,7 @@ class GameCommand : Command {
                         options.add("true")
                         options.add("false")
                     }
+
                     "jointeam" -> {
                         for (team in BBU.getInstance().teamController.allTeams) {
                             options.add(team.colour.name)

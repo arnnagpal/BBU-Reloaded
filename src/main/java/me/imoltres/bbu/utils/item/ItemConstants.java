@@ -10,9 +10,9 @@ public class ItemConstants {
 
     /**
      * ###Tracking compass item represented as a constant
-     * 
+     * <p>
      * Allows for identification and separation of a normal compass and a tracking compass.
-     *
+     * <p>
      * Used to track players or any team.
      * Can also be used to track any coordinates that a teammate or ally provides. (command undecided, but likely `/track x y z`)
      */
@@ -25,9 +25,9 @@ public class ItemConstants {
 
     /**
      * ###Team Beacon item represented as a constant
-     *
+     * <p>
      * Allows for identification and separation of a beacon and a "team beacon".
-     *
+     * <p>
      * Used for pre-pvp events when the player wants to place their team's beacon down to
      * allow their team to respawn.
      */

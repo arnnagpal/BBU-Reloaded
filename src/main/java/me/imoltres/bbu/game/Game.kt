@@ -194,7 +194,7 @@ class Game {
         //Get end world
         end = Bukkit.getWorld(NamespacedKey.minecraft("the_end"))!!
 
-        val generateSpawn = Bukkit.getWorld("bbuSpawnWorld") == null
+        val generateSpawn = MainConfig.LOBBY_SPAWN.isEmpty()
         //Get spawn world
         spawnWorld = WorldCreator("bbuSpawnWorld").generator(EmptyChunkGenerator()).createWorld()!!
 

@@ -20,6 +20,10 @@ public class Filler extends Button {
 
     @Override
     public ItemStack getButtonItem(Player player) {
+        if (filler == Material.AIR) {
+            return new ItemStack(Material.AIR);
+        }
+
         return new ItemBuilder(filler).name("").build();
     }
 }

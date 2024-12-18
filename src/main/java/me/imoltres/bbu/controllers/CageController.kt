@@ -188,7 +188,17 @@ class CageController(private val plugin: BBU) {
     private fun loadChunkAt(world: World, x: Int, z: Int) {
         // loads the chunk
         println("Loading chunk at $x, $z")
-        world.loadChunk(x shr 4, z shr 4)
+
+        val chunkX = x shr 4
+        val chunkZ = z shr 4
+
+        // load the chunks 6x6 around the chunk
+        for (i in -3..3) {
+            for (j in -3..3) {
+                world.loadChunk(chunkX + i, chunkZ + j, true)
+            }
+        }
+
         println("Loaded chunk at $x, $z")
     }
 

@@ -34,26 +34,6 @@ class MainScoreboard(player: Player) : BBUScoreboardAdapter(1, player) {
                     )
                 )
 
-                GameState.PVP_BORDER_SHRINK -> {
-                    val timeTillShrink = DateUtils.readableTime(BigDecimal((game.thread.shrinkingTime / 20) - tick))
-
-                    lines.add(
-                        String.format(
-                            "&b%s&f: %.1f",
-                            game.gameState.display,
-                            game.overworld.worldBorder.size
-                        )
-                    )
-
-                    lines.add(
-                        String.format(
-                            "&b%s&f:%s",
-                            "Next shrink",
-                            timeTillShrink
-                        )
-                    )
-                }
-
                 else -> {}
             }
         }
@@ -69,6 +49,29 @@ class MainScoreboard(player: Player) : BBUScoreboardAdapter(1, player) {
         }
 
         lines.add("")
+
+        if (game.gameState == GameState.PVP_BORDER_SHRINK) {
+            val timeTillShrink = DateUtils.readableTime(BigDecimal((game.thread.shrinkingTime / 20)))
+
+            lines.add(
+                String.format(
+                    "&b%s&f: %.1f",
+                    game.gameState.display,
+                    game.overworld.worldBorder.size
+                )
+            )
+
+            lines.add(
+                String.format(
+                    "&b%s&f:%s",
+                    "Next shrink",
+                    timeTillShrink
+                )
+            )
+
+            lines.add("")
+        }
+
 
         for (team in BBU.getInstance().teamController.allTeams) {
             val name = CC.capitalize(team.colour.name.lowercase())

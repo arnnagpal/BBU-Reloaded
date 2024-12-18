@@ -114,9 +114,9 @@ class GameThread(val game: Game) : BukkitRunnable() {
                     shrinkBorder(shrinkPhase)
                     shrinking = !shrinking
 
-                    // shrinking till shrinkPhase.length + 5 minutes
+                    // shrinking till shrinkPhase.length + 10 minutes
                     // in ticks
-                    shrinkingTime = 20 * (shrinkPhase.length + 600) // 5 minutes
+                    shrinkingTime = 20 * (shrinkPhase.length + 600) // 10 minutes
                 }
             }
 
@@ -169,12 +169,12 @@ class GameThread(val game: Game) : BukkitRunnable() {
 
     /**
      * Shrink the border globally
-     * @param seconds seconds to shrink it for
+     * @param shrinkPhase the phase to shrink the border to
      */
     private fun shrinkBorder(shrinkPhase: ShrinkPhase) {
         PlayerUtils.broadcastTitle(
             "&cBorder Shrinking!",
-            "&7${shrinkPhase.size} in " + DateUtils.readableTime(BigDecimal(shrinkPhase.length.toLong()))
+            "&7${shrinkPhase.size} in" + DateUtils.readableTime(BigDecimal(shrinkPhase.length.toLong()))
         )
 
         Bukkit.getScheduler().runTask(BBU.getInstance()) { ->

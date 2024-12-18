@@ -56,7 +56,6 @@ class TeamPosCommand : Command {
                             )
                         )
                 )
-                .append(Component.text("\n"))
                 .build()
 
             player.sendMessage(component)

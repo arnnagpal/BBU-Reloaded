@@ -24,10 +24,10 @@ enum class BBUTeamColor(val chatColor: ChatColor) {
 }
 
 // custom argument types
-class TeamArgumentType : CustomArgumentType.Converted<BBUTeamColour, String> {
-    override fun convert(nativeType: String): BBUTeamColour {
+class TeamArgumentType : CustomArgumentType.Converted<BBUTeamColor, String> {
+    override fun convert(nativeType: String): BBUTeamColor {
         try {
-            return BBUTeamColour.valueOf(nativeType.uppercase())
+            return BBUTeamColor.valueOf(nativeType.uppercase())
         } catch (e: Exception) {
             throw IllegalArgumentException("Invalid team colour: $nativeType")
         }
@@ -37,7 +37,7 @@ class TeamArgumentType : CustomArgumentType.Converted<BBUTeamColour, String> {
         context: CommandContext<S>,
         builder: SuggestionsBuilder
     ): CompletableFuture<Suggestions> {
-        for (colour in BBUTeamColour.entries) {
+        for (colour in BBUTeamColor.entries) {
             val name = colour.name.lowercase()
 
             // Only suggest if the flavor name matches the user input

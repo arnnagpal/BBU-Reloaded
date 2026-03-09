@@ -7,15 +7,15 @@ import me.imoltres.bbu.commands.team.TeamPosCommandKt;
 import me.imoltres.bbu.controllers.CageController;
 import me.imoltres.bbu.controllers.PlayerController;
 import me.imoltres.bbu.controllers.TeamController;
-import me.imoltres.bbu.data.BBUTeamColour;
+import me.imoltres.bbu.data.BBUTeamColor;
 import me.imoltres.bbu.game.Game;
 import me.imoltres.bbu.game.ShrinkPhase;
 import me.imoltres.bbu.listeners.*;
 import me.imoltres.bbu.nametags.NametagAdapterImpl;
 import me.imoltres.bbu.scoreboard.BBUScoreboard;
 import me.imoltres.bbu.utils.CC;
-import me.imoltres.bbu.utils.config.MainConfig;
 import me.imoltres.bbu.utils.command.CommandManager;
+import me.imoltres.bbu.utils.config.MainConfig;
 import me.imoltres.bbu.utils.config.type.BasicConfigurationFile;
 import me.imoltres.bbu.utils.json.GsonFactory;
 import me.imoltres.bbu.utils.menu.MenuListener;
@@ -29,7 +29,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 import java.util.zip.GZIPOutputStream;
@@ -232,7 +231,7 @@ public class BBU extends JavaPlugin {
      * Sets up all the teams according to the {@link me.imoltres.bbu.data.BBUTeamColor} class
      */
     private void setupTeams() {
-        for (BBUTeamColour colour : BBUTeamColour.getEntries()) {
+        for (BBUTeamColor colour : BBUTeamColor.getEntries()) {
             Bukkit.getConsoleSender().sendMessage(
                     CC.translate(
                             "&aTeam '&" + colour.getChatColor().getChar() + colour.name() + "&a' created " +

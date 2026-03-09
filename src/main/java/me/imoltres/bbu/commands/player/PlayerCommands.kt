@@ -2,7 +2,7 @@ package me.imoltres.bbu.commands.player
 
 import com.mojang.brigadier.arguments.ArgumentType
 import me.imoltres.bbu.BBU
-import me.imoltres.bbu.data.BBUTeamColour
+import me.imoltres.bbu.data.BBUTeamColor
 import me.imoltres.bbu.data.TeamArgumentType
 import me.imoltres.bbu.utils.CC
 import me.imoltres.bbu.utils.command.argument
@@ -32,12 +32,12 @@ val PlayerCommands = command(
         }
     }
 
-    val teamArg = argument("team", TeamArgumentType() as ArgumentType<BBUTeamColour>)
+    val teamArg = argument("team", TeamArgumentType() as ArgumentType<BBUTeamColor>)
     buildSyntax(playerArg, literal("jointeam"), teamArg) {
         permission("bbu.command.player.jointeam")
         executor { sender, ctx ->
             val player = playerArg().resolve(ctx.source).first()
-            val colour = ctx.getArgument("team", BBUTeamColour::class.java)
+            val colour = teamArg()
 
             val bbuPlayer = BBU.getInstance().playerController.getPlayer(player.uniqueId)
             val team = BBU.getInstance().teamController.getTeam(colour)

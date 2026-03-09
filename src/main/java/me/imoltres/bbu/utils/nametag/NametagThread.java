@@ -2,7 +2,6 @@ package me.imoltres.bbu.utils.nametag;
 
 import me.imoltres.bbu.utils.CC;
 import net.kyori.adventure.text.TextComponent;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.*;
@@ -61,7 +60,7 @@ public class NametagThread extends Thread {
                 if (this.handler.getAdapter().showHealthBelowName()) {
                     if (scoreboard.getObjective(DisplaySlot.BELOW_NAME) == null) {
                         //stringescapeutils was moved to commons-text, fix later
-                        Objective objective = scoreboard.registerNewObjective("showhealth", Criteria.HEALTH, CC.translate("&c" + StringEscapeUtils.unescapeJava("\u2764")));
+                        Objective objective = scoreboard.registerNewObjective("showhealth", Criteria.HEALTH, CC.translate("&c\u2764"));
                         Objective listObjective = scoreboard.registerNewObjective("listhealth", Criteria.HEALTH, CC.translate("Health"));
 
                         objective.setDisplaySlot(DisplaySlot.BELOW_NAME);

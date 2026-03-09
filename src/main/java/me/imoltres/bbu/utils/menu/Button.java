@@ -2,7 +2,6 @@ package me.imoltres.bbu.utils.menu;
 
 import me.imoltres.bbu.utils.item.ItemBuilder;
 import me.imoltres.bbu.utils.sound.SoundBuilder;
-import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -15,7 +14,7 @@ public abstract class Button {
         return (new Button() {
             public ItemStack getButtonItem(Player player) {
                 ItemBuilder builder = new ItemBuilder(material);
-                builder.name(StringUtils.join(title));
+                builder.name(String.join("", title));
 
                 return builder.build();
             }

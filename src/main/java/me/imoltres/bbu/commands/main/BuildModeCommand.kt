@@ -3,6 +3,7 @@ package me.imoltres.bbu.commands.main
 import me.imoltres.bbu.BBU
 import me.imoltres.bbu.utils.CC
 import me.imoltres.bbu.utils.command.command
+import org.bukkit.GameMode
 import org.bukkit.entity.Player
 
 val BuildModeCommand = command(
@@ -20,11 +21,9 @@ val BuildModeCommand = command(
         player.sendMessage(CC.translate("&7Build mode is now ${if (bbuPlayer.build) "&aenabled" else "&cdisabled"}&7."))
 
         if (bbuPlayer.build) {
-            player.isFlying = true
-            player.allowFlight = true
+            player.gameMode = GameMode.CREATIVE
         } else {
-            player.isFlying = false
-            player.allowFlight = false
+            player.gameMode = GameMode.SPECTATOR
         }
     }
 }

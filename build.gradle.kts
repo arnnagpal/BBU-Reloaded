@@ -43,9 +43,8 @@ repositories {
 }
 
 dependencies {
-    implementation("com.google.code.gson:gson:$gsonVersion")
+    compileOnly("com.google.code.gson:gson:$gsonVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
-    implementation("org.apache.commons:commons-lang3:$commonsLangVersion")
 
     compileOnly("org.purpurmc.purpur:dev-bundle:$spigotVersion")
 //    compileOnly("org.purpurmc.purpur:purpur-api:${spigotVersion}")
@@ -72,7 +71,8 @@ tasks {
         archiveFileName.set(outputName)
 
         dependencies {
-
+            exclude(dependency("it.unimi.dsi:fastutil"))
+            exclude(dependency("com.google.code.gson:.*"))    // Paper bundles Gson
         }
     }
 

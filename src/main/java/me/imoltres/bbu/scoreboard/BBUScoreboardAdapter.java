@@ -5,12 +5,10 @@ import me.imoltres.bbu.BBU;
 import me.imoltres.bbu.data.player.BBUPlayer;
 import me.imoltres.bbu.utils.CC;
 import me.imoltres.bbu.utils.config.Messages;
-import me.imoltres.bbu.utils.json.GsonFactory;
 import me.imoltres.bbu.utils.scoreboard.BBUScoreboardSetupException;
 import me.imoltres.bbu.utils.scoreboard.BBUScoreboardUtils;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
-import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -150,7 +148,7 @@ public abstract class BBUScoreboardAdapter {
             String b = GsonComponentSerializer.colorDownsamplingGson().serialize(oldLine);
 
             //TODO: fix updating lines that don't need to be updated, it's a bit wonky atm, but it gets the job done
-            if (!StringUtils.difference(a, b).isEmpty()) {
+            if (!a.equals(b)) {
                 setLine(i + 1, CC.translateLegacy(line));
             }
         }

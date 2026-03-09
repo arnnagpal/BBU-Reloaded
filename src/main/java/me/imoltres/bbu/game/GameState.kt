@@ -1,5 +1,12 @@
 package me.imoltres.bbu.game
 
+import com.mojang.brigadier.arguments.ArgumentType
+import com.mojang.brigadier.context.CommandContext
+import com.mojang.brigadier.suggestion.Suggestions
+import com.mojang.brigadier.suggestion.SuggestionsBuilder
+import io.papermc.paper.command.brigadier.argument.CustomArgumentType
+import java.util.concurrent.CompletableFuture
+
 /**
  * Game state
  */
@@ -7,7 +14,7 @@ enum class GameState(val startsAfterTick: Int, val display: String?) {
     LOBBY(-1, null),
     PRE_GAME(-1, null),
     GRACE(0, null),
-    PVP(1800, "PVP"),
+    PVP(1500, "PVP"),
     PVP_BORDER_SHRINK(3600, "Border"),
     POST_GAME(-1, null)
     ;
@@ -36,6 +43,10 @@ enum class GameState(val startsAfterTick: Int, val display: String?) {
         return this == LOBBY || this == PRE_GAME
     }
 
+    override fun toString(): String {
+        return name.lowercase()
+    }
+
     companion object {
         /**
          * get a game state based on the tick that the game is in
@@ -45,7 +56,7 @@ enum class GameState(val startsAfterTick: Int, val display: String?) {
             val secondTick = tick / 20
 
             var s: GameState? = null
-            for (state in values()) {
+            for (state in entries) {
                 if (state.startsAfterTick == -1) continue
                 if (secondTick >= state.tick) {
                     s = state
@@ -53,5 +64,36 @@ enum class GameState(val startsAfterTick: Int, val display: String?) {
             }
             return s
         }
+    }
+}
+
+// custom argument type
+class GameStateArgumentType : CustomArgumentType.Converted<GameState, String> {
+    override fun convert(nativeType: String): GameState {
+        try {
+            return GameState.valueOf(nativeType.uppercase())
+        } catch (e: Exception) {
+            throw IllegalArgumentException("Invalid game state: $nativeType")
+        }
+    }
+
+    override fun <S : Any> listSuggestions(
+        context: CommandContext<S>,
+        builder: SuggestionsBuilder
+    ): CompletableFuture<Suggestions> {
+        for (colour in GameState.entries) {
+            val name = colour.name.uppercase()
+
+            // Only suggest if the flavor name matches the user input
+            if (name.startsWith(builder.remaining, ignoreCase = true)) {
+                builder.suggest(name)
+            }
+        }
+
+        return builder.buildFuture()
+    }
+
+    override fun getNativeType(): ArgumentType<String> {
+        return com.mojang.brigadier.arguments.StringArgumentType.word()
     }
 }

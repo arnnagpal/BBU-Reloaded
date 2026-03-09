@@ -1,9 +1,9 @@
 package me.imoltres.bbu;
 
 import lombok.Getter;
-import me.imoltres.bbu.commands.GameCommand;
-import me.imoltres.bbu.commands.main.TrackPositionCommand;
-import me.imoltres.bbu.commands.team.TeamPosCommand;
+import me.imoltres.bbu.commands.GameCommandKt;
+import me.imoltres.bbu.commands.main.TrackPositionCommandKt;
+import me.imoltres.bbu.commands.team.TeamPosCommandKt;
 import me.imoltres.bbu.controllers.CageController;
 import me.imoltres.bbu.controllers.PlayerController;
 import me.imoltres.bbu.controllers.TeamController;
@@ -13,8 +13,7 @@ import me.imoltres.bbu.listeners.*;
 import me.imoltres.bbu.nametags.NametagAdapterImpl;
 import me.imoltres.bbu.scoreboard.BBUScoreboard;
 import me.imoltres.bbu.utils.CC;
-import me.imoltres.bbu.utils.command.Command;
-import me.imoltres.bbu.utils.command.CommandFramework;
+import me.imoltres.bbu.utils.command.CommandManager;
 import me.imoltres.bbu.utils.config.type.BasicConfigurationFile;
 import me.imoltres.bbu.utils.menu.MenuListener;
 import me.imoltres.bbu.utils.nametag.NametagHandler;
@@ -64,9 +63,9 @@ public class BBU extends JavaPlugin {
     @Getter
     private CageController cageController;
 
-    //command stuff
-    @Getter
-    private CommandFramework commandFramework;
+//    //command stuff
+//    @Getter
+//    private CommandFramework commandFramework;
 
     //game stuff & scoreboard 'controller'
     @Getter
@@ -119,8 +118,8 @@ public class BBU extends JavaPlugin {
         }
 
         //initialise command framework
-        Bukkit.getConsoleSender().sendMessage(CC.translate("&aInitialising command framework..."));
-        commandFramework = new CommandFramework(this);
+//        Bukkit.getConsoleSender().sendMessage(CC.translate("&aInitialising command framework..."));
+//        commandFramework = new CommandFramework(this);
 
         //initialise controllers
         Bukkit.getConsoleSender().sendMessage(CC.translate("&aInitialising controllers..."));
@@ -204,10 +203,10 @@ public class BBU extends JavaPlugin {
      * Sets up all the commands with the command framework
      */
     private void registerCommands() {
-        Command.registerCommands( //GAME STUFF
-                GameCommand.class,
-                TrackPositionCommand.class,
-                TeamPosCommand.class
+        CommandManager.INSTANCE.registerCommands(
+                GameCommandKt.getGameCommand(),
+                TrackPositionCommandKt.getTrackPositionCommand(),
+                TeamPosCommandKt.getTeamPosCommand()
         );
     }
 
@@ -215,7 +214,7 @@ public class BBU extends JavaPlugin {
      * Sets up all the teams according to the {@link me.imoltres.bbu.data.BBUTeamColour} class
      */
     private void setupTeams() {
-        for (BBUTeamColour colour : BBUTeamColour.values()) {
+        for (BBUTeamColour colour : BBUTeamColour.getEntries()) {
             Bukkit.getConsoleSender().sendMessage(
                     CC.translate(
                             "&aTeam '&" + colour.getChatColor().getChar() + colour.name() + "&a' created " +
@@ -245,7 +244,7 @@ public class BBU extends JavaPlugin {
 
     /**
      * Write the default schematic(s)
-     * 
+     *
      * - cage.schem
      */
     private void writeDefaultSchems() {

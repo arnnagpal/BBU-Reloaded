@@ -1,50 +1,174 @@
-package me.imoltres.bbu.utils.command;
+package me.imoltres.bbu.utils.command
 
-import me.imoltres.bbu.BBU;
-import me.imoltres.bbu.utils.CC;
-import org.bukkit.Bukkit;
+import com.mojang.brigadier.builder.ArgumentBuilder
+import com.mojang.brigadier.builder.LiteralArgumentBuilder
+import com.mojang.brigadier.context.CommandContext
+import io.papermc.paper.command.brigadier.CommandSourceStack
+import io.papermc.paper.command.brigadier.Commands
+import me.imoltres.bbu.utils.CC
+import me.imoltres.bbu.utils.command.condition.CommandCondition
+import me.imoltres.bbu.utils.command.condition.Conditions
+import net.kyori.adventure.text.TextComponent
+import org.bukkit.command.CommandSender
 
-import java.util.List;
+inline val NO_PERMISSION_MESSAGE: TextComponent
+    get() = CC.translate("&cYou do not have permission to execute this command.")
 
-/**
- * Represents a plugin.yml-less command
- */
-public interface Command {
+// kotstom https://github.com/oglassdev/KotStom/blob/55917769ba8370b27749124602106c5d3b65b6ac/src/main/kotlin/net/bladehunt/kotstom/dsl/kommand/Kommand.kt
+
+internal typealias SingleCommandExecutor = CommandExecutorContext.(CommandSender) -> Unit
+internal typealias CommandExecutor = CommandExecutorContext.(CommandSender, CommandContext<CommandSourceStack>) -> Unit
+
+@DslMarker
+@Target(AnnotationTarget.FUNCTION, AnnotationTarget.TYPE, AnnotationTarget.CLASS)
+annotation class CommandDSL
+
+@CommandDSL
+class Command {
+    val name: String
+    var requirement: CommandCondition?
+
+    constructor(name: String, vararg aliases: String, requirement: CommandCondition? = null) {
+        this.name = name
+        this.requirement = requirement
+        this.root = Commands.literal(name)
+        this.aliases = aliases.toList()
+    }
+
+    val root: LiteralArgumentBuilder<CommandSourceStack>
+    internal var aliases: List<String>
+    internal var description: String = ""
+
+    fun description(description: String) {
+        this.description = description
+    }
+
+    fun aliases(vararg aliases: String) {
+        this.aliases += aliases.toList()
+    }
+
+    // pred
+    /**
+     * Adds a requirement to the command syntax that only allows players to execute the command.
+     *
+     * This is a shorthand for `requires(Conditions.playerOnly)`.
+     */
+    fun onlyPlayers() {
+        requires(CommandCondition(Conditions::playerOnly))
+    }
+
 
     /**
-     * Register multiple commands at once by passing in their classes
+     * Adds a requirement to the command syntax that only allows the console to execute the command.
      *
-     * @param classes list of classes
+     * This is a shorthand for `requires(Conditions.consoleOnly)`.
      */
-    @SafeVarargs
-    static void registerCommands(Class<? extends Command>... classes) {
-        CommandFramework framework = BBU.getInstance().getCommandFramework();
-        framework.registerCommands(classes);
-
-        for (Class<? extends Command> c : classes)
-            Bukkit.getConsoleSender().sendMessage(CC.translate("&aRegistered command '&c" + c.getSimpleName() + "&a'"));
+    fun onlyConsole() {
+        requires(CommandCondition(Conditions::consoleOnly))
     }
 
     /**
-     * Called when the command has been executed by a sender
+     * Adds a requirement to the command syntax that only allows senders with the specified permission to execute the command.
      *
-     * @param cmd arguments of the command
+     * This is a shorthand for `requires(Conditions.permission(permission))`.
      */
-    void execute(CommandArgs cmd);
+    fun permission(permission: String) {
+        requires(Conditions.permission(permission))
+    }
 
     /**
-     * Returns a list of any {@link me.imoltres.bbu.utils.command.SubCommand} that are linked to this command.
+     * Adds a requirement to the command syntax.
+     * If a requirement already exists, the new requirement will be combined with the existing one using a logical AND.
      *
-     * @return
+     * @param predicate The condition that must be met for the command to be executed.
      */
-    List<SubCommand> subCommands();
+    fun requires(predicate: CommandCondition) {
+        requirement = if (requirement != null) {
+            Conditions.all(requirement!!, predicate)
+        } else predicate
+    }
 
-    /**
-     * Returns a list of tab completions when requested by the command
-     *
-     * @param cmd arguments of the tab completion
-     * @return a list of possible completions
-     */
-    List<String> tabCompleter(CommandArgs cmd);
+    @CommandDSL
+    inline fun defaultExecutor(
+        crossinline block: @CommandDSL CommandExecutor
+    ) {
+        val pred = requirement
+        root.executes { context ->
+            val sender = context.source.sender
+            if (pred == null || pred.canUse(sender, context.command)) {
+                CommandExecutorContext(context).block(sender, context)
+            } else {
+                sender.sendMessage(NO_PERMISSION_MESSAGE)
+            }
 
+            1 // Return a success code
+        }
+    }
+
+    @CommandDSL
+    inline fun defaultExecutor(crossinline block: @CommandDSL SingleCommandExecutor) {
+        val pred = requirement
+        root.executes { context ->
+            val sender = context.source.sender
+            if (pred == null || pred.canUse(sender, context.command)) {
+                CommandExecutorContext(context).block(sender)
+            } else {
+                sender.sendMessage(NO_PERMISSION_MESSAGE)
+            }
+
+            1 // Return a success code
+        }
+    }
+
+    @CommandDSL
+    inline fun subcommand(
+        name: String,
+        vararg aliases: String,
+        block: @CommandDSL Command.() -> Unit
+    ) {
+        val child = Command(name, *aliases).apply(block).also {
+            root.then(it.root)
+        }
+    }
+
+    @CommandDSL
+    fun subcommand(
+        vararg child: Command
+    ) {
+        for (c in child) {
+            root.then(c.root)
+        }
+    }
+
+    @CommandDSL
+    inline fun buildSyntax(
+        vararg args: CommandNode,
+        crossinline block: @CommandDSL CommandSyntaxDSL.() -> Unit
+    ) {
+        if (args.isEmpty()) {
+            return
+        }
+
+        // Build the argument chain
+        val nodes = args.map { node ->
+            when (node) {
+                is CommandNode.Literal -> Commands.literal(node.literal)
+                is CommandNode.Argument<*> -> Commands.argument(node.argument.id, node.argument.type)
+            }
+        }
+
+        val syntax = CommandSyntaxDSL(nodes.last()) // last bc inner -> outer
+        syntax.block()
+
+        // good god i have no clue what this means
+        // * magic *
+        val chain = nodes.dropLast(1).foldRight(nodes.last() as ArgumentBuilder<CommandSourceStack, *>) { node, acc ->
+            node.then(acc)
+            node
+        }
+
+        root.then(chain)
+    }
 }
+
+

@@ -28,16 +28,14 @@ class BBUPlayer(val uniqueId: UUID, val name: String) {
     @Transient
     var player: Player? = null
         get() {
-            if (field == null) {
-                if (Bukkit.getPlayer(uniqueId) == null) {
-                    System.out.printf("'%s' is offline, can't retrieve bukkit player.\n", name)
-                    return null
-                }
-                field = Bukkit.getPlayer(uniqueId)
+            val bukkitPlayer = Bukkit.getPlayer(uniqueId)
+            if (field == null && bukkitPlayer == null) {
+                System.out.printf("'%s' is offline, can't retrieve bukkit player.\n", name)
+                return null
             }
-            return field
+
+            return bukkitPlayer
         }
-        private set
 
     var eliminated = false
     var switchingSpectator = false

@@ -175,6 +175,15 @@ class CageController(private val plugin: BBU) {
         })
     }
 
+    fun deleteCage(team: BBUTeam, world: World) {
+        team.cage?.cuboid?.forEach { position ->
+            val worldPos = position.toWorldPosition(world.name)
+            Bukkit.getScheduler().runTask(plugin, Runnable {
+                worldPos.block.type = Material.AIR
+            })
+        }
+    }
+
     /**
      * Delete all the cages in a world
      * @param world world
@@ -276,7 +285,7 @@ class CageController(private val plugin: BBU) {
         world: World,
         exclusions: List<WorldPosition>,
         range: Int
-    ): WorldPosition = scope.async {
+    ): WorldPosition = withContext(Dispatchers.IO) {
         var worldPos = getRandomWorldPosition(world)
 
         Bukkit.getConsoleSender()
@@ -287,6 +296,6 @@ class CageController(private val plugin: BBU) {
             }
         }
 
-        return@async worldPos
-    }.await()
+        worldPos
+    }
 }

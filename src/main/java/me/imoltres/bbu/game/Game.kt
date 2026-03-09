@@ -16,6 +16,7 @@ import org.bukkit.*
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Firework
 import org.bukkit.generator.structure.StructureType
+import org.bukkit.scheduler.BukkitRunnable
 import java.util.concurrent.ExecutionException
 
 
@@ -120,40 +121,66 @@ class Game {
         for (world in worlds) {
             if (world == spawnWorld) continue
 
-            world.setGameRule(GameRule.DO_WEATHER_CYCLE, true)
-            world.setGameRule(GameRule.DO_MOB_SPAWNING, true)
+            world.setGameRule(GameRules.ADVANCE_WEATHER, true)
+            world.setGameRule(GameRules.SPAWN_MOBS, true)
         }
 
-        Thread {
-            for (team in BBU.getInstance().teamController.teamsWithCages) {
-                for (player in team.players) {
-                    player.preventMovement()
-                    Bukkit.getScheduler().runTaskLater(
-                        BBU.getInstance(),
-                        Runnable {
-                            team.cage?.spawnPosition?.toBukkitLocation()?.let {
-                                println(it)
-                                it.chunk.load()
+        object : BukkitRunnable() {
+            var count = 0
+            var index = 0
 
-                                player.player?.teleport(it)
-                                Bukkit.getScheduler().runTaskLater(
-                                    BBU.getInstance(), Runnable {
-                                        player.allowMovement()
-                                    }, 20L
-                                )
-                            }
-                        },
-                        20L
-                    )
-                    sender?.sendMessage(CC.translate("&7${player.getRawDisplayName()} &ahas been put in a cage."))
-                    Thread.sleep(750)
-                }
-                team.distributeItems()
+            val teamsList = BBU.getInstance().teamController.teamsWithCages.flatMap { team ->
+                team.players.map { player -> Pair(team, player) }
             }
 
-            gameState = GameState.PRE_GAME
-            sender?.sendMessage(CC.translate("&aAll players (with a cage) are in a cage."))
-        }.start()
+            val playersTeleportedByTeam = mutableMapOf<BBUTeam, Int>()
+
+            override fun run() {
+                if (index >= teamsList.size) {
+                    cancel()
+                    gameState = GameState.PRE_GAME
+                    sender?.sendMessage(CC.translate("&aAll players (with a cage) are in a cage."))
+                    return
+                }
+
+                val (team, player) = teamsList[index++]
+                var playersTeleported = playersTeleportedByTeam.getOrDefault(team, 0)
+                val location = team.cage?.spawnPosition?.toBukkitLocation()
+                if (location != null) {
+                    location.chunk.load()
+                } else {
+                    println("Unable to load chunk for team ${team.colour.name} because the spawn position is null.")
+                    return // skip this player, they won't be put in a cage but at least the rest of the game can continue
+                }
+
+                player.preventMovement()
+
+                Bukkit.getScheduler().runTaskLater(
+                    BBU.getInstance(),
+                    Runnable {
+                        player.player?.teleport(location)
+                        sender?.sendMessage(CC.translate("&7${player.getRawDisplayName()} &ahas been put in a cage."))
+
+                        // update counter
+                        playersTeleported += 1
+                        playersTeleportedByTeam[team] = playersTeleported
+
+                        Bukkit.getScheduler().runTaskLater(
+                            BBU.getInstance(), Runnable {
+                                player.allowMovement()
+
+                                // check if all players of the team have been put in cages, if so, distribute their items
+                                if (playersTeleported >= team.players.size) {
+                                    team.distributeItems()
+                                }
+                            }, 20L
+                        )
+                    },
+                    20L
+                )
+            }
+
+        }.runTaskTimer(BBU.getInstance(), 0L, 20L);
     }
 
     /**

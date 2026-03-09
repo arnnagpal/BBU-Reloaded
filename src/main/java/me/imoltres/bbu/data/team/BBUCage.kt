@@ -14,6 +14,8 @@ class BBUCage(
 
     val spawnPosition: WorldPosition = spawnPosition
 
+    val delete
+
     override fun toString(): String {
         return "BBUCage {team=" + team.colour.name + ", cuboid=" + cuboid.toString() + ", spawnPos=" + spawnPosition.toString() + "}"
     }

@@ -164,13 +164,13 @@ class BBUTeam(val colour: BBUTeamColor) {
         if (players.isEmpty())
             return
 
-        val players = this.players.toList()
+        val players = this.players.toMutableList()
         val random = ThreadLocalRandom.current()
 
         var randInt = random.nextInt(players.size)
         var player = players[randInt]
         while (player.player == null) {
-            players.drop(randInt)
+            players.removeAt(randInt)
 
             randInt = random.nextInt(players.size)
             player = players[randInt]
@@ -211,10 +211,6 @@ class BBUTeam(val colour: BBUTeamColor) {
     }
 
     override fun hashCode(): Int {
-        var result = colour.hashCode()
-        result = 31 * result + (cage?.hashCode() ?: 0)
-        result = 31 * result + players.hashCode()
-        result = 31 * result + (beacon?.hashCode() ?: 0)
-        return result
+        return colour.hashCode()
     }
 }

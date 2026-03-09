@@ -24,7 +24,12 @@ class RespawnListener : Listener {
 
 
         if (team!!.hasBeacon()) {
-            bukkitPlayer.teleport(team.beacon!!.toWorldPosition("world").toBukkitLocation().add(0.5, 0.5, 0.5))
+            bukkitPlayer.teleport(
+                team.beacon!!
+                    .toWorldPosition(BBU.getInstance().game.overworld.name)
+                    .toBukkitLocation()
+                    .add(0.5, 0.5, 0.5)
+            )
         } else {
             bukkitPlayer.teleport(team.cage!!.spawnPosition.toBukkitLocation())
         }

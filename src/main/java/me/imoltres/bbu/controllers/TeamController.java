@@ -6,7 +6,9 @@ import me.imoltres.bbu.BBU;
 import me.imoltres.bbu.data.BBUTeamColor;
 import me.imoltres.bbu.data.player.BBUPlayer;
 import me.imoltres.bbu.data.team.BBUTeam;
+import me.imoltres.bbu.utils.CC;
 import me.imoltres.bbu.utils.world.WorldPosition;
+import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
@@ -25,6 +27,20 @@ public class TeamController {
     private final List<BBUTeam> teams = new ArrayList<>();
 
     /**
+     * Sets up all the teams according to the {@link me.imoltres.bbu.data.BBUTeamColor} class
+     */
+    public void setupTeams() {
+        for (BBUTeamColor colour : BBUTeamColor.getEntries()) {
+            Bukkit.getConsoleSender().sendMessage(
+                    CC.translate(
+                            "&aTeam '&" + colour.getChatColor().getChar() + colour.name() + "&a' created " +
+                                    ((createTeam(colour)) ? "successfully" : "&cunsuccessfully")
+                    )
+            );
+        }
+    }
+
+    /**
      * Create a team and cache it
      *
      * @param colour colour of the team
@@ -41,7 +57,7 @@ public class TeamController {
      * @return if it was successful
      */
     public boolean deleteTeam(BBUTeamColor colour) {
-        return teams.remove(getTeam(colour));
+        return deleteTeam(getTeam(colour));
     }
 
     /**
@@ -51,6 +67,25 @@ public class TeamController {
      * @return if it was successful
      */
     public boolean deleteTeam(BBUTeam team) {
+        for (BBUPlayer player : team.getPlayers()) {
+            player.setTeam(null);
+        }
+
+        // delete the cage if it exists
+        if (team.getCage() != null) {
+            BBU.getInstance().getCageController().deleteCage(team, BBU.getInstance().getGame().getOverworld());
+            team.setCage(null);
+        }
+
+        // delete the beacon if it exists
+        if (team.getBeacon() != null) {
+            // get beacon block
+            Block beaconBlock = team.getBeacon().toWorldPosition(BBU.getInstance().getGame().getOverworld().getName()).getBlock();
+            beaconBlock.setType(org.bukkit.Material.AIR);
+
+            team.setBeacon(null);
+        }
+
         return teams.remove(team);
     }
 
@@ -111,8 +146,11 @@ public class TeamController {
 
     public void clearTeams() {
         for (BBUTeam team : teams) {
-            team.getPlayers().clear();
+            deleteTeam(team);
         }
+
+        // setup teams again
+        setupTeams();
     }
 
     /**

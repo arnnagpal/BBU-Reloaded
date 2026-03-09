@@ -19,8 +19,6 @@ public class SchematicParser {
     public static HashMap<Position, Material> parseSchematic(com.viaversion.nbt.tag.CompoundTag schematic) {
         HashMap<Integer, Material> palette = new HashMap<>();
 
-        System.out.println(schematic.asRawString());
-
         CompoundTag paletteTag = schematic.getCompoundTag("Palette");
         if (paletteTag != null) {
             parsePalette(palette, paletteTag);
@@ -46,8 +44,6 @@ public class SchematicParser {
             int y = i / (length * width);
             int z = (i / width) % length;
 
-            System.out.println("Material: " + mat + " X: " + x + " Y: " + y + " Z: " + z);
-
             output.put(new Position(x, y, z), mat);
 
             i++;
@@ -65,8 +61,6 @@ public class SchematicParser {
 
             IntTag id = paletteTag.getIntTag(matStr);
             palette.put(id.getValue(), mat);
-
-            System.out.println("Material: " + mat + " ID: " + id.getValue());
         }
     }
 }

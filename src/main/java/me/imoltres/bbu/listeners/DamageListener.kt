@@ -57,8 +57,9 @@ class DamageListener : Listener {
         }
 
         val bbuDamager: BBUPlayer? = BBU.getInstance().playerController.getPlayer(damager.uniqueId)
+        val gameState = BBU.getInstance().game.gameState
 
-        //if pvp is disabled, cancel the damage
+        // if no friendly fire, cancel the damage if both the people are on the same team
         if (!MainConfig.FRIENDLY_FIRE) {
             val damagedTeam: BBUTeam? = BBU.getInstance().teamController.getTeam(damaged)
             val damagerTeam = bbuDamager!!.team
@@ -67,7 +68,8 @@ class DamageListener : Listener {
             }
         }
 
-        e.isCancelled = !BBU.getInstance().game.gameState.isPvp()
+        //if pvp is disabled, cancel the damage
+        if (!gameState.isPvp()) e.isCancelled = true
 
         if (e.isCancelled && e.damager is Arrow && bbuDamager != null)
             bbuDamager.giveItemSafely(

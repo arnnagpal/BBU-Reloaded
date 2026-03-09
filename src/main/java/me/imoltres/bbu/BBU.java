@@ -7,7 +7,6 @@ import me.imoltres.bbu.commands.team.TeamPosCommandKt;
 import me.imoltres.bbu.controllers.CageController;
 import me.imoltres.bbu.controllers.PlayerController;
 import me.imoltres.bbu.controllers.TeamController;
-import me.imoltres.bbu.data.BBUTeamColor;
 import me.imoltres.bbu.game.Game;
 import me.imoltres.bbu.game.ShrinkPhase;
 import me.imoltres.bbu.listeners.*;
@@ -154,7 +153,7 @@ public class BBU extends JavaPlugin {
 
         //team setup
         Bukkit.getConsoleSender().sendMessage(CC.translate("&aSetting up teams..."));
-        setupTeams();
+        teamController.setupTeams();
 
         //register listeners
         Bukkit.getConsoleSender().sendMessage(CC.translate("&aRegistering listeners..."));
@@ -224,19 +223,6 @@ public class BBU extends JavaPlugin {
         );
     }
 
-    /**
-     * Sets up all the teams according to the {@link me.imoltres.bbu.data.BBUTeamColor} class
-     */
-    private void setupTeams() {
-        for (BBUTeamColor colour : BBUTeamColor.getEntries()) {
-            Bukkit.getConsoleSender().sendMessage(
-                    CC.translate(
-                            "&aTeam '&" + colour.getChatColor().getChar() + colour.name() + "&a' created " +
-                                    ((teamController.createTeam(colour)) ? "successfully" : "&cunsuccessfully")
-                    )
-            );
-        }
-    }
 
     /**
      * Sets up all the listeners

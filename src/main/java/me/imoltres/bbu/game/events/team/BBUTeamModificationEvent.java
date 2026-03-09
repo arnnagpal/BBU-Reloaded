@@ -49,7 +49,7 @@ public class BBUTeamModificationEvent extends BBUTeamEvent implements Cancellabl
 
         ASSIGN_BEACON,
 
-        ASSIGN_CAGE
+        ASSIGN_CAGE,
     }
 
 }

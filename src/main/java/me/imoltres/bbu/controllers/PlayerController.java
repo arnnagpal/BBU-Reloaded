@@ -52,7 +52,7 @@ public class PlayerController {
         //then check with bukkit
         //check inside user-cache last
         String name = players.stream()
-                .filter(bbuPlayer -> bbuPlayer.getUniqueId() == uniqueId)
+                .filter(bbuPlayer -> bbuPlayer.getUniqueId().equals(uniqueId))
                 .map(BBUPlayer::getName)
                 .findFirst()
                 .orElse(null);

@@ -4,6 +4,7 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
+import io.papermc.paper.math.FinePosition;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import me.imoltres.bbu.utils.CC;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -82,6 +84,10 @@ public class WorldPosition extends Position {
         return new WorldPosition(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch(), location.getWorld().getName());
     }
 
+    public static WorldPosition fromFinePosition(FinePosition location, World world) {
+        return new WorldPosition(location.x(), location.y(), location.z(), world.getName());
+    }
+
     public boolean isSafe(int width, int height) {
         Cuboid cuboid = new Cuboid(new Position(
                 getX() - width,
@@ -114,7 +120,7 @@ public class WorldPosition extends Position {
 
                 //check biome too!
                 if (BAD_BIOMES.contains(feet.getBiome())) {
-                    Bukkit.getConsoleSender().sendMessage(CC.translate("&c[DEBUG] BLOCK IS IN BAD BIOME: &7" + feet.getBiome().name()));
+                    Bukkit.getConsoleSender().sendMessage(CC.translate("&c[DEBUG] BLOCK IS IN BAD BIOME: &7" + feet.getBiome().translationKey()));
                     return false;
                 }
             } catch (Exception e) {
@@ -185,7 +191,7 @@ public class WorldPosition extends Position {
             out.value(value.getY());
             out.value(value.getZ());
             out.value(value.getPitch());
-            out.value(value.getY());
+            out.value(value.getYaw());
             out.value(value.getWorld());
             out.endArray();
         }

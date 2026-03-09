@@ -2,20 +2,14 @@ package me.imoltres.bbu.commands.team
 
 import me.imoltres.bbu.BBU
 import me.imoltres.bbu.utils.CC
-import me.imoltres.bbu.utils.command.CommandArgs
-import me.imoltres.bbu.utils.command.CommandInfo
-import me.imoltres.bbu.utils.command.SubCommand
-import org.bukkit.entity.Player
+import me.imoltres.bbu.utils.command.command
 
-
-@CommandInfo(
-    name = "bbu.teams",
-    permission = "bbu.command.teams"
-)
-class TeamsCommand : SubCommand {
-
-    override fun execute(cmd: CommandArgs) {
-        val sender = cmd.getSender<Player>()
+val TeamsCommand = command(
+    "teams",
+    "listteams"
+) {
+    permission("bbu.command.teams")
+    defaultExecutor { sender ->
         sender.sendMessage(CC.translate("&3Teams:"))
 
         for (team in BBU.getInstance().teamController.allTeams) {
@@ -36,4 +30,12 @@ class TeamsCommand : SubCommand {
         }
     }
 
+    subcommand("clear") {
+        permission("bbu.command.teams.clear")
+        defaultExecutor { sender ->
+            BBU.getInstance().teamController.clearTeams()
+
+            sender.sendMessage(CC.translate("&aDone clearing teams!"))
+        }
+    }
 }

@@ -1,71 +1,62 @@
 package me.imoltres.bbu.commands.player
 
+import com.mojang.brigadier.arguments.ArgumentType
 import me.imoltres.bbu.BBU
-import me.imoltres.bbu.data.BBUTeamColor
-import me.imoltres.bbu.data.player.BBUPlayer
+import me.imoltres.bbu.data.BBUTeamColour
+import me.imoltres.bbu.data.TeamArgumentType
 import me.imoltres.bbu.utils.CC
-import me.imoltres.bbu.utils.command.CommandArgs
-import me.imoltres.bbu.utils.command.CommandInfo
-import me.imoltres.bbu.utils.command.SubCommand
-import org.bukkit.entity.Player
+import me.imoltres.bbu.utils.command.argument
+import me.imoltres.bbu.utils.command.argumentPlayer
+import me.imoltres.bbu.utils.command.command
+import me.imoltres.bbu.utils.command.literal
 
 
-@CommandInfo(
-    name = "bbu.player",
-    permission = "bbu.command.player"
-)
-class PlayerCommands : SubCommand {
+val PlayerCommands = command(
+    "player",
+    "p"
+) {
+    val playerArg = argumentPlayer("player")
+    permission("bbu.command.player")
 
-    override fun execute(cmd: CommandArgs) {
-        val sender = cmd.getSender<Player>()
-        val args = cmd.arguments
+    buildSyntax(playerArg, literal("eliminate")) {
+        permission("bbu.command.player.eliminate")
+        executor { sender, ctx ->
+            val player = playerArg().resolve(ctx.source).first()
 
-        if (args.size < 2) {
-            sender.sendMessage(CC.translate("&cSpecify a player."))
-            return
+            val bbuPlayer = BBU.getInstance().playerController.getPlayer(player.uniqueId)
+
+            player.health = 0.0
+            bbuPlayer.eliminate(player.location)
+
+            sender.sendMessage(CC.translate("&aEliminated player " + bbuPlayer.getRawDisplayName() + "!"))
         }
-
-        val player: BBUPlayer
-        try {
-            player = BBU.getInstance().playerController.getPlayer(args[0])
-        } catch (e: Exception) {
-            sender.sendMessage(CC.translate("&cSpecify a *valid* player."))
-            return
-        }
-        val type = args[1].lowercase()
-
-        when (type) {
-            "eliminate" -> {
-                // kill player
-                player.player?.let { player.player?.health = 0.0 }
-                player.player?.let { player.eliminate(it.location) }
-            }
-
-            "jointeam" -> {
-                if (args.size < 3) {
-                    sender.sendMessage(CC.translate("&cSpecify a team."))
-                    return
-                }
-
-                val colour: BBUTeamColor
-                try {
-                    colour = BBUTeamColor.valueOf(args[2].uppercase())
-                } catch (e: Exception) {
-                    sender.sendMessage(CC.translate("&cSpecify a *valid* team."))
-                    return
-                }
-                val team = BBU.getInstance().teamController.getTeam(colour)
-                team.addPlayer(player)
-                sender.sendMessage(CC.translate("&aAdded '" + player.getRawDisplayName() + "&a' to team '" + team.getRawDisplayName() + "&a'"))
-            }
-
-            "leaveteam" -> {
-                val team = player?.team
-                team?.removePlayer(player)
-                sender.sendMessage(CC.translate("&aRemoved '" + player.getRawDisplayName() + "&a' from team '" + team?.getRawDisplayName() + "&a'"))
-            }
-        }
-
     }
 
+    val teamArg = argument("team", TeamArgumentType() as ArgumentType<BBUTeamColour>)
+    buildSyntax(playerArg, literal("jointeam"), teamArg) {
+        permission("bbu.command.player.jointeam")
+        executor { sender, ctx ->
+            val player = playerArg().resolve(ctx.source).first()
+            val colour = ctx.getArgument("team", BBUTeamColour::class.java)
+
+            val bbuPlayer = BBU.getInstance().playerController.getPlayer(player.uniqueId)
+            val team = BBU.getInstance().teamController.getTeam(colour)
+
+            team.addPlayer(bbuPlayer)
+            sender.sendMessage(CC.translate("&aAdded '" + bbuPlayer.getRawDisplayName() + "&a' to team '" + team.getRawDisplayName() + "&a'"))
+        }
+    }
+
+    buildSyntax(playerArg, literal("leaveteam")) {
+        permission("bbu.command.player.leaveteam")
+        executor { sender, ctx ->
+            val player = playerArg().resolve(ctx.source).first()
+
+            val bbuPlayer = BBU.getInstance().playerController.getPlayer(player.uniqueId)
+            val team = bbuPlayer.team
+
+            team?.removePlayer(bbuPlayer)
+            sender.sendMessage(CC.translate("&aRemoved '" + bbuPlayer.getRawDisplayName() + "&a' from team '" + team?.getRawDisplayName() + "&a'"))
+        }
+    }
 }

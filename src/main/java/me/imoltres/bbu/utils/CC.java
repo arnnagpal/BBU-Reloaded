@@ -4,6 +4,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.ChatColor;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +55,7 @@ public class CC {
      * @param in Original legacy colour coded string
      * @return A text component using the new kyori adventure text library
      */
+    @NotNull
     public static TextComponent translate(String in) {
         return LegacyComponentSerializer.legacy('&').deserialize(in);
     }

@@ -28,7 +28,7 @@ public class GameStartThread extends Thread {
 
             if (time > 0) {
                 for (Player player : Bukkit.getOnlinePlayers()) {
-                    player.showTitle(Title.title(CC.translate("&c&l" + time), CC.translate(""), Title.Times.of(Duration.ofMillis(500), Duration.ofSeconds(1), Duration.ofMillis(500))));
+                    player.showTitle(Title.title(CC.translate("&c&l" + time), CC.translate(""), Title.Times.times(Duration.ofMillis(500), Duration.ofSeconds(1), Duration.ofMillis(500))));
                     player.playSound(player.getLocation(), Sound.BLOCK_LEVER_CLICK, 1, 1);
                 }
             } else {
@@ -43,7 +43,7 @@ public class GameStartThread extends Thread {
 
                 Bukkit.getScheduler().runTask(BBU.getInstance(), () -> {
                     for (World world : BBU.getInstance().getGame().getWorlds()) {
-                        world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
+                        world.setGameRule(GameRules.ADVANCE_TIME, true);
                     }
                 });
 

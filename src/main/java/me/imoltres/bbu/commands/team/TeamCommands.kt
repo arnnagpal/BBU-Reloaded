@@ -1,54 +1,46 @@
 package me.imoltres.bbu.commands.team
 
+import com.mojang.brigadier.arguments.ArgumentType
 import me.imoltres.bbu.BBU
-import me.imoltres.bbu.data.BBUTeamColor
+import me.imoltres.bbu.data.BBUTeamColour
+import me.imoltres.bbu.data.TeamArgumentType
 import me.imoltres.bbu.utils.CC
-import me.imoltres.bbu.utils.command.CommandArgs
-import me.imoltres.bbu.utils.command.CommandInfo
-import me.imoltres.bbu.utils.command.SubCommand
-import org.bukkit.entity.Player
+import me.imoltres.bbu.utils.command.argument
+import me.imoltres.bbu.utils.command.argumentBoolean
+import me.imoltres.bbu.utils.command.command
+import me.imoltres.bbu.utils.command.literal
 
 
-@CommandInfo(
-    name = "bbu.team",
-    permission = "bbu.command.team"
-)
-class TeamCommands : SubCommand {
+val TeamCommands = command(
+    "team",
+) {
+    val teamArg = argument("team", TeamArgumentType() as ArgumentType<BBUTeamColour>)
+    val eliminatePlayers = argumentBoolean("players")
 
-    override fun execute(cmd: CommandArgs) {
-        val sender = cmd.getSender<Player>()
-        val args = cmd.arguments
+    permission("bbu.command.team")
 
-        if (args.size < 2) {
-            sender.sendMessage(CC.translate("&cSpecify a team."))
-            return
+    buildSyntax(teamArg, literal("eliminate")) {
+        permission("bbu.command.team.eliminate")
+
+        executor { sender ->
+            val team = BBU.getInstance().teamController.getTeam(teamArg<BBUTeamColour>())
+
+            team.eliminate(false)
+            sender.sendMessage(CC.translate("&aEliminated team " + team.getRawDisplayName() + "!"))
+
         }
-
-        val colour: BBUTeamColor
-        try {
-            colour = BBUTeamColor.valueOf(args[0].uppercase())
-        } catch (e: Exception) {
-            sender.sendMessage(CC.translate("&cSpecify a *valid* team."))
-            return
-        }
-        val team = BBU.getInstance().teamController.getTeam(colour)
-        val type = args[1].lowercase()
-
-        when (type) {
-            "eliminate" -> {
-                var players = false
-                if (args.size == 3) {
-                    try {
-                        players = args[2].toBoolean()
-                    } catch (e: Exception) {
-                        sender.sendMessage(CC.translate("&cUse a valid boolean type (true / false)"))
-                    }
-                }
-
-                team.eliminate(players)
-            }
-        }
-
     }
 
+    buildSyntax(teamArg, literal("eliminate"), eliminatePlayers) {
+        permission("bbu.command.team.eliminate")
+
+        executor { sender ->
+            val team = BBU.getInstance().teamController.getTeam(teamArg<BBUTeamColour>())
+            val elimPlayers = eliminatePlayers<Boolean>()
+
+            team.eliminate(elimPlayers)
+
+            sender.sendMessage(CC.translate("&aEliminated team " + team.getRawDisplayName() + (if (elimPlayers) " and their players" else "") + "!"))
+        }
+    }
 }

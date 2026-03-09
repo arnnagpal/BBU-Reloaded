@@ -18,7 +18,6 @@ val BuildModeCommand = command(
         val bbuPlayer = BBU.getInstance().playerController.getPlayer(player.uniqueId)
         bbuPlayer.build = !bbuPlayer.build
         player.sendMessage(CC.translate("&7Build mode is now ${if (bbuPlayer.build) "&aenabled" else "&cdisabled"}&7."))
-        bbuPlayer.build = !bbuPlayer.build
 
         if (bbuPlayer.build) {
             player.isFlying = true

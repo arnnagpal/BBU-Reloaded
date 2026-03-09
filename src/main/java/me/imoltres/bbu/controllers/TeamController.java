@@ -134,17 +134,11 @@ public class TeamController {
      * @return immutable list of teams with cages already setup
      */
     public List<BBUTeam> getTeamsWithCages() {
-        List<BBUTeam> teams = new ArrayList<>();
-        for (BBUTeam team : getAllTeams()) {
-            if (team.getCage() != null) {
-                teams.add(team);
-            }
-        }
-
-        return ImmutableList.copyOf(teams);
+        return teams.stream().filter(t -> t.getCage() != null).collect(ImmutableList.toImmutableList());
     }
 
     public void clearTeams() {
+        var teams = new ArrayList<>(this.teams);
         for (BBUTeam team : teams) {
             deleteTeam(team);
         }

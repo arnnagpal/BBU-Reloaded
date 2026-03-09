@@ -62,10 +62,16 @@ class DamageListener : Listener {
         // if no friendly fire, cancel the damage if both the people are on the same team
         if (!MainConfig.FRIENDLY_FIRE) {
             val damagedTeam: BBUTeam? = BBU.getInstance().teamController.getTeam(damaged)
-            val damagerTeam = bbuDamager!!.team
-            if (damagedTeam === damagerTeam) {
-                e.isCancelled = true
+
+            // null check just in case, but it should never be null since the player is in the game
+            bbuDamager?.let {
+                val damagerTeam = it.team
+                if (damagedTeam === damagerTeam) {
+                    e.isCancelled = true
+                }
             }
+
+
         }
 
         //if pvp is disabled, cancel the damage

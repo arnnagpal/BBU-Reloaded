@@ -25,11 +25,10 @@ import kotlin.random.asKotlinRandom
  * Represents a custom player
  */
 class BBUPlayer(val uniqueId: UUID, val name: String) {
-    @Transient
-    var player: Player? = null
+    val player: Player?
         get() {
             val bukkitPlayer = Bukkit.getPlayer(uniqueId)
-            if (field == null && bukkitPlayer == null) {
+            if (bukkitPlayer == null) {
                 System.out.printf("'%s' is offline, can't retrieve bukkit player.\n", name)
                 return null
             }

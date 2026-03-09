@@ -290,12 +290,20 @@ class CageController(private val plugin: BBU) {
 
         Bukkit.getConsoleSender()
             .sendMessage(CC.translate("Checking position: ${worldPos.x}, ${worldPos.y}, ${worldPos.z}"))
-        for (p in exclusions) {
-            while (worldPos.distance(p) < range) {
-                worldPos = getRandomWorldPosition(world)
-            }
-        }
+
+        do {
+            worldPos = getRandomWorldPosition(world)
+        } while (exclusions.any { worldPos.distance(it) < range })
 
         worldPos
     }
+
+
+    /**
+     * Cancel all coroutines when the plugin is disabled
+     */
+    fun cleanup() {
+        scope.cancel()
+    }
+
 }

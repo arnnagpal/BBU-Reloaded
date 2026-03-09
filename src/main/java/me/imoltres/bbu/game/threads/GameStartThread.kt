@@ -1,66 +1,60 @@
-package me.imoltres.bbu.game.threads;
+package me.imoltres.bbu.game.threads
 
-import lombok.RequiredArgsConstructor;
-import me.imoltres.bbu.BBU;
-import me.imoltres.bbu.game.Game;
-import me.imoltres.bbu.utils.CC;
-import net.kyori.adventure.title.Title;
-import org.bukkit.*;
-import org.bukkit.entity.Player;
-
-import java.time.Duration;
+import me.imoltres.bbu.BBU
+import me.imoltres.bbu.game.Game
+import me.imoltres.bbu.utils.CC
+import net.kyori.adventure.title.Title
+import org.bukkit.Bukkit
+import org.bukkit.GameMode
+import org.bukkit.GameRules
+import org.bukkit.Sound
+import org.bukkit.scheduler.BukkitRunnable
+import java.time.Duration
 
 /**
- * Run before the {@link GameThread} thread, basically an async countdown
+ * Run before the [GameThread] thread, basically an async countdown
  */
-@RequiredArgsConstructor
-public class GameStartThread extends Thread {
+class GameStartThread(val game: Game) : BukkitRunnable() {
+    private var time = 3
 
-    private final Game game;
-    private int time = 3;
-
-    @Override
-    public void run() {
-        while (true) {
-            if (Thread.currentThread().isInterrupted()) {
-                return;
+    override fun run() {
+        if (time > 0) {
+            for (player in Bukkit.getOnlinePlayers()) {
+                player.showTitle(
+                    Title.title(
+                        CC.translate("&c&l$time"), CC.translate(""), Title.Times.times(
+                            Duration.ofMillis(500), Duration.ofSeconds(1), Duration.ofMillis(500)
+                        )
+                    )
+                )
+                player.playSound(player.location, Sound.BLOCK_LEVER_CLICK, 1f, 1f)
             }
 
-            if (time > 0) {
-                for (Player player : Bukkit.getOnlinePlayers()) {
-                    player.showTitle(Title.title(CC.translate("&c&l" + time), CC.translate(""), Title.Times.times(Duration.ofMillis(500), Duration.ofSeconds(1), Duration.ofMillis(500))));
-                    player.playSound(player.getLocation(), Sound.BLOCK_LEVER_CLICK, 1, 1);
-                }
-            } else {
-                for (Player player : Bukkit.getOnlinePlayers()) {
-                    Bukkit.getScheduler().runTask(BBU.getInstance(), () -> {
-                        player.setGameMode(GameMode.SURVIVAL);
-                    });
-
-                    player.showTitle(Title.title(CC.translate("&a&lGO!"), CC.translate("&7Good luck, have fun!"), Title.Times.of(Duration.ofMillis(500), Duration.ofSeconds(2), Duration.ofMillis(500))));
-                    player.playSound(player.getLocation(), Sound.BLOCK_PORTAL_TRAVEL, 0.25f, 1);
-                }
-
-                Bukkit.getScheduler().runTask(BBU.getInstance(), () -> {
-                    for (World world : BBU.getInstance().getGame().getWorlds()) {
-                        world.setGameRule(GameRules.ADVANCE_TIME, true);
-                    }
-                });
-
-                BBU.getInstance().getCageController().deleteCages(game.overworld);
-
-                game.getThread().runTaskTimer(BBU.getInstance(), 0L, 1L);
-                return;
-            }
-
-            time--;
-
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            time--
+            return
         }
-    }
 
+        for (player in Bukkit.getOnlinePlayers()) {
+            player.gameMode = GameMode.SURVIVAL
+
+            player.showTitle(
+                Title.title(
+                    CC.translate("&a&lGO!"), CC.translate("&7Good luck, have fun!"), Title.Times.times(
+                        Duration.ofMillis(500), Duration.ofSeconds(2), Duration.ofMillis(500)
+                    )
+                )
+            )
+            player.playSound(player.location, Sound.BLOCK_PORTAL_TRAVEL, 0.25f, 1f)
+        }
+
+        Bukkit.getScheduler().runTask(BBU.getInstance(), Runnable {
+            for (world in BBU.getInstance().game.worlds) {
+                world.setGameRule(GameRules.ADVANCE_TIME, true)
+            }
+        })
+
+        BBU.getInstance().cageController.deleteCages(game.overworld)
+
+        game.thread.runTaskTimer(BBU.getInstance(), 0L, 1L)
+    }
 }

@@ -171,6 +171,7 @@ class BBUTeam(val colour: BBUTeamColor) {
         var player = players[randInt]
         while (player.player == null) {
             players.removeAt(randInt)
+            if (players.isEmpty()) return // if no one is online to give the beacon to, just return
 
             randInt = random.nextInt(players.size)
             player = players[randInt]

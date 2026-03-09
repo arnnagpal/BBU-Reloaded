@@ -71,7 +71,7 @@ class Game {
         // reload the scoreboards
 
 
-        GameStartThread(this).start()
+        GameStartThread(this).runTaskTimer(BBU.getInstance(), 0L, 20L)
     }
 
     /**

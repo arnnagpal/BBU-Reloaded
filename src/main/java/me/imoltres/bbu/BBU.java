@@ -63,10 +63,6 @@ public class BBU extends JavaPlugin {
     @Getter
     private CageController cageController;
 
-//    //command stuff
-//    @Getter
-//    private CommandFramework commandFramework;
-
     //game stuff & scoreboard 'controller'
     @Getter
     private Game game;
@@ -130,10 +126,6 @@ public class BBU extends JavaPlugin {
             writeDefaultSchems();
         }
 
-        //initialise command framework
-//        Bukkit.getConsoleSender().sendMessage(CC.translate("&aInitialising command framework..."));
-//        commandFramework = new CommandFramework(this);
-
         //initialise controllers
         Bukkit.getConsoleSender().sendMessage(CC.translate("&aInitialising controllers..."));
         playerController = new PlayerController(this);
@@ -159,7 +151,7 @@ public class BBU extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(CC.translate("&aRegistering listeners..."));
         registerListeners();
 
-        //register commands with the commandframework
+        //register commands with the command manager
         Bukkit.getConsoleSender().sendMessage(CC.translate("&aRegistering commands..."));
         registerCommands();
 
@@ -177,6 +169,8 @@ public class BBU extends JavaPlugin {
     @Override
     public void onDisable() {
         joinable = false;
+
+        cageController.cleanup();
         nametagHandler.cleanup();
 
         Bukkit.getScheduler().cancelTasks(this);
@@ -237,6 +231,8 @@ public class BBU extends JavaPlugin {
         pluginManager.registerEvents(new JoinListener(), this);
         pluginManager.registerEvents(new NerfsListener(), this);
         pluginManager.registerEvents(new ChatListener(), this);
+        pluginManager.registerEvents(new RespawnListener(), this);
+        pluginManager.registerEvents(new WeatherListener(), this);
 
         //for menus
         pluginManager.registerEvents(new MenuListener(), this);

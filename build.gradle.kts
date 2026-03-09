@@ -8,7 +8,7 @@ val gsonVersion by extra("2.13.2")
 val coroutinesVersion by extra("1.10.2")
 val commonsLangVersion by extra("3.20.0")
 val bomVersion by extra("1.55")
-val faweVersion by extra("2.15.0")
+val nbtLibVersion by extra("5.0.0")
 
 val outputDir by extra(File(rootProject.projectDir, "dist"))
 val outputName by extra(rootProject.name + "-" + ver + ".jar")
@@ -36,6 +36,10 @@ repositories {
     maven {
         url = uri("https://repo.purpurmc.org/snapshots")
     }
+
+    maven {
+        url = uri("https://repo.viaversion.com")
+    }
 }
 
 dependencies {
@@ -43,14 +47,17 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
     implementation("org.apache.commons:commons-lang3:$commonsLangVersion")
 
-    compileOnly("org.purpurmc.purpur:dev-bundle:${spigotVersion}")
+    compileOnly("org.purpurmc.purpur:dev-bundle:$spigotVersion")
 //    compileOnly("org.purpurmc.purpur:purpur-api:${spigotVersion}")
 
-    implementation(platform("com.intellectualsites.bom:bom-newest:$bomVersion"))
-    compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Core:$faweVersion")
-    compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Bukkit:$faweVersion") {
-        isTransitive = false
-    }
+//    implementation(platform("com.intellectualsites.bom:bom-newest:$bomVersion"))
+//    compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Core:$faweVersion")
+//    compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Bukkit:$faweVersion") {
+//        isTransitive = false
+//    }
+
+    // replacing fawe
+    implementation("com.viaversion:nbt:$nbtLibVersion")
 
     dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:2.2.0-Beta")
 }

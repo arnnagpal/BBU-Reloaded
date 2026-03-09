@@ -58,7 +58,7 @@ val DebugCommand = command("debug") {
 }
 
 private fun updateState(sender: CommandSender, state: GameState) {
-    BBU.getInstance().game.thread.tick = state.tick * 20
+    BBU.getInstance().game.thread.tick = state.startTime * 20
     sender.sendMessage(CC.translate("&aUpdated game state to " + state.name.uppercase()))
 }
 

@@ -26,12 +26,9 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.LinkedHashMap;
 import java.util.Objects;
-import java.util.zip.GZIPOutputStream;
 
 /**
  * Main class, used to initialise and serve as the main hub
@@ -265,26 +262,7 @@ public class BBU extends JavaPlugin {
      * - cage.schem
      */
     private void writeDefaultSchems() {
-        saveResource("schematics" + File.separator + "cage", false);
-        File input = new File(schemesFolder, "cage");
-        File output = new File(schemesFolder, "cage.schem");
-        zipFile(input, output);
-    }
-
-    /**
-     * Zip a file (deletes the input)
-     *
-     * @param input  input file
-     * @param output destination
-     */
-    private void zipFile(File input, File output) {
-        try (GZIPOutputStream gos = new GZIPOutputStream(new FileOutputStream(output))) {
-            Files.copy(input.toPath(), gos);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        input.delete();
+        saveResource("schematics" + File.separator + "cage.schem", false);
     }
 
 }

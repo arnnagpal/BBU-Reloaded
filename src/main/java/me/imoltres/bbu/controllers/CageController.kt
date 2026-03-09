@@ -1,6 +1,7 @@
 package me.imoltres.bbu.controllers
 
-import com.github.steveice10.opennbt.NBTIO
+import com.viaversion.nbt.io.NBTIO
+import com.viaversion.nbt.tag.CompoundTag
 import kotlinx.coroutines.*
 import me.imoltres.bbu.BBU
 import me.imoltres.bbu.data.team.BBUCage
@@ -12,9 +13,10 @@ import me.imoltres.bbu.utils.world.*
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.World
-import java.io.File
 import java.io.IOException
+import java.nio.file.Files
 import java.util.concurrent.ExecutionException
+import kotlin.io.path.Path
 
 /**
  * Controls all the cages
@@ -26,8 +28,17 @@ class CageController(private val plugin: BBU) {
 
     init {
         try {
-            val cagesSchematicFile = File(plugin.schemesFolder, "cage.schem")
-            cageSchematic = SchematicParser.parseSchematic(NBTIO.readFile(cagesSchematicFile))
+            val cagesSchematicPath = Path(plugin.schemesFolder.path, "cage.schem")
+            val fileReader = NBTIO.reader(CompoundTag::class.java).named()
+
+            // validate cage schematic exists
+            if (!Files.exists(cagesSchematicPath)) {
+                throw Exception("Cage schematic does not exist at path: $cagesSchematicPath")
+            }
+
+            val tag = fileReader.read(cagesSchematicPath, true)
+
+            cageSchematic = SchematicParser.parseSchematic(tag)
 
             val min = Position(0.0, 0.0, 0.0)
             // find largest position

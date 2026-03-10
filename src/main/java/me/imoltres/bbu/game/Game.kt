@@ -378,9 +378,11 @@ class Game {
             if (player != null) {
                 team.addPlayer(player)
                 BBU.getInstance().logger.info("Reassigned player ${player.name} to team ${team.colour.name}")
-
-                BBUScoreboardAdapter.display(MainScoreboard::class.java, player.player)
             }
+        }
+
+        for (player in Bukkit.getOnlinePlayers()) {
+            BBUScoreboardAdapter.display(MainScoreboard::class.java, player)
         }
     }
 

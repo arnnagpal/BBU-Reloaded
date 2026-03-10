@@ -277,6 +277,7 @@ class Game {
             world.setGameRule(GameRules.ADVANCE_WEATHER, false)
             world.setGameRule(GameRules.SPAWN_MOBS, false)
             world.setGameRule(GameRules.ADVANCE_TIME, false)
+            world.setGameRule(GameRules.LOCATOR_BAR, false)
 
             world.time = 0
         }
@@ -294,6 +295,7 @@ class Game {
             BBU.getInstance().cageController.scope.launch {
                 BBU.getInstance().cageController.placeCages(
                     overworld,
+                    border,
                     BBU.getInstance().teamController.teamsWithCages
                 )
             }.invokeOnCompletion {

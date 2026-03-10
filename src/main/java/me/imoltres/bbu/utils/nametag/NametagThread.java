@@ -34,9 +34,8 @@ public class NametagThread extends Thread {
     }
 
     private void tick() {
-        if (this.handler.getAdapter() == null) {
-            return;
-        }
+        if (this.handler.getAdapter() == null) return;
+        if (!this.handler.getPlugin().isEnabled()) return;
 
         Bukkit.getScheduler().runTask(this.handler.getPlugin(), () -> {
             List<BufferedNametag> nametags = this.handler.getAdapter().getPlate();

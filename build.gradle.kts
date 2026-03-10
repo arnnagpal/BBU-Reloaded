@@ -1,5 +1,5 @@
 val main by extra("me.imoltres.bbu.BBU")
-val ver by extra("0.1-DEV")
+val ver by extra("0.1-BETA")
 val apiVersion by extra("1.21.11")
 val kotlinVersion by extra("2.3.10")
 
@@ -23,7 +23,7 @@ plugins {
     id("io.papermc.paperweight.userdev") version "2.0.0-beta.19"
     id("xyz.jpenilla.run-paper") version "3.0.2" // Adds runServer and runMojangMappedServer tasks for testing
 
-    id("org.jetbrains.dokka") version "1.7.20"
+    id("org.jetbrains.dokka") version "2.2.0-Beta"
     id("io.freefair.lombok") version "9.1.0"
 }
 
@@ -50,18 +50,17 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
 
     paperweight.devBundle("org.purpurmc.purpur", spigotVersion)
-//    compileOnly("org.purpurmc.purpur:purpur-api:${spigotVersion}")
-
-//    implementation(platform("com.intellectualsites.bom:bom-newest:$bomVersion"))
-//    compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Core:$faweVersion")
-//    compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Bukkit:$faweVersion") {
-//        isTransitive = false
-//    }
 
     // replacing fawe
     implementation("com.viaversion:nbt:$nbtLibVersion")
 
-    dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:2.2.0-Beta")
+    dokkaPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:2.2.0-Beta")
+}
+
+dokka {
+    dokkaPublications.html {
+        outputDirectory.set(File(projectDir, "docs"))
+    }
 }
 
 tasks {
@@ -70,7 +69,6 @@ tasks {
         archiveVersion.set(null as String?)
         destinationDirectory.set(outputDir)
 
-        //BBUReloaded-0.1-DEV.jar
         archiveFileName.set(outputName)
 
         dependencies {
@@ -95,10 +93,6 @@ tasks {
         }
 
         outputs.upToDateWhen { false }
-    }
-
-    dokkaHtml.configure {
-        outputDirectory.set(File(projectDir, "docs"))
     }
 
     test {

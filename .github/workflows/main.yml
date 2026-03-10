@@ -15,7 +15,7 @@ jobs:
       - name: Cache gradle dependencies
         uses: actions/setup-java@v2
         with:
-          java-version: '21'
+          java-version: '25'
           distribution: 'temurin'
           cache: gradle
           

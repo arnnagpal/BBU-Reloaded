@@ -18,6 +18,8 @@ import java.nio.file.Files
 import java.util.concurrent.ExecutionException
 import kotlin.io.path.Path
 
+const val MAX_RANDOM_POSITION_ATTEMPTS = 500
+
 /**
  * Controls all the cages
  */
@@ -224,73 +226,76 @@ class CageController(private val plugin: BBU) {
             Position2D(borderSize / 2, borderSize / 2)
         )
 
-        var position2D = world2D.randomPosition().toIntPosition()
-        var x = position2D.x
-        var z = position2D.y
+        var worldPosition: WorldPosition
+        var attempts = 0
+        do {
+            val position2D = world2D.randomPosition().toIntPosition()
+            val x = position2D.x
+            val z = position2D.y
 
-        // loads the chunk synchronously
-        loadChunkAt(world, x.toInt(), z.toInt())
 
-
-        // why + 3?
-        // because the cage is 3 blocks tall,
-        // so we need to make sure the highest block is at least 3 blocks below the spawn position
-        // to avoid suffocating the player in the block when they spawn
-        var highestY = getHighestYAtSync(world, x.toInt(), z.toInt() + 3)
-        val worldPosition = WorldPosition(
-            x,
-            highestY.toDouble(),
-            z,
-            world.name
-        )
-
-        while (!worldPosition.isSafe(4, 4)) {
-            println("Rerolling position: $x, ${worldPosition.y.toInt()}, $z")
-
-            position2D = world2D.randomPosition().toIntPosition()
-            x = position2D.x
-            z = position2D.y
-
+            // loads the chunk synchronously
             loadChunkAt(world, x.toInt(), z.toInt())
 
-            highestY = getHighestYAtSync(world, x.toInt(), z.toInt() + 3)
+            // why + 3?
+            // because the cage is 3 blocks tall,
+            // so we need to make sure the highest block is at least 3 blocks below the spawn position
+            // to avoid suffocating the player in the block when they spawn
+            val highestY = getHighestYAtSync(world, x.toInt(), z.toInt() + 3)
+            worldPosition = WorldPosition(
+                x,
+                highestY.toDouble(),
+                z,
+                world.name
+            )
 
-            worldPosition.x = x
-            worldPosition.y = highestY.toDouble()
-            worldPosition.z = z
-            println("Trying position: $x, ${worldPosition.y.toInt()}, $z")
-        }
+            println("Rolling position: $x, ${worldPosition.y.toInt()}, $z")
 
-        return@withContext worldPosition
+            attempts++
+            if (attempts > MAX_RANDOM_POSITION_ATTEMPTS) {
+                throw Exception("Failed to find a SAFE world position after $MAX_RANDOM_POSITION_ATTEMPTS attempts. Consider increasing the world border or decreasing the range.")
+            }
+        } while (!worldPosition.isSafe(4, 4))
+
+        return@withContext worldPosition;
     }
 
     /**
-     * Get a random 2d position inside the configured border.
-     *
-     * Ensures a range between the positions.
+     * Get a random position inside the configured border.
+     * Ensures a min {@param range} between {@param exclusions} positions.
      *
      * @param world world
      * @param exclusions positions to avoid within a range
      * @param range range to avoid positions in
-     * @return a 2D position in the world
+     * @return a position in the world
      */
     private suspend fun getRandomValidWorldPosition(
         world: World,
         exclusions: List<WorldPosition>,
         range: Int
     ): WorldPosition = withContext(Dispatchers.IO) {
-        var worldPos = getRandomWorldPosition(world)
-
-        Bukkit.getConsoleSender()
-            .sendMessage(CC.translate("Checking position: ${worldPos.x}, ${worldPos.y}, ${worldPos.z}"))
-
+        var worldPos: WorldPosition
+        var attempts = 0
         do {
             worldPos = getRandomWorldPosition(world)
+            BBU.getInstance().logger.info("Checking position: ${worldPos.x}, ${worldPos.y}, ${worldPos.z}")
+
+            attempts++
+            if (attempts > MAX_RANDOM_POSITION_ATTEMPTS) {
+                throw Exception("Failed to find a VALID world position after $MAX_RANDOM_POSITION_ATTEMPTS attempts. Consider increasing the world border or decreasing the range.")
+            }
         } while (exclusions.any { worldPos.distance(it) < range })
 
         worldPos
     }
 
+    /**
+     * Clean up all coroutines in a blocking way, used for when the plugin is disabling
+     * (for java calls)
+     */
+    fun cleanupBlocking() {
+        runBlocking { cleanup() }
+    }
 
     /**
      * Cancel all coroutines when the plugin is disabled

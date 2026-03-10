@@ -7,10 +7,10 @@ import me.imoltres.bbu.data.player.BBUPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Controller to manage all the player instances
@@ -19,7 +19,7 @@ import java.util.UUID;
 public class PlayerController {
     private final BBU plugin;
 
-    private final Set<BBUPlayer> players = new HashSet<>();
+    private final Set<BBUPlayer> players = ConcurrentHashMap.newKeySet();
 
     /**
      * Retrieve a player based on their UUID

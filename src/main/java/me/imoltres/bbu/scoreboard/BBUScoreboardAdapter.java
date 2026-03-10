@@ -163,7 +163,20 @@ public abstract class BBUScoreboardAdapter {
         for (int i = 1; i <= 15; i++) {
             if (scoreboard.getTeam(String.valueOf(i)) != null) {
                 var team = scoreboard.getTeam(String.valueOf(i));
-                scoreboard.resetScores(team.getEntries().stream().findFirst().get()); // delete the blank lines
+                if (team == null) {
+                    // log error
+                    BBU.getInstance().getLogger().severe("[UNEXPECTED] Team is null for line " + i);
+                    continue;
+                }
+
+                var entries = team.getEntries();
+                if (entries.isEmpty()) {
+                    // log error
+                    BBU.getInstance().getLogger().severe("[UNEXPECTED] Team entries are empty for line " + i);
+                    continue;
+                }
+
+                scoreboard.resetScores(entries.stream().findFirst().get()); // delete the blank lines
                 scoreboard.getTeam(String.valueOf(i)).unregister();
             }
         }

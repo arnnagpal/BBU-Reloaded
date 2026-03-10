@@ -170,7 +170,7 @@ public class BBU extends JavaPlugin {
     public void onDisable() {
         joinable = false;
 
-        cageController.cleanup();
+        cageController.cleanupBlocking();
         nametagHandler.cleanup();
 
         Bukkit.getScheduler().cancelTasks(this);

@@ -12,12 +12,13 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @Getter
 @Setter
 public abstract class Menu {
 
-    public static Map<String, Menu> currentlyOpenedMenus = new HashMap<>();
+    public static Map<UUID, Menu> currentlyOpenedMenus = new HashMap<>();
 
     @Getter
     protected BBU core = BBU.getInstance();
@@ -35,7 +36,7 @@ public abstract class Menu {
     public void openMenu(Player player) {
         this.buttons = this.getButtons(player);
 
-        Menu previousMenu = Menu.currentlyOpenedMenus.get(player.getName());
+        Menu previousMenu = Menu.currentlyOpenedMenus.get(player.getUniqueId());
         Inventory inventory = null;
         int size = this.getSize() == -1 ? this.size(this.buttons) : this.getSize();
         boolean update = false;
@@ -65,7 +66,7 @@ public abstract class Menu {
 
         inventory.setContents(new ItemStack[inventory.getSize()]);
 
-        currentlyOpenedMenus.put(player.getName(), this);
+        currentlyOpenedMenus.put(player.getUniqueId(), this);
 
         for (Map.Entry<Integer, Button> buttonEntry : this.buttons.entrySet()) {
             inventory.setItem(buttonEntry.getKey(), createItemStack(player, buttonEntry.getValue()));

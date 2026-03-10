@@ -21,8 +21,10 @@ public class BBUScoreboardThread extends Thread {
                 //UPDATE
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     BBUPlayer bbuPlayer = BBU.getInstance().getPlayerController().getPlayer(player.getUniqueId());
-                    if (bbuPlayer.getScoreboard() != null)
-                        bbuPlayer.getScoreboard().update();
+                    if (bbuPlayer.getScoreboard() != null) {
+                        // run on main thread to prevent concurrency issues
+                        Bukkit.getScheduler().runTask(BBU.getInstance(), bbuPlayer.getScoreboard()::update);
+                    }
                 }
             } catch (InterruptedException e) {
                 return;

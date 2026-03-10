@@ -155,13 +155,13 @@ public class Cuboid implements Iterable<Position> {
      */
     public Position[] corners() {
         Position[] res = new Position[8];
-        res[0] = new Position(getMin().getX(), getMin().getY(), getMin().getX());
-        res[1] = new Position(getMin().getX(), getMin().getY(), getMax().getX());
-        res[2] = new Position(getMin().getX(), getMax().getY(), getMin().getX());
-        res[3] = new Position(getMin().getX(), getMax().getY(), getMax().getX());
-        res[4] = new Position(getMax().getX(), getMin().getY(), getMin().getX());
-        res[5] = new Position(getMax().getX(), getMin().getY(), getMax().getX());
-        res[6] = new Position(getMax().getX(), getMax().getY(), getMin().getX());
+        res[0] = new Position(getMin().getX(), getMin().getY(), getMin().getZ());
+        res[1] = new Position(getMin().getX(), getMin().getY(), getMax().getZ());
+        res[2] = new Position(getMin().getX(), getMax().getY(), getMin().getZ());
+        res[3] = new Position(getMin().getX(), getMax().getY(), getMax().getZ());
+        res[4] = new Position(getMax().getX(), getMin().getY(), getMin().getZ());
+        res[5] = new Position(getMax().getX(), getMin().getY(), getMax().getZ());
+        res[6] = new Position(getMax().getX(), getMax().getY(), getMin().getZ());
         res[7] = new Position(getMax().getX(), getMax().getY(), getMax().getZ());
         return res;
     }

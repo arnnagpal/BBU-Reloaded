@@ -34,7 +34,7 @@ public class ConfirmationButton extends Button {
         new SoundBuilder(this.confirm ? Sound.BLOCK_NOTE_BLOCK_HARP : Sound.BLOCK_GRAVEL_BREAK, 0.1f, 1f).play(player);
 
         if (this.closeAfterResponse) {
-            Menu menu = Menu.currentlyOpenedMenus.get(player.getName());
+            Menu menu = Menu.currentlyOpenedMenus.get(player.getUniqueId());
 
             if (menu != null) {
                 menu.setClosedByMenu(true);

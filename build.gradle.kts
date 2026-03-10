@@ -1,7 +1,7 @@
 val main by extra("me.imoltres.bbu.BBU")
 val ver by extra("0.0.3-DEV")
 val apiVersion by extra("1.21.11")
-val kotlinVersion = extra("2.3.0")
+val kotlinVersion by extra("2.3.10")
 
 val spigotVersion by extra("$apiVersion-R0.1-SNAPSHOT")
 val gsonVersion by extra("2.13.2")
@@ -17,7 +17,7 @@ outputDir.mkdirs()
 plugins {
     id("com.gradleup.shadow") version "9.2.1"
     java
-    kotlin("jvm") version "2.3.0"
+    kotlin("jvm") version "2.3.10"
     kotlin("plugin.lombok") version "2.3.10"
 
     id("org.jetbrains.dokka") version "1.7.20"

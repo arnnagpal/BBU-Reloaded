@@ -54,7 +54,8 @@ class GameStartThread(val game: Game) : BukkitRunnable() {
         })
 
         BBU.getInstance().cageController.deleteCages(game.overworld)
-
         game.thread.runTaskTimer(BBU.getInstance(), 0L, 1L)
+
+        this.cancel() // stop this thread from running, the game thread will take over from here
     }
 }

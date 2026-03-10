@@ -1,6 +1,9 @@
 package me.imoltres.bbu.utils.general;
 
 import me.imoltres.bbu.utils.CC;
+import me.imoltres.bbu.utils.LegacyColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import org.bukkit.Bukkit;
 
 /**
@@ -15,7 +18,7 @@ public class TickUtils {
      * @return formatted TPS
      */
     public static String getTPS() {
-        return formatTPS(Bukkit.getTPS()[0]);
+        return CC.translateLegacy(formatTPS(Bukkit.getTPS()[0]));
     }
 
     /**
@@ -24,8 +27,21 @@ public class TickUtils {
      * @param tps double
      * @return formatted TPS
      */
-    private static String formatTPS(double tps) {
-        return ((tps > 18.0) ? CC.GREEN : ((tps > 16.0) ? CC.YELLOW : CC.RED)) + ((tps > 20.0) ? "*" : "") + Math.min(Math.round(tps * 100.0) / 100.0, 20.0);
+    private static TextComponent formatTPS(double tps) {
+        TextComponent tpsComponent = Component.text(String.format("%.2f", Math.min(tps, 20.0)));
+        if (tps > 18.0) {
+            tpsComponent = tpsComponent.color(LegacyColor.GREEN.asTextColor());
+        } else if (tps > 16.0) {
+            tpsComponent = tpsComponent.color(LegacyColor.YELLOW.asTextColor());
+        } else {
+            tpsComponent = tpsComponent.color(LegacyColor.RED.asTextColor());
+        }
+
+        if (tps > 20.0) {
+            tpsComponent = Component.text("*").color(LegacyColor.GREEN.asTextColor()).append(tpsComponent);
+        }
+
+        return tpsComponent;
     }
 
 }

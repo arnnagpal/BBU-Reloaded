@@ -4,12 +4,14 @@ import com.mojang.brigadier.builder.ArgumentBuilder
 import io.papermc.paper.command.brigadier.CommandSourceStack
 import me.imoltres.bbu.utils.command.condition.CommandCondition
 import me.imoltres.bbu.utils.command.condition.Conditions
+import me.imoltres.bbu.utils.command.condition.toPaper
 
 @CommandDSL
 class CommandSyntaxDSL(
     var builder: ArgumentBuilder<CommandSourceStack, *>
 ) {
     var requirement: CommandCondition? = null
+    var permissionRequirement: CommandCondition? = null
 
     /**
      * Adds a requirement to the command syntax that only allows players to execute the command.
@@ -22,11 +24,15 @@ class CommandSyntaxDSL(
 
     /**
      * Adds a requirement to the command syntax that only allows senders with the specified permission to execute the command.
-     *
-     * This is a shorthand for `requires(Conditions.permission(permission))`.
      */
     fun permission(permission: String) {
-        requires(Conditions.permission(permission))
+        val permCondition = CommandCondition { sender ->
+            sender.hasPermission(permission)
+        }
+        permissionRequirement = if (permissionRequirement != null) {
+            Conditions.all(permissionRequirement!!, permCondition)
+        } else permCondition
+
     }
 
     /**
@@ -55,9 +61,15 @@ class CommandSyntaxDSL(
         crossinline block: @CommandDSL CommandExecutor
     ) {
         val pred = requirement
-        builder.executes { context ->
+
+        if (permissionRequirement != null) {
+            builder.requires(permissionRequirement!!.toPaper())
+        }
+
+        builder
+            .executes { context ->
             val sender = context.source.sender
-            if (pred == null || pred.canUse(sender, context.command)) {
+                if (pred == null || pred.canUse(sender)) {
                 CommandExecutorContext(context).block(sender, context)
             } else {
                 sender.sendMessage(NO_PERMISSION_MESSAGE)
@@ -72,9 +84,15 @@ class CommandSyntaxDSL(
         crossinline block: @CommandDSL SingleCommandExecutor
     ) {
         val pred = requirement
-        builder.executes { context ->
+
+        if (permissionRequirement != null) {
+            builder.requires(permissionRequirement!!.toPaper())
+        }
+
+        builder
+            .executes { context ->
             val sender = context.source.sender
-            if (pred == null || pred.canUse(sender, context.command)) {
+                if (pred == null || pred.canUse(sender)) {
                 CommandExecutorContext(context).block(sender)
             } else {
                 sender.sendMessage(NO_PERMISSION_MESSAGE)

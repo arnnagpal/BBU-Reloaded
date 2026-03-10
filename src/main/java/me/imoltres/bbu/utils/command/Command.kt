@@ -1,6 +1,5 @@
 package me.imoltres.bbu.utils.command
 
-import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.builder.LiteralArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import io.papermc.paper.command.brigadier.CommandSourceStack
@@ -8,6 +7,8 @@ import io.papermc.paper.command.brigadier.Commands
 import me.imoltres.bbu.utils.CC
 import me.imoltres.bbu.utils.command.condition.CommandCondition
 import me.imoltres.bbu.utils.command.condition.Conditions
+import me.imoltres.bbu.utils.command.condition.PermissionCommandCondition
+import me.imoltres.bbu.utils.command.condition.toPaper
 import net.kyori.adventure.text.TextComponent
 import org.bukkit.command.CommandSender
 
@@ -27,10 +28,17 @@ annotation class CommandDSL
 class Command {
     val name: String
     var requirement: CommandCondition?
+    var permissionRequirement: CommandCondition?
 
-    constructor(name: String, vararg aliases: String, requirement: CommandCondition? = null) {
+    constructor(
+        name: String,
+        vararg aliases: String,
+        requirement: CommandCondition? = null,
+        permissionRequirement: PermissionCommandCondition? = null
+    ) {
         this.name = name
         this.requirement = requirement
+        this.permissionRequirement = permissionRequirement
         this.root = Commands.literal(name)
         this.aliases = aliases.toList()
     }
@@ -73,7 +81,11 @@ class Command {
      * This is a shorthand for `requires(Conditions.permission(permission))`.
      */
     fun permission(permission: String) {
-        requires(Conditions.permission(permission))
+        val predicate = PermissionCommandCondition { permission }
+
+        permissionRequirement = if (permissionRequirement != null) {
+            Conditions.all(permissionRequirement!!, Conditions.permission(permission))
+        } else predicate
     }
 
     /**
@@ -93,9 +105,14 @@ class Command {
         crossinline block: @CommandDSL CommandExecutor
     ) {
         val pred = requirement
+
+        if (permissionRequirement != null) {
+            root.requires(permissionRequirement!!.toPaper())
+        }
+
         root.executes { context ->
             val sender = context.source.sender
-            if (pred == null || pred.canUse(sender, context.command)) {
+            if (pred == null || pred.canUse(sender)) {
                 CommandExecutorContext(context).block(sender, context)
             } else {
                 sender.sendMessage(NO_PERMISSION_MESSAGE)
@@ -108,9 +125,14 @@ class Command {
     @CommandDSL
     inline fun defaultExecutor(crossinline block: @CommandDSL SingleCommandExecutor) {
         val pred = requirement
+
+        if (permissionRequirement != null) {
+            root.requires(permissionRequirement!!.toPaper())
+        }
+
         root.executes { context ->
             val sender = context.source.sender
-            if (pred == null || pred.canUse(sender, context.command)) {
+            if (pred == null || pred.canUse(sender)) {
                 CommandExecutorContext(context).block(sender)
             } else {
                 sender.sendMessage(NO_PERMISSION_MESSAGE)
@@ -162,7 +184,7 @@ class Command {
 
         // good god i have no clue what this means
         // * magic *
-        val chain = nodes.dropLast(1).foldRight(nodes.last() as ArgumentBuilder<CommandSourceStack, *>) { node, acc ->
+        val chain = nodes.dropLast(1).foldRight(nodes.last()) { node, acc ->
             node.then(acc)
             node
         }

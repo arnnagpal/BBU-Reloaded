@@ -33,7 +33,7 @@ public class TeamController {
         for (BBUTeamColor colour : BBUTeamColor.getEntries()) {
             Bukkit.getConsoleSender().sendMessage(
                     CC.translate(
-                            "&aTeam '&" + colour.getChatColor().getChar() + colour.name() + "&a' created " +
+                            "&aTeam '&" + colour.getChatColor().getCode() + colour.name() + "&a' created " +
                                     ((createTeam(colour)) ? "successfully" : "&cunsuccessfully")
                     )
             );
@@ -117,7 +117,12 @@ public class TeamController {
      */
     @Nullable
     public BBUTeam getTeam(Player player) {
-        return BBU.getInstance().getPlayerController().getPlayer(player.getUniqueId()).getTeam();
+        var bbuPlayer = BBU.getInstance().getPlayerController().getPlayer(player.getUniqueId());
+        if (bbuPlayer == null) {
+            return null;
+        }
+
+        return bbuPlayer.getTeam();
     }
 
     /**

@@ -10,17 +10,33 @@ import me.imoltres.bbu.utils.config.MainConfig
 import me.imoltres.bbu.utils.config.Messages
 import me.imoltres.bbu.utils.json.GsonFactory
 import me.imoltres.bbu.utils.world.WorldPosition
+import org.bukkit.Bukkit
 import org.bukkit.GameMode
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent
+import org.bukkit.event.player.PlayerCommandPreprocessEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 
 class JoinListener : Listener {
+    @EventHandler
+    fun onOperatorChange(e: PlayerCommandPreprocessEvent) {
+        if (e.message.startsWith("/op", ignoreCase = true) || e.message.startsWith("/deop", ignoreCase = true)) {
+            // get target player name
+            val parts = e.message.split(" ")
+            if (parts.size < 2) return
+            val targetName = parts[1]
+
+            // check if target player is online
+            val targetPlayer = Bukkit.getPlayerExact(targetName) ?: return
+            targetPlayer.updateCommands()
+        }
+    }
+
     @EventHandler(priority = EventPriority.MONITOR)
     fun onPreJoin(e: AsyncPlayerPreLoginEvent) {
         if (!BBU.getInstance().isJoinable) {

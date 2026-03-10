@@ -144,4 +144,16 @@ public class PlayerController {
         return players.remove(getPlayer(name));
     }
 
+
+    /**
+     * Recreate the players to reset their player game state
+     */
+    public void resetPlayers() {
+        var oldPlayers = getPlayers();
+        players.clear();
+
+        for (BBUPlayer oldPlayer : oldPlayers) {
+            createPlayer(oldPlayer.getUniqueId(), oldPlayer.getName());
+        }
+    }
 }

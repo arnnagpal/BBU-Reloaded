@@ -3,41 +3,40 @@ package me.imoltres.bbu.utils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-import org.bukkit.ChatColor;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A short form for {@link org.bukkit.ChatColor}
+ * A short form for {@link LegacyColor}
  * contains some useful string utilities as well.
  */
 public class CC {
-    public static final String BLUE = ChatColor.BLUE.toString();
-    public static final String AQUA = ChatColor.AQUA.toString();
-    public static final String YELLOW = ChatColor.YELLOW.toString();
-    public static final String RED = ChatColor.RED.toString();
-    public static final String GRAY = ChatColor.GRAY.toString();
-    public static final String GOLD = ChatColor.GOLD.toString();
-    public static final String GREEN = ChatColor.GREEN.toString();
-    public static final String WHITE = ChatColor.WHITE.toString();
-    public static final String BLACK = ChatColor.BLACK.toString();
-    public static final String BOLD = ChatColor.BOLD.toString();
-    public static final String ITALIC = ChatColor.ITALIC.toString();
-    public static final String UNDER_LINE = ChatColor.UNDERLINE.toString();
-    public static final String STRIKE_THROUGH = ChatColor.STRIKETHROUGH.toString();
-    public static final String RESET = ChatColor.RESET.toString();
-    public static final String MAGIC = ChatColor.MAGIC.toString();
-    public static final String DARK_BLUE = ChatColor.DARK_BLUE.toString();
-    public static final String DARK_AQUA = ChatColor.DARK_AQUA.toString();
-    public static final String DARK_GRAY = ChatColor.DARK_GRAY.toString();
-    public static final String DARK_GREEN = ChatColor.DARK_GREEN.toString();
-    public static final String DARK_PURPLE = ChatColor.DARK_PURPLE.toString();
-    public static final String DARK_RED = ChatColor.DARK_RED.toString();
-    public static final String PINK = ChatColor.LIGHT_PURPLE.toString();
+    public static final String BLUE = LegacyColor.BLUE.toString();
+    public static final String AQUA = LegacyColor.AQUA.toString();
+    public static final String YELLOW = LegacyColor.YELLOW.toString();
+    public static final String RED = LegacyColor.RED.toString();
+    public static final String GRAY = LegacyColor.GRAY.toString();
+    public static final String GOLD = LegacyColor.GOLD.toString();
+    public static final String GREEN = LegacyColor.GREEN.toString();
+    public static final String WHITE = LegacyColor.WHITE.toString();
+    public static final String BLACK = LegacyColor.BLACK.toString();
+    public static final String BOLD = LegacyColor.BOLD.toString();
+    public static final String ITALIC = LegacyColor.ITALIC.toString();
+    public static final String UNDER_LINE = LegacyColor.UNDERLINE.toString();
+    public static final String STRIKE_THROUGH = LegacyColor.STRIKETHROUGH.toString();
+    public static final String RESET = LegacyColor.RESET.toString();
+    public static final String MAGIC = LegacyColor.MAGIC.toString();
+    public static final String DARK_BLUE = LegacyColor.DARK_BLUE.toString();
+    public static final String DARK_AQUA = LegacyColor.DARK_AQUA.toString();
+    public static final String DARK_GRAY = LegacyColor.DARK_GRAY.toString();
+    public static final String DARK_GREEN = LegacyColor.DARK_GREEN.toString();
+    public static final String DARK_PURPLE = LegacyColor.DARK_PURPLE.toString();
+    public static final String DARK_RED = LegacyColor.DARK_RED.toString();
+    public static final String PINK = LegacyColor.LIGHT_PURPLE.toString();
 
-    public static final String SB_DIV = ChatColor.STRIKETHROUGH + "----------------------";
+    public static final String SB_DIV = STRIKE_THROUGH + "----------------------";
 
     /**
      * Converts a textcomponent to the legacy colour coded string

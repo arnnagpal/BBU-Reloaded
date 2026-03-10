@@ -13,7 +13,7 @@ import org.bukkit.entity.Player
 
 val TeamPosCommand = command(
     "teamposition",
-    "teampos", "bbuteampos"
+    "teampos"
 ) {
     onlyPlayers()
 

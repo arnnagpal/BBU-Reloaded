@@ -69,7 +69,7 @@ public class ChatListener implements Listener {
             return CC.translate(Messages.TEAM_CHAT_FORMAT
                     .replace("{player_name}", p.getName())
                     .replace("{message}", msg)
-                    .replace("{team_color}", "&" + team.getColour().getChatColor().getChar())
+                    .replace("{team_color}", "&" + team.getColour().getChatColor().getCode())
                     .replace("{team_name}", team.getName())
             );
         }
@@ -77,7 +77,7 @@ public class ChatListener implements Listener {
         return CC.translate(Messages.ALL_CHAT_FORMAT
                 .replace("{player_name}", p.getName())
                 .replace("{message}", msg)
-                .replace("{team_color}", "&" + team.getColour().getChatColor().getChar())
+                .replace("{team_color}", "&" + team.getColour().getChatColor().getCode())
                 .replace("{team_name}", team.getName())
         );
     }

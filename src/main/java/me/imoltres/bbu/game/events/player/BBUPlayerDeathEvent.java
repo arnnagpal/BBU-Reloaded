@@ -5,6 +5,7 @@ import me.imoltres.bbu.data.player.BBUPlayer;
 import me.imoltres.bbu.utils.world.WorldPosition;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Whenever a playing player dies, this event is called.
@@ -17,6 +18,7 @@ public class BBUPlayerDeathEvent extends BBUPlayerEvent {
     private final WorldPosition position;
 
     @Getter
+    @Nullable
     private final BBUPlayer killer;
 
     @Getter

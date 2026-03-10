@@ -141,6 +141,15 @@ class CageController(private val plugin: BBU) {
         return null
     }
 
+    fun clearConfiguredCages() {
+        for (team in plugin.teamController.allTeams) {
+            plugin.teamSpawnsConfig.configuration.set("team." + team.colour.name, null)
+        }
+
+        // save
+        plugin.teamSpawnsConfig.configuration.save(plugin.teamSpawnsConfig.file)
+    }
+
     /**
      * Place a singular cage for a team in a given position
      * @param position world-less position to place it in
@@ -174,7 +183,7 @@ class CageController(private val plugin: BBU) {
 
             Bukkit.getConsoleSender().sendMessage(
                 CC.translate(
-                    "&aTeam '&" + bbuTeam.colour.chatColor.char + bbuTeam.colour.name + "&a' cage spawned at &7" + bbuTeam.cage!!.spawnPosition
+                    "&aTeam '&" + bbuTeam.colour.chatColor.code + bbuTeam.colour.name + "&a' cage spawned at &7" + bbuTeam.cage!!.spawnPosition
                         .toString() + "&a."
                 )
             )
@@ -249,13 +258,11 @@ class CageController(private val plugin: BBU) {
                 world.name
             )
 
-            println("Rolling position: $x, ${worldPosition.y.toInt()}, $z")
-
             attempts++
             if (attempts > MAX_RANDOM_POSITION_ATTEMPTS) {
                 throw Exception("Failed to find a SAFE world position after $MAX_RANDOM_POSITION_ATTEMPTS attempts. Consider increasing the world border or decreasing the range.")
             }
-        } while (!worldPosition.isSafe(4, 4))
+        } while (!isSafeSync(worldPosition, 4, 4))
 
         return@withContext worldPosition;
     }
@@ -313,8 +320,6 @@ class CageController(private val plugin: BBU) {
      */
     private suspend fun loadChunkAt(world: World, x: Int, z: Int) {
         // loads the chunk
-        println("Loading chunk at $x, $z")
-
         val chunkX = x shr 4
         val chunkZ = z shr 4
 
@@ -328,7 +333,6 @@ class CageController(private val plugin: BBU) {
                 }
             }
 
-            println("Loaded chunk at $x, $z")
             deferred.complete(Unit)
         })
 
@@ -362,6 +366,16 @@ class CageController(private val plugin: BBU) {
 
         Bukkit.getScheduler().runTask(BBU.getInstance(), Runnable {
             deferred.complete(world.getHighestBlockYAt(x, z))
+        })
+
+        return deferred.await()
+    }
+
+    private suspend fun isSafeSync(position: WorldPosition, width: Int, height: Int): Boolean {
+        val deferred = CompletableDeferred<Boolean>()
+
+        Bukkit.getScheduler().runTask(BBU.getInstance(), Runnable {
+            deferred.complete(position.isSafe(width, height))
         })
 
         return deferred.await()

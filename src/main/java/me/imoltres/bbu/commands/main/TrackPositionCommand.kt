@@ -10,8 +10,7 @@ import org.bukkit.entity.Player
 
 val TrackPositionCommand = command(
     "trackpos",
-    "trackposition",
-    "bbuteampos"
+    "trackposition"
 ) {
     val loc = argumentLocation("location")
     val world = argumentWorld("world")

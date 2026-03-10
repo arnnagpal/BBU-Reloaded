@@ -8,6 +8,7 @@ import me.imoltres.bbu.controllers.CageController;
 import me.imoltres.bbu.controllers.PlayerController;
 import me.imoltres.bbu.controllers.TeamController;
 import me.imoltres.bbu.game.Game;
+import me.imoltres.bbu.game.GameKt;
 import me.imoltres.bbu.game.ShrinkPhase;
 import me.imoltres.bbu.listeners.*;
 import me.imoltres.bbu.nametags.NametagAdapterImpl;
@@ -16,9 +17,12 @@ import me.imoltres.bbu.utils.CC;
 import me.imoltres.bbu.utils.command.CommandManager;
 import me.imoltres.bbu.utils.config.MainConfig;
 import me.imoltres.bbu.utils.config.type.BasicConfigurationFile;
+import me.imoltres.bbu.utils.general.FileUtils;
 import me.imoltres.bbu.utils.json.GsonFactory;
 import me.imoltres.bbu.utils.menu.MenuListener;
 import me.imoltres.bbu.utils.nametag.NametagHandler;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.dedicated.DedicatedServer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
@@ -26,6 +30,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 
@@ -76,6 +82,8 @@ public class BBU extends JavaPlugin {
     @Getter
     private boolean joinable = false;
 
+    private boolean deleteStaleWorldsOnShutdown = false;
+
     /**
      * Retrieve the instance for BBU to access
      * any public methods or getters inside of it.
@@ -97,13 +105,44 @@ public class BBU extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(CC.translate("&aSetting up instance..."));
         instance = this;
 
+        // check for stale worlds and delete them if they exist
+        File staleWorldsFile = new File("stale_worlds.txt");
+        if (staleWorldsFile.exists()) {
+            try {
+                var lines = Files.readAllLines(staleWorldsFile.toPath());
+                for (String worldName : lines) {
+                    File worldFolder = new File(worldName);
+                    if (worldFolder.exists() && worldFolder.isDirectory()) {
+                        FileUtils.deleteFolder(worldFolder);
+                        getLogger().info("Deleted stale world: " + worldName);
+                    }
+                }
+                // clear the file after processing
+                Files.delete(staleWorldsFile.toPath());
+            } catch (IOException e) {
+                getLogger().severe("Failed to process stale worlds file: " + e.getMessage());
+            }
+        }
+
         //setup configs / folders
         Bukkit.getConsoleSender().sendMessage(CC.translate("&aLoading config files..."));
 
         mainConfig = new BasicConfigurationFile(this, "config");
         messagesConfig = new BasicConfigurationFile(this, "messages");
         nerfsConfig = new BasicConfigurationFile(this, "nerfs");
-        teamSpawnsConfig = new BasicConfigurationFile(this, new File("world"), "teamSpawns", false);
+        teamSpawnsConfig = new BasicConfigurationFile(this, new File(GameKt.WORLD_PREFIX + "_overworld"), "teamSpawns", false);
+
+        //setup game instance
+        Bukkit.getConsoleSender().sendMessage(CC.translate("&aRegistering game instance..."));
+        game = new Game();
+
+        Bukkit.getConsoleSender().sendMessage(CC.translate("&aSetting up worlds..."));
+        if (setDefaultWorld(GameKt.WORLD_PREFIX)) {
+            getLogger().warning("World settings changed, shutting down...");
+            this.deleteStaleWorldsOnShutdown = true;
+            Bukkit.shutdown();
+            Bukkit.getPluginManager().disablePlugin(this);
+        }
 
         //print shrink phases
         Bukkit.getConsoleSender().sendMessage(CC.translate("&aParsed shrink phases:"));
@@ -113,7 +152,7 @@ public class BBU extends JavaPlugin {
         var i = 0;
         for (LinkedHashMap<String, Integer> phaseObj : shrinkPhases) {
             var phase = new ShrinkPhase(phaseObj.get("size"), phaseObj.get("length"));
-            Bukkit.getConsoleSender().sendMessage(CC.translate("&a[" + ++i  + "] Size: " + phase.getSize() + " Length: " + phase.getLength()));
+            Bukkit.getConsoleSender().sendMessage(CC.translate("&a[" + ++i + "]  Size: " + phase.getSize() + " Length: " + phase.getLength()));
         }
 
         Bukkit.getConsoleSender().sendMessage(CC.translate("Actual config value: " + GsonFactory.getPrettyGson().toJson(shrinkPhases)));
@@ -155,9 +194,9 @@ public class BBU extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(CC.translate("&aRegistering commands..."));
         registerCommands();
 
-        //setup game instance
-        Bukkit.getConsoleSender().sendMessage(CC.translate("&aRegistering game instance..."));
-        game = new Game();
+        // setup game
+        game.setupLobbyWorld();
+        game.setupWorlds();
 
         //setup scoreboard 'controller'
         scoreboard = new BBUScoreboard();
@@ -170,11 +209,47 @@ public class BBU extends JavaPlugin {
     public void onDisable() {
         joinable = false;
 
-        cageController.cleanupBlocking();
-        nametagHandler.cleanup();
+        if (deleteStaleWorldsOnShutdown) {
+            // make a note to delete any worlds with the prefix of the old level name so that
+            // the plugin can delete it onload the next time server boots
+            var server = (DedicatedServer) MinecraftServer.getServer();
+            var props = server.getProperties();
+            var oldLevelName = props.levelName;
+
+            // levels to delete
+            // - oldLevelName
+            // - oldLevelName_nether
+            // - oldLevelName_the_end
+
+            File file = new File("stale_worlds.txt");
+            try {
+                if (!file.exists()) {
+                    file.createNewFile();
+                }
+                Files.write(file.toPath(),
+                        (oldLevelName + System.lineSeparator() +
+                                oldLevelName + "_nether" + System.lineSeparator() +
+                                oldLevelName + "_the_end").getBytes(),
+                        StandardOpenOption.WRITE,
+                        StandardOpenOption.TRUNCATE_EXISTING
+                );
+            } catch (IOException e) {
+                getLogger().severe("Failed to mark world for deletion: " + e.getMessage());
+            }
+        }
+
+        if (cageController != null) {
+            cageController.cleanupBlocking();
+        }
+
+        if (nametagHandler != null) {
+            nametagHandler.cleanup();
+        }
 
         Bukkit.getScheduler().cancelTasks(this);
-        scoreboard.cleanup();
+        if (scoreboard != null) {
+            scoreboard.cleanup();
+        }
 
         try {
             teamSpawnsConfig.getConfiguration().save(teamSpawnsConfig.getFile());
@@ -193,17 +268,19 @@ public class BBU extends JavaPlugin {
      * @param value boolean
      */
     public void setJoinable(boolean value) {
-        this.joinable = value;
-
-        if (value)
+        // if the value is changing and is being set to true, send a message in console
+        if (joinable != value && value)
             Bukkit.getConsoleSender().sendMessage(CC.translate("&aServer is now joinable."));
-        else {
+        else if (!value) { // if the server is no longer joinable, kick all players and send a message in console
             for (Player player : Bukkit.getOnlinePlayers()) {
                 player.kick(CC.translate("&cServer is no longer joinable\n\n&cTry again later."));
             }
 
             Bukkit.getConsoleSender().sendMessage(CC.translate("&cServer is no longer joinable."));
         }
+
+        // update the joinable variable
+        this.joinable = value;
     }
 
     /**
@@ -234,6 +311,8 @@ public class BBU extends JavaPlugin {
         pluginManager.registerEvents(new RespawnListener(), this);
         pluginManager.registerEvents(new WeatherListener(), this);
 
+        pluginManager.registerEvents(new PortalListener(), this);
+
         //for menus
         pluginManager.registerEvents(new MenuListener(), this);
     }
@@ -245,6 +324,21 @@ public class BBU extends JavaPlugin {
      */
     private void writeDefaultSchems() {
         saveResource("schematics" + File.separator + "cage.schem", false);
+    }
+
+    private boolean setDefaultWorld(String worldName) {
+        // change in server.properties
+        var server = (DedicatedServer) MinecraftServer.getServer();
+        var props = server.getProperties();
+
+        if (!props.levelName.equalsIgnoreCase(worldName)) {
+            props.properties.setProperty("level-name", worldName);
+            props.store(server.getFile("server.properties"));
+            getLogger().info("Set default world to " + worldName + " in server.properties.");
+            return true;
+        }
+
+        return false; // false = does not need restart
     }
 
 }

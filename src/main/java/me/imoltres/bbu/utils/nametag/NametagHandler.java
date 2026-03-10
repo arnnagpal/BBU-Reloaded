@@ -54,6 +54,7 @@ public class NametagHandler {
         }
 
         this.thread = new NametagThread(this);
+        this.thread.start(); // start the thread
     }
 
     public void cleanup() {

@@ -11,6 +11,7 @@ import net.kyori.adventure.text.TextComponent
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import java.util.*
+import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ThreadLocalRandom
 
 /**
@@ -31,7 +32,7 @@ class BBUTeam(val colour: BBUTeamColor) {
             field = value
         }
 
-    val players: MutableSet<BBUPlayer> = HashSet()
+    val players: MutableSet<BBUPlayer> = ConcurrentHashMap.newKeySet()
 
     var beacon: Position? = null
         set(value) {
@@ -191,7 +192,7 @@ class BBUTeam(val colour: BBUTeamColor) {
      * @return a raw bukkit string version of the display name
      */
     fun getRawDisplayName(): String {
-        return "&" + colour.chatColor.char + CC.capitalize(getName())
+        return "&" + colour.chatColor.code + CC.capitalize(getName())
     }
 
     fun getName(): String {

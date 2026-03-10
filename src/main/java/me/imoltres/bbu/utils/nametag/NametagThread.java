@@ -14,7 +14,6 @@ public class NametagThread extends Thread {
 
     public NametagThread(NametagHandler handler) {
         this.handler = handler;
-        this.start();
     }
 
     @Override

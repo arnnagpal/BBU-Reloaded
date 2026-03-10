@@ -7,11 +7,11 @@ import me.imoltres.bbu.utils.CC
 import me.imoltres.bbu.utils.command.argument
 import me.imoltres.bbu.utils.command.argumentPlayer
 import me.imoltres.bbu.utils.command.command
+import me.imoltres.bbu.utils.item.ItemBuilder
 import me.imoltres.bbu.utils.item.ItemConstants
 import net.kyori.adventure.title.Title
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
-import org.bukkit.inventory.ItemStack
 
 val DebugCommand = command("debug") {
     permission("bbu.command.debug")
@@ -55,6 +55,13 @@ val DebugCommand = command("debug") {
             }
         }
     }
+
+    subcommand("reset") {
+        defaultExecutor { sender ->
+            BBU.getInstance().game.reset()
+            sender.sendMessage(CC.translate("&aReset the game successfully."))
+        }
+    }
 }
 
 private fun updateState(sender: CommandSender, state: GameState) {
@@ -62,7 +69,7 @@ private fun updateState(sender: CommandSender, state: GameState) {
     sender.sendMessage(CC.translate("&aUpdated game state to " + state.name.uppercase()))
 }
 
-private fun giveItem(sender: CommandSender, player: Player?, item: ItemStack, display: String) {
+private fun giveItem(sender: CommandSender, player: Player?, item: ItemBuilder, display: String) {
     if (player != null) {
         if (player.inventory.firstEmpty() == -1) {
             player.showTitle(
@@ -73,7 +80,7 @@ private fun giveItem(sender: CommandSender, player: Player?, item: ItemStack, di
             )
             sender.sendMessage(CC.translate("&cError while giving ${player.name} a $display. (FULL_INV)"))
         } else {
-            player.inventory.addItem(item)
+            player.inventory.addItem(item.build())
             sender.sendMessage(CC.translate("&aGiven ${player.name} a $display. successfully."))
         }
     }

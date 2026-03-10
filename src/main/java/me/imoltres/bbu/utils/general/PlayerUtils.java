@@ -38,7 +38,7 @@ public class PlayerUtils {
         ItemStack compass = null;
         for (ItemStack item : player.getInventory().getContents()) {
             if (item != null) {
-                if (ItemConstants.isSimilar(ItemConstants.TRACKING_COMPASS, item)) {
+                if (ItemConstants.isSimilar(ItemConstants.TRACKING_COMPASS.build(), item)) {
                     compass = item;
                     break;
                 }

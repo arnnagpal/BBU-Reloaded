@@ -16,12 +16,11 @@ public class ItemConstants {
      * Used to track players or any team.
      * Can also be used to track any coordinates that a teammate or ally provides. (command undecided, but likely `/track x y z`)
      */
-    public static final ItemStack TRACKING_COMPASS =
+    public static final ItemBuilder TRACKING_COMPASS =
             new ItemBuilder(Material.COMPASS)
                     .name("&cTracking Compass")
                     .lore("&7Track nearest player / any team.")
-                    .localizedName("tracking-compass")
-                    .build();
+                    .localizedName("tracking-compass");
 
     /**
      * ###Team Beacon item represented as a constant
@@ -31,15 +30,14 @@ public class ItemConstants {
      * Used for pre-pvp events when the player wants to place their team's beacon down to
      * allow their team to respawn.
      */
-    public static final ItemStack TEAM_BEACON =
+    public static final ItemBuilder TEAM_BEACON =
             new ItemBuilder(Material.BEACON)
                     .name("&cBeacon")
                     .lore(
                             "&7Your entire life support bro.",
                             "&cKeep it safe."
                     )
-                    .localizedName("bbu-beacon")
-                    .build();
+                    .localizedName("bbu-beacon");
 
     public static boolean isSimilar(ItemStack original, ItemStack newItem) {
         return original.isSimilar(newItem) || original.getLocalizedName().equals(newItem.getLocalizedName());

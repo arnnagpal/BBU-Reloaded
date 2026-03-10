@@ -20,6 +20,9 @@ plugins {
     kotlin("jvm") version "2.3.10"
     kotlin("plugin.lombok") version "2.3.10"
 
+    id("io.papermc.paperweight.userdev") version "2.0.0-beta.19"
+    id("xyz.jpenilla.run-paper") version "3.0.2" // Adds runServer and runMojangMappedServer tasks for testing
+
     id("org.jetbrains.dokka") version "1.7.20"
     id("io.freefair.lombok") version "9.1.0"
 }
@@ -46,7 +49,7 @@ dependencies {
     compileOnly("com.google.code.gson:gson:$gsonVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
 
-    compileOnly("org.purpurmc.purpur:dev-bundle:$spigotVersion")
+    paperweight.devBundle("org.purpurmc.purpur", spigotVersion)
 //    compileOnly("org.purpurmc.purpur:purpur-api:${spigotVersion}")
 
 //    implementation(platform("com.intellectualsites.bom:bom-newest:$bomVersion"))

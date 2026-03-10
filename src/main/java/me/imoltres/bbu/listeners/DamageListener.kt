@@ -94,8 +94,8 @@ class DamageListener : Listener {
         while (iterator.hasNext()) {
             val drop = iterator.next()
             //keep beacon & compass after death
-            if (drop.isSimilar(ItemConstants.TEAM_BEACON) || ItemConstants.isSimilar(
-                    ItemConstants.TRACKING_COMPASS,
+            if (drop.isSimilar(ItemConstants.TEAM_BEACON.build()) || ItemConstants.isSimilar(
+                    ItemConstants.TRACKING_COMPASS.build(),
                     drop
                 )
             ) {
@@ -104,7 +104,11 @@ class DamageListener : Listener {
             }
         }
 
-        val killer = BBU.getInstance().playerController.getPlayer(player.killer?.uniqueId)
+        var killer: BBUPlayer? = null
+
+        if (player.killer != null) {
+            killer = BBU.getInstance().playerController.getPlayer(player.killer!!.uniqueId)
+        }
 
         val event =
             BBUPlayerDeathEvent(WorldPosition.fromBukkitLocation(player.location), bbuPlayer, killer, !team.hasBeacon())

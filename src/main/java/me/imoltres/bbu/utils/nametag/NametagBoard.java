@@ -33,11 +33,15 @@ public class NametagBoard {
 
     public Scoreboard getScoreboard() {
         Player player = Bukkit.getPlayer(getUuid());
+        if (player == null) {
+            return Bukkit.getScoreboardManager().getMainScoreboard();
+        }
+
         if (getHandler().isHook() || player.getScoreboard() != Bukkit.getScoreboardManager().getMainScoreboard()) {
             return player.getScoreboard();
-        } else {
-            return Bukkit.getScoreboardManager().getNewScoreboard();
         }
+
+        return Bukkit.getScoreboardManager().getNewScoreboard();
     }
 
     public void cleanup() {

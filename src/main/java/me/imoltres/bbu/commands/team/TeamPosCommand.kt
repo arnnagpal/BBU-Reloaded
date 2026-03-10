@@ -2,10 +2,7 @@ package me.imoltres.bbu.commands.team
 
 import me.imoltres.bbu.BBU
 import me.imoltres.bbu.utils.CC
-import me.imoltres.bbu.utils.command.Command
-import me.imoltres.bbu.utils.command.CommandArgs
-import me.imoltres.bbu.utils.command.CommandInfo
-import me.imoltres.bbu.utils.command.SubCommand
+import me.imoltres.bbu.utils.command.command
 import me.imoltres.bbu.utils.general.PlayerUtils
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.event.ClickEvent
@@ -13,19 +10,21 @@ import net.kyori.adventure.text.event.HoverEvent
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.entity.Player
 
-@CommandInfo(
-    name = "teamposition",
-    aliases = ["teampos", "bbuteampos"],
-    senderType = CommandInfo.SenderType.PLAYER
-)
-class TeamPosCommand : Command {
-    override fun execute(cmd: CommandArgs) {
-        val player = cmd.getSender<Player>()
+
+val TeamPosCommand = command(
+    "teamposition",
+    "teampos"
+) {
+    onlyPlayers()
+
+    defaultExecutor { player ->
+        player as Player
+
         val team = BBU.getInstance().teamController.getTeam(player)
 
         if (team == null) {
             player.sendMessage(CC.translate("&cYou're not in a team."))
-            return
+            return@defaultExecutor
         }
 
         for (bbuPlayer in team.players) {
@@ -46,7 +45,7 @@ class TeamPosCommand : Command {
                         .clickEvent(
                             ClickEvent.clickEvent(
                                 ClickEvent.Action.RUN_COMMAND,
-                                "/trackposition $location true"
+                                ClickEvent.Payload.string("/trackposition $location true")
                             )
                         )
                         .hoverEvent(
@@ -56,19 +55,10 @@ class TeamPosCommand : Command {
                             )
                         )
                 )
+                .append(Component.text("\n"))
                 .build()
 
             player.sendMessage(component)
         }
     }
-
-    override fun subCommands(): MutableList<SubCommand> {
-        return arrayListOf()
-    }
-
-    override fun tabCompleter(cmd: CommandArgs?): MutableList<String> {
-        return arrayListOf()
-    }
-
-
 }

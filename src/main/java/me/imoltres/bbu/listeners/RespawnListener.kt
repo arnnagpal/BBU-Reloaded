@@ -22,9 +22,15 @@ class RespawnListener : Listener {
             return
         }
 
-
-        if (team!!.hasBeacon()) {
-            bukkitPlayer.teleport(team.beacon!!.toWorldPosition("world").toBukkitLocation().add(0.5, 0.5, 0.5))
+        // if the team has a beacon, teleport them to it, otherwise teleport them to their cage
+        // for some reason hasBeacon returns true in grace period... what idiot coded that (me)
+        if (team!!.hasBeacon() && team.beacon != null) {
+            bukkitPlayer.teleport(
+                team.beacon!!
+                    .toWorldPosition(BBU.getInstance().game.overworld.name)
+                    .toBukkitLocation()
+                    .add(0.5, 0.5, 0.5)
+            )
         } else {
             bukkitPlayer.teleport(team.cage!!.spawnPosition.toBukkitLocation())
         }

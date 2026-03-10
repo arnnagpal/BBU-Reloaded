@@ -1,39 +1,39 @@
 package me.imoltres.bbu;
 
 import lombok.Getter;
-import me.imoltres.bbu.commands.GameCommand;
-import me.imoltres.bbu.commands.main.TrackPositionCommand;
-import me.imoltres.bbu.commands.team.TeamPosCommand;
+import me.imoltres.bbu.commands.GameCommandKt;
+import me.imoltres.bbu.commands.main.TrackPositionCommandKt;
+import me.imoltres.bbu.commands.team.TeamPosCommandKt;
 import me.imoltres.bbu.controllers.CageController;
 import me.imoltres.bbu.controllers.PlayerController;
 import me.imoltres.bbu.controllers.TeamController;
-import me.imoltres.bbu.data.BBUTeamColor;
 import me.imoltres.bbu.game.Game;
+import me.imoltres.bbu.game.GameKt;
 import me.imoltres.bbu.game.ShrinkPhase;
 import me.imoltres.bbu.listeners.*;
 import me.imoltres.bbu.nametags.NametagAdapterImpl;
 import me.imoltres.bbu.scoreboard.BBUScoreboard;
 import me.imoltres.bbu.utils.CC;
-import me.imoltres.bbu.utils.command.Command;
-import me.imoltres.bbu.utils.command.CommandFramework;
+import me.imoltres.bbu.utils.command.CommandManager;
 import me.imoltres.bbu.utils.config.MainConfig;
 import me.imoltres.bbu.utils.config.type.BasicConfigurationFile;
+import me.imoltres.bbu.utils.general.FileUtils;
 import me.imoltres.bbu.utils.json.GsonFactory;
 import me.imoltres.bbu.utils.menu.MenuListener;
 import me.imoltres.bbu.utils.nametag.NametagHandler;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.dedicated.DedicatedServer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
+import java.nio.file.StandardOpenOption;
 import java.util.LinkedHashMap;
 import java.util.Objects;
-import java.util.zip.GZIPOutputStream;
 
 /**
  * Main class, used to initialise and serve as the main hub
@@ -69,10 +69,6 @@ public class BBU extends JavaPlugin {
     @Getter
     private CageController cageController;
 
-    //command stuff
-    @Getter
-    private CommandFramework commandFramework;
-
     //game stuff & scoreboard 'controller'
     @Getter
     private Game game;
@@ -85,6 +81,8 @@ public class BBU extends JavaPlugin {
     //boolean to hold if the server is done setting up or not
     @Getter
     private boolean joinable = false;
+
+    private boolean deleteStaleWorldsOnShutdown = false;
 
     /**
      * Retrieve the instance for BBU to access
@@ -107,13 +105,44 @@ public class BBU extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(CC.translate("&aSetting up instance..."));
         instance = this;
 
+        // check for stale worlds and delete them if they exist
+        File staleWorldsFile = new File("stale_worlds.txt");
+        if (staleWorldsFile.exists()) {
+            try {
+                var lines = Files.readAllLines(staleWorldsFile.toPath());
+                for (String worldName : lines) {
+                    File worldFolder = new File(worldName);
+                    if (worldFolder.exists() && worldFolder.isDirectory()) {
+                        FileUtils.deleteFolder(worldFolder);
+                        getLogger().info("Deleted stale world: " + worldName);
+                    }
+                }
+                // clear the file after processing
+                Files.delete(staleWorldsFile.toPath());
+            } catch (IOException e) {
+                getLogger().severe("Failed to process stale worlds file: " + e.getMessage());
+            }
+        }
+
         //setup configs / folders
         Bukkit.getConsoleSender().sendMessage(CC.translate("&aLoading config files..."));
 
         mainConfig = new BasicConfigurationFile(this, "config");
         messagesConfig = new BasicConfigurationFile(this, "messages");
         nerfsConfig = new BasicConfigurationFile(this, "nerfs");
-        teamSpawnsConfig = new BasicConfigurationFile(this, new File("world"), "teamSpawns", false);
+        teamSpawnsConfig = new BasicConfigurationFile(this, new File(GameKt.WORLD_PREFIX + "_overworld"), "teamSpawns", false);
+
+        //setup game instance
+        Bukkit.getConsoleSender().sendMessage(CC.translate("&aRegistering game instance..."));
+        game = new Game();
+
+        Bukkit.getConsoleSender().sendMessage(CC.translate("&aSetting up worlds..."));
+        if (setDefaultWorld(GameKt.WORLD_PREFIX)) {
+            getLogger().warning("World settings changed, shutting down...");
+            this.deleteStaleWorldsOnShutdown = true;
+            Bukkit.shutdown();
+            Bukkit.getPluginManager().disablePlugin(this);
+        }
 
         //print shrink phases
         Bukkit.getConsoleSender().sendMessage(CC.translate("&aParsed shrink phases:"));
@@ -123,7 +152,7 @@ public class BBU extends JavaPlugin {
         var i = 0;
         for (LinkedHashMap<String, Integer> phaseObj : shrinkPhases) {
             var phase = new ShrinkPhase(phaseObj.get("size"), phaseObj.get("length"));
-            Bukkit.getConsoleSender().sendMessage(CC.translate("&a[" + ++i  + "] Size: " + phase.getSize() + " Length: " + phase.getLength()));
+            Bukkit.getConsoleSender().sendMessage(CC.translate("&a[" + ++i + "]  Size: " + phase.getSize() + " Length: " + phase.getLength()));
         }
 
         Bukkit.getConsoleSender().sendMessage(CC.translate("Actual config value: " + GsonFactory.getPrettyGson().toJson(shrinkPhases)));
@@ -135,10 +164,6 @@ public class BBU extends JavaPlugin {
                     .sendMessage(CC.translate("&bCreating schematics folder and/or writing default schems..."));
             writeDefaultSchems();
         }
-
-        //initialise command framework
-        Bukkit.getConsoleSender().sendMessage(CC.translate("&aInitialising command framework..."));
-        commandFramework = new CommandFramework(this);
 
         //initialise controllers
         Bukkit.getConsoleSender().sendMessage(CC.translate("&aInitialising controllers..."));
@@ -159,24 +184,23 @@ public class BBU extends JavaPlugin {
 
         //team setup
         Bukkit.getConsoleSender().sendMessage(CC.translate("&aSetting up teams..."));
-        setupTeams();
+        teamController.setupTeams();
 
         //register listeners
         Bukkit.getConsoleSender().sendMessage(CC.translate("&aRegistering listeners..."));
         registerListeners();
 
-        //register commands with the commandframework
+        //register commands with the command manager
         Bukkit.getConsoleSender().sendMessage(CC.translate("&aRegistering commands..."));
         registerCommands();
 
-        //setup game instance
-        Bukkit.getConsoleSender().sendMessage(CC.translate("&aRegistering game instance..."));
-        game = new Game();
+        // setup game
+        game.setupLobbyWorld();
+        game.setupWorlds();
 
         //setup scoreboard 'controller'
         scoreboard = new BBUScoreboard();
     }
-
 
     /**
      * Saves the team config and cleans up all player scoreboards, stops any ongoing tasks
@@ -184,10 +208,48 @@ public class BBU extends JavaPlugin {
     @Override
     public void onDisable() {
         joinable = false;
-        nametagHandler.cleanup();
+
+        if (deleteStaleWorldsOnShutdown) {
+            // make a note to delete any worlds with the prefix of the old level name so that
+            // the plugin can delete it onload the next time server boots
+            var server = (DedicatedServer) MinecraftServer.getServer();
+            var props = server.getProperties();
+            var oldLevelName = props.levelName;
+
+            // levels to delete
+            // - oldLevelName
+            // - oldLevelName_nether
+            // - oldLevelName_the_end
+
+            File file = new File("stale_worlds.txt");
+            try {
+                if (!file.exists()) {
+                    file.createNewFile();
+                }
+                Files.write(file.toPath(),
+                        (oldLevelName + System.lineSeparator() +
+                                oldLevelName + "_nether" + System.lineSeparator() +
+                                oldLevelName + "_the_end").getBytes(),
+                        StandardOpenOption.WRITE,
+                        StandardOpenOption.TRUNCATE_EXISTING
+                );
+            } catch (IOException e) {
+                getLogger().severe("Failed to mark world for deletion: " + e.getMessage());
+            }
+        }
+
+        if (cageController != null) {
+            cageController.cleanupBlocking();
+        }
+
+        if (nametagHandler != null) {
+            nametagHandler.cleanup();
+        }
 
         Bukkit.getScheduler().cancelTasks(this);
-        scoreboard.cleanup();
+        if (scoreboard != null) {
+            scoreboard.cleanup();
+        }
 
         try {
             teamSpawnsConfig.getConfiguration().save(teamSpawnsConfig.getFile());
@@ -206,43 +268,32 @@ public class BBU extends JavaPlugin {
      * @param value boolean
      */
     public void setJoinable(boolean value) {
-        this.joinable = value;
-
-        if (value)
+        // if the value is changing and is being set to true, send a message in console
+        if (joinable != value && value)
             Bukkit.getConsoleSender().sendMessage(CC.translate("&aServer is now joinable."));
-        else {
+        else if (!value) { // if the server is no longer joinable, kick all players and send a message in console
             for (Player player : Bukkit.getOnlinePlayers()) {
                 player.kick(CC.translate("&cServer is no longer joinable\n\n&cTry again later."));
             }
 
             Bukkit.getConsoleSender().sendMessage(CC.translate("&cServer is no longer joinable."));
         }
+
+        // update the joinable variable
+        this.joinable = value;
     }
 
     /**
      * Sets up all the commands with the command framework
      */
     private void registerCommands() {
-        Command.registerCommands( //GAME STUFF
-                GameCommand.class,
-                TrackPositionCommand.class,
-                TeamPosCommand.class
+        CommandManager.INSTANCE.registerCommands(
+                GameCommandKt.getGameCommand(),
+                TrackPositionCommandKt.getTrackPositionCommand(),
+                TeamPosCommandKt.getTeamPosCommand()
         );
     }
 
-    /**
-     * Sets up all the teams according to the {@link me.imoltres.bbu.data.BBUTeamColor} class
-     */
-    private void setupTeams() {
-        for (BBUTeamColor colour : BBUTeamColor.getEntries()) {
-            Bukkit.getConsoleSender().sendMessage(
-                    CC.translate(
-                            "&aTeam '&" + colour.getChatColor().getChar() + colour.name() + "&a' created " +
-                                    ((teamController.createTeam(colour)) ? "successfully" : "&cunsuccessfully")
-                    )
-            );
-        }
-    }
 
     /**
      * Sets up all the listeners
@@ -257,6 +308,10 @@ public class BBU extends JavaPlugin {
         pluginManager.registerEvents(new JoinListener(), this);
         pluginManager.registerEvents(new NerfsListener(), this);
         pluginManager.registerEvents(new ChatListener(), this);
+        pluginManager.registerEvents(new RespawnListener(), this);
+        pluginManager.registerEvents(new WeatherListener(), this);
+
+        pluginManager.registerEvents(new PortalListener(), this);
 
         //for menus
         pluginManager.registerEvents(new MenuListener(), this);
@@ -268,26 +323,22 @@ public class BBU extends JavaPlugin {
      * - cage.schem
      */
     private void writeDefaultSchems() {
-        saveResource("schematics" + File.separator + "cage", false);
-        File input = new File(schemesFolder, "cage");
-        File output = new File(schemesFolder, "cage.schem");
-        zipFile(input, output);
+        saveResource("schematics" + File.separator + "cage.schem", false);
     }
 
-    /**
-     * Zip a file (deletes the input)
-     *
-     * @param input  input file
-     * @param output destination
-     */
-    private void zipFile(File input, File output) {
-        try (GZIPOutputStream gos = new GZIPOutputStream(new FileOutputStream(output))) {
-            Files.copy(input.toPath(), gos);
-        } catch (IOException e) {
-            e.printStackTrace();
+    private boolean setDefaultWorld(String worldName) {
+        // change in server.properties
+        var server = (DedicatedServer) MinecraftServer.getServer();
+        var props = server.getProperties();
+
+        if (!props.levelName.equalsIgnoreCase(worldName)) {
+            props.properties.setProperty("level-name", worldName);
+            props.store(server.getFile("server.properties"));
+            getLogger().info("Set default world to " + worldName + " in server.properties.");
+            return true;
         }
 
-        input.delete();
+        return false; // false = does not need restart
     }
 
 }

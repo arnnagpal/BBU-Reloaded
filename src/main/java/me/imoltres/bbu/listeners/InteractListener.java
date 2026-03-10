@@ -92,7 +92,7 @@ public class InteractListener implements Listener {
             return;
         }
 
-        if (ItemConstants.isSimilar(ItemConstants.TRACKING_COMPASS, item)) {
+        if (ItemConstants.isSimilar(ItemConstants.TRACKING_COMPASS.build(), item)) {
             if (e.getPlayer().isSneaking()) {
                 double distance = 500 * 500;
 

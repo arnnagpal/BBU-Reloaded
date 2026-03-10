@@ -92,7 +92,7 @@ public class GameListener implements Listener {
         if (BBU.getInstance().getGame().getGameState() == GameState.GRACE) {
             //if team break then give back else cancel
             if (e.isTeamBreak()) {
-                player.giveItemSafely(ItemConstants.TEAM_BEACON);
+                player.giveItemSafely(ItemConstants.TEAM_BEACON.build());
             } else {
                 e.setCancelled(true);
             }

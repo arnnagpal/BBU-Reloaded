@@ -27,6 +27,7 @@ class GameThread(val game: Game) : BukkitRunnable() {
     private var shrinking = false
     private var pvp = false
 
+    @Volatile
     var started = false
 
     val teamCheckQueue = LinkedList<BBUTeam>()
@@ -38,11 +39,8 @@ class GameThread(val game: Game) : BukkitRunnable() {
      */
     override fun run() {
         started = true
-        if (game.gameState == GameState.POST_GAME)
-            return
-        if (isCancelled) {
-            return
-        }
+        if (game.gameState == GameState.POST_GAME) return
+        if (isCancelled) return
 
         swapGameStateIfAvailable()
         checkTeams()
@@ -61,8 +59,8 @@ class GameThread(val game: Game) : BukkitRunnable() {
                         for (player in team.players) {
                             val bukkitPlayer = Bukkit.getPlayer(player.uniqueId) ?: continue
 
-                            if (bukkitPlayer.inventory.contains(ItemConstants.TEAM_BEACON)) {
-                                bukkitPlayer.inventory.removeItemAnySlot(ItemConstants.TEAM_BEACON)
+                            if (bukkitPlayer.inventory.contains(ItemConstants.TEAM_BEACON.build())) {
+                                bukkitPlayer.inventory.removeItemAnySlot(ItemConstants.TEAM_BEACON.build())
                                 bukkitPlayer.sendMessage(CC.translate("&cYou have lost your beacon because you didn't place it in time."))
                             }
                         }
@@ -78,15 +76,16 @@ class GameThread(val game: Game) : BukkitRunnable() {
                     for (team in game.getTeams(true)) {
                         val world = game.overworld
                         val beaconLoc = team.beacon!!.toWorldPosition(game.overworld.name).toBukkitLocation()
-                        if (team.beacon != null) {
-                            if (beaconLoc.distance(world.worldBorder.center) > world.worldBorder.size / 2) {
-                                team.beacon!!.toWorldPosition(game.overworld.name).block.type =
-                                    Material.AIR
-                                team.beacon = null
-                                Bukkit.broadcast(
-                                    CC.translate("${team.getRawDisplayName()}&c's beacon has been destroyed because it was out of the border.")
-                                )
-                            }
+                        if (team.beacon == null) continue;
+
+                        // if the beacon is outside of the world border, break it and eliminate the team
+                        if (!world.worldBorder.isInside(beaconLoc)) {
+                            team.beacon!!.toWorldPosition(game.overworld.name).block.type =
+                                Material.AIR
+                            team.beacon = null
+                            Bukkit.broadcast(
+                                CC.translate("${team.getRawDisplayName()}&c's beacon has been destroyed because it was out of the border.")
+                            )
                         }
                     }
                 }
@@ -179,7 +178,7 @@ class GameThread(val game: Game) : BukkitRunnable() {
 
         Bukkit.getScheduler().runTask(BBU.getInstance()) { ->
             for (world in Bukkit.getWorlds()) {
-                world.worldBorder.setSize(shrinkPhase.size.toDouble(), shrinkPhase.length.toLong())
+                world.worldBorder.changeSize(shrinkPhase.size.toDouble(), shrinkPhase.length.toLong())
             }
         }
     }
@@ -191,10 +190,10 @@ class GameThread(val game: Game) : BukkitRunnable() {
         while (teamCheckQueue.peek() != null) {
             val team = teamCheckQueue.pop()
             Bukkit.getConsoleSender()
-                .sendMessage(CC.translate("&aChecking team '&" + team.colour.chatColor.char + team.colour.name + "&a'."))
+                .sendMessage(CC.translate("&aChecking team '&" + team.colour.chatColor.code + team.colour.name + "&a'."))
             if (team.players.size == 0 && !team.hasBeacon()) {
                 Bukkit.getConsoleSender()
-                    .sendMessage(CC.translate("&cEliminated team '&" + team.colour.chatColor.char + team.colour.name + "&a'."))
+                    .sendMessage(CC.translate("&cEliminated team '&" + team.colour.chatColor.code + team.colour.name + "&a'."))
                 Bukkit.getScheduler().runTask(BBU.getInstance(), Runnable {
                     team.eliminate(true)
                 })

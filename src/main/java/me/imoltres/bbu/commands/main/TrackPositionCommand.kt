@@ -1,31 +1,34 @@
 package me.imoltres.bbu.commands.main
 
-import me.imoltres.bbu.utils.command.Command
-import me.imoltres.bbu.utils.command.CommandArgs
-import me.imoltres.bbu.utils.command.CommandInfo
-import me.imoltres.bbu.utils.command.SubCommand
+import me.imoltres.bbu.utils.command.argumentBoolean
+import me.imoltres.bbu.utils.command.argumentLocation
+import me.imoltres.bbu.utils.command.argumentWorld
+import me.imoltres.bbu.utils.command.command
 import me.imoltres.bbu.utils.general.PlayerUtils
 import me.imoltres.bbu.utils.world.WorldPosition
+import org.bukkit.entity.Player
 
-@CommandInfo(
-    name = "trackposition",
-    senderType = CommandInfo.SenderType.PLAYER
-)
-class TrackPositionCommand : Command {
-    override fun execute(cmd: CommandArgs) {
-        PlayerUtils.trackPosition(cmd.getSender(), parseLocation(cmd.arguments), cmd.arguments[4].toBoolean())
+val TrackPositionCommand = command(
+    "trackpos",
+    "trackposition"
+) {
+    val loc = argumentLocation("location")
+    val world = argumentWorld("world")
+    val sendMsg = argumentBoolean("validate")
+    onlyPlayers()
+
+    defaultExecutor { sender ->
+        sender as Player
+        sender.sendMessage("Usage: /trackpos <location> <validationMsg [true|false]>")
     }
 
-    override fun subCommands(): MutableList<SubCommand> {
-        return arrayListOf()
-    }
+    buildSyntax(loc, world, sendMsg) {
+        executor { player, ctx ->
+            player as Player
+            val location = loc().resolve(ctx.source)
+            val sendMessage = sendMsg()
 
-    override fun tabCompleter(cmd: CommandArgs?): MutableList<String> {
-        return arrayListOf()
+            PlayerUtils.trackPosition(player, WorldPosition.fromFinePosition(location, world()), sendMessage)
+        }
     }
-
-    private fun parseLocation(args: Array<String>): WorldPosition {
-        return WorldPosition(args[0].toDouble(), args[1].toDouble(), args[2].toDouble(), args[3])
-    }
-
 }

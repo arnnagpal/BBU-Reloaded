@@ -57,17 +57,25 @@ class DamageListener : Listener {
         }
 
         val bbuDamager: BBUPlayer? = BBU.getInstance().playerController.getPlayer(damager.uniqueId)
+        val gameState = BBU.getInstance().game.gameState
 
-        //if pvp is disabled, cancel the damage
+        // if no friendly fire, cancel the damage if both the people are on the same team
         if (!MainConfig.FRIENDLY_FIRE) {
             val damagedTeam: BBUTeam? = BBU.getInstance().teamController.getTeam(damaged)
-            val damagerTeam = bbuDamager!!.team
-            if (damagedTeam === damagerTeam) {
-                e.isCancelled = true
+
+            // null check just in case, but it should never be null since the player is in the game
+            bbuDamager?.let {
+                val damagerTeam = it.team
+                if (damagedTeam === damagerTeam) {
+                    e.isCancelled = true
+                }
             }
+
+
         }
 
-        e.isCancelled = !BBU.getInstance().game.gameState.isPvp()
+        //if pvp is disabled, cancel the damage
+        if (!gameState.isPvp()) e.isCancelled = true
 
         if (e.isCancelled && e.damager is Arrow && bbuDamager != null)
             bbuDamager.giveItemSafely(
@@ -86,8 +94,8 @@ class DamageListener : Listener {
         while (iterator.hasNext()) {
             val drop = iterator.next()
             //keep beacon & compass after death
-            if (drop.isSimilar(ItemConstants.TEAM_BEACON) || ItemConstants.isSimilar(
-                    ItemConstants.TRACKING_COMPASS,
+            if (drop.isSimilar(ItemConstants.TEAM_BEACON.build()) || ItemConstants.isSimilar(
+                    ItemConstants.TRACKING_COMPASS.build(),
                     drop
                 )
             ) {
@@ -96,7 +104,11 @@ class DamageListener : Listener {
             }
         }
 
-        val killer = BBU.getInstance().playerController.getPlayer(player.killer?.uniqueId)
+        var killer: BBUPlayer? = null
+
+        if (player.killer != null) {
+            killer = BBU.getInstance().playerController.getPlayer(player.killer!!.uniqueId)
+        }
 
         val event =
             BBUPlayerDeathEvent(WorldPosition.fromBukkitLocation(player.location), bbuPlayer, killer, !team.hasBeacon())

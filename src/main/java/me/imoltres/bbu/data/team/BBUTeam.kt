@@ -11,6 +11,7 @@ import net.kyori.adventure.text.TextComponent
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import java.util.*
+import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ThreadLocalRandom
 
 /**
@@ -31,7 +32,7 @@ class BBUTeam(val colour: BBUTeamColor) {
             field = value
         }
 
-    val players: MutableSet<BBUPlayer> = HashSet()
+    val players: MutableSet<BBUPlayer> = ConcurrentHashMap.newKeySet()
 
     var beacon: Position? = null
         set(value) {
@@ -164,13 +165,14 @@ class BBUTeam(val colour: BBUTeamColor) {
         if (players.isEmpty())
             return
 
-        val players = this.players.toList()
+        val players = this.players.toMutableList()
         val random = ThreadLocalRandom.current()
 
         var randInt = random.nextInt(players.size)
         var player = players[randInt]
         while (player.player == null) {
-            players.drop(randInt)
+            players.removeAt(randInt)
+            if (players.isEmpty()) return // if no one is online to give the beacon to, just return
 
             randInt = random.nextInt(players.size)
             player = players[randInt]
@@ -190,7 +192,7 @@ class BBUTeam(val colour: BBUTeamColor) {
      * @return a raw bukkit string version of the display name
      */
     fun getRawDisplayName(): String {
-        return "&" + colour.chatColor.char + CC.capitalize(getName())
+        return "&" + colour.chatColor.code + CC.capitalize(getName())
     }
 
     fun getName(): String {
@@ -211,10 +213,6 @@ class BBUTeam(val colour: BBUTeamColor) {
     }
 
     override fun hashCode(): Int {
-        var result = colour.hashCode()
-        result = 31 * result + (cage?.hashCode() ?: 0)
-        result = 31 * result + players.hashCode()
-        result = 31 * result + (beacon?.hashCode() ?: 0)
-        return result
+        return colour.hashCode()
     }
 }

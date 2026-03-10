@@ -1,10 +1,8 @@
 package me.imoltres.bbu.utils.schematic;
 
-
-import com.github.steveice10.opennbt.tag.builtin.ByteArrayTag;
-import com.github.steveice10.opennbt.tag.builtin.CompoundTag;
-import com.github.steveice10.opennbt.tag.builtin.IntTag;
-import com.github.steveice10.opennbt.tag.builtin.ShortTag;
+import com.viaversion.nbt.tag.ByteArrayTag;
+import com.viaversion.nbt.tag.CompoundTag;
+import com.viaversion.nbt.tag.IntTag;
 import me.imoltres.bbu.utils.world.Position;
 import org.bukkit.Material;
 
@@ -18,23 +16,24 @@ public class SchematicParser {
      * @param schematic
      * @return HashMap of positions (relative to the origin) and materials
      */
-    public static HashMap<Position, Material> parseSchematic(CompoundTag schematic) {
+    public static HashMap<Position, Material> parseSchematic(com.viaversion.nbt.tag.CompoundTag schematic) {
         HashMap<Integer, Material> palette = new HashMap<>();
 
-        CompoundTag paletteTag = schematic.get("Palette");
+        CompoundTag paletteTag = schematic.getCompoundTag("Palette");
         if (paletteTag != null) {
             parsePalette(palette, paletteTag);
         }
 
-        ByteArrayTag blockData = schematic.get("BlockData");
+        ByteArrayTag blockData = schematic.getByteArrayTag("BlockData");
         if (blockData == null) {
+            System.out.println("BlockData tag not found in schematic");
             return null;
         }
 
         HashMap<Position, Material> output = new HashMap<>();
 
-        int width = ((ShortTag) schematic.get("Width")).getValue();
-        int length = ((ShortTag) schematic.get("Length")).getValue();
+        int width = schematic.getShortTag("Width").getValue();
+        int length = schematic.getShortTag("Length").getValue();
 
         int i = 0;
         for (byte b : blockData.getValue()) {
@@ -44,8 +43,6 @@ public class SchematicParser {
             int x = i % width;
             int y = i / (length * width);
             int z = (i / width) % length;
-
-            System.out.println("Material: " + mat + " X: " + x + " Y: " + y + " Z: " + z);
 
             output.put(new Position(x, y, z), mat);
 
@@ -62,10 +59,8 @@ public class SchematicParser {
                 continue;
             }
 
-            IntTag id = paletteTag.get(matStr);
+            IntTag id = paletteTag.getIntTag(matStr);
             palette.put(id.getValue(), mat);
-
-            System.out.println("Material: " + mat + " ID: " + id.getValue());
         }
     }
 }

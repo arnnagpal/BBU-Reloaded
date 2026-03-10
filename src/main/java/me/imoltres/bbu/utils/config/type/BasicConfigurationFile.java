@@ -3,8 +3,8 @@ package me.imoltres.bbu.utils.config.type;
 import lombok.Getter;
 import me.imoltres.bbu.utils.CC;
 import me.imoltres.bbu.utils.config.AbstractConfigurationFile;
+import net.kyori.adventure.text.TextComponent;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -65,7 +65,11 @@ public class BasicConfigurationFile extends AbstractConfigurationFile {
     }
 
     public String getString(String path) {
-        return this.configuration.contains(path) ? ChatColor.translateAlternateColorCodes('&', this.configuration.getString(path)) : null;
+        return this.configuration.contains(path) ? this.configuration.getString(path) : null;
+    }
+
+    public TextComponent getComponent(String path) {
+        return this.configuration.contains(path) ? CC.translate(this.configuration.getString(path)) : null;
     }
 
     public String getStringOrDefault(String path, String or) {

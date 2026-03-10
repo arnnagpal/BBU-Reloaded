@@ -43,7 +43,7 @@ class BeaconListener : Listener {
     fun onBeaconPlace(e: BlockPlaceEvent) {
         if (e.block.type != Material.BEACON)
             return
-        if (!e.itemInHand.isSimilar(ItemConstants.TEAM_BEACON))
+        if (!e.itemInHand.isSimilar(ItemConstants.TEAM_BEACON.build()))
             return
 
         //is bbu beacon :D
@@ -53,8 +53,8 @@ class BeaconListener : Listener {
             // only allow beacon placement in grace
             e.isCancelled = true
 
-            // take away the beacon!
-            player.inventory.removeItem(ItemConstants.TEAM_BEACON)
+            // take away the beacon
+            player.inventory.removeItem(ItemConstants.TEAM_BEACON.build())
             player.sendMessage(CC.translate("&cYou have lost your beacon because you didn't place it during the grace period."))
             return
         }
@@ -73,7 +73,7 @@ class BeaconListener : Listener {
         } else {
             team.beacon = WorldPosition.fromBukkitLocation(e.block.location)
             Bukkit.getConsoleSender()
-                .sendMessage(CC.translate("&aSet `&${team.colour.chatColor.char}${team.colour.name}` &ateam's beacon to ${team.beacon.toString()}"))
+                .sendMessage(CC.translate("&aSet `&${team.colour.chatColor.code}${team.colour.name}` &ateam's beacon to ${team.beacon.toString()}"))
         }
 
     }
@@ -104,7 +104,7 @@ class BeaconListener : Listener {
         } else {
             team.beacon = null
             Bukkit.getConsoleSender()
-                .sendMessage(CC.translate("&aSet `&${team.colour.chatColor.char}${team.colour.name}` &ateam's beacon to null"))
+                .sendMessage(CC.translate("&aSet `&${team.colour.chatColor.code}${team.colour.name}` &ateam's beacon to null"))
         }
     }
 

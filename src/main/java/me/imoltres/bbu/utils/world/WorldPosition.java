@@ -4,16 +4,16 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
+import io.papermc.paper.math.FinePosition;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import me.imoltres.bbu.utils.CC;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 
 import java.io.IOException;
 import java.util.Set;
@@ -82,47 +82,32 @@ public class WorldPosition extends Position {
         return new WorldPosition(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch(), location.getWorld().getName());
     }
 
+    public static WorldPosition fromFinePosition(FinePosition location, World world) {
+        return new WorldPosition(location.x(), location.y(), location.z(), world.getName());
+    }
+
     public boolean isSafe(int width, int height) {
-        Cuboid cuboid = new Cuboid(new Position(
-                getX() - width,
-                getY(),
-                getZ() - width
-        ), new Position(
-                getX() + width,
-                getY() + height,
-                getZ() + width
-        ));
+        World w = Bukkit.getWorld(world);
+        if (w == null) return false;
 
-        for (Position position : cuboid) {
-            WorldPosition worldPosition = position.toWorldPosition(world);
-            try {
-                Block feet = worldPosition.getBlock();
-                if (feet.getType().isOccluding() && feet.getLocation().add(0, 1, 0).getBlock().getType().isOccluding()) {
-                    Bukkit.getConsoleSender().sendMessage(CC.translate("&c[DEBUG] BLOCK IS OCCLUDING: &7" + feet.getType().name()));
-                    return false;
-                }
-                Block head = feet.getRelative(BlockFace.UP);
-                if (head.getType().isOccluding()) {
-                    Bukkit.getConsoleSender().sendMessage(CC.translate("&c[DEBUG] BLOCK IS OCCLUDING: &7" + head.getType().name()));
-                    return false;
-                }
-                Block ground = feet.getRelative(BlockFace.DOWN);
-                if (ground.getType() == Material.LAVA) {
-                    Bukkit.getConsoleSender().sendMessage(CC.translate("&c[DEBUG] BLOCK IS LAVA: &7" + ground.getType().name()));
-                    return false;
-                }
+        int bx = (int) getX(), by = (int) getY(), bz = (int) getZ();
 
-                //check biome too!
-                if (BAD_BIOMES.contains(feet.getBiome())) {
-                    Bukkit.getConsoleSender().sendMessage(CC.translate("&c[DEBUG] BLOCK IS IN BAD BIOME: &7" + feet.getBiome().name()));
-                    return false;
+        // cheap check first
+        if (BAD_BIOMES.contains(w.getBlockAt(bx, by, bz).getBiome())) return false;
+
+        for (int x = bx - width; x <= bx + width; x++) {
+            for (int y = by; y <= by + height; y++) {
+                for (int z = bz - width; z <= bz + width; z++) {
+                    Block feet = w.getBlockAt(x, y, z);
+                    Block head = w.getBlockAt(x, y + 1, z);
+                    Block ground = w.getBlockAt(x, y - 1, z);
+
+                    if (head.getType().isOccluding()) return false;
+                    if (ground.getType() == Material.LAVA) return false;
+                    if (BAD_BIOMES.contains(feet.getBiome())) return false;
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         }
-
-        Bukkit.getConsoleSender().sendMessage(CC.translate("&a[DEBUG] BLOCK IS SAFE"));
         return true;
     }
 
@@ -185,7 +170,7 @@ public class WorldPosition extends Position {
             out.value(value.getY());
             out.value(value.getZ());
             out.value(value.getPitch());
-            out.value(value.getY());
+            out.value(value.getYaw());
             out.value(value.getWorld());
             out.endArray();
         }

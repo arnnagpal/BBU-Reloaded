@@ -11,7 +11,7 @@ import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import java.math.BigDecimal
 
-class MainScoreboard(player: Player) : BBUScoreboardAdapter(1, player) {
+class MainScoreboard(player: Player) : BBUScoreboardAdapter(player) {
 
     override fun getLines(player: BBUPlayer): ArrayList<String> {
         val lines = ArrayList<String>()
@@ -21,91 +21,35 @@ class MainScoreboard(player: Player) : BBUScoreboardAdapter(1, player) {
         lines.add("&bOnline: &f" + Bukkit.getOnlinePlayers().size)
         lines.add("&bTPS: " + TickUtils.getTPS())
 
-        if (game.gameState.next() != null) {
-            val tick = game.thread.tick / 20
-            val timeTill = DateUtils.readableTime(BigDecimal(game.gameState.next()!!.startTime - tick))
-
-            when (game.gameState) {
-                GameState.GRACE, GameState.PVP -> lines.add(
-                    String.format(
-                        "&b%s&f:%s",
-                        game.gameState.next()!!.display,
-                        timeTill
-                    )
-                )
-
-                else -> {}
-            }
+        val nextState = game.gameState.next()
+        if (nextState != null && game.gameState in listOf(GameState.GRACE, GameState.PVP)) {
+            val timeTill = DateUtils.readableTime(BigDecimal(nextState.startTime - game.thread.tick / 20))
+            lines.add("&b${nextState.display}&f:$timeTill")
         }
 
         if (game.gameState.isPvp()) {
-            lines.add(
-                String.format(
-                    "&bFortress&f: %s, %s",
-                    game.fortressPosition.x,
-                    game.fortressPosition.y
-                )
-            )
+            game.fortressPosition?.let { lines.add("&bFortress&f: ${it.x}, ${it.y}") }
         }
 
         lines.add("")
 
         if (game.gameState == GameState.PVP_BORDER_SHRINK) {
-            val timeTillShrink = DateUtils.readableTime(BigDecimal((game.thread.shrinkingTime / 20)))
-
-            lines.add(
-                String.format(
-                    "&b%s&f: %.1f",
-                    game.gameState.display,
-                    game.overworld.worldBorder.size
-                )
-            )
-
-            lines.add(
-                String.format(
-                    "&b%s&f:%s",
-                    "Next shrink",
-                    timeTillShrink
-                )
-            )
-
+            lines.add("&b${game.gameState.display}&f: ${"%.1f".format(game.overworld.worldBorder.size)}")
+            lines.add("&bNext shrink&f:${DateUtils.readableTime(BigDecimal(game.thread.shrinkingTime / 20))}")
             lines.add("")
         }
 
-
         for (team in BBU.getInstance().teamController.allTeams) {
             val name = CC.capitalize(team.colour.name.lowercase())
-            if (!team.hasBeacon()) {
-                if (team.players.size > 0) {
-                    lines.add(
-                        String.format(
-                            "&%s &f%s&f: &a%d%s",
-                            team.colour.chatColor.char + team.colour.name.first().toString(),
-                            name,
-                            team.players.size,
-                            if (team.players.contains(player)) " &7YOU" else ""
-                        )
-                    )
-                } else {
-                    lines.add(
-                        String.format(
-                            "&%s &f%s&f: &c\u2715%s",
-                            team.colour.chatColor.char + team.colour.name.first().toString(),
-                            name,
-                            if (team.players.contains(player)) " &7YOU" else ""
-                        )
-                    )
-                }
-            } else {
-                lines.add(
-                    String.format(
-                        "&%s &f%s&f: &a\u2713%s",
-                        team.colour.chatColor.char + team.colour.name.first().toString(),
-                        name,
-                        if (team.players.contains(player)) " &7YOU" else ""
-                    )
-                )
+            val colorPrefix = "&${team.colour.chatColor.code}${team.colour.name.first()} &f$name&f: "
+            val youSuffix = if (team.players.contains(player)) " &7YOU" else ""
+            val status = when {
+                team.hasBeacon() -> "&a\u2713"
+                team.players.isNotEmpty() -> "&a${team.players.size}"
+                else -> "&c\u2715"
             }
+
+            lines.add("$colorPrefix$status$youSuffix")
         }
 
         lines.add(CC.SB_DIV)

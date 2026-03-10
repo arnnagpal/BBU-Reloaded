@@ -1,7 +1,9 @@
 package me.imoltres.bbu.controllers
 
-import com.github.steveice10.opennbt.NBTIO
+import com.viaversion.nbt.io.NBTIO
+import com.viaversion.nbt.tag.CompoundTag
 import kotlinx.coroutines.*
+import kotlinx.coroutines.future.asDeferred
 import me.imoltres.bbu.BBU
 import me.imoltres.bbu.data.team.BBUCage
 import me.imoltres.bbu.data.team.BBUTeam
@@ -12,9 +14,12 @@ import me.imoltres.bbu.utils.world.*
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.World
-import java.io.File
 import java.io.IOException
+import java.nio.file.Files
 import java.util.concurrent.ExecutionException
+import kotlin.io.path.Path
+
+const val MAX_RANDOM_POSITION_ATTEMPTS = 500
 
 /**
  * Controls all the cages
@@ -26,8 +31,17 @@ class CageController(private val plugin: BBU) {
 
     init {
         try {
-            val cagesSchematicFile = File(plugin.schemesFolder, "cage.schem")
-            cageSchematic = SchematicParser.parseSchematic(NBTIO.readFile(cagesSchematicFile))
+            val cagesSchematicPath = Path(plugin.schemesFolder.path, "cage.schem")
+            val fileReader = NBTIO.reader(CompoundTag::class.java).named()
+
+            // validate cage schematic exists
+            if (!Files.exists(cagesSchematicPath)) {
+                throw Exception("Cage schematic does not exist at path: $cagesSchematicPath")
+            }
+
+            val tag = fileReader.read(cagesSchematicPath, true)
+
+            cageSchematic = SchematicParser.parseSchematic(tag)
 
             val min = Position(0.0, 0.0, 0.0)
             // find largest position
@@ -52,7 +66,13 @@ class CageController(private val plugin: BBU) {
         }
     }
 
-    val scope = CoroutineScope(Dispatchers.IO)
+    val scope = CoroutineScope(
+        Dispatchers.IO +
+                SupervisorJob() +
+                CoroutineExceptionHandler { _, exception ->
+                    BBU.getInstance().logger.severe("An error occurred in the CageController coroutine scope: ${exception.message}")
+                }
+    )
 
     /**
      * Delete all the cages, then place them all back
@@ -62,7 +82,7 @@ class CageController(private val plugin: BBU) {
         scope.launch {
             deleteCages(world)
             try {
-                placeCages(world, ArrayList())
+                placeCages(world, BBU.getInstance().game.border, ArrayList())
             } catch (e: ExecutionException) {
                 e.printStackTrace()
             } catch (e: InterruptedException) {
@@ -80,7 +100,7 @@ class CageController(private val plugin: BBU) {
      * @throws InterruptedException
      */
     @Throws(ExecutionException::class, InterruptedException::class)
-    suspend fun placeCages(world: World, teamsWithCages: List<BBUTeam>) {
+    suspend fun placeCages(world: World, borderSize: Int, teamsWithCages: List<BBUTeam>) {
         val exclusions: MutableList<WorldPosition> = ArrayList()
         for (team in teamsWithCages) {
             val a = team.cage!!.cuboid
@@ -96,7 +116,7 @@ class CageController(private val plugin: BBU) {
             val cuboid = getConfiguredCage(team)
             val position = if (cuboid == null) {
                 println("Getting random position...")
-                getRandomValidWorldPosition(world, exclusions, 75)
+                getRandomValidWorldPosition(world, borderSize, exclusions, 75)
             } else {
                 println("Using configured position...")
                 WorldPosition(cuboid.min.x, cuboid.min.y, cuboid.min.z, world.name)
@@ -122,6 +142,15 @@ class CageController(private val plugin: BBU) {
         return null
     }
 
+    fun clearConfiguredCages() {
+        for (team in plugin.teamController.allTeams) {
+            plugin.teamSpawnsConfig.configuration.set("team." + team.colour.name, null)
+        }
+
+        // save
+        plugin.teamSpawnsConfig.configuration.save(plugin.teamSpawnsConfig.file)
+    }
+
     /**
      * Place a singular cage for a team in a given position
      * @param position world-less position to place it in
@@ -129,39 +158,51 @@ class CageController(private val plugin: BBU) {
      * @param world world to place it in
      */
     fun placeCage(position: Position, bbuTeam: BBUTeam, world: World) {
-        println("Placing cage for team: " + bbuTeam.colour.name)
-        println("Position: $position")
         val to = Position(position.x, position.y, position.z)
         val cage = Cuboid(
             Position(to.x, to.y, to.z),
-            Position(
-                to.x + cageCuboid.max.x, to.y + cageCuboid.max.y, to.z + cageCuboid.max.z
-            )
+            Position(to.x + cageCuboid.max.x, to.y + cageCuboid.max.y, to.z + cageCuboid.max.z)
         )
-        println("Cage: $cage")
 
-        Bukkit.getScheduler().runTask(plugin, Runnable {
-            // paste the schematic
-            for ((pos, material) in cageSchematic) {
-                val block = world.getBlockAt(
-                    (to.x + pos.x).toInt(),
-                    (to.y + pos.y).toInt(),
-                    (to.z + pos.z).toInt()
-                )
-                block.type = material
-            }
+        val entries = cageSchematic.entries.toList()
+        val batchSize = 50 // blocks per tick
 
-            bbuTeam.cage = BBUCage(bbuTeam, cage, cage.center.subtract(0.0, 1.0, 0.0).toWorldPosition(world.name))
+        entries.chunked(batchSize).forEachIndexed { index, batch ->
+            Bukkit.getScheduler().runTaskLater(plugin, Runnable {
+                for ((pos, material) in batch) {
+                    world.getBlockAt(
+                        (to.x + pos.x).toInt(),
+                        (to.y + pos.y).toInt(),
+                        (to.z + pos.z).toInt()
+                    ).type = material
+                }
 
-            Bukkit.getConsoleSender().sendMessage(
-                CC.translate(
-                    "&aTeam '&" + bbuTeam.colour.chatColor.char + bbuTeam.colour.name + "&a' cage spawned at &7" + bbuTeam.cage!!.spawnPosition
-                        .toString() + "&a."
-                )
-            )
-            plugin.teamSpawnsConfig.configuration["team." + bbuTeam.colour.name] =
-                GsonFactory.getCompactGson().toJson(cage)
-        })
+                // only finalize on the last batch
+                if (index == entries.chunked(batchSize).size - 1) {
+                    bbuTeam.cage =
+                        BBUCage(bbuTeam, cage, cage.center.subtract(0.0, 1.0, 0.0).toWorldPosition(world.name))
+                    plugin.teamSpawnsConfig.configuration["team." + bbuTeam.colour.name] =
+                        GsonFactory.getCompactGson().toJson(cage)
+                    Bukkit.getConsoleSender().sendMessage(
+                        CC.translate(
+                            "&aTeam '&${bbuTeam.colour.chatColor.code}${bbuTeam.colour.name}&a' cage spawned."
+                        )
+                    )
+                }
+            }, index.toLong()) // 1 tick delay per batch
+        }
+    }
+
+    fun deleteCage(team: BBUTeam, world: World) {
+        val cage = team.cage ?: return
+        val cuboid = cage.cuboid
+
+        for (position in cuboid) {
+            val worldPos = position.toWorldPosition(world.name)
+            Bukkit.getScheduler().runTask(plugin, Runnable {
+                worldPos.block.type = Material.AIR
+            })
+        }
     }
 
     /**
@@ -169,8 +210,12 @@ class CageController(private val plugin: BBU) {
      * @param world world
      */
     fun deleteCages(world: World) {
-        for (team in plugin.teamController.allTeams) {
-            team.cage?.cuboid?.forEach { position ->
+        val teams: MutableList<BBUTeam> = ArrayList(plugin.teamController.allTeams)
+        for (team in teams) {
+            val cage = team.cage ?: continue
+            val cuboid = cage.cuboid
+
+            for (position in cuboid) {
                 val worldPos = position.toWorldPosition(world.name)
                 Bukkit.getScheduler().runTask(plugin, Runnable {
                     worldPos.block.type = Material.AIR
@@ -180,102 +225,97 @@ class CageController(private val plugin: BBU) {
     }
 
     /**
-     * Loads a chunk at a given position
-     * @param world world to load the chunk in
-     * @param x x position
-     * @param z z position
+     * Get a random world position inside the world border
+     * @param world world to get the position in
      */
-    private suspend fun loadChunkAt(world: World, x: Int, z: Int) {
-        // loads the chunk
-        println("Loading chunk at $x, $z")
+    private suspend fun findSafePosition(world: World, borderSize: Double): WorldPosition? {
+        val world2D = Rectangle(
+            Position2D(-(borderSize / 2), -(borderSize / 2)),
+            Position2D(borderSize / 2, borderSize / 2)
+        )
+        val position2D = world2D.randomPosition().toIntPosition()
+        val x = position2D.x.toInt()
+        val z = position2D.y.toInt()
+        val deferred = CompletableDeferred<WorldPosition?>()
 
-        val chunkX = x shr 4
-        val chunkZ = z shr 4
+        val t0 = System.currentTimeMillis()
+        loadChunkAt(world, x, z)
+        val t1 = System.currentTimeMillis()
 
-        val deferred = CompletableDeferred<Unit>()
-
+        // run one sync call instead of 3 to avoid round trips (optimization)
         Bukkit.getScheduler().runTask(BBU.getInstance(), Runnable {
-            // load the chunks 6x6 around the chunk
-            for (i in -3..3) {
-                for (j in -3..3) {
-                    world.loadChunk(chunkX + i, chunkZ + j, true)
-                }
-            }
+            val t2 = System.currentTimeMillis()
 
-            println("Loaded chunk at $x, $z")
-            deferred.complete(Unit)
+            val highestY = world.getHighestBlockYAt(x, z + 3)
+            val t3 = System.currentTimeMillis()
+
+            val candidate = WorldPosition(x.toDouble(), highestY.toDouble(), z.toDouble(), world.name)
+            val safe = candidate.isSafe(4, 4)
+            val t4 = System.currentTimeMillis()
+            BBU.getInstance().logger.info("chunk load=${t1 - t0}ms | main thread wait=${t2 - t1}ms | highestY=${t3 - t2}ms | isSafe=${t4 - t3}ms")
+            deferred.complete(if (safe) candidate else null)
         })
 
         return deferred.await()
     }
 
     /**
-     * Get a random world position inside the world border
-     * @param world world to get the position in
-     */
-    private suspend fun getRandomWorldPosition(world: World): WorldPosition = withContext(Dispatchers.IO) {
-        val world2D = Rectangle(
-            Position2D(-(world.worldBorder.size / 2), -(world.worldBorder.size / 2)),
-            Position2D(world.worldBorder.size / 2, world.worldBorder.size / 2)
-        )
-
-        var position2D = world2D.randomPosition().toIntPosition()
-        var x = position2D.x
-        var z = position2D.y
-
-        // loads the chunk
-        loadChunkAt(world, x.toInt(), z.toInt())
-
-        val worldPosition = WorldPosition(
-            x,
-            (world.getHighestBlockYAt(x.toInt(), z.toInt()) + 3).toDouble(),
-            z,
-            world.name
-        )
-
-        while (!worldPosition.isSafe(4, 4)) {
-            println("Rerolling position: $x, ${worldPosition.y.toInt()}, $z")
-
-            position2D = world2D.randomPosition().toIntPosition()
-            x = position2D.x
-            z = position2D.y
-
-            loadChunkAt(world, x.toInt(), z.toInt())
-
-            worldPosition.x = x
-            worldPosition.y = (world.getHighestBlockYAt(x.toInt(), z.toInt()) + 3).toDouble()
-            worldPosition.z = z
-            println("Trying position: $x, ${worldPosition.y.toInt()}, $z")
-        }
-
-        return@withContext worldPosition
-    }
-
-    /**
-     * Get a random 2d position inside the configured border.
-     *
-     * Ensures a range between the positions.
+     * Get a random position inside the configured border.
+     * Ensures a min {@param range} between {@param exclusions} positions.
      *
      * @param world world
      * @param exclusions positions to avoid within a range
      * @param range range to avoid positions in
-     * @return a 2D position in the world
+     * @return a position in the world
      */
     private suspend fun getRandomValidWorldPosition(
         world: World,
+        borderSize: Int,
         exclusions: List<WorldPosition>,
         range: Int
-    ): WorldPosition = scope.async {
-        var worldPos = getRandomWorldPosition(world)
+    ): WorldPosition = withContext(Dispatchers.IO) {
 
-        Bukkit.getConsoleSender()
-            .sendMessage(CC.translate("Checking position: ${worldPos.x}, ${worldPos.y}, ${worldPos.z}"))
-        for (p in exclusions) {
-            while (worldPos.distance(p) < range) {
-                worldPos = getRandomWorldPosition(world)
+        val t0 = System.currentTimeMillis()
+        repeat(MAX_RANDOM_POSITION_ATTEMPTS) {
+            val candidate = findSafePosition(world, borderSize.toDouble()) ?: return@repeat
+            if (exclusions.none { candidate.distance(it) < range }) {
+                val t1 = System.currentTimeMillis()
+                BBU.getInstance().logger.info("Found valid position after ${t1 - t0}ms and ${it + 1} attempts")
+                return@withContext candidate
             }
         }
 
-        return@async worldPos
-    }.await()
+        throw Exception("Failed to find a VALID world position after $MAX_RANDOM_POSITION_ATTEMPTS attempts.")
+    }
+
+    /**
+     * Clean up all coroutines in a blocking way, used for when the plugin is disabling
+     * (for java calls)
+     */
+    fun cleanupBlocking() {
+        runBlocking { cleanup() }
+    }
+
+    /**
+     * Cancel all coroutines when the plugin is disabled
+     */
+    suspend fun cleanup() {
+        scope.coroutineContext[Job]?.cancelAndJoin() // Access the Job from the context
+        scope.cancel("Plugin disabled") // Cancel the scope itself
+    }
+
+    /**
+     * Load the chunk at the given coordinates and the surrounding chunks asynchronously.
+     */
+    private suspend fun loadChunkAt(world: World, x: Int, z: Int) {
+        val chunkX = x shr 4
+        val chunkZ = z shr 4
+        val jobs = (-1..1).flatMap { i ->
+            (-1..1).map { j ->
+                world.getChunkAtAsync(chunkX + i, chunkZ + j).asDeferred()
+            }
+        }
+        jobs.awaitAll()
+    }
+
 }

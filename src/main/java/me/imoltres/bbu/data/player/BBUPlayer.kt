@@ -6,6 +6,7 @@ import me.imoltres.bbu.scoreboard.BBUScoreboardAdapter
 import me.imoltres.bbu.utils.CC
 import me.imoltres.bbu.utils.config.MainConfig
 import me.imoltres.bbu.utils.config.Messages
+import me.imoltres.bbu.utils.item.ItemBuilder
 import net.kyori.adventure.text.TextComponent
 import org.bukkit.*
 import org.bukkit.entity.EntityType
@@ -25,19 +26,16 @@ import kotlin.random.asKotlinRandom
  * Represents a custom player
  */
 class BBUPlayer(val uniqueId: UUID, val name: String) {
-    @Transient
-    var player: Player? = null
+    val player: Player?
         get() {
-            if (field == null) {
-                if (Bukkit.getPlayer(uniqueId) == null) {
-                    System.out.printf("'%s' is offline, can't retrieve bukkit player.\n", name)
-                    return null
-                }
-                field = Bukkit.getPlayer(uniqueId)
+            val bukkitPlayer = Bukkit.getPlayer(uniqueId)
+            if (bukkitPlayer == null) {
+                System.out.printf("'%s' is offline, can't retrieve bukkit player.\n", name)
+                return null
             }
-            return field
+
+            return bukkitPlayer
         }
-        private set
 
     var eliminated = false
     var switchingSpectator = false
@@ -66,7 +64,7 @@ class BBUPlayer(val uniqueId: UUID, val name: String) {
     fun getRawDisplayName(): String {
         team ?: return name
 
-        return "&" + team?.colour?.chatColor?.char + name
+        return "&" + team?.colour?.chatColor?.code + name
     }
 
     /**
@@ -78,6 +76,17 @@ class BBUPlayer(val uniqueId: UUID, val name: String) {
     fun giveItemSafely(item: ItemStack): Boolean {
         return giveItemSafely(item, false)
     }
+
+    /**
+     * Give an item safely to the player, alerting them that they have a full inventory (if it is)
+     *
+     * @param item item to give
+     * @return if it was successful
+     */
+    fun giveItemSafely(item: ItemBuilder): Boolean {
+        return giveItemSafely(item.build(), false)
+    }
+
 
     /**
      * Give an item safely to the player

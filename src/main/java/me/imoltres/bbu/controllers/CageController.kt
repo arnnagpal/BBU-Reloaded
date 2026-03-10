@@ -63,7 +63,13 @@ class CageController(private val plugin: BBU) {
         }
     }
 
-    val scope = CoroutineScope(Dispatchers.IO)
+    val scope = CoroutineScope(
+        Dispatchers.IO +
+                SupervisorJob() +
+                CoroutineExceptionHandler { _, exception ->
+                    BBU.getInstance().logger.severe("An error occurred in the CageController coroutine scope: ${exception.message}")
+                }
+    )
 
     /**
      * Delete all the cages, then place them all back
@@ -176,7 +182,10 @@ class CageController(private val plugin: BBU) {
     }
 
     fun deleteCage(team: BBUTeam, world: World) {
-        team.cage?.cuboid?.forEach { position ->
+        val cage = team.cage ?: return
+        val cuboid = cage.cuboid
+
+        for (position in cuboid) {
             val worldPos = position.toWorldPosition(world.name)
             Bukkit.getScheduler().runTask(plugin, Runnable {
                 worldPos.block.type = Material.AIR
@@ -189,8 +198,12 @@ class CageController(private val plugin: BBU) {
      * @param world world
      */
     fun deleteCages(world: World) {
-        for (team in plugin.teamController.allTeams) {
-            team.cage?.cuboid?.forEach { position ->
+        val teams: MutableList<BBUTeam> = ArrayList(plugin.teamController.allTeams)
+        for (team in teams) {
+            val cage = team.cage ?: continue
+            val cuboid = cage.cuboid
+
+            for (position in cuboid) {
                 val worldPos = position.toWorldPosition(world.name)
                 Bukkit.getScheduler().runTask(plugin, Runnable {
                     worldPos.block.type = Material.AIR
@@ -200,55 +213,33 @@ class CageController(private val plugin: BBU) {
     }
 
     /**
-     * Loads a chunk at a given position
-     * @param world world to load the chunk in
-     * @param x x position
-     * @param z z position
-     */
-    private suspend fun loadChunkAt(world: World, x: Int, z: Int) {
-        // loads the chunk
-        println("Loading chunk at $x, $z")
-
-        val chunkX = x shr 4
-        val chunkZ = z shr 4
-
-        val deferred = CompletableDeferred<Unit>()
-
-        Bukkit.getScheduler().runTask(BBU.getInstance(), Runnable {
-            // load the chunks 6x6 around the chunk
-            for (i in -3..3) {
-                for (j in -3..3) {
-                    world.loadChunk(chunkX + i, chunkZ + j, true)
-                }
-            }
-
-            println("Loaded chunk at $x, $z")
-            deferred.complete(Unit)
-        })
-
-        return deferred.await()
-    }
-
-    /**
      * Get a random world position inside the world border
      * @param world world to get the position in
      */
     private suspend fun getRandomWorldPosition(world: World): WorldPosition = withContext(Dispatchers.IO) {
+        val borderSize = getBorderSizeSync(world)
+
         val world2D = Rectangle(
-            Position2D(-(world.worldBorder.size / 2), -(world.worldBorder.size / 2)),
-            Position2D(world.worldBorder.size / 2, world.worldBorder.size / 2)
+            Position2D(-(borderSize / 2), -(borderSize / 2)),
+            Position2D(borderSize / 2, borderSize / 2)
         )
 
         var position2D = world2D.randomPosition().toIntPosition()
         var x = position2D.x
         var z = position2D.y
 
-        // loads the chunk
+        // loads the chunk synchronously
         loadChunkAt(world, x.toInt(), z.toInt())
 
+
+        // why + 3?
+        // because the cage is 3 blocks tall,
+        // so we need to make sure the highest block is at least 3 blocks below the spawn position
+        // to avoid suffocating the player in the block when they spawn
+        var highestY = getHighestYAtSync(world, x.toInt(), z.toInt() + 3)
         val worldPosition = WorldPosition(
             x,
-            (world.getHighestBlockYAt(x.toInt(), z.toInt()) + 3).toDouble(),
+            highestY.toDouble(),
             z,
             world.name
         )
@@ -262,8 +253,10 @@ class CageController(private val plugin: BBU) {
 
             loadChunkAt(world, x.toInt(), z.toInt())
 
+            highestY = getHighestYAtSync(world, x.toInt(), z.toInt() + 3)
+
             worldPosition.x = x
-            worldPosition.y = (world.getHighestBlockYAt(x.toInt(), z.toInt()) + 3).toDouble()
+            worldPosition.y = highestY.toDouble()
             worldPosition.z = z
             println("Trying position: $x, ${worldPosition.y.toInt()}, $z")
         }
@@ -302,8 +295,70 @@ class CageController(private val plugin: BBU) {
     /**
      * Cancel all coroutines when the plugin is disabled
      */
-    fun cleanup() {
-        scope.cancel()
+    suspend fun cleanup() {
+        scope.coroutineContext[Job]?.cancelAndJoin() // Access the Job from the context
+        scope.cancel("Plugin disabled") // Cancel the scope itself
     }
 
+    /**
+     * Loads a chunk at a given position
+     * @param world world to load the chunk in
+     * @param x x position
+     * @param z z position
+     */
+    private suspend fun loadChunkAt(world: World, x: Int, z: Int) {
+        // loads the chunk
+        println("Loading chunk at $x, $z")
+
+        val chunkX = x shr 4
+        val chunkZ = z shr 4
+
+        val deferred = CompletableDeferred<Unit>()
+
+        Bukkit.getScheduler().runTask(BBU.getInstance(), Runnable {
+            // load the chunks 6x6 around the chunk
+            for (i in -3..3) {
+                for (j in -3..3) {
+                    world.loadChunk(chunkX + i, chunkZ + j, true)
+                }
+            }
+
+            println("Loaded chunk at $x, $z")
+            deferred.complete(Unit)
+        })
+
+        return deferred.await()
+    }
+
+    /**
+     * Gets the world border size synchronously
+     * @param world world to load the chunk in
+     * @return the world border size
+     */
+    private suspend fun getBorderSizeSync(world: World): Double {
+        val deferred = CompletableDeferred<Double>()
+
+        Bukkit.getScheduler().runTask(BBU.getInstance(), Runnable {
+            deferred.complete(world.worldBorder.size)
+        })
+
+        return deferred.await()
+    }
+
+    /**
+     * Gets the highest Y at a given position synchronously
+     * @param world world to load the chunk in
+     * @param x x position
+     * @param z z position
+     * @return the highest Y at the given position
+     */
+    private suspend fun getHighestYAtSync(world: World, x: Int, z: Int): Int {
+        val deferred = CompletableDeferred<Int>()
+
+        Bukkit.getScheduler().runTask(BBU.getInstance(), Runnable {
+            deferred.complete(world.getHighestBlockYAt(x, z))
+        })
+
+        return deferred.await()
+    }
 }

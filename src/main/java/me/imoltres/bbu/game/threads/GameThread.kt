@@ -39,11 +39,8 @@ class GameThread(val game: Game) : BukkitRunnable() {
      */
     override fun run() {
         started = true
-        if (game.gameState == GameState.POST_GAME)
-            return
-        if (isCancelled) {
-            return
-        }
+        if (game.gameState == GameState.POST_GAME) return
+        if (isCancelled) return
 
         swapGameStateIfAvailable()
         checkTeams()

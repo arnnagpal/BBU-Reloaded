@@ -326,7 +326,7 @@ class Game {
      */
     fun reset() {
         // stop the threads
-        thread.cancel()
+        if (thread.started) thread.cancel()
         thread = GameThread(this) // create a new thread instance so we can start it again later without issues
 
         val teamController = BBU.getInstance().teamController

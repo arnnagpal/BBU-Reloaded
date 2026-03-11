@@ -403,6 +403,7 @@ class Game {
 
         val creator = WorldCreator(world.name)
             .environment(world.environment)
+            .seed(seed)
             .type(WorldType.NORMAL)
 
         for (player in world.players) {

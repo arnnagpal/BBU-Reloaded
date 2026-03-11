@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>EmptyChunkGenerator</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../../index.html" tabindex="1">
+                    BBUReloaded
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+0.1-BETA        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":/main"
+                                       data-filter=":/main"/>
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    BBUReloaded
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="BBUReloaded::me.imoltres.bbu.game.generator/EmptyChunkGenerator///PointingToDeclaration//-251573632">
+  <div class="breadcrumbs"><a href="../../../index.html">BBUReloaded</a><span class="delimiter">/</span><a href="../index.html">me.imoltres.bbu.game.generator</a><span class="delimiter">/</span><span class="current">EmptyChunkGenerator</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Empty</span><wbr></wbr><span>Chunk</span><wbr></wbr><span><span>Generator</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="index.html">EmptyChunkGenerator</a><span class="token keyword"> extends </span><span data-unresolved-link="org.bukkit.generator/ChunkGenerator///PointingToDeclaration/">ChunkGenerator</span></div><p class="paragraph">An empty chunk generator. (tldr; void gen)</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="-716814694%2FConstructors%2F-251573632" anchor-label="EmptyChunkGenerator" id="-716814694%2FConstructors%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-empty-chunk-generator.html"><span>Empty</span><wbr></wbr><span>Chunk</span><wbr></wbr><span><span>Generator</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-716814694%2FConstructors%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void <a href="-empty-chunk-generator.html"><span class="token function">EmptyChunkGenerator</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="1398986119%2FFunctions%2F-251573632" anchor-label="canSpawn" id="1398986119%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1398986119%2FFunctions%2F-251573632"><span>can</span><wbr></wbr><span><span>Spawn</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1398986119%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean <a href="index.html#1398986119%2FFunctions%2F-251573632"><span class="token function">canSpawn</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> </span><span data-unresolved-link="org.bukkit/World///PointingToDeclaration/">World</span> world<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span>int x<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span>int z</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="219987363%2FFunctions%2F-251573632" anchor-label="generateBedrock" id="219987363%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#219987363%2FFunctions%2F-251573632"><span>generate</span><wbr></wbr><span><span>Bedrock</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="219987363%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void <a href="index.html#219987363%2FFunctions%2F-251573632"><span class="token function">generateBedrock</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> </span><span data-unresolved-link="org.bukkit.generator/WorldInfo///PointingToDeclaration/">WorldInfo</span> worldInfo<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Random.html">Random</a> random<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span>int chunkX<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span>int chunkZ<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> </span><span data-unresolved-link="org.bukkit.generator/ChunkGenerator.ChunkData///PointingToDeclaration/">ChunkGenerator.ChunkData</span> chunkData</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-6088253%2FFunctions%2F-251573632" anchor-label="generateCaves" id="-6088253%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-6088253%2FFunctions%2F-251573632"><span>generate</span><wbr></wbr><span><span>Caves</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-6088253%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void <a href="index.html#-6088253%2FFunctions%2F-251573632"><span class="token function">generateCaves</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> </span><span data-unresolved-link="org.bukkit.generator/WorldInfo///PointingToDeclaration/">WorldInfo</span> worldInfo<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Random.html">Random</a> random<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span>int chunkX<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span>int chunkZ<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> </span><span data-unresolved-link="org.bukkit.generator/ChunkGenerator.ChunkData///PointingToDeclaration/">ChunkGenerator.ChunkData</span> chunkData</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-838443886%2FFunctions%2F-251573632" anchor-label="generateChunkData" id="-838443886%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-838443886%2FFunctions%2F-251573632"><span>generate</span><wbr></wbr><span>Chunk</span><wbr></wbr><span><span>Data</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-838443886%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> </span><span data-unresolved-link="org.bukkit.generator/ChunkGenerator.ChunkData///PointingToDeclaration/">ChunkGenerator.ChunkData</span> <a href="index.html#-838443886%2FFunctions%2F-251573632"><span class="token function">generateChunkData</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> </span><span data-unresolved-link="org.bukkit/World///PointingToDeclaration/">World</span> world<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Random.html">Random</a> random<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span>int x<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span>int z<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> </span><span data-unresolved-link="org.bukkit.generator/ChunkGenerator.BiomeGrid///PointingToDeclaration/">ChunkGenerator.BiomeGrid</span> biome</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1756225705%2FFunctions%2F-251573632" anchor-label="generateNoise" id="-1756225705%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1756225705%2FFunctions%2F-251573632"><span>generate</span><wbr></wbr><span><span>Noise</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1756225705%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void <a href="index.html#-1756225705%2FFunctions%2F-251573632"><span class="token function">generateNoise</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> </span><span data-unresolved-link="org.bukkit.generator/WorldInfo///PointingToDeclaration/">WorldInfo</span> worldInfo<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Random.html">Random</a> random<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span>int chunkX<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span>int chunkZ<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> </span><span data-unresolved-link="org.bukkit.generator/ChunkGenerator.ChunkData///PointingToDeclaration/">ChunkGenerator.ChunkData</span> chunkData</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1399852202%2FFunctions%2F-251573632" anchor-label="generateSurface" id="1399852202%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1399852202%2FFunctions%2F-251573632"><span>generate</span><wbr></wbr><span><span>Surface</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1399852202%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void <a href="index.html#1399852202%2FFunctions%2F-251573632"><span class="token function">generateSurface</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> </span><span data-unresolved-link="org.bukkit.generator/WorldInfo///PointingToDeclaration/">WorldInfo</span> worldInfo<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Random.html">Random</a> random<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span>int chunkX<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span>int chunkZ<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> </span><span data-unresolved-link="org.bukkit.generator/ChunkGenerator.ChunkData///PointingToDeclaration/">ChunkGenerator.ChunkData</span> chunkData</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-568461085%2FFunctions%2F-251573632" anchor-label="getBaseHeight" id="-568461085%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-568461085%2FFunctions%2F-251573632"><span>get</span><wbr></wbr><span>Base</span><wbr></wbr><span><span>Height</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-568461085%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>int <a href="index.html#-568461085%2FFunctions%2F-251573632"><span class="token function">getBaseHeight</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> </span><span data-unresolved-link="org.bukkit.generator/WorldInfo///PointingToDeclaration/">WorldInfo</span> worldInfo<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Random.html">Random</a> random<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span>int x<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span>int z<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> </span><span data-unresolved-link="org.bukkit/HeightMap///PointingToDeclaration/">HeightMap</span> heightMap</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1311784200%2FFunctions%2F-251573632" anchor-label="getDefaultBiomeProvider" id="1311784200%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-default-biome-provider.html"><span>get</span><wbr></wbr><span>Default</span><wbr></wbr><span>Biome</span><wbr></wbr><span><span>Provider</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1311784200%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><span data-unresolved-link="org.bukkit.generator/BiomeProvider///PointingToDeclaration/">BiomeProvider</span> <a href="get-default-biome-provider.html"><span class="token function">getDefaultBiomeProvider</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span><span class="token annotation builtin">@</span><span data-unresolved-link="lombok/NonNull///PointingToDeclaration/"><span class="token annotation builtin">NonNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> </span><span class="token keyword"></span><span><span class="token annotation builtin">@</span><span data-unresolved-link="lombok/NonNull///PointingToDeclaration/"><span class="token annotation builtin">NonNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> </span><span data-unresolved-link="org.bukkit.generator/WorldInfo///PointingToDeclaration/">WorldInfo</span> worldInfo</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2053705578%2FFunctions%2F-251573632" anchor-label="getDefaultPopulators" id="2053705578%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#2053705578%2FFunctions%2F-251573632"><span>get</span><wbr></wbr><span>Default</span><wbr></wbr><span><span>Populators</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2053705578%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="org.bukkit.generator/BlockPopulator///PointingToDeclaration/">BlockPopulator</span><span class="token operator">&gt;</span> <a href="index.html#2053705578%2FFunctions%2F-251573632"><span class="token function">getDefaultPopulators</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> </span><span data-unresolved-link="org.bukkit/World///PointingToDeclaration/">World</span> world</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1005004269%2FFunctions%2F-251573632" anchor-label="getFixedSpawnLocation" id="1005004269%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-fixed-spawn-location.html"><span>get</span><wbr></wbr><span>Fixed</span><wbr></wbr><span>Spawn</span><wbr></wbr><span><span>Location</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1005004269%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><span data-unresolved-link="org.bukkit/Location///PointingToDeclaration/">Location</span> <a href="get-fixed-spawn-location.html"><span class="token function">getFixedSpawnLocation</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span><span class="token annotation builtin">@</span><span data-unresolved-link="lombok/NonNull///PointingToDeclaration/"><span class="token annotation builtin">NonNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> </span><span class="token keyword"></span><span><span class="token annotation builtin">@</span><span data-unresolved-link="lombok/NonNull///PointingToDeclaration/"><span class="token annotation builtin">NonNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> </span><span data-unresolved-link="org.bukkit/World///PointingToDeclaration/">World</span> world<span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><span data-unresolved-link="lombok/NonNull///PointingToDeclaration/"><span class="token annotation builtin">NonNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> </span><span class="token keyword"></span><span><span class="token annotation builtin">@</span><span data-unresolved-link="lombok/NonNull///PointingToDeclaration/"><span class="token annotation builtin">NonNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Random.html">Random</a> random</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1284849239%2FFunctions%2F-251573632" anchor-label="isParallelCapable" id="-1284849239%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1284849239%2FFunctions%2F-251573632"><span>is</span><wbr></wbr><span>Parallel</span><wbr></wbr><span><span>Capable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1284849239%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean <a href="index.html#-1284849239%2FFunctions%2F-251573632"><span class="token function">isParallelCapable</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="626413350%2FFunctions%2F-251573632" anchor-label="shouldGenerateBedrock" id="626413350%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#626413350%2FFunctions%2F-251573632"><span>should</span><wbr></wbr><span>Generate</span><wbr></wbr><span><span>Bedrock</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="626413350%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean <a href="index.html#626413350%2FFunctions%2F-251573632"><span class="token function">shouldGenerateBedrock</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2109646790%2FFunctions%2F-251573632" anchor-label="shouldGenerateCaves" id="2109646790%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#2109646790%2FFunctions%2F-251573632"><span>should</span><wbr></wbr><span>Generate</span><wbr></wbr><span><span>Caves</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2109646790%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean <a href="index.html#2109646790%2FFunctions%2F-251573632"><span class="token function">shouldGenerateCaves</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="508925929%2FFunctions%2F-251573632" anchor-label="shouldGenerateDecorations" id="508925929%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#508925929%2FFunctions%2F-251573632"><span>should</span><wbr></wbr><span>Generate</span><wbr></wbr><span><span>Decorations</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="508925929%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean <a href="index.html#508925929%2FFunctions%2F-251573632"><span class="token function">shouldGenerateDecorations</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="517174267%2FFunctions%2F-251573632" anchor-label="shouldGenerateMobs" id="517174267%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#517174267%2FFunctions%2F-251573632"><span>should</span><wbr></wbr><span>Generate</span><wbr></wbr><span><span>Mobs</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="517174267%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean <a href="index.html#517174267%2FFunctions%2F-251573632"><span class="token function">shouldGenerateMobs</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1787329102%2FFunctions%2F-251573632" anchor-label="shouldGenerateNoise" id="-1787329102%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1787329102%2FFunctions%2F-251573632"><span>should</span><wbr></wbr><span>Generate</span><wbr></wbr><span><span>Noise</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1787329102%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean <a href="index.html#-1787329102%2FFunctions%2F-251573632"><span class="token function">shouldGenerateNoise</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1820246034%2FFunctions%2F-251573632" anchor-label="shouldGenerateStructures" id="-1820246034%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1820246034%2FFunctions%2F-251573632"><span>should</span><wbr></wbr><span>Generate</span><wbr></wbr><span><span>Structures</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1820246034%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean <a href="index.html#-1820246034%2FFunctions%2F-251573632"><span class="token function">shouldGenerateStructures</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1648583615%2FFunctions%2F-251573632" anchor-label="shouldGenerateSurface" id="1648583615%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1648583615%2FFunctions%2F-251573632"><span>should</span><wbr></wbr><span>Generate</span><wbr></wbr><span><span>Surface</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1648583615%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean <a href="index.html#1648583615%2FFunctions%2F-251573632"><span class="token function">shouldGenerateSurface</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

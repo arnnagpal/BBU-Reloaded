@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>CC</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../../index.html" tabindex="1">
+                    BBUReloaded
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+0.1-BETA        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":/main"
+                                       data-filter=":/main"/>
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    BBUReloaded
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="BBUReloaded::me.imoltres.bbu.utils/CC///PointingToDeclaration//-251573632">
+  <div class="breadcrumbs"><a href="../../../index.html">BBUReloaded</a><span class="delimiter">/</span><a href="../index.html">me.imoltres.bbu.utils</a><span class="delimiter">/</span><span class="current">CC</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>CC</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="index.html">CC</a></div><p class="paragraph">A short form for <a href="../-legacy-color/index.html">LegacyColor</a> contains some useful string utilities as well.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="1637629488%2FConstructors%2F-251573632" anchor-label="CC" id="1637629488%2FConstructors%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-c.html"><span><span>CC</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1637629488%2FConstructors%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void <a href="-c-c.html"><span class="token function">CC</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="-607734124%2FProperties%2F-251573632" anchor-label="AQUA" id="-607734124%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-607734124%2FProperties%2F-251573632"><span><span>AQUA</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-607734124%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#-607734124%2FProperties%2F-251573632">AQUA</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2065626869%2FProperties%2F-251573632" anchor-label="BLACK" id="-2065626869%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-2065626869%2FProperties%2F-251573632"><span><span>BLACK</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2065626869%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#-2065626869%2FProperties%2F-251573632">BLACK</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1483129526%2FProperties%2F-251573632" anchor-label="BLUE" id="1483129526%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1483129526%2FProperties%2F-251573632"><span><span>BLUE</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1483129526%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#1483129526%2FProperties%2F-251573632">BLUE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="623308523%2FProperties%2F-251573632" anchor-label="BOLD" id="623308523%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#623308523%2FProperties%2F-251573632"><span><span>BOLD</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="623308523%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#623308523%2FProperties%2F-251573632">BOLD</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1835602757%2FProperties%2F-251573632" anchor-label="DARK_AQUA" id="1835602757%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1835602757%2FProperties%2F-251573632"><span>DARK_</span><wbr></wbr><span>AQUA</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1835602757%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#1835602757%2FProperties%2F-251573632">DARK_AQUA</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-368500889%2FProperties%2F-251573632" anchor-label="DARK_BLUE" id="-368500889%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-368500889%2FProperties%2F-251573632"><span>DARK_</span><wbr></wbr><span>BLUE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-368500889%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#-368500889%2FProperties%2F-251573632">DARK_BLUE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="136573310%2FProperties%2F-251573632" anchor-label="DARK_GRAY" id="136573310%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#136573310%2FProperties%2F-251573632"><span>DARK_</span><wbr></wbr><span>GRAY</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="136573310%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#136573310%2FProperties%2F-251573632">DARK_GRAY</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1580937206%2FProperties%2F-251573632" anchor-label="DARK_GREEN" id="1580937206%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1580937206%2FProperties%2F-251573632"><span>DARK_</span><wbr></wbr><span>GREEN</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1580937206%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#1580937206%2FProperties%2F-251573632">DARK_GREEN</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="789962053%2FProperties%2F-251573632" anchor-label="DARK_PURPLE" id="789962053%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#789962053%2FProperties%2F-251573632"><span>DARK_</span><wbr></wbr><span>PURPLE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="789962053%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#789962053%2FProperties%2F-251573632">DARK_PURPLE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2088289576%2FProperties%2F-251573632" anchor-label="DARK_RED" id="2088289576%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#2088289576%2FProperties%2F-251573632"><span>DARK_</span><wbr></wbr><span>RED</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2088289576%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#2088289576%2FProperties%2F-251573632">DARK_RED</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-206150288%2FProperties%2F-251573632" anchor-label="GOLD" id="-206150288%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-206150288%2FProperties%2F-251573632"><span><span>GOLD</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-206150288%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#-206150288%2FProperties%2F-251573632">GOLD</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1988203725%2FProperties%2F-251573632" anchor-label="GRAY" id="1988203725%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1988203725%2FProperties%2F-251573632"><span><span>GRAY</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1988203725%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#1988203725%2FProperties%2F-251573632">GRAY</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1148062073%2FProperties%2F-251573632" anchor-label="GREEN" id="-1148062073%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1148062073%2FProperties%2F-251573632"><span><span>GREEN</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1148062073%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#-1148062073%2FProperties%2F-251573632">GREEN</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1202347808%2FProperties%2F-251573632" anchor-label="ITALIC" id="-1202347808%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1202347808%2FProperties%2F-251573632"><span><span>ITALIC</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1202347808%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#-1202347808%2FProperties%2F-251573632">ITALIC</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1277194467%2FProperties%2F-251573632" anchor-label="MAGIC" id="-1277194467%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1277194467%2FProperties%2F-251573632"><span><span>MAGIC</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1277194467%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#-1277194467%2FProperties%2F-251573632">MAGIC</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1110616346%2FProperties%2F-251573632" anchor-label="PINK" id="1110616346%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1110616346%2FProperties%2F-251573632"><span><span>PINK</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1110616346%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#1110616346%2FProperties%2F-251573632">PINK</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1732377593%2FProperties%2F-251573632" anchor-label="RED" id="1732377593%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1732377593%2FProperties%2F-251573632"><span><span>RED</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1732377593%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#1732377593%2FProperties%2F-251573632">RED</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-529197637%2FProperties%2F-251573632" anchor-label="RESET" id="-529197637%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-529197637%2FProperties%2F-251573632"><span><span>RESET</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-529197637%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#-529197637%2FProperties%2F-251573632">RESET</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-247522897%2FProperties%2F-251573632" anchor-label="SB_DIV" id="-247522897%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-247522897%2FProperties%2F-251573632"><span>SB_</span><wbr></wbr><span>DIV</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-247522897%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#-247522897%2FProperties%2F-251573632">SB_DIV</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2128944648%2FProperties%2F-251573632" anchor-label="STRIKE_THROUGH" id="-2128944648%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-2128944648%2FProperties%2F-251573632"><span>STRIKE_</span><wbr></wbr><span>THROUGH</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2128944648%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#-2128944648%2FProperties%2F-251573632">STRIKE_THROUGH</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-112758059%2FProperties%2F-251573632" anchor-label="UNDER_LINE" id="-112758059%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-112758059%2FProperties%2F-251573632"><span>UNDER_</span><wbr></wbr><span>LINE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-112758059%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#-112758059%2FProperties%2F-251573632">UNDER_LINE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="933097505%2FProperties%2F-251573632" anchor-label="WHITE" id="933097505%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#933097505%2FProperties%2F-251573632"><span><span>WHITE</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="933097505%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#933097505%2FProperties%2F-251573632">WHITE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1075039004%2FProperties%2F-251573632" anchor-label="YELLOW" id="1075039004%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1075039004%2FProperties%2F-251573632"><span><span>YELLOW</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1075039004%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a> <a href="index.html#1075039004%2FProperties%2F-251573632">YELLOW</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="451894303%2FFunctions%2F-251573632" anchor-label="capitalize" id="451894303%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="capitalize.html"><span><span>capitalize</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="451894303%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">static </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a> <a href="capitalize.html"><span class="token function">capitalize</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a> msg</span></span><span class="token punctuation">)</span></div><div class="brief ">Capitalizes the first character in the string</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1390418203%2FFunctions%2F-251573632" anchor-label="isInteger" id="-1390418203%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-integer.html"><span>is</span><wbr></wbr><span><span>Integer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1390418203%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">static </span>boolean <a href="is-integer.html"><span class="token function">isInteger</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a> s<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span>int radix</span></span><span class="token punctuation">)</span></div><div class="brief ">Returns true if the given string is an integer in the given radix</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="453983299%2FFunctions%2F-251573632" anchor-label="translate" id="453983299%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="translate.html"><span><span>translate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="453983299%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword">static </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> </span><span data-unresolved-link="net.kyori.adventure.text/TextComponent///PointingToDeclaration/">TextComponent</span> <a href="translate.html"><span class="token function">translate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a> in</span></span><span class="token punctuation">)</span></div><div class="brief ">Converts a legacy colour coded string to the new kyori adventure system and returns a converted component (TextComponent)</div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">static </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="net.kyori.adventure.text/Component///PointingToDeclaration/">Component</span><span class="token operator">&gt;</span> <a href="translate.html"><span class="token function">translate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a><span class="token operator">&gt;</span> lines</span></span><span class="token punctuation">)</span></div><div class="brief ">Converts a legacy colour coded string array to the new kyori adventure system and returns a list of components (TextComponent)</div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">static </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="net.kyori.adventure.text/Component///PointingToDeclaration/">Component</span><span class="token operator">&gt;</span> <a href="translate.html"><span class="token function">translate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html">List</a><span class="token operator">&lt;</span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a><span class="token operator">&gt;</span> lines</span></span><span class="token punctuation">)</span></div><div class="brief ">Converts a legacy colour coded string array list to the new kyori adventure system and returns a list of components (TextComponent)</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-683386689%2FFunctions%2F-251573632" anchor-label="translateLegacy" id="-683386689%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="translate-legacy.html"><span>translate</span><wbr></wbr><span><span>Legacy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-683386689%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">static </span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a> <a href="translate-legacy.html"><span class="token function">translateLegacy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><span data-unresolved-link="net.kyori.adventure.text/TextComponent///PointingToDeclaration/">TextComponent</span> in</span></span><span class="token punctuation">)</span></div><div class="brief ">Converts a textcomponent to the legacy colour coded string</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1452157188%2FFunctions%2F-251573632" anchor-label="wrapString" id="1452157188%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="wrap-string.html"><span>wrap</span><wbr></wbr><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1452157188%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">static </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a><span class="token operator">&gt;</span> <a href="wrap-string.html"><span class="token function">wrapString</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html">String</a> str<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span>int lineLength</span></span><span class="token punctuation">)</span></div><div class="brief ">Keeps splitting the given string after the given length.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

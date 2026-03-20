@@ -112,7 +112,7 @@ public class GameListener implements Listener {
             bukkitPlayer.playSound(wardenRoar, net.kyori.adventure.sound.Sound.Emitter.self());
             //todo: add configuration for this
             bukkitPlayer.showTitle(Title.title(
-                            CC.translate("&c&lYour beacon has been destroyed!"),
+                    CC.translate("&c&lBeacon Destroyed"),
                             CC.translate("&7You will no longer respawn")
                     )
             );

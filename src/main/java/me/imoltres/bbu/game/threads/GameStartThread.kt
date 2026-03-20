@@ -18,6 +18,7 @@ class GameStartThread(val game: Game) : BukkitRunnable() {
     private var time = 3
 
     override fun run() {
+        val playerController = BBU.getInstance().playerController
         if (time > 0) {
             for (player in Bukkit.getOnlinePlayers()) {
                 player.showTitle(
@@ -34,9 +35,12 @@ class GameStartThread(val game: Game) : BukkitRunnable() {
             return
         }
 
-        for (player in Bukkit.getOnlinePlayers()) {
+        for (bbuPlayer in playerController.getPlayers(true)) {
+            val player = Bukkit.getPlayer(bbuPlayer.uniqueId) ?: continue
             player.gameMode = GameMode.SURVIVAL
+        }
 
+        for (player in Bukkit.getOnlinePlayers()) {
             player.showTitle(
                 Title.title(
                     CC.translate("&a&lGO!"), CC.translate("&7Good luck, have fun!"), Title.Times.times(

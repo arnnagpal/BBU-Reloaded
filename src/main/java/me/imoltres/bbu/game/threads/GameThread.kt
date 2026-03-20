@@ -68,27 +68,6 @@ class GameThread(val game: Game) : BukkitRunnable() {
 
                     pvp = !pvp
                 }
-
-                // @sinender (taken from the closed PR)
-                //check and see if any teams beacons are out of the border, This cannot be changed to a listener because there is no event for border shrink
-                //I will however make this run every 5 seconds instead of every second
-                if (tick % 120 == 0) {
-                    for (team in game.getTeams(true)) {
-                        val world = game.overworld
-                        val beaconLoc = team.beacon!!.toWorldPosition(game.overworld.name).toBukkitLocation()
-                        if (team.beacon == null) continue;
-
-                        // if the beacon is outside of the world border, break it and eliminate the team
-                        if (!world.worldBorder.isInside(beaconLoc)) {
-                            team.beacon!!.toWorldPosition(game.overworld.name).block.type =
-                                Material.AIR
-                            team.beacon = null
-                            Bukkit.broadcast(
-                                CC.translate("${team.getRawDisplayName()}&c's beacon has been destroyed because it was out of the border.")
-                            )
-                        }
-                    }
-                }
             }
 
             GameState.PVP_BORDER_SHRINK -> {
@@ -105,10 +84,10 @@ class GameThread(val game: Game) : BukkitRunnable() {
 
                     if (shrinkPhase == null) {
                         // switch to deathmatch
+                        // todo: IMPLEMENT DEATHMATCH
                         game.gameState = GameState.DEATHMATCH
                         return
                     }
-
 
                     shrinkBorder(shrinkPhase)
                     shrinking = !shrinking
@@ -117,10 +96,34 @@ class GameThread(val game: Game) : BukkitRunnable() {
                     // in ticks
                     shrinkingTime = 20 * (shrinkPhase.length + 600) // 10 minutes
                 }
+
+
             }
 
             else -> {}
         }
+
+        // @sinender (taken from the closed PR)
+        //check and see if any teams beacons are out of the border, This cannot be changed to a listener because there is no event for border shrink
+        //I will however make this run every 5 seconds instead of every second
+        if (tick % 120 == 0) {
+            for (team in game.getTeams(true)) {
+                val world = game.overworld
+                val beaconLoc = team.beacon!!.toWorldPosition(game.overworld.name).toBukkitLocation()
+                if (team.beacon == null) continue;
+
+                // if the beacon is outside of the world border, break it and eliminate the team
+                if (!world.worldBorder.isInside(beaconLoc)) {
+                    team.beacon!!.toWorldPosition(game.overworld.name).block.type =
+                        Material.AIR
+                    team.beacon = null
+                    Bukkit.broadcast(
+                        CC.translate("${team.getRawDisplayName()}&c's beacon has been destroyed because it was out of the border.")
+                    )
+                }
+            }
+        }
+
 
         tick++
     }
@@ -173,12 +176,12 @@ class GameThread(val game: Game) : BukkitRunnable() {
     private fun shrinkBorder(shrinkPhase: ShrinkPhase) {
         PlayerUtils.broadcastTitle(
             "&cBorder Shrinking!",
-            "&7${shrinkPhase.size} in" + DateUtils.readableTime(BigDecimal(shrinkPhase.length.toLong()))
+            "&7${shrinkPhase.size} over" + DateUtils.readableTime(BigDecimal(shrinkPhase.length.toLong()))
         )
 
         Bukkit.getScheduler().runTask(BBU.getInstance()) { ->
             for (world in Bukkit.getWorlds()) {
-                world.worldBorder.changeSize(shrinkPhase.size.toDouble(), shrinkPhase.length.toLong())
+                world.worldBorder.changeSize(shrinkPhase.size.toDouble(), shrinkPhase.length * 20L)
             }
         }
     }

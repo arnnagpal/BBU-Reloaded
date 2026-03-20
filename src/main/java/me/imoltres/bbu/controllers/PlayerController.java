@@ -124,6 +124,14 @@ public class PlayerController {
         return ImmutableList.copyOf(players);
     }
 
+
+    /**
+     * @return an immutable list of all the players
+     */
+    public List<BBUPlayer> getPlayers(boolean inTeam) {
+        return ImmutableList.copyOf(players.stream().filter(bbuPlayer -> !inTeam || bbuPlayer.getTeam() != null).toList());
+    }
+
     /**
      * Delete a BBUPlayer from cache based on the uuid
      *

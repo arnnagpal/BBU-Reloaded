@@ -35,7 +35,8 @@ class MainScoreboard(player: Player) : BBUScoreboardAdapter(player) {
 
         if (game.gameState == GameState.PVP_BORDER_SHRINK) {
             lines.add("&b${game.gameState.display}&f: ${"%.1f".format(game.overworld.worldBorder.size)}")
-            lines.add("&bNext shrink&f:${DateUtils.readableTime(BigDecimal(game.thread.shrinkingTime / 20))}")
+            if (game.nextShrinkPhase != null)
+                lines.add("&bNext shrink&f:${DateUtils.readableTime(BigDecimal(game.thread.timeToNextShrink / 20))}")
             lines.add("")
         }
 

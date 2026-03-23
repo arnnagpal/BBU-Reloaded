@@ -37,7 +37,7 @@ class Game {
 
     var thread = GameThread(this)
 
-    var border: Int = MainConfig.BORDER_SIZE
+    var border: Int = MainConfig.borderSize
 
     lateinit var overworld: World
     lateinit var nether: World
@@ -57,6 +57,22 @@ class Game {
             System.out.printf("Changing game state from %s to %s\n", gameState.name, state.name)
             progression.gameState = state
         }
+
+    /**
+     * the shrink phase
+     */
+    var currentShrinkPhase: ShrinkPhase?
+        get() = progression.currentShrinkPhase
+        set(phase) {
+            System.out.printf("Changing shrink phase from %s to %s\n", currentShrinkPhase?.size ?: "null", phase?.size ?: "null")
+            progression.currentShrinkPhase = phase
+        }
+
+    val nextShrinkPhase: ShrinkPhase?
+        get() = progression.getNextPhase()
+
+    val previousShrinkPhase: ShrinkPhase?
+        get() = progression.getPreviousPhase()
 
     /**
      * Start the game
@@ -221,7 +237,7 @@ class Game {
     }
 
     fun setupLobbyWorld() {
-        val generateSpawn = MainConfig.LOBBY_SPAWN.isEmpty()
+        val generateSpawn = MainConfig.lobbySpawn.isEmpty()
         //Get spawn world
         spawnWorld = WorldCreator(WORLD_PREFIX)
             .generator(EmptyChunkGenerator())

@@ -60,7 +60,7 @@ class DamageListener : Listener {
         val gameState = BBU.getInstance().game.gameState
 
         // if no friendly fire, cancel the damage if both the people are on the same team
-        if (!MainConfig.FRIENDLY_FIRE) {
+        if (!MainConfig.friendlyFire) {
             val damagedTeam: BBUTeam? = BBU.getInstance().teamController.getTeam(damaged)
 
             // null check just in case, but it should never be null since the player is in the game

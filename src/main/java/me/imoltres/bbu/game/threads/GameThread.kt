@@ -6,7 +6,6 @@ import me.imoltres.bbu.game.Game
 import me.imoltres.bbu.game.GameState
 import me.imoltres.bbu.game.ShrinkPhase
 import me.imoltres.bbu.utils.CC
-import me.imoltres.bbu.utils.config.MainConfig
 import me.imoltres.bbu.utils.general.DateUtils
 import me.imoltres.bbu.utils.general.PlayerUtils
 import me.imoltres.bbu.utils.item.ItemConstants
@@ -16,6 +15,7 @@ import org.bukkit.scheduler.BukkitRunnable
 import java.math.BigDecimal
 import java.util.*
 import kotlin.math.roundToInt
+import kotlin.times
 
 /**
  * Main game thread loop, swaps the game states, checks the teams, and ticks the game.
@@ -32,7 +32,7 @@ class GameThread(val game: Game) : BukkitRunnable() {
 
     val teamCheckQueue = LinkedList<BBUTeam>()
 
-    var shrinkingTime = 0
+    var timeToNextShrink = 0
 
     /**
      * Game loop
@@ -47,57 +47,46 @@ class GameThread(val game: Game) : BukkitRunnable() {
         checkWinConditions()
 
         when (game.gameState) {
-            GameState.PVP -> {
-                if (!pvp) {
-                    PlayerUtils.broadcastTitle(
-                        "&cPvP is now enabled.",
-                        "&7" + DateUtils.readableTime(BigDecimal(GameState.PVP_BORDER_SHRINK.startTime - (tick / 20))) + " till border shrink."
-                    )
+            GameState.PVP -> run pvpBranch@{
+                if (pvp) return@pvpBranch
 
-                    // take away the beacon if they haven't placed it yet
-                    for (team in game.getTeams(false)) {
-                        for (player in team.players) {
-                            val bukkitPlayer = Bukkit.getPlayer(player.uniqueId) ?: continue
+                PlayerUtils.broadcastTitle(
+                    "&cPvP is now enabled.",
+                    "&7" + DateUtils.readableTime(BigDecimal(GameState.PVP_BORDER_SHRINK.startTime - (tick / 20))) + " till border shrink."
+                )
 
-                            if (bukkitPlayer.inventory.contains(ItemConstants.TEAM_BEACON.build())) {
-                                bukkitPlayer.inventory.removeItemAnySlot(ItemConstants.TEAM_BEACON.build())
-                                bukkitPlayer.sendMessage(CC.translate("&cYou have lost your beacon because you didn't place it in time."))
-                            }
-                        }
+                // take away the beacon if they haven't placed it yet
+                for (team in game.getTeams(false))
+                    for (player in team.players) {
+                        val bukkitPlayer = Bukkit.getPlayer(player.uniqueId) ?: continue
+                        if (!bukkitPlayer.inventory.contains(ItemConstants.TEAM_BEACON.build())) continue
+
+                        bukkitPlayer.inventory.removeItemAnySlot(ItemConstants.TEAM_BEACON.build())
+                        bukkitPlayer.sendMessage(CC.translate("&cYou have lost your beacon because you didn't place it in time."))
                     }
 
-                    pvp = !pvp
-                }
+                pvp = !pvp
             }
 
-            GameState.PVP_BORDER_SHRINK -> {
-                if (shrinkingTime > 0) {
-                    shrinkingTime--
+            GameState.PVP_BORDER_SHRINK -> run shrinkBranch@{
+                if (timeToNextShrink > 0) {
+                    timeToNextShrink--
                     game.border = game.overworld.worldBorder.size.roundToInt()
-                } else {
-                    shrinking = false
+                    return@shrinkBranch
                 }
 
-                if (!shrinking) {
-                    val border = game.border
-                    val shrinkPhase = getBorderShrinkPhase(border)
-
-                    if (shrinkPhase == null) {
-                        // switch to deathmatch
-                        // todo: IMPLEMENT DEATHMATCH
-                        game.gameState = GameState.DEATHMATCH
-                        return
-                    }
-
-                    shrinkBorder(shrinkPhase)
-                    shrinking = !shrinking
-
-                    // shrinking till shrinkPhase.length + 10 minutes
-                    // in ticks
-                    shrinkingTime = 20 * (shrinkPhase.length + 600) // 10 minutes
+                game.currentShrinkPhase = game.nextShrinkPhase // move to next phase
+                val shrinkPhase = game.currentShrinkPhase ?: run {
+                    game.gameState = GameState.DEATHMATCH
+                    return@shrinkBranch
                 }
 
+                shrinkBorder(shrinkPhase)
 
+                // shrink will take shrinkPhase.length * 20 ticks
+                val shrinkTicks = shrinkPhase.length * 20
+                val nextShrinkDelayTicks = game.nextShrinkPhase?.time?.times(20) ?: 0
+                timeToNextShrink = shrinkTicks + nextShrinkDelayTicks
             }
 
             else -> {}
@@ -138,35 +127,6 @@ class GameThread(val game: Game) : BukkitRunnable() {
                 game.gameState = gameState
             }
         }
-    }
-
-    /**
-     * Get the amount of time that the border should shrink for
-     *
-     * based on the size of the border
-     */
-    private fun getBorderShrinkPhase(border: Int): ShrinkPhase? {
-        // get the shrink phases
-        // [ { size: x, length: y } .. ]
-        val shrinkPhases = MainConfig.BORDER_PHASES
-
-        // find the phase that the border is in
-        var maxLength = 0
-        var maxSize = 0
-        for (phaseObj in shrinkPhases) {
-            val phase = ShrinkPhase(phaseObj["size"] as Int, phaseObj["length"] as Int)
-            // find the max size that the border is in
-            if (phase.size in (maxSize + 1)..<border) {
-                maxSize = phase.size
-                maxLength = phase.length
-            }
-        }
-
-        if (maxSize == border) {
-            return null
-        }
-
-        return ShrinkPhase(maxSize, maxLength)
     }
 
     /**

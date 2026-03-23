@@ -15,7 +15,7 @@ import me.imoltres.bbu.nametags.NametagAdapterImpl;
 import me.imoltres.bbu.scoreboard.BBUScoreboard;
 import me.imoltres.bbu.utils.CC;
 import me.imoltres.bbu.utils.command.CommandManager;
-import me.imoltres.bbu.utils.config.MainConfig;
+import me.imoltres.bbu.utils.config.MainConfigOld;
 import me.imoltres.bbu.utils.config.type.BasicConfigurationFile;
 import me.imoltres.bbu.utils.general.FileUtils;
 import me.imoltres.bbu.utils.json.GsonFactory;
@@ -148,7 +148,7 @@ public class BBU extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(CC.translate("&aParsed shrink phases:"));
         // get the shrink phases
         // [ { size: x, length: y } .. ]
-        var shrinkPhases = MainConfig.BORDER_PHASES;
+        var shrinkPhases = MainConfigOld.BORDER_PHASES;
         var i = 0;
         for (LinkedHashMap<String, Integer> phaseObj : shrinkPhases) {
             var phase = new ShrinkPhase(phaseObj.get("size"), phaseObj.get("length"));

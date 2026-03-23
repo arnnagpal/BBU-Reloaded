@@ -1,6 +1,9 @@
 package me.imoltres.bbu.listeners
 
+import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
+import org.bukkit.event.player.PlayerDropItemEvent
 
 class ItemListener : Listener {
     /**
@@ -12,4 +15,16 @@ class ItemListener : Listener {
      *
      * TODO: make it so you can't drop tracking compass ever
      */
+
+    /**
+     * todo: dont allow players to put beacon or compass in any other inventory type
+     */
+
+    @EventHandler
+    fun onItemDrop(e: PlayerDropItemEvent) {
+
+    }
+
+
+
 }

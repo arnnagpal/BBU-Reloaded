@@ -33,9 +33,7 @@ public class InteractListener implements Listener {
             return;
 
         if (player.getEliminated()) {
-            if (player.getSwitchingSpectator()) {
-                player.setSwitchingSpectator(false);
-            }
+            player.setSwitchingSpectator(false);
         }
     }
 
@@ -158,7 +156,7 @@ public class InteractListener implements Listener {
                 if (!BBU.getInstance().getGame().getGameState().isPvp()) {
                     e.setCancelled(true);
                 } else {
-                    if (!MainConfig.FRIENDLY_FIRE) {
+                    if (!MainConfig.Companion.getFriendlyFire()) {
                         BBUTeam damagedTeam = BBU.getInstance().getTeamController().getTeam(damaged);
                         BBUTeam damagerTeam = bbuDamager.getTeam();
                         if (damagedTeam == damagerTeam) {

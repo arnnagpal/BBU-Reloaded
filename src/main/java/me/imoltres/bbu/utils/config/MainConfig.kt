@@ -8,9 +8,12 @@ class MainConfig<T>(path: String) : ConfigGetter<T>(BBU.getInstance().mainConfig
     companion object {
         var borderSize = 0
         var borderPhases = listOf<ShrinkPhase>()
+
         var deathmatchEnabled = false
         var deathmatchTime = 0
         var deathmatchSpawn = ""
+        var deathmatchTeamLocations = listOf<String>()
+
         var spectateAfterDeath = false
         var friendlyFire = false
         var lobbySpawn = ""
@@ -26,6 +29,7 @@ class MainConfig<T>(path: String) : ConfigGetter<T>(BBU.getInstance().mainConfig
             deathmatchEnabled = cfg("deathmatch.enabled")
             deathmatchTime    = cfg("deathmatch.time")
             deathmatchSpawn   = cfg("deathmatch.spawn")
+            deathmatchTeamLocations = cfg("deathmatch.team-locations")
             spectateAfterDeath = cfg("spectate-after-death")
             friendlyFire      = cfg("friendly-fire")
             lobbySpawn        = cfg("lobby-spawn")

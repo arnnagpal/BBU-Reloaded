@@ -6,16 +6,18 @@ import me.imoltres.bbu.game.Game
 import me.imoltres.bbu.game.GameState
 import me.imoltres.bbu.game.ShrinkPhase
 import me.imoltres.bbu.utils.CC
+import me.imoltres.bbu.utils.config.MainConfig
 import me.imoltres.bbu.utils.general.DateUtils
 import me.imoltres.bbu.utils.general.PlayerUtils
 import me.imoltres.bbu.utils.item.ItemConstants
+import me.imoltres.bbu.utils.json.GsonFactory
+import me.imoltres.bbu.utils.world.WorldPosition
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.scheduler.BukkitRunnable
 import java.math.BigDecimal
 import java.util.*
 import kotlin.math.roundToInt
-import kotlin.times
 
 /**
  * Main game thread loop, swaps the game states, checks the teams, and ticks the game.
@@ -33,6 +35,7 @@ class GameThread(val game: Game) : BukkitRunnable() {
     val teamCheckQueue = LinkedList<BBUTeam>()
 
     var timeToNextShrink = 0
+    var deathmatchTimer = 0
 
     /**
      * Game loop
@@ -75,9 +78,20 @@ class GameThread(val game: Game) : BukkitRunnable() {
                     return@shrinkBranch
                 }
 
+                if (deathmatchTimer > 0) {
+                    deathmatchTimer--
+                    if (deathmatchTimer == 0) {
+                        enterDeathmatch()
+                    }
+                    return@shrinkBranch
+                }
+
                 game.currentShrinkPhase = game.nextShrinkPhase // move to next phase
                 val shrinkPhase = game.currentShrinkPhase ?: run {
-                    game.gameState = GameState.DEATHMATCH
+                    if (MainConfig.deathmatchEnabled) {
+                        deathmatchTimer = 20 * MainConfig.deathmatchTime
+                    }
+
                     return@shrinkBranch
                 }
 
@@ -172,5 +186,38 @@ class GameThread(val game: Game) : BukkitRunnable() {
             BBU.getInstance().game.stopGame(teamsLeft[0])
         }
 
+    }
+
+    private fun enterDeathmatch() {
+        // figure out team locations
+        val locations = mutableListOf<WorldPosition>()
+        for (loc in MainConfig.deathmatchTeamLocations) {
+            // parse loc
+            val worldLocation = GsonFactory.getCompactGson().fromJson(loc, WorldPosition::class.java)
+            locations.add(worldLocation)
+        }
+
+        if (locations.size == 0) {
+            // no locations specified, error out and and dont enter deathmatch
+            BBU.getInstance().logger.severe("Deathmatch enabled but no team locations specified! Please specify team locations in the config to enable deathmatch.")
+            return
+        }
+
+        PlayerUtils.broadcastTitle(
+            "&cDeathmatch",
+            "&7Teleporting players..."
+        )
+
+        var index = 0
+        for (team in game.getTeams(false)) {
+            for (player in team.players) {
+                val bukkitPlayer = Bukkit.getPlayer(player.uniqueId) ?: continue
+                bukkitPlayer.teleport(locations[index % locations.size].toBukkitLocation())
+            }
+
+            index++
+        }
+
+        game.gameState = GameState.DEATHMATCH
     }
 }

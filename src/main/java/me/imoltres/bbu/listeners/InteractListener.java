@@ -118,10 +118,10 @@ public class InteractListener implements Listener {
                     }
                 }
                 if (nearest == null) {
-                    player.sendMessage(CC.RED + "No players in a 1250 radius to track!");
+                    player.sendMessage(CC.translate("&cNo players in a 1250 radius to track!"));
                 } else {
                     player.performCommand("trackposition " + PlayerUtils.getLocation(nearest.getLocation()) + " false");
-                    player.sendMessage(CC.GREEN + "Tracking one position of '" + nearest.getName() + "'. This won't update until you attempt to track nearby players again.");
+                    player.sendMessage(CC.translate("&aTracking one position of '" + nearest.getName() + "'. This won't update until you attempt to track nearby players again."));
                 }
             } else {
                 BBUPlayerCompassOpenEvent event = new BBUPlayerCompassOpenEvent(BBU.getInstance().getPlayerController().getPlayer(player.getUniqueId()));

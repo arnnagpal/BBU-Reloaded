@@ -15,7 +15,7 @@ import me.imoltres.bbu.nametags.NametagAdapterImpl;
 import me.imoltres.bbu.scoreboard.BBUScoreboard;
 import me.imoltres.bbu.utils.CC;
 import me.imoltres.bbu.utils.command.CommandManager;
-import me.imoltres.bbu.utils.config.MainConfigOld;
+import me.imoltres.bbu.utils.config.MainConfig;
 import me.imoltres.bbu.utils.config.type.BasicConfigurationFile;
 import me.imoltres.bbu.utils.general.FileUtils;
 import me.imoltres.bbu.utils.json.GsonFactory;
@@ -32,7 +32,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
-import java.util.LinkedHashMap;
 import java.util.Objects;
 
 /**
@@ -148,10 +147,9 @@ public class BBU extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(CC.translate("&aParsed shrink phases:"));
         // get the shrink phases
         // [ { size: x, length: y } .. ]
-        var shrinkPhases = MainConfigOld.BORDER_PHASES;
+        var shrinkPhases = MainConfig.Companion.getBorderPhases();
         var i = 0;
-        for (LinkedHashMap<String, Integer> phaseObj : shrinkPhases) {
-            var phase = new ShrinkPhase(phaseObj.get("size"), phaseObj.get("length"));
+        for (ShrinkPhase phase : shrinkPhases) {
             Bukkit.getConsoleSender().sendMessage(CC.translate("&a[" + ++i + "]  Size: " + phase.getSize() + " Length: " + phase.getLength()));
         }
 
@@ -303,6 +301,8 @@ public class BBU extends JavaPlugin {
         pluginManager.registerEvents(new BeaconListener(), this);
         pluginManager.registerEvents(new BlockListener(), this);
         pluginManager.registerEvents(new InteractListener(), this);
+        pluginManager.registerEvents(new InventoryListener(), this);
+        pluginManager.registerEvents(new ItemListener(), this);
         pluginManager.registerEvents(new DamageListener(), this);
         pluginManager.registerEvents(new GameListener(), this);
         pluginManager.registerEvents(new JoinListener(), this);

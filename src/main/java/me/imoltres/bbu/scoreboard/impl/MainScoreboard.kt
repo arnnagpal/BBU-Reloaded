@@ -37,6 +37,8 @@ class MainScoreboard(player: Player) : BBUScoreboardAdapter(player) {
             lines.add("&b${game.gameState.display}&f: ${"%.1f".format(game.overworld.worldBorder.size)}")
             if (game.nextShrinkPhase != null)
                 lines.add("&bNext shrink&f:${DateUtils.readableTime(BigDecimal(game.thread.timeToNextShrink / 20))}")
+            if (game.thread.deathmatchTimer > 0)
+                lines.add("&bDeathmatch&f:${DateUtils.readableTime(BigDecimal(game.thread.deathmatchTimer / 20))}")
             lines.add("")
         }
 

@@ -11,11 +11,9 @@ import org.bukkit.block.BlockState;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockFertilizeEvent;
-import org.bukkit.event.block.BlockPistonExtendEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.block.*;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 
 import java.util.Set;
 
@@ -99,6 +97,15 @@ public class BlockListener implements Listener {
             if (!player.getBuild())
                 e.setCancelled(true);
         }
+
+        var world = e.getBlock().getWorld();
+        var game = BBU.getInstance().getGame();
+        if (game.getDeathmatchWorld() != null
+                && world.getName().equals(game.getDeathmatchWorld().getName())
+                && !game.getPlayerPlacedBlocks().contains(e.getBlock())) {
+            e.setCancelled(true);
+        }
+        game.getPlayerPlacedBlocks().remove(e.getBlock());
     }
 
     @EventHandler
@@ -108,6 +115,48 @@ public class BlockListener implements Listener {
             if (!player.getBuild())
                 e.setCancelled(true);
         }
+
+        var world = e.getBlock().getWorld();
+        var game = BBU.getInstance().getGame();
+        if (game.getDeathmatchWorld() != null
+                && world.getName().equals(game.getDeathmatchWorld().getName())) {
+            game.getPlayerPlacedBlocks().add(e.getBlock());
+        }
     }
+
+    @EventHandler
+    public void onEntityExplode(EntityExplodeEvent e) {
+        var world = e.getEntity().getWorld();
+        var game = BBU.getInstance().getGame();
+        if (game.getDeathmatchWorld() == null
+                || !world.getName().equals(game.getDeathmatchWorld().getName())) {
+            return;
+        }
+
+        e.blockList().removeIf(block -> !game.getPlayerPlacedBlocks().contains(block));
+
+        // remove from playerplacedblocks
+        for (Block block : e.blockList()) {
+            game.getPlayerPlacedBlocks().remove(block);
+        }
+    }
+
+    @EventHandler
+    public void onBlockExplode(BlockExplodeEvent e) {
+        var world = e.getBlock().getWorld();
+        var game = BBU.getInstance().getGame();
+        if (game.getDeathmatchWorld() == null
+                || !world.getName().equals(game.getDeathmatchWorld().getName())) {
+            return;
+        }
+
+        e.blockList().removeIf(block -> !game.getPlayerPlacedBlocks().contains(block));
+
+        // remove from playerplacedblocks
+        for (Block block : e.blockList()) {
+            game.getPlayerPlacedBlocks().remove(block);
+        }
+    }
+
 
 }

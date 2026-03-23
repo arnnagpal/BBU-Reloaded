@@ -16,7 +16,8 @@ border:
 deathmatch:
   enabled: true
   time: 900 # time in seconds after border is DONE shrinking
-  spawn: "" # location of deathmatch spawn
+  spawn: "" # location of deathmatch spectator spawn
+  team-locations: [ ] # team locations for deathmatch
 
 spectate-after-death: true
 

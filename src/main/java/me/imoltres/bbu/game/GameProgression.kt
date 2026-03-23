@@ -23,7 +23,7 @@ class GameProgression {
     }
 
     fun getTeamsAlive(): Set<BBUTeam> {
-        return BBU.getInstance().teamController.allTeams.filter { bbuTeam -> bbuTeam.hasBeacon() || bbuTeam.players.size > 0 }
+        return BBU.getInstance().teamController.allTeams.filter { bbuTeam -> bbuTeam.hasBeacon() || bbuTeam.players.isNotEmpty() }
             .toSet()
     }
 

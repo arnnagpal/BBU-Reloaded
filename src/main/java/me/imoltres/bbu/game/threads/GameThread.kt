@@ -191,14 +191,15 @@ class GameThread(val game: Game) : BukkitRunnable() {
     private fun enterDeathmatch() {
         // figure out team locations
         val locations = mutableListOf<WorldPosition>()
+        val specLocation = GsonFactory.getCompactGson().fromJson(MainConfig.deathmatchSpawn, WorldPosition::class.java)
         for (loc in MainConfig.deathmatchTeamLocations) {
             // parse loc
             val worldLocation = GsonFactory.getCompactGson().fromJson(loc, WorldPosition::class.java)
             locations.add(worldLocation)
         }
 
-        if (locations.size == 0) {
-            // no locations specified, error out and and dont enter deathmatch
+        if (locations.isEmpty()) {
+            // no locations specified, error out and dont enter deathmatch
             BBU.getInstance().logger.severe("Deathmatch enabled but no team locations specified! Please specify team locations in the config to enable deathmatch.")
             return
         }
@@ -208,14 +209,26 @@ class GameThread(val game: Game) : BukkitRunnable() {
             "&7Teleporting players..."
         )
 
+        game.deathmatchWorld?.worldBorder?.reset() // jic, if the border was changed from somewhere else
+
         var index = 0
-        for (team in game.getTeams(false)) {
+        for (team in game.getAliveTeams()) {
             for (player in team.players) {
                 val bukkitPlayer = Bukkit.getPlayer(player.uniqueId) ?: continue
                 bukkitPlayer.teleport(locations[index % locations.size].toBukkitLocation())
             }
 
             index++
+        }
+
+        for (player in Bukkit.getOnlinePlayers()) {
+            // check if player is in a team, if not teleport them to the deathmatch area as well
+            val bukkitPlayer = Bukkit.getPlayer(player.uniqueId) ?: continue
+            val bbuPlayer = BBU.getInstance().playerController.getPlayer(bukkitPlayer.uniqueId) ?: continue
+            if (bbuPlayer.team != null && !bbuPlayer.eliminated) continue
+
+            // spectators
+            bukkitPlayer.teleport(specLocation.toBukkitLocation())
         }
 
         game.gameState = GameState.DEATHMATCH

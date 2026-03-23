@@ -30,6 +30,7 @@ public class TrackingCompassMenu extends Menu {
 
     @Override
     public Map<Integer, Button> getButtons(Player player) {
+        var playerTeam = BBU.getInstance().getTeamController().getTeam(player);
         Map<Integer, Button> buttons = new HashMap<>();
         for (int i = 0; i < 45; ++i) {
             if (!((i >= 33 && i <= 38) || (i >= 42) || (i >= 27 && i <= 29))) {
@@ -39,6 +40,8 @@ public class TrackingCompassMenu extends Menu {
 
         List<Button> teams = new ArrayList<>();
         for (BBUTeam team : BBU.getInstance().getTeamController().getAllTeams()) {
+            if (team == playerTeam) continue;
+
             teams.add(new TeamButton(team));
         }
 
@@ -53,7 +56,7 @@ public class TrackingCompassMenu extends Menu {
             x++;
         }
 
-        buttons.put(31, new TeamButton(BBU.getInstance().getTeamController().getTeam(player)));
+        buttons.put(31, new TeamButton(playerTeam));
 
         return buttons;
     }

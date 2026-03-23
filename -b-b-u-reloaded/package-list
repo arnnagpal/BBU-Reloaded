@@ -72,6 +72,7 @@ $dokka.location:me.imoltres.bbu.data.player////PointingToDeclaration/-b-b-u-rel
 $dokka.location:me.imoltres.bbu.data.player/BBUPlayer///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.player/-b-b-u-player/index.html
 $dokka.location:me.imoltres.bbu.data.player/BBUPlayer/BBUPlayer/#java.util.UUID#kotlin.String/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.player/-b-b-u-player/-b-b-u-player.html
 $dokka.location:me.imoltres.bbu.data.player/BBUPlayer/allowMovement/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.player/-b-b-u-player/allow-movement.html
+$dokka.location:me.imoltres.bbu.data.player/BBUPlayer/cleanup/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.player/-b-b-u-player/cleanup.html
 $dokka.location:me.imoltres.bbu.data.player/BBUPlayer/eliminate/#org.bukkit.Location/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.player/-b-b-u-player/eliminate.html
 $dokka.location:me.imoltres.bbu.data.player/BBUPlayer/getBuild/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.player/-b-b-u-player/get-build.html
 $dokka.location:me.imoltres.bbu.data.player/BBUPlayer/getDisplayName/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.player/-b-b-u-player/get-display-name.html
@@ -220,6 +221,7 @@ $dokka.location:me.imoltres.bbu.game.threads/GameStartThread/getGame/#/PointingT
 $dokka.location:me.imoltres.bbu.game.threads/GameStartThread/run/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.threads/-game-start-thread/run.html
 $dokka.location:me.imoltres.bbu.game.threads/GameThread///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.threads/-game-thread/index.html
 $dokka.location:me.imoltres.bbu.game.threads/GameThread/GameThread/#me.imoltres.bbu.game.Game/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.threads/-game-thread/-game-thread.html
+$dokka.location:me.imoltres.bbu.game.threads/GameThread/enterDeathmatch/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.threads/-game-thread/enter-deathmatch.html
 $dokka.location:me.imoltres.bbu.game.threads/GameThread/getDeathmatchTimer/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.threads/-game-thread/get-deathmatch-timer.html
 $dokka.location:me.imoltres.bbu.game.threads/GameThread/getGame/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.threads/-game-thread/get-game.html
 $dokka.location:me.imoltres.bbu.game.threads/GameThread/getStarted/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.threads/-game-thread/get-started.html
@@ -234,6 +236,7 @@ $dokka.location:me.imoltres.bbu.game.threads/GameThread/setTimeToNextShrink/#kot
 $dokka.location:me.imoltres.bbu.game////PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/index.html
 $dokka.location:me.imoltres.bbu.game/Game///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/index.html
 $dokka.location:me.imoltres.bbu.game/Game/Game/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/-game.html
+$dokka.location:me.imoltres.bbu.game/Game/advanceShrinkPhase/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/advance-shrink-phase.html
 $dokka.location:me.imoltres.bbu.game/Game/checkTeam/#me.imoltres.bbu.data.team.BBUTeam/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/check-team.html
 $dokka.location:me.imoltres.bbu.game/Game/getAliveTeams/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-alive-teams.html
 $dokka.location:me.imoltres.bbu.game/Game/getBorder/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-border.html
@@ -255,7 +258,6 @@ $dokka.location:me.imoltres.bbu.game/Game/preLobby/#org.bukkit.command.CommandSe
 $dokka.location:me.imoltres.bbu.game/Game/regenerateWorld/#kotlin.Long#org.bukkit.World#org.bukkit.World/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/regenerate-world.html
 $dokka.location:me.imoltres.bbu.game/Game/reset/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/reset.html
 $dokka.location:me.imoltres.bbu.game/Game/setBorder/#kotlin.Int/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/set-border.html
-$dokka.location:me.imoltres.bbu.game/Game/setCurrentShrinkPhase/#me.imoltres.bbu.game.ShrinkPhase?/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/set-current-shrink-phase.html
 $dokka.location:me.imoltres.bbu.game/Game/setDeathmatchWorld/#org.bukkit.World?/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/set-deathmatch-world.html
 $dokka.location:me.imoltres.bbu.game/Game/setEnd/#org.bukkit.World/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/set-end.html
 $dokka.location:me.imoltres.bbu.game/Game/setFortressPosition/#me.imoltres.bbu.utils.world.Position2D?/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/set-fortress-position.html
@@ -272,6 +274,7 @@ $dokka.location:me.imoltres.bbu.game/Game/stopGame/#me.imoltres.bbu.data.team.BB
 $dokka.location:me.imoltres.bbu.game/GameKt///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game-kt/index.html
 $dokka.location:me.imoltres.bbu.game/GameProgression///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game-progression/index.html
 $dokka.location:me.imoltres.bbu.game/GameProgression/GameProgression/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game-progression/-game-progression.html
+$dokka.location:me.imoltres.bbu.game/GameProgression/advanceShrinkPhase/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game-progression/advance-shrink-phase.html
 $dokka.location:me.imoltres.bbu.game/GameProgression/getCurrentShrinkPhase/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game-progression/get-current-shrink-phase.html
 $dokka.location:me.imoltres.bbu.game/GameProgression/getGameState/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game-progression/get-game-state.html
 $dokka.location:me.imoltres.bbu.game/GameProgression/getNextPhase/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game-progression/get-next-phase.html

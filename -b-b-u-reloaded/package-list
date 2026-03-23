@@ -5,6 +5,8 @@ $dokka.location:me.imoltres.bbu.commands.main/BuildModeCommandKt///PointingToDec
 $dokka.location:me.imoltres.bbu.commands.main/BuildModeCommandKt/getBuildModeCommand/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.main/-build-mode-command-kt/get-build-mode-command.html
 $dokka.location:me.imoltres.bbu.commands.main/MoveToCagesCommandKt///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.main/-move-to-cages-command-kt/index.html
 $dokka.location:me.imoltres.bbu.commands.main/MoveToCagesCommandKt/getMoveToCagesCommand/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.main/-move-to-cages-command-kt/get-move-to-cages-command.html
+$dokka.location:me.imoltres.bbu.commands.main/SetDeathmatchSpawnKt///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.main/-set-deathmatch-spawn-kt/index.html
+$dokka.location:me.imoltres.bbu.commands.main/SetDeathmatchSpawnKt/getSetDeathmatchSpawn/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.main/-set-deathmatch-spawn-kt/get-set-deathmatch-spawn.html
 $dokka.location:me.imoltres.bbu.commands.main/SetLobbySpawnCommandKt///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.main/-set-lobby-spawn-command-kt/index.html
 $dokka.location:me.imoltres.bbu.commands.main/SetLobbySpawnCommandKt/getSetLobbySpawnCommand/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.main/-set-lobby-spawn-command-kt/get-set-lobby-spawn-command.html
 $dokka.location:me.imoltres.bbu.commands.main/StartCommandKt///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.commands.main/-start-command-kt/index.html
@@ -50,6 +52,7 @@ $dokka.location:me.imoltres.bbu.controllers/PlayerController/getName/#java.util.
 $dokka.location:me.imoltres.bbu.controllers/PlayerController/getPlayer/#java.lang.String/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.controllers/-player-controller/get-player.html
 $dokka.location:me.imoltres.bbu.controllers/PlayerController/getPlayer/#java.util.UUID/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.controllers/-player-controller/get-player.html
 $dokka.location:me.imoltres.bbu.controllers/PlayerController/getPlayers/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.controllers/-player-controller/get-players.html
+$dokka.location:me.imoltres.bbu.controllers/PlayerController/getPlayers/#boolean/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.controllers/-player-controller/get-players.html
 $dokka.location:me.imoltres.bbu.controllers/PlayerController/getUniqueId/#java.lang.String/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.controllers/-player-controller/get-unique-id.html
 $dokka.location:me.imoltres.bbu.controllers/PlayerController/resetPlayers/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.controllers/-player-controller/reset-players.html
 $dokka.location:me.imoltres.bbu.controllers/TeamController///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.controllers/-team-controller/index.html
@@ -113,6 +116,7 @@ $dokka.location:me.imoltres.bbu.data.team/BBUTeam/getBeacon/#/PointingToDeclarat
 $dokka.location:me.imoltres.bbu.data.team/BBUTeam/getCage/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.team/-b-b-u-team/get-cage.html
 $dokka.location:me.imoltres.bbu.data.team/BBUTeam/getColour/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.team/-b-b-u-team/get-colour.html
 $dokka.location:me.imoltres.bbu.data.team/BBUTeam/getDisplayName/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.team/-b-b-u-team/get-display-name.html
+$dokka.location:me.imoltres.bbu.data.team/BBUTeam/getDroppedBeaconItem/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.team/-b-b-u-team/get-dropped-beacon-item.html
 $dokka.location:me.imoltres.bbu.data.team/BBUTeam/getName/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.team/-b-b-u-team/get-name.html
 $dokka.location:me.imoltres.bbu.data.team/BBUTeam/getPlayers/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.team/-b-b-u-team/get-players.html
 $dokka.location:me.imoltres.bbu.data.team/BBUTeam/getPlayersAsList/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.team/-b-b-u-team/get-players-as-list.html
@@ -122,6 +126,7 @@ $dokka.location:me.imoltres.bbu.data.team/BBUTeam/hashCode/#/PointingToDeclarati
 $dokka.location:me.imoltres.bbu.data.team/BBUTeam/removePlayer/#me.imoltres.bbu.data.player.BBUPlayer/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.team/-b-b-u-team/remove-player.html
 $dokka.location:me.imoltres.bbu.data.team/BBUTeam/setBeacon/#me.imoltres.bbu.utils.world.Position?/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.team/-b-b-u-team/set-beacon.html
 $dokka.location:me.imoltres.bbu.data.team/BBUTeam/setCage/#me.imoltres.bbu.data.team.BBUCage?/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.team/-b-b-u-team/set-cage.html
+$dokka.location:me.imoltres.bbu.data.team/BBUTeam/setDroppedBeaconItem/#org.bukkit.entity.Item?/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data.team/-b-b-u-team/set-dropped-beacon-item.html
 $dokka.location:me.imoltres.bbu.data////PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data/index.html
 $dokka.location:me.imoltres.bbu.data/BBUTeamColor.BLUE///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-b-b-u-reloaded/me.imoltres.bbu.data/-b-b-u-team-color/-b-l-u-e/index.html
 $dokka.location:me.imoltres.bbu.data/BBUTeamColor.GRAY///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-b-b-u-reloaded/me.imoltres.bbu.data/-b-b-u-team-color/-g-r-a-y/index.html
@@ -141,6 +146,17 @@ $dokka.location:me.imoltres.bbu.data/TeamArgumentType/TeamArgumentType/#/Pointin
 $dokka.location:me.imoltres.bbu.data/TeamArgumentType/convert/#kotlin.String/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data/-team-argument-type/convert.html
 $dokka.location:me.imoltres.bbu.data/TeamArgumentType/getNativeType/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data/-team-argument-type/get-native-type.html
 $dokka.location:me.imoltres.bbu.data/TeamArgumentType/listSuggestions/#com.mojang.brigadier.context.CommandContext[TypeParam(bounds=[kotlin.Any])]#com.mojang.brigadier.suggestion.SuggestionsBuilder/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.data/-team-argument-type/list-suggestions.html
+$dokka.location:me.imoltres.bbu.game.events.game////PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.events.game/index.html
+$dokka.location:me.imoltres.bbu.game.events.game/BBUGameEvent///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.events.game/-b-b-u-game-event/index.html
+$dokka.location:me.imoltres.bbu.game.events.game/BBUGameEvent/BBUGameEvent/#me.imoltres.bbu.game.Game/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.events.game/-b-b-u-game-event/-b-b-u-game-event.html
+$dokka.location:me.imoltres.bbu.game.events.game/BBUGameEvent/getHandlerList/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.events.game/-b-b-u-game-event/get-handler-list.html
+$dokka.location:me.imoltres.bbu.game.events.game/BBUGameEvent/getHandlers/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.events.game/-b-b-u-game-event/get-handlers.html
+$dokka.location:me.imoltres.bbu.game.events.game/BBUGameStateChangeEvent///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.events.game/-b-b-u-game-state-change-event/index.html
+$dokka.location:me.imoltres.bbu.game.events.game/BBUGameStateChangeEvent/BBUGameStateChangeEvent/#me.imoltres.bbu.game.Game#me.imoltres.bbu.game.GameState/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.events.game/-b-b-u-game-state-change-event/-b-b-u-game-state-change-event.html
+$dokka.location:me.imoltres.bbu.game.events.game/BBUGameStateChangeEvent/getHandlerList/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.events.game/-b-b-u-game-state-change-event/get-handler-list.html
+$dokka.location:me.imoltres.bbu.game.events.game/BBUGameStateChangeEvent/getHandlers/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.events.game/-b-b-u-game-state-change-event/get-handlers.html
+$dokka.location:me.imoltres.bbu.game.events.game/BBUGameStateChangeEvent/isCancelled/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.events.game/-b-b-u-game-state-change-event/is-cancelled.html
+$dokka.location:me.imoltres.bbu.game.events.game/BBUGameStateChangeEvent/setCancelled/#boolean/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.events.game/-b-b-u-game-state-change-event/set-cancelled.html
 $dokka.location:me.imoltres.bbu.game.events.player////PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.events.player/index.html
 $dokka.location:me.imoltres.bbu.game.events.player/BBUPlayerCompassOpenEvent///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.events.player/-b-b-u-player-compass-open-event/index.html
 $dokka.location:me.imoltres.bbu.game.events.player/BBUPlayerCompassOpenEvent/BBUPlayerCompassOpenEvent/#me.imoltres.bbu.data.player.BBUPlayer/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.events.player/-b-b-u-player-compass-open-event/-b-b-u-player-compass-open-event.html
@@ -204,26 +220,33 @@ $dokka.location:me.imoltres.bbu.game.threads/GameStartThread/getGame/#/PointingT
 $dokka.location:me.imoltres.bbu.game.threads/GameStartThread/run/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.threads/-game-start-thread/run.html
 $dokka.location:me.imoltres.bbu.game.threads/GameThread///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.threads/-game-thread/index.html
 $dokka.location:me.imoltres.bbu.game.threads/GameThread/GameThread/#me.imoltres.bbu.game.Game/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.threads/-game-thread/-game-thread.html
+$dokka.location:me.imoltres.bbu.game.threads/GameThread/getDeathmatchTimer/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.threads/-game-thread/get-deathmatch-timer.html
 $dokka.location:me.imoltres.bbu.game.threads/GameThread/getGame/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.threads/-game-thread/get-game.html
-$dokka.location:me.imoltres.bbu.game.threads/GameThread/getShrinkingTime/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.threads/-game-thread/get-shrinking-time.html
 $dokka.location:me.imoltres.bbu.game.threads/GameThread/getStarted/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.threads/-game-thread/get-started.html
 $dokka.location:me.imoltres.bbu.game.threads/GameThread/getTeamCheckQueue/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.threads/-game-thread/get-team-check-queue.html
 $dokka.location:me.imoltres.bbu.game.threads/GameThread/getTick/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.threads/-game-thread/get-tick.html
+$dokka.location:me.imoltres.bbu.game.threads/GameThread/getTimeToNextShrink/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.threads/-game-thread/get-time-to-next-shrink.html
 $dokka.location:me.imoltres.bbu.game.threads/GameThread/run/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.threads/-game-thread/run.html
-$dokka.location:me.imoltres.bbu.game.threads/GameThread/setShrinkingTime/#kotlin.Int/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.threads/-game-thread/set-shrinking-time.html
+$dokka.location:me.imoltres.bbu.game.threads/GameThread/setDeathmatchTimer/#kotlin.Int/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.threads/-game-thread/set-deathmatch-timer.html
 $dokka.location:me.imoltres.bbu.game.threads/GameThread/setStarted/#kotlin.Boolean/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.threads/-game-thread/set-started.html
 $dokka.location:me.imoltres.bbu.game.threads/GameThread/setTick/#kotlin.Int/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.threads/-game-thread/set-tick.html
+$dokka.location:me.imoltres.bbu.game.threads/GameThread/setTimeToNextShrink/#kotlin.Int/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game.threads/-game-thread/set-time-to-next-shrink.html
 $dokka.location:me.imoltres.bbu.game////PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/index.html
 $dokka.location:me.imoltres.bbu.game/Game///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/index.html
 $dokka.location:me.imoltres.bbu.game/Game/Game/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/-game.html
 $dokka.location:me.imoltres.bbu.game/Game/checkTeam/#me.imoltres.bbu.data.team.BBUTeam/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/check-team.html
 $dokka.location:me.imoltres.bbu.game/Game/getAliveTeams/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-alive-teams.html
 $dokka.location:me.imoltres.bbu.game/Game/getBorder/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-border.html
+$dokka.location:me.imoltres.bbu.game/Game/getCurrentShrinkPhase/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-current-shrink-phase.html
+$dokka.location:me.imoltres.bbu.game/Game/getDeathmatchWorld/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-deathmatch-world.html
 $dokka.location:me.imoltres.bbu.game/Game/getEnd/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-end.html
 $dokka.location:me.imoltres.bbu.game/Game/getFortressPosition/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-fortress-position.html
 $dokka.location:me.imoltres.bbu.game/Game/getGameState/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-game-state.html
 $dokka.location:me.imoltres.bbu.game/Game/getNether/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-nether.html
+$dokka.location:me.imoltres.bbu.game/Game/getNextShrinkPhase/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-next-shrink-phase.html
 $dokka.location:me.imoltres.bbu.game/Game/getOverworld/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-overworld.html
+$dokka.location:me.imoltres.bbu.game/Game/getPlayerPlacedBlocks/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-player-placed-blocks.html
+$dokka.location:me.imoltres.bbu.game/Game/getPreviousShrinkPhase/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-previous-shrink-phase.html
 $dokka.location:me.imoltres.bbu.game/Game/getSpawnWorld/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-spawn-world.html
 $dokka.location:me.imoltres.bbu.game/Game/getTeams/#kotlin.Boolean/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-teams.html
 $dokka.location:me.imoltres.bbu.game/Game/getThread/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-thread.html
@@ -232,6 +255,8 @@ $dokka.location:me.imoltres.bbu.game/Game/preLobby/#org.bukkit.command.CommandSe
 $dokka.location:me.imoltres.bbu.game/Game/regenerateWorld/#kotlin.Long#org.bukkit.World#org.bukkit.World/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/regenerate-world.html
 $dokka.location:me.imoltres.bbu.game/Game/reset/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/reset.html
 $dokka.location:me.imoltres.bbu.game/Game/setBorder/#kotlin.Int/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/set-border.html
+$dokka.location:me.imoltres.bbu.game/Game/setCurrentShrinkPhase/#me.imoltres.bbu.game.ShrinkPhase?/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/set-current-shrink-phase.html
+$dokka.location:me.imoltres.bbu.game/Game/setDeathmatchWorld/#org.bukkit.World?/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/set-deathmatch-world.html
 $dokka.location:me.imoltres.bbu.game/Game/setEnd/#org.bukkit.World/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/set-end.html
 $dokka.location:me.imoltres.bbu.game/Game/setFortressPosition/#me.imoltres.bbu.utils.world.Position2D?/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/set-fortress-position.html
 $dokka.location:me.imoltres.bbu.game/Game/setGameState/#me.imoltres.bbu.game.GameState/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/set-game-state.html
@@ -247,9 +272,14 @@ $dokka.location:me.imoltres.bbu.game/Game/stopGame/#me.imoltres.bbu.data.team.BB
 $dokka.location:me.imoltres.bbu.game/GameKt///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game-kt/index.html
 $dokka.location:me.imoltres.bbu.game/GameProgression///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game-progression/index.html
 $dokka.location:me.imoltres.bbu.game/GameProgression/GameProgression/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game-progression/-game-progression.html
+$dokka.location:me.imoltres.bbu.game/GameProgression/getCurrentShrinkPhase/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game-progression/get-current-shrink-phase.html
 $dokka.location:me.imoltres.bbu.game/GameProgression/getGameState/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game-progression/get-game-state.html
+$dokka.location:me.imoltres.bbu.game/GameProgression/getNextPhase/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game-progression/get-next-phase.html
+$dokka.location:me.imoltres.bbu.game/GameProgression/getOrderedShrinkPhases/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game-progression/get-ordered-shrink-phases.html
+$dokka.location:me.imoltres.bbu.game/GameProgression/getPreviousPhase/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game-progression/get-previous-phase.html
 $dokka.location:me.imoltres.bbu.game/GameProgression/getTeams/#kotlin.Boolean/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game-progression/get-teams.html
 $dokka.location:me.imoltres.bbu.game/GameProgression/getTeamsAlive/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game-progression/get-teams-alive.html
+$dokka.location:me.imoltres.bbu.game/GameProgression/setCurrentShrinkPhase/#me.imoltres.bbu.game.ShrinkPhase?/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game-progression/set-current-shrink-phase.html
 $dokka.location:me.imoltres.bbu.game/GameProgression/setGameState/#me.imoltres.bbu.game.GameState/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game-progression/set-game-state.html
 $dokka.location:me.imoltres.bbu.game/GameState.Companion///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game-state/-companion/index.html
 $dokka.location:me.imoltres.bbu.game/GameState.Companion/getGameStateFromTick/#kotlin.Int/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game-state/-companion/get-game-state-from-tick.html
@@ -276,9 +306,10 @@ $dokka.location:me.imoltres.bbu.game/GameStateArgumentType/convert/#kotlin.Strin
 $dokka.location:me.imoltres.bbu.game/GameStateArgumentType/getNativeType/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game-state-argument-type/get-native-type.html
 $dokka.location:me.imoltres.bbu.game/GameStateArgumentType/listSuggestions/#com.mojang.brigadier.context.CommandContext[TypeParam(bounds=[kotlin.Any])]#com.mojang.brigadier.suggestion.SuggestionsBuilder/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game-state-argument-type/list-suggestions.html
 $dokka.location:me.imoltres.bbu.game/ShrinkPhase///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-shrink-phase/index.html
-$dokka.location:me.imoltres.bbu.game/ShrinkPhase/ShrinkPhase/#kotlin.Int#kotlin.Int/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-shrink-phase/-shrink-phase.html
+$dokka.location:me.imoltres.bbu.game/ShrinkPhase/ShrinkPhase/#kotlin.Int#kotlin.Int#kotlin.Int/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-shrink-phase/-shrink-phase.html
 $dokka.location:me.imoltres.bbu.game/ShrinkPhase/getLength/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-shrink-phase/get-length.html
 $dokka.location:me.imoltres.bbu.game/ShrinkPhase/getSize/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-shrink-phase/get-size.html
+$dokka.location:me.imoltres.bbu.game/ShrinkPhase/getTime/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-shrink-phase/get-time.html
 $dokka.location:me.imoltres.bbu.listeners////PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/index.html
 $dokka.location:me.imoltres.bbu.listeners/BeaconListener///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-beacon-listener/index.html
 $dokka.location:me.imoltres.bbu.listeners/BeaconListener/BeaconListener/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-beacon-listener/-beacon-listener.html
@@ -290,8 +321,10 @@ $dokka.location:me.imoltres.bbu.listeners/BeaconListener/onLiquidFlow/#org.bukki
 $dokka.location:me.imoltres.bbu.listeners/BlockListener///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-block-listener/index.html
 $dokka.location:me.imoltres.bbu.listeners/BlockListener/BlockListener/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-block-listener/-block-listener.html
 $dokka.location:me.imoltres.bbu.listeners/BlockListener/onBlockBreak/#org.bukkit.event.block.BlockBreakEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-block-listener/on-block-break.html
+$dokka.location:me.imoltres.bbu.listeners/BlockListener/onBlockExplode/#org.bukkit.event.block.BlockExplodeEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-block-listener/on-block-explode.html
 $dokka.location:me.imoltres.bbu.listeners/BlockListener/onBlockFall/#org.bukkit.event.entity.EntityChangeBlockEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-block-listener/on-block-fall.html
 $dokka.location:me.imoltres.bbu.listeners/BlockListener/onBlockPlace/#org.bukkit.event.block.BlockPlaceEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-block-listener/on-block-place.html
+$dokka.location:me.imoltres.bbu.listeners/BlockListener/onEntityExplode/#org.bukkit.event.entity.EntityExplodeEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-block-listener/on-entity-explode.html
 $dokka.location:me.imoltres.bbu.listeners/BlockListener/onMushroomGrow/#org.bukkit.event.block.BlockFertilizeEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-block-listener/on-mushroom-grow.html
 $dokka.location:me.imoltres.bbu.listeners/BlockListener/onPistonPush/#org.bukkit.event.block.BlockPistonExtendEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-block-listener/on-piston-push.html
 $dokka.location:me.imoltres.bbu.listeners/ChatListener///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-chat-listener/index.html
@@ -306,6 +339,7 @@ $dokka.location:me.imoltres.bbu.listeners/GameListener///PointingToDeclaration/
 $dokka.location:me.imoltres.bbu.listeners/GameListener/GameListener/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-game-listener/-game-listener.html
 $dokka.location:me.imoltres.bbu.listeners/GameListener/onBeaconBreak/#me.imoltres.bbu.game.events.team.BBUBreakBeaconEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-game-listener/on-beacon-break.html
 $dokka.location:me.imoltres.bbu.listeners/GameListener/onBeaconPlace/#me.imoltres.bbu.game.events.team.BBUPlaceBeaconEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-game-listener/on-beacon-place.html
+$dokka.location:me.imoltres.bbu.listeners/GameListener/onGameStateChange/#me.imoltres.bbu.game.events.game.BBUGameStateChangeEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-game-listener/on-game-state-change.html
 $dokka.location:me.imoltres.bbu.listeners/GameListener/onPlayerDeath/#me.imoltres.bbu.game.events.player.BBUPlayerDeathEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-game-listener/on-player-death.html
 $dokka.location:me.imoltres.bbu.listeners/GameListener/onTeamModification/#me.imoltres.bbu.game.events.team.BBUTeamModificationEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-game-listener/on-team-modification.html
 $dokka.location:me.imoltres.bbu.listeners/InteractListener///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-interact-listener/index.html
@@ -314,6 +348,15 @@ $dokka.location:me.imoltres.bbu.listeners/InteractListener/onDamage/#org.bukkit.
 $dokka.location:me.imoltres.bbu.listeners/InteractListener/onPlayerInteract/#org.bukkit.event.player.PlayerInteractEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-interact-listener/on-player-interact.html
 $dokka.location:me.imoltres.bbu.listeners/InteractListener/onStartSpectate/#com.destroystokyo.paper.event.player.PlayerStartSpectatingEntityEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-interact-listener/on-start-spectate.html
 $dokka.location:me.imoltres.bbu.listeners/InteractListener/onStopSpectate/#com.destroystokyo.paper.event.player.PlayerStopSpectatingEntityEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-interact-listener/on-stop-spectate.html
+$dokka.location:me.imoltres.bbu.listeners/InventoryListener///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-inventory-listener/index.html
+$dokka.location:me.imoltres.bbu.listeners/InventoryListener/InventoryListener/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-inventory-listener/-inventory-listener.html
+$dokka.location:me.imoltres.bbu.listeners/InventoryListener/onInventoryClick/#org.bukkit.event.inventory.InventoryClickEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-inventory-listener/on-inventory-click.html
+$dokka.location:me.imoltres.bbu.listeners/ItemListener///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-item-listener/index.html
+$dokka.location:me.imoltres.bbu.listeners/ItemListener/ItemListener/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-item-listener/-item-listener.html
+$dokka.location:me.imoltres.bbu.listeners/ItemListener/glowItem/#net.minecraft.server.level.ServerPlayer#net.minecraft.world.entity.Entity/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-item-listener/glow-item.html
+$dokka.location:me.imoltres.bbu.listeners/ItemListener/onHopperPickup/#org.bukkit.event.inventory.InventoryPickupItemEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-item-listener/on-hopper-pickup.html
+$dokka.location:me.imoltres.bbu.listeners/ItemListener/onItemDrop/#org.bukkit.event.player.PlayerDropItemEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-item-listener/on-item-drop.html
+$dokka.location:me.imoltres.bbu.listeners/ItemListener/onItemPickup/#org.bukkit.event.entity.EntityPickupItemEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-item-listener/on-item-pickup.html
 $dokka.location:me.imoltres.bbu.listeners/JoinListener///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-join-listener/index.html
 $dokka.location:me.imoltres.bbu.listeners/JoinListener/JoinListener/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-join-listener/-join-listener.html
 $dokka.location:me.imoltres.bbu.listeners/JoinListener/onJoin/#org.bukkit.event.player.PlayerJoinEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-join-listener/on-join.html
@@ -489,8 +532,30 @@ $dokka.location:me.imoltres.bbu.utils.config/ConfigGetter///PointingToDeclaratio
 $dokka.location:me.imoltres.bbu.utils.config/ConfigGetter/ConfigGetter/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-config-getter/-config-getter.html
 $dokka.location:me.imoltres.bbu.utils.config/ConfigGetter/get/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-config-getter/get.html
 $dokka.location:me.imoltres.bbu.utils.config/ConfigGetter/toString/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-config-getter/to-string.html
+$dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/index.html
+$dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/getBorderPhases/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/get-border-phases.html
+$dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/getBorderSize/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/get-border-size.html
+$dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/getDeathmatchEnabled/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/get-deathmatch-enabled.html
+$dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/getDeathmatchSpawn/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/get-deathmatch-spawn.html
+$dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/getDeathmatchTeamLocations/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/get-deathmatch-team-locations.html
+$dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/getDeathmatchTime/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/get-deathmatch-time.html
+$dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/getFriendlyFire/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/get-friendly-fire.html
+$dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/getLobbySpawn/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/get-lobby-spawn.html
+$dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/getSpectateAfterDeath/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/get-spectate-after-death.html
+$dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/reload/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/reload.html
+$dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/setBorderPhases/#kotlin.collections.List[me.imoltres.bbu.game.ShrinkPhase]/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/set-border-phases.html
+$dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/setBorderSize/#kotlin.Int/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/set-border-size.html
+$dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/setDeathmatchEnabled/#kotlin.Boolean/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/set-deathmatch-enabled.html
+$dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/setDeathmatchSpawn/#kotlin.String/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/set-deathmatch-spawn.html
+$dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/setDeathmatchTeamLocations/#kotlin.collections.List[kotlin.String]/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/set-deathmatch-team-locations.html
+$dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/setDeathmatchTime/#kotlin.Int/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/set-deathmatch-time.html
+$dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/setFriendlyFire/#kotlin.Boolean/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/set-friendly-fire.html
+$dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/setLobbySpawn/#kotlin.String/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/set-lobby-spawn.html
+$dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/setSpectateAfterDeath/#kotlin.Boolean/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/set-spectate-after-death.html
 $dokka.location:me.imoltres.bbu.utils.config/MainConfig///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/index.html
-$dokka.location:me.imoltres.bbu.utils.config/MainConfig/reload/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/reload.html
+$dokka.location:me.imoltres.bbu.utils.config/MainConfig/MainConfig/#kotlin.String/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-main-config.html
+$dokka.location:me.imoltres.bbu.utils.config/MainConfigOld///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config-old/index.html
+$dokka.location:me.imoltres.bbu.utils.config/MainConfigOld/reload/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config-old/reload.html
 $dokka.location:me.imoltres.bbu.utils.config/Messages///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-messages/index.html
 $dokka.location:me.imoltres.bbu.utils.config/Nerfs///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-nerfs/index.html
 $dokka.location:me.imoltres.bbu.utils.general////PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.general/index.html
@@ -820,6 +885,7 @@ me.imoltres.bbu.data
 me.imoltres.bbu.data.player
 me.imoltres.bbu.data.team
 me.imoltres.bbu.game
+me.imoltres.bbu.game.events.game
 me.imoltres.bbu.game.events.player
 me.imoltres.bbu.game.events.team
 me.imoltres.bbu.game.generator

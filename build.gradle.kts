@@ -1,5 +1,5 @@
 val main by extra("me.imoltres.bbu.BBU")
-val ver by extra("0.3-BETA")
+val ver by extra("0.3.1-BETA")
 val apiVersion by extra("1.21.11")
 val kotlinVersion by extra("2.3.10")
 

@@ -252,7 +252,6 @@ class Game {
         val generateSpawn = MainConfig.lobbySpawn.isEmpty()
         //Get spawn world
         spawnWorld = WorldCreator(WORLD_PREFIX)
-            .environment(World.Environment.CUSTOM)
             .generator(EmptyChunkGenerator())
             .createWorld()!!
 
@@ -298,7 +297,6 @@ class Game {
 
         if (MainConfig.deathmatchEnabled) {
             deathmatchWorld = WorldCreator("${WORLD_PREFIX}_deathmatch")
-                .environment(World.Environment.CUSTOM)
                 .seed(seed)
                 .createWorld()
 

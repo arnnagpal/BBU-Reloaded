@@ -183,13 +183,13 @@ class BBUPlayer(val uniqueId: UUID, val name: String) {
         showBlood(deathLocation)
         eliminated = true
 
-        if (MainConfig.SPECTATE_AFTER_DEATH) {
+        if (MainConfig.spectateAfterDeath) {
             spectatingTeam = team
         }
 
         team?.removePlayer(this)
 
-        if (MainConfig.SPECTATE_AFTER_DEATH) {
+        if (MainConfig.spectateAfterDeath) {
             // put player in spectator mode where they can either only spectate their teammates if they have any, otherwise they spectate freely
             player?.gameMode = GameMode.SPECTATOR
             spectatingActionMsgThread = Bukkit.getScheduler().runTaskTimer(BBU.getInstance(), Runnable {

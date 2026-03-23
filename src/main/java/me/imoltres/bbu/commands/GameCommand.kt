@@ -24,6 +24,7 @@ val GameCommand = command("bbu") {
         StartCommand,
         StopCommand,
         SetLobbySpawnCommand,
+        SetDeathmatchSpawn,
         MoveToCagesCommand,
 
         // team commands

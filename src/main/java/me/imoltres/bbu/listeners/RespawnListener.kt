@@ -15,24 +15,18 @@ class RespawnListener : Listener {
     fun onRespawn(e: PlayerRespawnEvent) {
         val bukkitPlayer: Player = e.player
         val player: BBUPlayer = BBU.getInstance().playerController.getPlayer(bukkitPlayer.uniqueId) ?: return
-        if (player.team == null) return
         val team = player.team
+        if (team == null) return
         if (bukkitPlayer.respawnLocation != null) {
-            bukkitPlayer.teleport(bukkitPlayer.respawnLocation!!)
+            // dont handle teleporting if the respawn location is already set
+            // player set their respawn location to a bed or something, so we should respect that
             return
         }
 
         // if the team has a beacon, teleport them to it, otherwise teleport them to their cage
         // for some reason hasBeacon returns true in grace period... what idiot coded that (me)
-        if (team!!.hasBeacon() && team.beacon != null) {
-            bukkitPlayer.teleport(
-                team.beacon!!
-                    .toWorldPosition(BBU.getInstance().game.overworld.name)
-                    .toBukkitLocation()
-                    .add(0.5, 0.5, 0.5)
-            )
-        } else {
-            bukkitPlayer.teleport(team.cage!!.spawnPosition.toBukkitLocation())
+        if (team.cage != null) {
+            e.respawnLocation = team.cage!!.spawnPosition.toBukkitLocation()
         }
     }
 }

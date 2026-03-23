@@ -4,6 +4,7 @@ import me.imoltres.bbu.BBU;
 import me.imoltres.bbu.data.player.BBUPlayer;
 import me.imoltres.bbu.data.team.BBUTeam;
 import me.imoltres.bbu.game.GameState;
+import me.imoltres.bbu.game.events.game.BBUGameStateChangeEvent;
 import me.imoltres.bbu.game.events.player.BBUPlayerDeathEvent;
 import me.imoltres.bbu.game.events.team.BBUBreakBeaconEvent;
 import me.imoltres.bbu.game.events.team.BBUPlaceBeaconEvent;
@@ -112,7 +113,7 @@ public class GameListener implements Listener {
             bukkitPlayer.playSound(wardenRoar, net.kyori.adventure.sound.Sound.Emitter.self());
             //todo: add configuration for this
             bukkitPlayer.showTitle(Title.title(
-                            CC.translate("&c&lYour beacon has been destroyed!"),
+                    CC.translate("&c&lBeacon Destroyed"),
                             CC.translate("&7You will no longer respawn")
                     )
             );
@@ -132,6 +133,23 @@ public class GameListener implements Listener {
     public void onTeamModification(BBUTeamModificationEvent e) {
         if (BBU.getInstance().getGame().getAliveTeams().contains(e.getTeam()))
             BBU.getInstance().getGame().checkTeam(e.getTeam());
+    }
+
+    @EventHandler
+    public void onGameStateChange(BBUGameStateChangeEvent e) {
+        if (e.getNewState() != GameState.PVP) {
+            return;
+        }
+
+        var game = e.getGame();
+
+        // delete all beacons on ground
+        for (BBUTeam team : game.getAliveTeams()) {
+            if (team.getDroppedBeaconItem() != null) {
+                team.getDroppedBeaconItem().remove();
+                team.setDroppedBeaconItem(null);
+            }
+        }
     }
 
 }

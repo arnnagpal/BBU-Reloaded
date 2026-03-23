@@ -4,6 +4,7 @@ import kotlinx.coroutines.launch
 import me.imoltres.bbu.BBU
 import me.imoltres.bbu.data.BBUTeamColor
 import me.imoltres.bbu.data.team.BBUTeam
+import me.imoltres.bbu.game.events.game.BBUGameStateChangeEvent
 import me.imoltres.bbu.game.generator.EmptyChunkGenerator
 import me.imoltres.bbu.game.threads.GameStartThread
 import me.imoltres.bbu.game.threads.GameThread
@@ -18,6 +19,7 @@ import me.imoltres.bbu.utils.world.Position2D
 import me.imoltres.bbu.utils.world.WorldPosition
 import org.bukkit.*
 import org.bukkit.attribute.Attribute
+import org.bukkit.block.Block
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Firework
 import org.bukkit.generator.structure.StructureType
@@ -37,12 +39,16 @@ class Game {
 
     var thread = GameThread(this)
 
-    var border: Int = MainConfig.BORDER_SIZE
+    var border: Int = MainConfig.borderSize
 
     lateinit var overworld: World
     lateinit var nether: World
     lateinit var end: World
     lateinit var spawnWorld: World
+
+    var deathmatchWorld: World? = null
+    val playerPlacedBlocks: MutableList<Block> = ArrayList<Block>()
+
 
     lateinit var worlds: Array<World>
 
@@ -54,9 +60,31 @@ class Game {
     var gameState: GameState
         get() = progression.gameState
         set(state) {
+            val event = BBUGameStateChangeEvent(this, state)
+            Bukkit.getPluginManager().callEvent(event)
+            if (event.isCancelled) {
+                return
+            }
+
             System.out.printf("Changing game state from %s to %s\n", gameState.name, state.name)
             progression.gameState = state
         }
+
+    /**
+     * the shrink phase
+     */
+    var currentShrinkPhase: ShrinkPhase?
+        get() = progression.currentShrinkPhase
+        set(phase) {
+            System.out.printf("Changing shrink phase from %s to %s\n", currentShrinkPhase?.size ?: "null", phase?.size ?: "null")
+            progression.currentShrinkPhase = phase
+        }
+
+    val nextShrinkPhase: ShrinkPhase?
+        get() = progression.getNextPhase()
+
+    val previousShrinkPhase: ShrinkPhase?
+        get() = progression.getPreviousPhase()
 
     /**
      * Start the game
@@ -67,7 +95,7 @@ class Game {
         }
 
         for (team in BBU.getInstance().teamController.allTeams) {
-            if (team.players.size == 0) {
+            if (team.players.isEmpty()) {
                 team.eliminate()
                 team.delete()
             }
@@ -221,9 +249,10 @@ class Game {
     }
 
     fun setupLobbyWorld() {
-        val generateSpawn = MainConfig.LOBBY_SPAWN.isEmpty()
+        val generateSpawn = MainConfig.lobbySpawn.isEmpty()
         //Get spawn world
         spawnWorld = WorldCreator(WORLD_PREFIX)
+            .environment(World.Environment.CUSTOM)
             .generator(EmptyChunkGenerator())
             .createWorld()!!
 
@@ -265,8 +294,17 @@ class Game {
             .environment(World.Environment.THE_END)
             .seed(seed)
             .createWorld()!!
-
         worlds = arrayOf(overworld, nether, end, spawnWorld)
+
+        if (MainConfig.deathmatchEnabled) {
+            deathmatchWorld = WorldCreator("${WORLD_PREFIX}_deathmatch")
+                .environment(World.Environment.CUSTOM)
+                .seed(seed)
+                .createWorld()
+
+            worlds += deathmatchWorld!!
+        }
+
         for (world in worlds) {
             world.loadChunk(0, 0)
             world.worldBorder.setCenter(0.0, 0.0)
@@ -366,6 +404,11 @@ class Game {
         regenerateWorld(newSeed, overworld, spawnWorld)
         regenerateWorld(newSeed, nether, spawnWorld)
         regenerateWorld(newSeed, end, spawnWorld)
+
+        // delete player-placed blocks
+        for (block in playerPlacedBlocks) {
+            block.type = Material.AIR
+        }
 
         // reset game state
         gameState = GameState.LOBBY

@@ -50,7 +50,7 @@ class JoinListener : Listener {
         val uniqueId = e.uniqueId
         val name = e.name
         val player = BBU.getInstance().playerController.createPlayer(uniqueId, name)
-        if (player.eliminated && !MainConfig.SPECTATE_AFTER_DEATH)
+        if (player.eliminated && !MainConfig.spectateAfterDeath)
             e.disallow(
                 AsyncPlayerPreLoginEvent.Result.KICK_OTHER,
                 CC.translate(Messages.FINAL_DEATH.toString())
@@ -91,7 +91,7 @@ class JoinListener : Listener {
         try {
             if (BBU.getInstance().game.gameState == GameState.LOBBY) {
                 player.teleportAsync(
-                    GsonFactory.getCompactGson().fromJson(MainConfig.LOBBY_SPAWN, WorldPosition::class.java)
+                    GsonFactory.getCompactGson().fromJson(MainConfig.lobbySpawn, WorldPosition::class.java)
                         .toBukkitLocation()
                 )
             }

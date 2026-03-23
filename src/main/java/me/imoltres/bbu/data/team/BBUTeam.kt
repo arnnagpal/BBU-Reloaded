@@ -10,6 +10,7 @@ import me.imoltres.bbu.utils.world.Position
 import net.kyori.adventure.text.TextComponent
 import org.bukkit.Bukkit
 import org.bukkit.Material
+import org.bukkit.entity.Item
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ThreadLocalRandom
@@ -47,6 +48,8 @@ class BBUTeam(val colour: BBUTeamColor) {
 
             field = value
         }
+
+    var droppedBeaconItem: Item? = null
 
     /**
      * Add a player to the team

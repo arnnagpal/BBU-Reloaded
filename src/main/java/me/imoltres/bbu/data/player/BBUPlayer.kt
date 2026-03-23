@@ -201,6 +201,10 @@ class BBUPlayer(val uniqueId: UUID, val name: String) {
                         ) " $str" else ""
                     )
                 )
+
+                if (spectatingTeam != null && spectatingTeam?.players?.isNotEmpty() == true) {
+                    switchingSpectator = true // allow switching to anyone after everyone on your team dies
+                }
             }, 0L, 5L)
             if ((spectatingTeam?.players?.size ?: 0) > 0) {
                 switchingSpectator = true
@@ -211,4 +215,9 @@ class BBUPlayer(val uniqueId: UUID, val name: String) {
         }
     }
 
+    fun cleanup() {
+        spectatingActionMsgThread?.cancel()
+        spectatingTeam = null
+        spectatingActionMsgThread = null
+    }
 }

@@ -73,12 +73,8 @@ class Game {
     /**
      * the shrink phase
      */
-    var currentShrinkPhase: ShrinkPhase?
+    val currentShrinkPhase: ShrinkPhase?
         get() = progression.currentShrinkPhase
-        set(phase) {
-            System.out.printf("Changing shrink phase from %s to %s\n", currentShrinkPhase?.size ?: "null", phase?.size ?: "null")
-            progression.currentShrinkPhase = phase
-        }
 
     val nextShrinkPhase: ShrinkPhase?
         get() = progression.getNextPhase()
@@ -461,6 +457,10 @@ class Game {
         if (Bukkit.createWorld(creator) == null) {
             BBU.getInstance().logger.severe("Failed to recreate world: ${world.name}")
         }
+    }
+
+    fun advanceShrinkPhase(): ShrinkPhase? {
+        return progression.advanceShrinkPhase()
     }
 
 }

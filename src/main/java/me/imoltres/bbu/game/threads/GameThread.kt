@@ -86,7 +86,8 @@ class GameThread(val game: Game) : BukkitRunnable() {
                     return@shrinkBranch
                 }
 
-                game.currentShrinkPhase = game.nextShrinkPhase // move to next phase
+                game.advanceShrinkPhase() // move to next phase
+
                 val shrinkPhase = game.currentShrinkPhase ?: run {
                     if (MainConfig.deathmatchEnabled) {
                         deathmatchTimer = 20 * MainConfig.deathmatchTime
@@ -100,6 +101,13 @@ class GameThread(val game: Game) : BukkitRunnable() {
                 // shrink will take shrinkPhase.length * 20 ticks
                 val shrinkTicks = shrinkPhase.length * 20
                 val nextShrinkDelayTicks = game.nextShrinkPhase?.time?.times(20) ?: 0
+                BBU.getInstance().logger.info(
+                    "Shrinking border to ${shrinkPhase.size} for ${shrinkPhase.length} seconds. Next shrink delay:${
+                        DateUtils.readableTime(
+                            BigDecimal(nextShrinkDelayTicks / 20)
+                        )
+                    }."
+                )
                 timeToNextShrink = shrinkTicks + nextShrinkDelayTicks
             }
 
@@ -113,7 +121,7 @@ class GameThread(val game: Game) : BukkitRunnable() {
             for (team in game.getTeams(true)) {
                 val world = game.overworld
                 val beaconLoc = team.beacon!!.toWorldPosition(game.overworld.name).toBukkitLocation()
-                if (team.beacon == null) continue;
+                if (team.beacon == null) continue
 
                 // if the beacon is outside of the world border, break it and eliminate the team
                 if (!world.worldBorder.isInside(beaconLoc)) {
@@ -136,6 +144,10 @@ class GameThread(val game: Game) : BukkitRunnable() {
      */
     private fun swapGameStateIfAvailable() {
         val gameState = GameState.getGameStateFromTick(tick)
+        if (game.gameState == GameState.DEATHMATCH || game.gameState == GameState.POST_GAME) {
+            return
+        }
+
         if (game.gameState != gameState) {
             if (gameState != null) {
                 game.gameState = gameState
@@ -168,7 +180,7 @@ class GameThread(val game: Game) : BukkitRunnable() {
             val team = teamCheckQueue.pop()
             Bukkit.getConsoleSender()
                 .sendMessage(CC.translate("&aChecking team '&" + team.colour.chatColor.code + team.colour.name + "&a'."))
-            if (team.players.size == 0 && !team.hasBeacon()) {
+            if (team.players.isEmpty() && !team.hasBeacon()) {
                 Bukkit.getConsoleSender()
                     .sendMessage(CC.translate("&cEliminated team '&" + team.colour.chatColor.code + team.colour.name + "&a'."))
                 Bukkit.getScheduler().runTask(BBU.getInstance(), Runnable {
@@ -188,7 +200,7 @@ class GameThread(val game: Game) : BukkitRunnable() {
 
     }
 
-    private fun enterDeathmatch() {
+    fun enterDeathmatch() {
         // figure out team locations
         val locations = mutableListOf<WorldPosition>()
         val specLocation = GsonFactory.getCompactGson().fromJson(MainConfig.deathmatchSpawn, WorldPosition::class.java)

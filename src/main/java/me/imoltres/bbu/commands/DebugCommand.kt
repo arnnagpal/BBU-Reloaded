@@ -56,6 +56,23 @@ val DebugCommand = command("debug") {
         }
     }
 
+    subcommand("nextshrinkphase") {
+        defaultExecutor { sender ->
+            if (BBU.getInstance().game.gameState != GameState.PVP_BORDER_SHRINK) {
+                sender.sendMessage(CC.translate("&cYou can only advance the shrink phase in the PVP_BORDER_SHRINK game state."))
+                return@defaultExecutor
+            }
+
+            val nextPhase = BBU.getInstance().game.nextShrinkPhase
+            if (nextPhase != null) {
+                BBU.getInstance().game.thread.timeToNextShrink = 0
+                sender.sendMessage(CC.translate("&aAdvanced to the next shrink phase with size ${nextPhase.size}, time ${nextPhase.time}, and length ${nextPhase.length}."))
+            } else {
+                sender.sendMessage(CC.translate("&cNo next shrink phase available."))
+            }
+        }
+    }
+
     subcommand("reset") {
         defaultExecutor { sender ->
             BBU.getInstance().game.reset()
@@ -65,7 +82,11 @@ val DebugCommand = command("debug") {
 }
 
 private fun updateState(sender: CommandSender, state: GameState) {
-    BBU.getInstance().game.thread.tick = state.startTime * 20
+    if (state != GameState.DEATHMATCH) {
+        BBU.getInstance().game.thread.tick = state.startTime * 20
+    } else {
+        BBU.getInstance().game.thread.enterDeathmatch()
+    }
     sender.sendMessage(CC.translate("&aUpdated game state to " + state.name.uppercase()))
 }
 

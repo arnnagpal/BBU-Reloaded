@@ -158,6 +158,9 @@ public class PlayerController {
      */
     public void resetPlayers() {
         var oldPlayers = getPlayers();
+        for (BBUPlayer bbuPlayer : oldPlayers) {
+            bbuPlayer.cleanup();
+        }
         players.clear();
 
         for (BBUPlayer oldPlayer : oldPlayers) {

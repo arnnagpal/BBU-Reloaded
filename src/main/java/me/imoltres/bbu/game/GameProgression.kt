@@ -18,7 +18,7 @@ class GameProgression {
     fun getTeams(hasBeacon: Boolean): Set<BBUTeam> {
         return getTeamsAlive()
             .stream()
-            .filter { team: BBUTeam -> hasBeacon == team.hasBeacon() }
+            .filter { team: BBUTeam -> hasBeacon == team.hasBeacon() && gameState.isPvp() }
             .collect(Collectors.toSet())
     }
 
@@ -40,6 +40,16 @@ class GameProgression {
         if (shrinkIndex - 1 < 0) return null                         // first index, no previous phase
 
         return orderedShrinkPhases[shrinkIndex - 1]
+    }
+
+    fun advanceShrinkPhase(): ShrinkPhase? {
+        val nextPhase = getNextPhase() ?: return null
+        currentShrinkPhase = nextPhase
+        shrinkIndex++
+
+        BBU.getInstance().logger.info("Advancing to shrink phase (index $shrinkIndex) with length ${nextPhase.length}, time ${nextPhase.time}, and size ${nextPhase.size}")
+
+        return currentShrinkPhase
     }
 
 }

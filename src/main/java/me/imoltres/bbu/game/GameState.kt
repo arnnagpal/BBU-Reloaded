@@ -20,7 +20,7 @@ enum class GameState(val startTime: Int, val display: String?) {
     PVP_BORDER_SHRINK(3600, "Border"), // 3600 seconds = 1 hour, border will start shrinking 30 minutes after pvp
     DEATHMATCH(
         -1,
-        "Deathmatch"
+        null
     ), // deathmatch will start when the border shrinks to a certain size, so it doesn't have a set time
     POST_GAME(-1, null)
     ;

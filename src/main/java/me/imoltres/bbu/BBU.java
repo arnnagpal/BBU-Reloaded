@@ -304,6 +304,7 @@ public class BBU extends JavaPlugin {
         pluginManager.registerEvents(new InventoryListener(), this);
         pluginManager.registerEvents(new ItemListener(), this);
         pluginManager.registerEvents(new DamageListener(), this);
+        pluginManager.registerEvents(new MoveListener(), this);
         pluginManager.registerEvents(new GameListener(), this);
         pluginManager.registerEvents(new JoinListener(), this);
         pluginManager.registerEvents(new NerfsListener(), this);

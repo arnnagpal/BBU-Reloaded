@@ -9,6 +9,7 @@ import me.imoltres.bbu.utils.command.argumentPlayer
 import me.imoltres.bbu.utils.command.command
 import me.imoltres.bbu.utils.item.ItemBuilder
 import me.imoltres.bbu.utils.item.ItemConstants
+import me.imoltres.bbu.utils.world.WorldPosition
 import net.kyori.adventure.title.Title
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
@@ -70,6 +71,19 @@ val DebugCommand = command("debug") {
             } else {
                 sender.sendMessage(CC.translate("&cNo next shrink phase available."))
             }
+        }
+    }
+
+    subcommand("pastecage") {
+        defaultExecutor { sender ->
+            val player = sender as? Player
+            if (player == null) {
+                sender.sendMessage(CC.translate("&cOnly players can use this command."))
+                return@defaultExecutor
+            }
+
+            BBU.getInstance().cageController.pasteSchematic(WorldPosition.fromBukkitLocation(player.location))
+            sender.sendMessage(CC.translate("&aPasted cage at your location."))
         }
     }
 

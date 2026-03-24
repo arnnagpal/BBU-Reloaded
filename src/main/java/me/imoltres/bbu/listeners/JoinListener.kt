@@ -97,7 +97,7 @@ class JoinListener : Listener {
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            println("Failed to teleport player ${player.name}. Invalid lobby-spawn?")
+            println("Failed to teleport player ${player.name}. Invalid lobby.spawn?")
         }
 
         val event = BBUPlayerScoreboardApplyEvent(

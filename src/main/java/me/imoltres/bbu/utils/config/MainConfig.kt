@@ -16,9 +16,16 @@ class MainConfig<T>(path: String) : ConfigGetter<T>(BBU.getInstance().mainConfig
 
         var spectateAfterDeath = false
         var friendlyFire = false
-        var lobbySpawn = ""
 
-        init { load() }
+        var lobbySpawn = ""
+        var lobbyYMin = 0
+
+        var beaconYMin = 0
+        var beaconYMax = 0
+
+        init {
+            load()
+        }
 
         private fun <T> cfg(path: String): T = MainConfig<T>(path).get()
 
@@ -27,12 +34,15 @@ class MainConfig<T>(path: String) : ConfigGetter<T>(BBU.getInstance().mainConfig
             borderPhases = cfg<List<LinkedHashMap<String, Int>>>("border.shrink-phases")
                 .mapTo(mutableListOf()) { ShrinkPhase(it["size"]!!, it["time"]!!, it["length"]!!) }
             deathmatchEnabled = cfg("deathmatch.enabled")
-            deathmatchTime    = cfg("deathmatch.time")
-            deathmatchSpawn   = cfg("deathmatch.spawn")
+            deathmatchTime = cfg("deathmatch.time")
+            deathmatchSpawn = cfg("deathmatch.spawn")
             deathmatchTeamLocations = cfg("deathmatch.team-locations")
             spectateAfterDeath = cfg("spectate-after-death")
-            friendlyFire      = cfg("friendly-fire")
-            lobbySpawn        = cfg("lobby-spawn")
+            friendlyFire = cfg("friendly-fire")
+            lobbySpawn = cfg("lobby.spawn")
+            lobbyYMin = cfg("lobby.y-min")
+            beaconYMin = cfg("beacon.y-min")
+            beaconYMax = cfg("beacon.y-max")
         }
 
         fun reload() {

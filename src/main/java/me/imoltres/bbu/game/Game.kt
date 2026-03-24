@@ -49,10 +49,10 @@ class Game {
     var deathmatchWorld: World? = null
     val playerPlacedBlocks: MutableList<Block> = ArrayList<Block>()
 
-
     lateinit var worlds: Array<World>
 
     var fortressPosition: Position2D? = null
+    var tChamberPosition: Position2D? = null
 
     /**
      * the game state
@@ -258,7 +258,7 @@ class Game {
             spawnWorld.setBlockData(0, 99, 0, Material.GLASS.createBlockData())
 
             BBU.getInstance().mainConfig.configuration.set(
-                "lobby-spawn",
+                "lobby.spawn",
                 GsonFactory.getCompactGson().toJson(WorldPosition(0.0, 100.0, 0.0, 90.0f, 0.0f, "bbuSpawnWorld"))
             )
             BBU.getInstance().mainConfig.configuration.save(BBU.getInstance().mainConfig.file)
@@ -315,12 +315,14 @@ class Game {
         }
 
         val netherSpawn = Location(nether, 0.0, 70.0, 0.0)
-        val location = nether.locateNearestStructure(netherSpawn, StructureType.FORTRESS, border, false)?.location
-        if (location != null) {
-            fortressPosition = Position2D(location.x, location.z).toIntPosition()
-        } else {
-            Bukkit.getConsoleSender()
-                .sendMessage(CC.translate("Unable to find a fortress within border, you might have to find a new seed."))
+        val overworldOrigin = Location(overworld, 0.0, 70.0, 0.0)
+
+        findStructure(netherSpawn, StructureType.FORTRESS)?.let {
+            fortressPosition = it
+        }
+
+        findStructure(overworldOrigin, org.bukkit.generator.structure.Structure.TRIAL_CHAMBERS)?.let {
+            tChamberPosition = it
         }
 
         try {
@@ -368,7 +370,11 @@ class Game {
         val playerController = BBU.getInstance().playerController
 
         for (player in Bukkit.getOnlinePlayers()) {
-            player.teleport(Location(spawnWorld, 0.0, 100.0, 0.0))
+            player.teleportAsync(
+                GsonFactory.getCompactGson().fromJson(MainConfig.lobbySpawn, WorldPosition::class.java)
+                    .toBukkitLocation()
+            )
+
             player.inventory.clear()
             player.health = player.getAttribute(Attribute.MAX_HEALTH)?.value ?: 20.0
             player.foodLevel = 20
@@ -463,4 +469,27 @@ class Game {
         return progression.advanceShrinkPhase()
     }
 
+    fun findStructure(origin: Location, structure: org.bukkit.generator.structure.Structure): Position2D? {
+        val location = origin.world.locateNearestStructure(origin, structure, border, false)
+        if (location != null) {
+            return Position2D(location.location.x, location.location.z).toIntPosition()
+        } else {
+            Bukkit.getConsoleSender()
+                .sendMessage(CC.translate("Unable to find a ${structure.structureType.key.asMinimalString()} within border, you might have to find a new seed."))
+        }
+
+        return null
+    }
+
+    fun findStructure(origin: Location, structureType: StructureType): Position2D? {
+        val location = origin.world.locateNearestStructure(origin, structureType, border, false)?.location
+        if (location != null) {
+            return Position2D(location.x, location.z).toIntPosition()
+        } else {
+            Bukkit.getConsoleSender()
+                .sendMessage(CC.translate("Unable to find a ${structureType.key.asMinimalString()} within border, you might have to find a new seed."))
+        }
+
+        return null
+    }
 }

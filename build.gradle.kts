@@ -1,7 +1,6 @@
 val main by extra("me.imoltres.bbu.BBU")
-val ver by extra("0.3.2-BETA")
+val ver by extra("0.4-BETA")
 val apiVersion by extra("1.21.11")
-val kotlinVersion by extra("2.3.10")
 
 val spigotVersion by extra("$apiVersion-R0.1-SNAPSHOT")
 val gsonVersion by extra("2.13.2")

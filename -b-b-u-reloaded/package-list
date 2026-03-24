@@ -39,6 +39,7 @@ $dokka.location:me.imoltres.bbu.controllers/CageController/clearConfiguredCages/
 $dokka.location:me.imoltres.bbu.controllers/CageController/deleteCage/#me.imoltres.bbu.data.team.BBUTeam#org.bukkit.World/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.controllers/-cage-controller/delete-cage.html
 $dokka.location:me.imoltres.bbu.controllers/CageController/deleteCages/#org.bukkit.World/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.controllers/-cage-controller/delete-cages.html
 $dokka.location:me.imoltres.bbu.controllers/CageController/getScope/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.controllers/-cage-controller/get-scope.html
+$dokka.location:me.imoltres.bbu.controllers/CageController/pasteSchematic/#me.imoltres.bbu.utils.world.WorldPosition/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.controllers/-cage-controller/paste-schematic.html
 $dokka.location:me.imoltres.bbu.controllers/CageController/placeCage/#me.imoltres.bbu.utils.world.Position#me.imoltres.bbu.data.team.BBUTeam#org.bukkit.World/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.controllers/-cage-controller/place-cage.html
 $dokka.location:me.imoltres.bbu.controllers/CageController/placeCages/#org.bukkit.World#kotlin.Int#kotlin.collections.List[me.imoltres.bbu.data.team.BBUTeam]/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.controllers/-cage-controller/place-cages.html
 $dokka.location:me.imoltres.bbu.controllers/CageController/resetCages/#org.bukkit.World/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.controllers/-cage-controller/reset-cages.html
@@ -238,6 +239,8 @@ $dokka.location:me.imoltres.bbu.game/Game///PointingToDeclaration/-b-b-u-reload
 $dokka.location:me.imoltres.bbu.game/Game/Game/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/-game.html
 $dokka.location:me.imoltres.bbu.game/Game/advanceShrinkPhase/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/advance-shrink-phase.html
 $dokka.location:me.imoltres.bbu.game/Game/checkTeam/#me.imoltres.bbu.data.team.BBUTeam/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/check-team.html
+$dokka.location:me.imoltres.bbu.game/Game/findStructure/#org.bukkit.Location#org.bukkit.generator.structure.Structure/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/find-structure.html
+$dokka.location:me.imoltres.bbu.game/Game/findStructure/#org.bukkit.Location#org.bukkit.generator.structure.StructureType/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/find-structure.html
 $dokka.location:me.imoltres.bbu.game/Game/getAliveTeams/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-alive-teams.html
 $dokka.location:me.imoltres.bbu.game/Game/getBorder/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-border.html
 $dokka.location:me.imoltres.bbu.game/Game/getCurrentShrinkPhase/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-current-shrink-phase.html
@@ -251,6 +254,7 @@ $dokka.location:me.imoltres.bbu.game/Game/getOverworld/#/PointingToDeclaration/
 $dokka.location:me.imoltres.bbu.game/Game/getPlayerPlacedBlocks/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-player-placed-blocks.html
 $dokka.location:me.imoltres.bbu.game/Game/getPreviousShrinkPhase/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-previous-shrink-phase.html
 $dokka.location:me.imoltres.bbu.game/Game/getSpawnWorld/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-spawn-world.html
+$dokka.location:me.imoltres.bbu.game/Game/getTChamberPosition/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-t-chamber-position.html
 $dokka.location:me.imoltres.bbu.game/Game/getTeams/#kotlin.Boolean/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-teams.html
 $dokka.location:me.imoltres.bbu.game/Game/getThread/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-thread.html
 $dokka.location:me.imoltres.bbu.game/Game/getWorlds/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/get-worlds.html
@@ -265,6 +269,7 @@ $dokka.location:me.imoltres.bbu.game/Game/setGameState/#me.imoltres.bbu.game.Gam
 $dokka.location:me.imoltres.bbu.game/Game/setNether/#org.bukkit.World/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/set-nether.html
 $dokka.location:me.imoltres.bbu.game/Game/setOverworld/#org.bukkit.World/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/set-overworld.html
 $dokka.location:me.imoltres.bbu.game/Game/setSpawnWorld/#org.bukkit.World/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/set-spawn-world.html
+$dokka.location:me.imoltres.bbu.game/Game/setTChamberPosition/#me.imoltres.bbu.utils.world.Position2D?/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/set-t-chamber-position.html
 $dokka.location:me.imoltres.bbu.game/Game/setThread/#me.imoltres.bbu.game.threads.GameThread/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/set-thread.html
 $dokka.location:me.imoltres.bbu.game/Game/setWorlds/#kotlin.Array[org.bukkit.World]/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/set-worlds.html
 $dokka.location:me.imoltres.bbu.game/Game/setupLobbyWorld/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.game/-game/setup-lobby-world.html
@@ -366,6 +371,9 @@ $dokka.location:me.imoltres.bbu.listeners/JoinListener/onJoin/#org.bukkit.event.
 $dokka.location:me.imoltres.bbu.listeners/JoinListener/onOperatorChange/#org.bukkit.event.player.PlayerCommandPreprocessEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-join-listener/on-operator-change.html
 $dokka.location:me.imoltres.bbu.listeners/JoinListener/onPreJoin/#org.bukkit.event.player.AsyncPlayerPreLoginEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-join-listener/on-pre-join.html
 $dokka.location:me.imoltres.bbu.listeners/JoinListener/onQuit/#org.bukkit.event.player.PlayerQuitEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-join-listener/on-quit.html
+$dokka.location:me.imoltres.bbu.listeners/MoveListener///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-move-listener/index.html
+$dokka.location:me.imoltres.bbu.listeners/MoveListener/MoveListener/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-move-listener/-move-listener.html
+$dokka.location:me.imoltres.bbu.listeners/MoveListener/onMove/#org.bukkit.event.player.PlayerMoveEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-move-listener/on-move.html
 $dokka.location:me.imoltres.bbu.listeners/NerfsListener///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-nerfs-listener/index.html
 $dokka.location:me.imoltres.bbu.listeners/NerfsListener/NerfsListener/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-nerfs-listener/-nerfs-listener.html
 $dokka.location:me.imoltres.bbu.listeners/NerfsListener/onEntityDamage/#org.bukkit.event.entity.EntityDamageByEntityEvent/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.listeners/-nerfs-listener/on-entity-damage.html
@@ -536,6 +544,8 @@ $dokka.location:me.imoltres.bbu.utils.config/ConfigGetter/ConfigGetter/#/Pointin
 $dokka.location:me.imoltres.bbu.utils.config/ConfigGetter/get/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-config-getter/get.html
 $dokka.location:me.imoltres.bbu.utils.config/ConfigGetter/toString/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-config-getter/to-string.html
 $dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/index.html
+$dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/getBeaconYMax/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/get-beacon-y-max.html
+$dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/getBeaconYMin/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/get-beacon-y-min.html
 $dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/getBorderPhases/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/get-border-phases.html
 $dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/getBorderSize/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/get-border-size.html
 $dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/getDeathmatchEnabled/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/get-deathmatch-enabled.html
@@ -544,8 +554,11 @@ $dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/getDeathmatchT
 $dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/getDeathmatchTime/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/get-deathmatch-time.html
 $dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/getFriendlyFire/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/get-friendly-fire.html
 $dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/getLobbySpawn/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/get-lobby-spawn.html
+$dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/getLobbyYMin/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/get-lobby-y-min.html
 $dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/getSpectateAfterDeath/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/get-spectate-after-death.html
 $dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/reload/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/reload.html
+$dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/setBeaconYMax/#kotlin.Int/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/set-beacon-y-max.html
+$dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/setBeaconYMin/#kotlin.Int/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/set-beacon-y-min.html
 $dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/setBorderPhases/#kotlin.collections.List[me.imoltres.bbu.game.ShrinkPhase]/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/set-border-phases.html
 $dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/setBorderSize/#kotlin.Int/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/set-border-size.html
 $dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/setDeathmatchEnabled/#kotlin.Boolean/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/set-deathmatch-enabled.html
@@ -554,11 +567,10 @@ $dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/setDeathmatchT
 $dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/setDeathmatchTime/#kotlin.Int/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/set-deathmatch-time.html
 $dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/setFriendlyFire/#kotlin.Boolean/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/set-friendly-fire.html
 $dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/setLobbySpawn/#kotlin.String/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/set-lobby-spawn.html
+$dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/setLobbyYMin/#kotlin.Int/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/set-lobby-y-min.html
 $dokka.location:me.imoltres.bbu.utils.config/MainConfig.Companion/setSpectateAfterDeath/#kotlin.Boolean/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-companion/set-spectate-after-death.html
 $dokka.location:me.imoltres.bbu.utils.config/MainConfig///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/index.html
 $dokka.location:me.imoltres.bbu.utils.config/MainConfig/MainConfig/#kotlin.String/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config/-main-config.html
-$dokka.location:me.imoltres.bbu.utils.config/MainConfigOld///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config-old/index.html
-$dokka.location:me.imoltres.bbu.utils.config/MainConfigOld/reload/#/PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-main-config-old/reload.html
 $dokka.location:me.imoltres.bbu.utils.config/Messages///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-messages/index.html
 $dokka.location:me.imoltres.bbu.utils.config/Nerfs///PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.config/-nerfs/index.html
 $dokka.location:me.imoltres.bbu.utils.general////PointingToDeclaration/-b-b-u-reloaded/me.imoltres.bbu.utils.general/index.html

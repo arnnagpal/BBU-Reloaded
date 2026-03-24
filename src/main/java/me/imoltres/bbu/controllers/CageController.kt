@@ -14,6 +14,7 @@ import me.imoltres.bbu.utils.world.*
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.World
+import org.bukkit.block.data.BlockData
 import java.io.IOException
 import java.nio.file.Files
 import java.util.concurrent.ExecutionException
@@ -26,7 +27,7 @@ const val MAX_RANDOM_POSITION_ATTEMPTS = 500
  */
 class CageController(private val plugin: BBU) {
 
-    private val cageSchematic: HashMap<Position, Material>
+    private val cageSchematic: HashMap<Position, BlockData>
     private val cageCuboid: Cuboid
 
     init {
@@ -158,40 +159,56 @@ class CageController(private val plugin: BBU) {
      * @param world world to place it in
      */
     fun placeCage(position: Position, bbuTeam: BBUTeam, world: World) {
-        val to = Position(position.x, position.y, position.z)
-        val cage = Cuboid(
-            Position(to.x, to.y, to.z),
-            Position(to.x + cageCuboid.max.x, to.y + cageCuboid.max.y, to.z + cageCuboid.max.z)
-        )
+        pasteSchematic(position.toWorldPosition(world.name)).invokeOnCompletion {
+            if (it != null) {
+                BBU.getInstance().logger.severe("Failed to paste cage schematic for team ${bbuTeam.colour.name}: ${it.message}")
+                return@invokeOnCompletion
+            }
 
-        val entries = cageSchematic.entries.toList()
-        val batchSize = 50 // blocks per tick
+            val cage = Cuboid(
+                Position(position.x, position.y, position.z),
+                Position(position.x + cageCuboid.max.x, position.y + cageCuboid.max.y, position.z + cageCuboid.max.z)
+            )
 
-        entries.chunked(batchSize).forEachIndexed { index, batch ->
-            Bukkit.getScheduler().runTaskLater(plugin, Runnable {
-                for ((pos, material) in batch) {
-                    world.getBlockAt(
-                        (to.x + pos.x).toInt(),
-                        (to.y + pos.y).toInt(),
-                        (to.z + pos.z).toInt()
-                    ).type = material
-                }
-
-                // only finalize on the last batch
-                if (index == entries.chunked(batchSize).size - 1) {
-                    bbuTeam.cage =
-                        BBUCage(bbuTeam, cage, cage.center.subtract(0.0, 1.0, 0.0).toWorldPosition(world.name))
-                    plugin.teamSpawnsConfig.configuration["team." + bbuTeam.colour.name] =
-                        GsonFactory.getCompactGson().toJson(cage)
-                    Bukkit.getConsoleSender().sendMessage(
-                        CC.translate(
-                            "&aTeam '&${bbuTeam.colour.chatColor.code}${bbuTeam.colour.name}&a' cage spawned."
-                        )
-                    )
-                }
-            }, index.toLong()) // 1 tick delay per batch
+            bbuTeam.cage =
+                BBUCage(bbuTeam, cage, cage.center.subtract(0.0, 1.0, 0.0).toWorldPosition(world.name))
+            plugin.teamSpawnsConfig.configuration["team." + bbuTeam.colour.name] =
+                GsonFactory.getCompactGson().toJson(cage)
+            Bukkit.getConsoleSender().sendMessage(
+                CC.translate(
+                    "&aTeam '&${bbuTeam.colour.chatColor.code}${bbuTeam.colour.name}&a' cage spawned."
+                )
+            )
         }
     }
+
+    fun pasteSchematic(position: WorldPosition): CompletableDeferred<Unit> =
+        CompletableDeferred<Unit>().also { deferred ->
+            val loc = position.toBukkitLocation()
+            val to = Position(position.x, position.y, position.z)
+
+            val entries = cageSchematic.entries.toList()
+            val batchSize = 50 // blocks per tick
+
+            entries.chunked(batchSize).forEachIndexed { index, batch ->
+                Bukkit.getScheduler().runTaskLater(plugin, Runnable {
+                    for ((pos, data) in batch) {
+                        loc.world.getBlockAt(
+                            (to.x + pos.x).toInt(),
+                            (to.y + pos.y).toInt(),
+                            (to.z + pos.z).toInt()
+                        ).blockData = data
+                    }
+
+                    // only finalize on the last batch
+                    if (index == entries.chunked(batchSize).size - 1) {
+                        deferred.complete(Unit)
+                        return@Runnable
+                    }
+                }, index.toLong()) // 1 tick delay per batch
+
+            }
+        }
 
     fun deleteCage(team: BBUTeam, world: World) {
         val cage = team.cage ?: return

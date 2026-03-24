@@ -72,11 +72,19 @@ public class GameListener implements Listener {
 
         if (player.getWorld().getEnvironment() != World.Environment.NORMAL) {
             e.setCancelled(true);
-        } else {
-            Set<Block> facesTouching = BlockUtils.getFacesTouching(BlockUtils.Companion.getFaces(), e.getPosition().getBlock());
-            if (facesTouching.size() > 1) {
-                e.setCancelled(true);
-            }
+            return;
+        }
+
+        Set<Block> facesTouching = BlockUtils.getFacesTouching(BlockUtils.Companion.getFaces(), e.getPosition().getBlock());
+        if (facesTouching.size() > 1) {
+            e.setCancelled(true);
+            return;
+        }
+
+        if (e.getPosition().getY() < 20) {
+            player.sendMessage(CC.translate("&cYou cannot place a beacon below y=20"));
+            e.setCancelled(true);
+            return;
         }
     }
 

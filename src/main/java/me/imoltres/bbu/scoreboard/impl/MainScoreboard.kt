@@ -29,6 +29,7 @@ class MainScoreboard(player: Player) : BBUScoreboardAdapter(player) {
 
         if (game.gameState.isPvp()) {
             game.fortressPosition?.let { lines.add("&bFortress&f: ${it.x}, ${it.y}") }
+            game.tChamberPosition?.let { lines.add("&bTrial Chamber&f: ${it.x}, ${it.y}") }
         }
 
         lines.add("")

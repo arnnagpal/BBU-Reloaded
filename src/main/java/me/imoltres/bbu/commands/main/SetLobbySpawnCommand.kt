@@ -20,7 +20,7 @@ val SetLobbySpawnCommand = command(
         val worldPosition = WorldPosition.fromBukkitLocation(player.location)
 
         BBU.getInstance().mainConfig.configuration.set(
-            "lobby-spawn",
+            "lobby.spawn",
             GsonFactory.getCompactGson().toJson(worldPosition)
         )
         player.sendMessage(CC.translate("&aSet lobby spawn to $worldPosition"))

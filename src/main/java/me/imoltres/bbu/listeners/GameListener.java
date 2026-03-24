@@ -10,6 +10,7 @@ import me.imoltres.bbu.game.events.team.BBUBreakBeaconEvent;
 import me.imoltres.bbu.game.events.team.BBUPlaceBeaconEvent;
 import me.imoltres.bbu.game.events.team.BBUTeamModificationEvent;
 import me.imoltres.bbu.utils.CC;
+import me.imoltres.bbu.utils.config.MainConfig;
 import me.imoltres.bbu.utils.config.Messages;
 import me.imoltres.bbu.utils.general.BlockUtils;
 import me.imoltres.bbu.utils.item.ItemConstants;
@@ -81,10 +82,15 @@ public class GameListener implements Listener {
             return;
         }
 
-        if (e.getPosition().getY() < 20) {
-            player.sendMessage(CC.translate("&cYou cannot place a beacon below y=20"));
+        if (e.getPosition().getY() < MainConfig.Companion.getBeaconYMin()) {
+            player.sendMessage(CC.translate("&cYou cannot place a beacon below y=" + MainConfig.Companion.getBeaconYMin()));
             e.setCancelled(true);
             return;
+        }
+
+        if (e.getPosition().getY() > MainConfig.Companion.getBeaconYMax()) {
+            player.sendMessage(CC.translate("&cYou cannot place a beacon above y=" + MainConfig.Companion.getBeaconYMax()));
+            e.setCancelled(true);
         }
     }
 

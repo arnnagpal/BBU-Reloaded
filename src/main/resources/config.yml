@@ -19,9 +19,16 @@ deathmatch:
   spawn: "" # location of deathmatch spectator spawn
   team-locations: [ ] # team locations for deathmatch
 
+beacon:
+  y-max: 319
+  y-min: 20
+
+lobby:
+  spawn: ""
+  y-min: -60 # teleport back after player goes below -60 y level
+
 spectate-after-death: true
 
 #allow teammates to hit eachother
 friendly-fire: true
 
-lobby-spawn: ""

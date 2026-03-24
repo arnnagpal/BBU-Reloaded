@@ -258,7 +258,7 @@ class Game {
             spawnWorld.setBlockData(0, 99, 0, Material.GLASS.createBlockData())
 
             BBU.getInstance().mainConfig.configuration.set(
-                "lobby-spawn",
+                "lobby.spawn",
                 GsonFactory.getCompactGson().toJson(WorldPosition(0.0, 100.0, 0.0, 90.0f, 0.0f, "bbuSpawnWorld"))
             )
             BBU.getInstance().mainConfig.configuration.save(BBU.getInstance().mainConfig.file)

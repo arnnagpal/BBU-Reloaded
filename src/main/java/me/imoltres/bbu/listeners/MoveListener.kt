@@ -12,12 +12,13 @@ class MoveListener : Listener {
 
     @EventHandler
     fun onMove(e: PlayerMoveEvent) {
+        if (e.from.y.toInt() == e.to.y.toInt()) return
+
         val player = e.player
         val world = player.world
         val spawnWorld = BBU.getInstance().game.spawnWorld
 
         if (world.uid != spawnWorld.uid) return
-
         if (player.y > MainConfig.lobbyYMin) return
 
         player.teleportAsync(
